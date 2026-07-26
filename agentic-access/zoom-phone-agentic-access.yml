@@ -1,0 +1,7139 @@
+generated: '2026-07-25'
+method: generated
+source: openapi/zoom-phone-api-openapi.json, openapi/zoom-phone-number-management-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 419
+  by_action_class:
+    connected: 177
+    acting: 242
+  by_consequence:
+    read: 177
+    write: 229
+    safety-critical: 8
+    physical: 5
+  human_in_the_loop_required: 8
+operations:
+- path: /phone/account_settings
+  method: get
+  operationId: listZoomPhoneAccountSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_account_settings:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/outbound_caller_id/customized_numbers
+  method: get
+  operationId: listCustomizeOutboundCallerNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_customized_number:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/outbound_caller_id/customized_numbers
+  method: post
+  operationId: addOutboundCallerNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:customized_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/outbound_caller_id/customized_numbers
+  method: delete
+  operationId: deleteOutboundCallerNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:customized_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/alert_settings
+  method: get
+  operationId: ListAlertSettingsWithPagingQuery
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_alert_settings:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/alert_settings
+  method: post
+  operationId: AddAnAlertSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:alert_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/alert_settings/{alertSettingId}
+  method: get
+  operationId: GetAlertSettingDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:alert_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/alert_settings/{alertSettingId}
+  method: delete
+  operationId: DeleteAnAlertSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:alert_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/alert_settings/{alertSettingId}
+  method: patch
+  operationId: UpdateAnAlertSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:patch:alert_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/audios/{audioId}
+  method: get
+  operationId: GetAudioItem
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:audio
+    - phone:read:audio:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/audios/{audioId}
+  method: delete
+  operationId: DeleteAudioItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:audio
+    - phone:delete:audio:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/audios/{audioId}
+  method: patch
+  operationId: UpdateAudioItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:audio
+    - phone:update:audio:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/audios
+  method: get
+  operationId: ListAudioItems
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_audios
+    - phone:read:list_audios:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/audios
+  method: post
+  operationId: AddAnAudio
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:audio
+    - phone:write:audio:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/audios/batch
+  method: post
+  operationId: AddAudioItem
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:batch_audios
+    - phone:write:batch_audios:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists
+  method: get
+  operationId: listAutoReceptionists
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_auto_receptionists:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/auto_receptionists
+  method: post
+  operationId: addAutoReceptionist
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:auto_receptionist:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}
+  method: get
+  operationId: getAutoReceptionistDetail
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:auto_receptionist:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/auto_receptionists/{autoReceptionistId}
+  method: delete
+  operationId: deleteAutoReceptionist
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:auto_receptionist:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}
+  method: patch
+  operationId: updateAutoReceptionist
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:auto_receptionist:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/call_handling/settings
+  method: get
+  operationId: getAutoReceptionistCallHandlingSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:auto_receptionist_call_handling_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/auto_receptionists/{autoReceptionistId}/call_handling/settings/{hourType}
+  method: patch
+  operationId: updateAutoReceptionistCallHandlingSettings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:auto_receptionist_call_handling_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/phone_numbers
+  method: post
+  operationId: assignPhoneNumbersAutoReceptionist
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:auto_receptionist_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/phone_numbers
+  method: delete
+  operationId: unassignAllPhoneNumsAutoReceptionist
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:auto_receptionist_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/phone_numbers/{phoneNumberId}
+  method: delete
+  operationId: unassignAPhoneNumAutoReceptionist
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:auto_receptionist_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/policies
+  method: get
+  operationId: getAutoReceptionistsPolicy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:auto_receptionist_policy:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/auto_receptionists/{autoReceptionistId}/policies
+  method: patch
+  operationId: updateAutoReceptionistPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:auto_receptionist_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
+  method: post
+  operationId: AddPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:auto_receptionist_policy:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
+  method: delete
+  operationId: DeletePolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:auto_receptionist_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/policies/{policyType}
+  method: patch
+  operationId: updatePolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:auto_receptionist_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/settings
+  method: get
+  operationId: getAutoReceptionistSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:auto_receptionist_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/auto_receptionists/{autoReceptionistId}/settings/{settingType}
+  method: post
+  operationId: addAutoReceptionistSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:auto_receptionist_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/settings/{settingType}
+  method: delete
+  operationId: deleteAutoReceptionistSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:auto_receptionist_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/auto_receptionists/{autoReceptionistId}/settings/{settingType}
+  method: patch
+  operationId: updateAutoReceptionistSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:auto_receptionist_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/billing_accounts
+  method: get
+  operationId: listBillingAccount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_billing_accounts:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/billing_accounts/{billingAccountId}
+  method: get
+  operationId: GetABillingAccount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:billing_account:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/blocked_list
+  method: get
+  operationId: listBlockedList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_blocked_lists:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/blocked_list
+  method: post
+  operationId: addAnumberToBlockedList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:blocked_list:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/blocked_list/{blockedListId}
+  method: get
+  operationId: getABlockedList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:blocked_list:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/blocked_list/{blockedListId}
+  method: delete
+  operationId: deleteABlockedList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:blocked_list:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/blocked_list/{blockedListId}
+  method: patch
+  operationId: updateBlockedList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:blocked_list:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/call_handling/settings
+  method: get
+  operationId: getCallHandling
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_handling_settings:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/extension/{extensionId}/call_handling/settings/{settingType}
+  method: post
+  operationId: addCallHandling
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_handling_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/call_handling/settings/{settingType}
+  method: delete
+  operationId: deleteCallHandling
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_handling_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/call_handling/settings/{settingType}
+  method: patch
+  operationId: updateCallHandling
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_handling_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_element/{callElementId}
+  method: get
+  operationId: getCallElement
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:call_log:admin
+    - phone_call_log:read
+    - phone_call_log:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_history
+  method: get
+  operationId: accountCallHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_logs:admin
+    - phone_call_log:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_history/{callHistoryUuid}
+  method: get
+  operationId: getCallPath
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_log:admin
+    - phone_call_log:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_history/{callLogId}/client_code
+  method: patch
+  operationId: addClientCodeToCallHistory
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_log:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_history_detail/{callHistoryId}
+  method: get
+  operationId: getCallHistoryDetail
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:call_log:admin
+    - phone_call_log:read
+    - phone_call_log:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_logs
+  method: get
+  operationId: accountCallLogs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_logs:admin
+    - phone_call_log:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_logs/{callLogId}
+  method: get
+  operationId: getCallLogDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:call_log:admin
+    - phone_call_log:read
+    - phone_call_log:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_logs/{callLogId}/client_code
+  method: put
+  operationId: addClientCodeToCallLog
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_log:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/user/{userId}/ai_call_summary/{aiCallSummaryId}
+  method: get
+  operationId: getUserAICallSummary
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:ai_call_summary
+    - phone:read:ai_call_summary:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/call_history
+  method: get
+  operationId: phoneUserCallHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_logs
+    - phone:read:list_call_logs:admin
+    - phone_call_log:read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/call_history/sync
+  method: get
+  operationId: syncUserCallHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_call_logs
+    - phone:read:list_call_logs:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/call_history/{callLogId}
+  method: delete
+  operationId: deleteUserCallHistory
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_log
+    - phone:delete:call_log:admin
+    - phone:write
+    - phone:write:admin
+    - phone_call_log:write
+    - phone_call_log:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/call_logs
+  method: get
+  operationId: phoneUserCallLogs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_call_logs
+    - phone:read:list_call_logs:admin
+    - phone_call_log:read
+    - phone_call_log:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/call_logs/sync
+  method: get
+  operationId: syncUserCallLogs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_call_logs
+    - phone:read:list_call_logs:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/call_logs/{callLogId}
+  method: delete
+  operationId: deleteCallLog
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_log
+    - phone:delete:call_log:admin
+    - phone:write
+    - phone:write:admin
+    - phone_call_log:write
+    - phone_call_log:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queue_analytics
+  method: get
+  operationId: callqueueanalytics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_queues:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues
+  method: get
+  operationId: listCallQueues
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_queues:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues
+  method: post
+  operationId: createCallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_queue:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}
+  method: get
+  operationId: getACallQueue
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_queue:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}
+  method: delete
+  operationId: deleteACallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}
+  method: patch
+  operationId: updateCallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_queue:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/call_handling/settings
+  method: get
+  operationId: getCallQueueCallHandlingSetting
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_queue_call_handling_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}/call_handling/settings/{hourType}
+  method: patch
+  operationId: updateCallQueueCallHandlingSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_queue_call_handling_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/custom_groups
+  method: get
+  operationId: Listcustomgroupsofacallqueue
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_queue_custom_group:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}/custom_groups
+  method: post
+  operationId: Createacustomgroupinacallqueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_queue_custom_group:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/custom_groups/{customGroupId}
+  method: get
+  operationId: Getacustomgroup
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:master
+    - phone:read:admin
+    - phone:read:call_queue_custom_group:admin
+    - phone:read:call_queue_custom_group:master
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}/custom_groups/{customGroupId}
+  method: delete
+  operationId: Deleteacustomgroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_custom_group:admin
+    - phone:delete:call_queue_custom_group:master
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/custom_groups/{customGroupId}
+  method: patch
+  operationId: Updateacustomgroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_queue_custom_group:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/custom_groups/{customGroupId}/members
+  method: post
+  operationId: Addmemberstoacustomgroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_queue_custom_group_member:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/custom_groups/{customGroupId}/members/{extensionId}
+  method: delete
+  operationId: Removeamemberfromacustomgroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_custom_group_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/members
+  method: get
+  operationId: listCallQueueMembers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_queue_members:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}/members
+  method: post
+  operationId: addMembersToCallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_queue_member:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/members
+  method: delete
+  operationId: unassignAllMembers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/members/{memberId}
+  method: delete
+  operationId: unassignMemberFromCallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/phone_numbers
+  method: post
+  operationId: assignPhoneToCallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_queue_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/phone_numbers
+  method: delete
+  operationId: unassignAPhoneNumCallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/phone_numbers/{phoneNumberId}
+  method: delete
+  operationId: unAssignPhoneNumCallQueue
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/policies
+  method: get
+  operationId: getCallQueuePolicy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_queue_policy:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}/policies
+  method: patch
+  operationId: updateCallQueuePolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_queue_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/policies/{policyType}
+  method: post
+  operationId: addCQPolicySubSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_queue_policy:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/policies/{policyType}
+  method: delete
+  operationId: removeCQPolicySubSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/policies/{policyType}
+  method: patch
+  operationId: updateCQPolicySubSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_queue_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/recordings
+  method: get
+  operationId: getCallQueueRecordings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_queue_recordings:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}/settings
+  method: get
+  operationId: getCallQueueSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_queue_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_queues/{callQueueId}/settings/{settingType}
+  method: post
+  operationId: addCallQueueSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_queue_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/settings/{settingType}
+  method: delete
+  operationId: deleteCallQueueSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_queue_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_queues/{callQueueId}/settings/{settingType}
+  method: patch
+  operationId: updateCallQueueSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_queue_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/carrier_reseller/numbers
+  method: get
+  operationId: listCRPhoneNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_carrier_numbers:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/carrier_reseller/numbers
+  method: post
+  operationId: createCRPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:carrier_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/carrier_reseller/numbers
+  method: patch
+  operationId: activeCRPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:carrier_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/carrier_reseller/numbers/{number}
+  method: delete
+  operationId: deleteCRPhoneNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:carrier_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas
+  method: get
+  operationId: listCommonAreas
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:common_area:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/common_areas
+  method: post
+  operationId: addCommonArea
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:common_area:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/activation_code
+  method: post
+  operationId: Generateactivationcodesforcommonareas
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:common_area:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/activation_codes
+  method: get
+  operationId: listActivationCodes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_common_area_activation_codes:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/common_areas/template_id/{templateId}
+  method: post
+  operationId: ApplyTemplatetoCommonAreas
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:apply_template_to_common_areas:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}
+  method: get
+  operationId: getACommonArea
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:common_area:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/common_areas/{commonAreaId}
+  method: delete
+  operationId: deleteCommonArea
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:common_area:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}
+  method: patch
+  operationId: updateCommonArea
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:common_area:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/call_handling/settings
+  method: get
+  operationId: getCommonAreaCallHandlingSetting
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:common_area_call_handling_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/common_areas/{commonAreaId}/call_handling/settings/{hourType}
+  method: patch
+  operationId: updateCommonAreaCallHandlingSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:common_area_call_handling_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/calling_plans
+  method: post
+  operationId: assignCallingPlansToCommonArea
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:common_area_calling_plan:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/calling_plans/{type}
+  method: delete
+  operationId: unassignCallingPlansFromCommonArea
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:common_area_calling_plan:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/phone_numbers
+  method: post
+  operationId: assignPhoneNumbersToCommonArea
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:common_area_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/phone_numbers/{phoneNumberId}
+  method: delete
+  operationId: unassignPhoneNumbersFromCommonArea
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:common_area_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/pin_code
+  method: patch
+  operationId: UpdateCommonAreaPinCode
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:common_area:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/settings
+  method: get
+  operationId: getCommonAreaSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_common_area_settings:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/common_areas/{commonAreaId}/settings/{settingType}
+  method: post
+  operationId: AddCommonAreaSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:common_area_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/settings/{settingType}
+  method: delete
+  operationId: deleteCommonAreaSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:common_area_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/settings/{settingType}
+  method: patch
+  operationId: UpdateCommonAreaSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:common_area_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/metrics/call_logs
+  method: get
+  operationId: listCallLogsMetrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_logs:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/call_logs/{callId}/qos
+  method: get
+  operationId: getCallQoS
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_qos:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/call_logs/{call_id}
+  method: get
+  operationId: getCallLogMetricsDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_log:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/emergency_services/default_emergency_address/users
+  method: get
+  operationId: listUserDefaultEmergencyAddress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:default_emergency_address:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/emergency_services/detectable_personal_location/users
+  method: get
+  operationId: listUserDetectablePersonalLocation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:detectable_personal_location:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/emergency_services/location_sharing_permission/users
+  method: get
+  operationId: listUserLocationSharingPermission
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:location_sharing_permission:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/emergency_services/nomadic_emergency_services/users
+  method: get
+  operationId: listUserNomadicEmergencyServices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:nomadic_emergency_services:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/emergency_services/realtime_location/devices
+  method: get
+  operationId: listPhoneRealtimelocation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:realtime_location_devices:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/emergency_services/realtime_location/users
+  method: get
+  operationId: listUserRealtimeLocation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:realtime_location_users:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/location_tracking
+  method: get
+  operationId: listTrackedLocations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_tracked_locations:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/metrics/past_calls
+  method: get
+  operationId: listPastCallMetrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_logs:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/devices/{deviceId}/line_keys
+  method: get
+  operationId: listDeviceLineKeySetting
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:device_line_keys
+    - phone:read:device_line_keys:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/devices/{deviceId}/line_keys
+  method: patch
+  operationId: batchUpdateDeviceLineKeySetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:device_line_keys
+    - phone:update:device_line_keys:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/dial_by_name_directory/extensions
+  method: get
+  operationId: ListUsersFromDirectory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:directory:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/dial_by_name_directory/extensions
+  method: post
+  operationId: AddUsersToDirectory
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:directory:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/dial_by_name_directory/extensions
+  method: delete
+  operationId: DeleteUsersFromDirectory
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:directory:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/dial_by_name_directory/extensions
+  method: get
+  operationId: ListUsersFromDirectoryBySite
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:directory:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sites/{siteId}/dial_by_name_directory/extensions
+  method: post
+  operationId: AddUsersToDirectoryBySite
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:directory:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/dial_by_name_directory/extensions
+  method: delete
+  operationId: DeleteUsersFromDirectoryBySite
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:directory:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/emergency_addresses
+  method: get
+  operationId: listEmergencyAddresses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_emergency_addresses:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/emergency_addresses
+  method: post
+  operationId: addEmergencyAddress
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:emergency_address:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/emergency_addresses/{emergencyAddressId}
+  method: get
+  operationId: getEmergencyAddress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:emergency_address:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/emergency_addresses/{emergencyAddressId}
+  method: delete
+  operationId: deleteEmergencyAddress
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:delete:emergency_address:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/emergency_addresses/{emergencyAddressId}
+  method: patch
+  operationId: updateEmergencyAddress
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:update:emergency_address:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/batch_locations
+  method: post
+  operationId: batchAddLocations
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:batch_emergency_locations:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/locations
+  method: get
+  operationId: listLocations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_emergency_locations:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/locations
+  method: post
+  operationId: addLocation
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:emergency_location:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/locations/{locationId}
+  method: get
+  operationId: getLocation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:emergency_location:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/locations/{locationId}
+  method: delete
+  operationId: deleteLocation
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:delete:emergency_location:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/locations/{locationId}
+  method: patch
+  operationId: updateLocation
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:update:emergency_location:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/external_contacts
+  method: get
+  operationId: listExternalContacts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_external_contacts:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/external_contacts
+  method: post
+  operationId: addExternalContact
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:external_contact:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/external_contacts/{externalContactId}
+  method: get
+  operationId: getAExternalContact
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:external_contact:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/external_contacts/{externalContactId}
+  method: delete
+  operationId: deleteAExternalContact
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:external_contact:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/external_contacts/{externalContactId}
+  method: patch
+  operationId: updateExternalContact
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:external_contact:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /fax/files
+  method: post
+  operationId: UploadFaxFiles
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:send_fax
+    - phone:write:send_fax:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/fax/logs
+  method: get
+  operationId: Getuser'sfaxlogs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_fax_log
+    - phone:read:list_fax_log:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/fax/documents
+  method: post
+  operationId: SendEFax
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:send_fax
+    - phone:write:send_fax:admin
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/fax/logs
+  method: get
+  operationId: GetAccount'sFaxLogs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_fax_log:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/fax/logs/{faxLogId}
+  method: get
+  operationId: GetFaxLogDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_fax_log:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/fax/logs/{faxLogId}
+  method: delete
+  operationId: DeleteFaxLog
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:fax_log
+    - phone:delete:fax_log:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/fax/logs/{faxLogId}
+  method: patch
+  operationId: UpdateFaxLogReadStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:fax_log
+    - phone:read:fax_log:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/fax/logs/{faxLogId}/file/{fileId}
+  method: get
+  operationId: Downloadfaxfile
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:fax_log
+    - phone:read:fax_log:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/firmware_update_rules
+  method: get
+  operationId: ListFirmwareRules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_firmware_update_rules:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/firmware_update_rules
+  method: post
+  operationId: AddFirmwareRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:firmware_update_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/firmware_update_rules/{ruleId}
+  method: get
+  operationId: GetFirmwareRuleDetail
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:firmware_update_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/firmware_update_rules/{ruleId}
+  method: delete
+  operationId: DeleteFirmwareUpdateRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:firmware_update_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/firmware_update_rules/{ruleId}
+  method: patch
+  operationId: UpdateFirmwareRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:firmware_update_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/firmwares
+  method: get
+  operationId: ListFirmwares
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_firmwares:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/group_call_pickup
+  method: get
+  operationId: listGCP
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_pickup_groups:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/group_call_pickup
+  method: post
+  operationId: addGCP
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_pickup_group:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/group_call_pickup/{groupId}
+  method: get
+  operationId: GetGCP
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_pickup_group:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/group_call_pickup/{groupId}
+  method: delete
+  operationId: deleteGCP
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_pickup_group:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/group_call_pickup/{groupId}
+  method: patch
+  operationId: updateGCP
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_pickup_group:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/group_call_pickup/{groupId}/members
+  method: get
+  operationId: listGCPMembers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_pickup_group_member:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/group_call_pickup/{groupId}/members
+  method: post
+  operationId: addGCPMembers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:call_pickup_group_member:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/group_call_pickup/{groupId}/members/{extensionId}
+  method: delete
+  operationId: removeGCPMembers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_pickup_group_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/groups/{groupId}/policies/{policyType}
+  method: get
+  operationId: GetGroupPolicyDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:group_policy:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/groups/{groupId}/policies/{policyType}
+  method: patch
+  operationId: updateGroupPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:group_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/groups/{groupId}/settings
+  method: get
+  operationId: getGroupPhoneSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:group_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/auto_receptionists/{autoReceptionistId}/ivr
+  method: get
+  operationId: getAutoReceptionistIVR
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:auto_receptionist_ivr:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/auto_receptionists/{autoReceptionistId}/ivr
+  method: patch
+  operationId: updateAutoReceptionistIVR
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:auto_receptionist_ivr:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/inbound_blocked/rules
+  method: get
+  operationId: ListExtensionLevelInboundBlockRules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_extension_inbound_block_rules
+    - phone:read:list_extension_inbound_block_rules:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/extension/{extensionId}/inbound_blocked/rules
+  method: post
+  operationId: AddExtensiontLevelInboundBlockRules
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:extension_inbound_block_rule
+    - phone:write:extension_inbound_block_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/inbound_blocked/rules
+  method: delete
+  operationId: DeleteExtensiontLevelInboundBlockRules
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:extension_inbound_block_rule
+    - phone:delete:extension_inbound_block_rule:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/inbound_blocked/extension_rules/statistics
+  method: get
+  operationId: ListAccountLevelInboundBlockedStatistics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_extension_inbound_block_rules_stat:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/inbound_blocked/extension_rules/statistics
+  method: delete
+  operationId: DeleteAccountLevelInboundBlockedStatistics
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:extension_inbound_block_rule_stat:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/inbound_blocked/extension_rules/statistics/blocked_for_all
+  method: patch
+  operationId: MarkPhoneNumberAsBlockedForAllExtensions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:inbound_blocked_for_all:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/inbound_blocked/rules
+  method: get
+  operationId: ListAccountLevelInboundBlockRules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_inbound_block_rules:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/inbound_blocked/rules
+  method: post
+  operationId: AddAccountLevelInboundBlockRules
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:inbound_block_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/inbound_blocked/rules
+  method: delete
+  operationId: DeleteAccountLevelInboundBlockRules
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:inbound_block_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/inbound_blocked/rules/{blockedRuleId}
+  method: patch
+  operationId: UpdateAccountLevelInboundBlockRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:inbound_block_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/line_keys
+  method: get
+  operationId: listLineKeySetting
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:line_keys
+    - phone:read:line_keys:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/extension/{extensionId}/line_keys
+  method: patch
+  operationId: BatchUpdateLineKeySetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:line_keys
+    - phone:update:line_keys:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/extension/{extensionId}/line_keys/{lineKeyId}
+  method: delete
+  operationId: DeleteLineKey
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:line_keys
+    - phone:delete:line_keys:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/monitoring_groups
+  method: get
+  operationId: listMonitoringGroup
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_monitoring_groups:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/monitoring_groups
+  method: post
+  operationId: createMonitoringGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:monitoring_group:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/monitoring_groups/{monitoringGroupId}
+  method: get
+  operationId: getMonitoringGroupById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:monitoring_group:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/monitoring_groups/{monitoringGroupId}
+  method: delete
+  operationId: deleteMonitoringGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:monitoring_group:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/monitoring_groups/{monitoringGroupId}
+  method: patch
+  operationId: updateMonitoringGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:monitoring_group:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/monitoring_groups/{monitoringGroupId}/monitor_members
+  method: get
+  operationId: listMembers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_monitoring_group_members:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/monitoring_groups/{monitoringGroupId}/monitor_members
+  method: post
+  operationId: addMembers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:monitoring_group_member:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/monitoring_groups/{monitoringGroupId}/monitor_members
+  method: delete
+  operationId: removeMembers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:monitoring_group_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/monitoring_groups/{monitoringGroupId}/monitor_members/{memberExtensionId}
+  method: delete
+  operationId: removeMember
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:monitoring_group_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/outbound_calling/countries_regions
+  method: get
+  operationId: GetCommonAreaOutboundCallingCountriesAndRegions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:common_area_outbound_calling_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/common_areas/{commonAreaId}/outbound_calling/countries_regions
+  method: patch
+  operationId: UpdateCommonAreaOutboundCallingCountriesOrRegions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:common_area_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules
+  method: get
+  operationId: listCommonAreaOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:common_area_outbound_calling_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules
+  method: post
+  operationId: AddCommonAreaOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:common_area_outbound_calling_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}
+  method: delete
+  operationId: deleteCommonAreaOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:common_area_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/common_areas/{commonAreaId}/outbound_calling/exception_rules/{exceptionRuleId}
+  method: patch
+  operationId: UpdateCommonAreaOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:common_area_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/outbound_calling/countries_regions
+  method: get
+  operationId: GetAccountOutboundCallingCountriesAndRegions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_outbound_calling_rules:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/outbound_calling/countries_regions
+  method: patch
+  operationId: UpdateAccountOutboundCallingCountriesOrRegions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/outbound_calling/exception_rules
+  method: get
+  operationId: listAccountOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_outbound_calling_rules:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/outbound_calling/exception_rules
+  method: post
+  operationId: AddAccountOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:outbound_calling_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/outbound_calling/exception_rules/{exceptionRuleId}
+  method: delete
+  operationId: deleteAccountOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/outbound_calling/exception_rules/{exceptionRuleId}
+  method: patch
+  operationId: UpdateAccountOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/outbound_calling/countries_regions
+  method: get
+  operationId: GetSiteOutboundCallingCountriesAndRegions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:site_outbound_calling_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sites/{siteId}/outbound_calling/countries_regions
+  method: patch
+  operationId: UpdateSiteOutboundCallingCountriesOrRegions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:site_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/outbound_calling/exception_rules
+  method: get
+  operationId: listSiteOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:site_outbound_calling_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sites/{siteId}/outbound_calling/exception_rules
+  method: post
+  operationId: AddSiteOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:site_outbound_calling_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}
+  method: delete
+  operationId: deleteSiteOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:site_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/outbound_calling/exception_rules/{exceptionRuleId}
+  method: patch
+  operationId: UpdateSiteOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:site_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/outbound_calling/countries_regions
+  method: get
+  operationId: GetUserOutboundCallingCountriesAndRegions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:user_outbound_calling_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/outbound_calling/countries_regions
+  method: patch
+  operationId: UpdateUserOutboundCallingCountriesOrRegions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:user_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/outbound_calling/exception_rules
+  method: get
+  operationId: listUserOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:user_outbound_calling_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/outbound_calling/exception_rules
+  method: post
+  operationId: AddUserOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:user_outbound_calling_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}
+  method: delete
+  operationId: deleteUserOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:user_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/outbound_calling/exception_rules/{exceptionRuleId}
+  method: patch
+  operationId: UpdateUserOutboundCallingExceptionRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:user_outbound_calling_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices
+  method: get
+  operationId: listPhoneDevices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_devices:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/devices
+  method: post
+  operationId: addPhoneDevice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:device:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices/sync
+  method: post
+  operationId: syncPhoneDevice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:sync_device:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices/{deviceId}
+  method: get
+  operationId: getADevice
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:device:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/devices/{deviceId}
+  method: delete
+  operationId: deleteADevice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:device:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices/{deviceId}
+  method: patch
+  operationId: updateADevice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:device:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices/{deviceId}/extensions
+  method: post
+  operationId: addExtensionsToADevice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:device_extension:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices/{deviceId}/extensions/{extensionId}
+  method: delete
+  operationId: deleteExtensionFromADevice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:device_extension:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices/{deviceId}/provision_templates
+  method: put
+  operationId: updateProvisionTemplateToDevice
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - phone:update:device_provision_template:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/devices/{deviceId}/reboot
+  method: post
+  operationId: rebootPhoneDevice
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:reboot_device:admin
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /phone/smartphones
+  method: get
+  operationId: ListSmartphones
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_devices:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/byoc_numbers
+  method: post
+  operationId: addBYOCNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:byo_carrier_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/numbers
+  method: get
+  operationId: listAccountPhoneNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_numbers:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/numbers
+  method: delete
+  operationId: deleteUnassignedPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/numbers/sites/{siteId}
+  method: patch
+  operationId: updateSiteForUnassignedPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:site_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/numbers/{phoneNumberId}
+  method: get
+  operationId: getPhoneNumberDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:numbers:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/numbers/{phoneNumberId}
+  method: patch
+  operationId: updatePhoneNumberDetails
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/phone_numbers
+  method: post
+  operationId: assignPhoneNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:user_number
+    - phone:write:user_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/phone_numbers/{phoneNumberId}
+  method: delete
+  operationId: UnassignPhoneNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:user_number
+    - phone:delete:user_number:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/calling_plans
+  method: get
+  operationId: listCallingPlans
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_calling_plans:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/plans
+  method: get
+  operationId: listPhonePlans
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_calling_plans:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/roles
+  method: get
+  operationId: ListPhoneRoles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_roles:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/roles
+  method: post
+  operationId: DuplicatePhoneRole
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:role:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/roles/{roleId}
+  method: get
+  operationId: getRoleInformation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:role:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/roles/{roleId}
+  method: delete
+  operationId: DeletePhoneRole
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:role:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/roles/{roleId}
+  method: patch
+  operationId: UpdatePhoneRole
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:role:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/roles/{roleId}/members
+  method: get
+  operationId: ListRoleMembers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:role_member:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/roles/{roleId}/members
+  method: post
+  operationId: AddRoleMembers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:role_member:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/roles/{roleId}/members
+  method: delete
+  operationId: DelRoleMembers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:role_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/roles/{roleId}/targets
+  method: get
+  operationId: ListPhoneRoleTargets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_roles:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/roles/{roleId}/targets
+  method: post
+  operationId: AddPhoneRoleTargets
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:role:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/roles/{roleId}/targets
+  method: delete
+  operationId: DeletePhoneRoleTargets
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:role:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/private_directory/members
+  method: get
+  operationId: listPrivateDirectoryMembers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_private_directory_members:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/private_directory/members
+  method: post
+  operationId: addMembersToAPrivateDirectory
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:private_directory_member:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/private_directory/members/{extensionId}
+  method: delete
+  operationId: removeAMemberFromAPrivateDirectory
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:private_directory_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/private_directory/members/{extensionId}
+  method: patch
+  operationId: updateAPrivateDirectoryMember
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:private_directory_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/carrier_peering/numbers
+  method: get
+  operationId: listCarrierPeeringPhoneNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_peering_numbers:admin
+    - phone_peering:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/peering/numbers
+  method: get
+  operationId: listPeeringPhoneNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_peering_numbers:admin
+    - phone_peering:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/peering/numbers
+  method: post
+  operationId: addPeeringPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:peering_number:admin
+    - phone_peering:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/peering/numbers
+  method: delete
+  operationId: deletePeeringPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:peering_number:admin
+    - phone:write:admin
+    - phone_peering:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/peering/numbers
+  method: patch
+  operationId: updatePeeringPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:peering_number:admin
+    - phone:write:admin
+    - phone_peering:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/provision_templates
+  method: get
+  operationId: listAccountProvisionTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_provision_templates:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/provision_templates
+  method: post
+  operationId: addProvisionTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:provision_template:admin
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/provision_templates/{templateId}
+  method: get
+  operationId: GetProvisionTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:provision_template:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/provision_templates/{templateId}
+  method: delete
+  operationId: deleteProvisionTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - phone:delete:provision_template:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/provision_templates/{templateId}
+  method: patch
+  operationId: updateProvisionTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - phone:update:provision_template:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_element/{callElementId}/recording
+  method: get
+  operationId: getPhoneRecordingByCallElementId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:call_recording
+    - phone:read:call_recording:admin
+    - phone_recording:read
+    - phone_recording:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/call_logs/{id}/recordings
+  method: get
+  operationId: getPhoneRecordingsByCallIdOrCallLogId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_recording
+    - phone:read:call_recording:admin
+    - phone_recording:read
+    - phone_recording:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/recording/download/{fileId}
+  method: get
+  operationId: phoneDownloadRecordingFile
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:call_recording
+    - phone:read:call_recording:admin
+    - phone_recording:read
+    - phone_recording:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/recording_transcript/download/{recordingId}
+  method: get
+  operationId: phoneDownloadRecordingTranscript
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:recording_transcript
+    - phone:read:recording_transcript:admin
+    - phone_recording:read
+    - phone_recording:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/recordings
+  method: get
+  operationId: getPhoneRecordings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_call_recordings:admin
+    - phone_recording:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/recordings/{recordingId}
+  method: delete
+  operationId: deleteCallRecording
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:call_recording
+    - phone:delete:call_recording:admin
+    - phone:write
+    - phone:write:admin
+    - phone_recording:write
+    - phone_recording:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/recordings/{recordingId}
+  method: patch
+  operationId: UpdateAutoDeleteField
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_recording
+    - phone:update:call_recording:admin
+    - phone:write
+    - phone:write:admin
+    - phone_recording:write
+    - phone_recording:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/recordings/{recordingId}/status
+  method: put
+  operationId: UpdateRecordingStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:call_recording
+    - phone:update:call_recording:admin
+    - phone:write
+    - phone:write:admin
+    - phone_recording:write
+    - phone_recording:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/recordings
+  method: get
+  operationId: phoneUserRecordings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_recordings
+    - phone:read:list_recordings:admin
+    - phone_recording:read
+    - phone_recording:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/reports/call_charges
+  method: get
+  operationId: GetCallChargesUsageReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:call_charges:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/reports/fax_charges
+  method: get
+  operationId: Getfaxchargesusagereport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:fax_charges:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/reports/operationlogs
+  method: get
+  operationId: getPSOperationLogs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:operation_logs:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/reports/sms_charges
+  method: get
+  operationId: GetSMSChargesUsageReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:sms_charges:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/routing_rules
+  method: get
+  operationId: listRoutingRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_routing_rules:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/routing_rules
+  method: post
+  operationId: addRoutingRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:routing_rule:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/routing_rules/{routingRuleId}
+  method: get
+  operationId: getRoutingRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:routing_rule:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/routing_rules/{routingRuleId}
+  method: delete
+  operationId: deleteRoutingRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:routing_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/routing_rules/{routingRuleId}
+  method: patch
+  operationId: updateRoutingRule
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:routing_rule:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sms/messages
+  method: post
+  operationId: postSmsMessage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:read:sms_message
+    - phone:read:sms_message:admin
+    - phone:write
+    - phone:write:admin
+    - phone_sms:write
+    - phone_sms:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sms/sessions
+  method: get
+  operationId: accountSmsSession
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_sms_sessions
+    - phone:read:list_sms_sessions:admin
+    - phone_sms:read
+    - phone_sms:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms/sessions/{sessionId}
+  method: get
+  operationId: smsSessionDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:sms_session
+    - phone:read:sms_session:admin
+    - phone_sms:read
+    - phone_sms:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms/sessions/{sessionId}/messages/{messageId}
+  method: get
+  operationId: smsByMessageId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:sms_message
+    - phone:read:sms_message:admin
+    - phone_sms:read
+    - phone_sms:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms/sessions/{sessionId}/sync
+  method: get
+  operationId: smsSessionSync
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:sms_session
+    - phone:read:sms_session:admin
+    - phone_sms:read
+    - phone_sms:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/sms/sessions
+  method: get
+  operationId: userSmsSession
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_sms_sessions
+    - phone:read:list_sms_sessions:admin
+    - phone_sms:read
+    - phone_sms:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/sms/sessions/sync
+  method: get
+  operationId: GetSmsSessions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:sms_session
+    - phone:read:sms_session:admin
+    - phone_sms:read
+    - phone_sms:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms_campaigns
+  method: get
+  operationId: listAccountSMSCampaigns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_sms_campaigns:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms_campaigns/{smsCampaignId}
+  method: get
+  operationId: GetSMSCampaign
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:sms_campaign:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms_campaigns/{smsCampaignId}/phone_numbers
+  method: post
+  operationId: assignCampaignPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:sms_campaign_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status
+  method: get
+  operationId: getNumberCampaignOptStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:sms_campaign_number_opt_status:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status
+  method: patch
+  operationId: updateNumberCampaignOptStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:sms_campaign_number_opt_status:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sms_campaigns/{smsCampaignId}/phone_numbers/{phoneNumberId}
+  method: delete
+  operationId: unassignCampaignPhoneNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:sms_campaign_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/user/{userId}/sms_campaigns/phone_numbers/opt_status
+  method: get
+  operationId: getUserNumberCampaignOptStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:sms_campaign_number_opt_status
+    - phone:read:sms_campaign_number_opt_status:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sms_consent/{consentId}/phone_numbers/opt_status
+  method: get
+  operationId: getNumberConsentOptStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:sms_consent_number_opt_status:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/setting_templates
+  method: get
+  operationId: listSettingTemplates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_setting_templates:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/setting_templates
+  method: post
+  operationId: addSettingTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:setting_template:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/setting_templates/{templateId}
+  method: get
+  operationId: getSettingTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:setting_template:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/setting_templates/{templateId}
+  method: patch
+  operationId: updateSettingTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:setting_template:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/policies/{policyType}
+  method: get
+  operationId: GetAccountPolicyDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:policy:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/policies/{policyType}
+  method: patch
+  operationId: updateAccountPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/ported_numbers/orders
+  method: get
+  operationId: listPortedNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_ported_numbers:admin
+    - phone_peering:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/ported_numbers/orders/{orderId}
+  method: get
+  operationId: getPortedNumbersDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:ported_number:admin
+    - phone_peering:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/settings
+  method: get
+  operationId: phoneSetting
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:settings:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/settings
+  method: patch
+  operationId: updatePhoneSettings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:settings:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sip_groups
+  method: get
+  operationId: listSipGroups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_sip_groups:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sip_trunk/trunks
+  method: get
+  operationId: listBYOCSIPTrunk
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_sip_trunks:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/shared_line_appearances
+  method: get
+  operationId: listSharedLineAppearances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_shared_line_appearances:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/shared_line_groups
+  method: get
+  operationId: listSharedLineGroups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_shared_line_groups:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/shared_line_groups
+  method: post
+  operationId: createASharedLineGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:shared_line_group:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{sharedLineGroupId}
+  method: get
+  operationId: getASharedLineGroup
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:shared_line_group:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/shared_line_groups/{sharedLineGroupId}/call_handling/settings
+  method: get
+  operationId: getSharedLineGroupCallHandlingSetting
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:shared_line_group_call_handling_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/shared_line_groups/{sharedLineGroupId}/call_handling/settings/{hourType}
+  method: patch
+  operationId: updateSharedLineGroupCallHandlingSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:shared_line_group_call_handling_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{sharedLineGroupId}/policies
+  method: get
+  operationId: getSharedLineGroupPolicy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:shared_line_group_policy:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/shared_line_groups/{sharedLineGroupId}/policies
+  method: patch
+  operationId: updateSharedLineGroupPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:shared_line_group_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{sharedLineGroupId}/settings
+  method: get
+  operationId: getSharedLineGroupSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:shared_line_group_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/shared_line_groups/{sharedLineGroupId}/settings/{settingType}
+  method: post
+  operationId: addSharedLineGroupSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:shared_line_group_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{sharedLineGroupId}/settings/{settingType}
+  method: delete
+  operationId: deleteSharedLineGroupSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_line_group_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{sharedLineGroupId}/settings/{settingType}
+  method: patch
+  operationId: updateSharedLineGroupSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:shared_line_group_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}
+  method: delete
+  operationId: deleteASharedLineGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_line_group:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}
+  method: patch
+  operationId: updateASharedLineGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:shared_line_group:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/members
+  method: post
+  operationId: addMembersToSharedLineGroup
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:shared_line_member:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/members
+  method: delete
+  operationId: deleteMembersOfSLG
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_line_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/members/{memberId}
+  method: delete
+  operationId: deleteAMemberSLG
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_line_member:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/phone_numbers
+  method: post
+  operationId: assignPhoneNumbersSLG
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:shared_line_group_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/phone_numbers
+  method: delete
+  operationId: deletePhoneNumbersSLG
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_line_group_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/phone_numbers/{phoneNumberId}
+  method: delete
+  operationId: deleteAPhoneNumberSLG
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_line_group_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/policies/{policyType}
+  method: post
+  operationId: addSLGPolicySubSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:shared_line_group_policy:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/policies/{policyType}
+  method: delete
+  operationId: removeSLGPolicySubSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_line_group_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/shared_line_groups/{slgId}/policies/{policyType}
+  method: patch
+  operationId: updateSLGPolicySubSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:shared_line_group_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites
+  method: get
+  operationId: listPhoneSites
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_sites:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sites
+  method: post
+  operationId: createPhoneSite
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:site:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}
+  method: get
+  operationId: getASite
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:site:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sites/{siteId}
+  method: delete
+  operationId: deletePhoneSite
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:site:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}
+  method: patch
+  operationId: updateSiteDetails
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:site:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/outbound_caller_id/customized_numbers
+  method: get
+  operationId: listSiteCustomizeOutboundCallerNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_site_customized_number:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sites/{siteId}/outbound_caller_id/customized_numbers
+  method: post
+  operationId: addSiteOutboundCallerNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:site_customized_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/outbound_caller_id/customized_numbers
+  method: delete
+  operationId: deleteSiteOutboundCallerNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:site_customized_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/settings/{settingType}
+  method: get
+  operationId: getSiteSettingForType
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:site_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/sites/{siteId}/settings/{settingType}
+  method: post
+  operationId: addSiteSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:site_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/settings/{settingType}
+  method: delete
+  operationId: deleteSiteSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:site_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/sites/{siteId}/settings/{settingType}
+  method: patch
+  operationId: updateSiteSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:site_setting:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users
+  method: get
+  operationId: listPhoneUsers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_users:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/batch
+  method: put
+  operationId: updateUsersPropertiesInBatch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:batch_users:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/batch
+  method: post
+  operationId: batchAddUsers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:batch_users:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}
+  method: get
+  operationId: phoneUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:user
+    - phone:read:user:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}
+  method: patch
+  operationId: updateUserProfile
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:user
+    - phone:update:user:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/call_forward_settings/{hourType}
+  method: post
+  operationId: addUserCallForwardSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:user_call_handling_setting
+    - phone:write:user_call_handling_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/call_forward_settings/{hourType}
+  method: delete
+  operationId: deleteUserCallForwardSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:user_call_handling_setting
+    - phone:delete:user_call_handling_setting:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/call_handling/settings
+  method: get
+  operationId: getUserCallHandlingSetting
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:user_call_handling_setting
+    - phone:read:user_call_handling_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/call_handling/settings/{hourType}
+  method: patch
+  operationId: updateUserCallHandlingSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:user_call_handling_setting
+    - phone:update:user_call_handling_setting:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/calling_plans
+  method: put
+  operationId: updateCallingPlan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:calling_plan
+    - phone:update:calling_plan:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/calling_plans
+  method: post
+  operationId: assignCallingPlan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:calling_plan
+    - phone:write:calling_plan:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/calling_plans/{planType}
+  method: delete
+  operationId: unassignCallingPlan
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:users_calling_plan
+    - phone:delete:users_calling_plan:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/outbound_caller_id/customized_numbers
+  method: get
+  operationId: listUserCustomizeOutboundCallerNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_user_customized_number
+    - phone:read:list_user_customized_number:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/outbound_caller_id/customized_numbers
+  method: post
+  operationId: addUserOutboundCallerNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:user_customized_number
+    - phone:write:user_customized_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/outbound_caller_id/customized_numbers
+  method: delete
+  operationId: deleteUserOutboundCallerNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:user_customized_number
+    - phone:delete:user_customized_number:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/policies/{policyType}
+  method: get
+  operationId: GetUserPolicyDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:user_policy:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/policies/{policyType}
+  method: patch
+  operationId: updateUserPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:user_policy:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/profile_settings/{settingType}
+  method: post
+  operationId: addUserProfileSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:user_setting
+    - phone:write:user_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/profile_settings/{settingType}
+  method: delete
+  operationId: deleteUserProfileSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:user_setting
+    - phone:delete:user_setting:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/settings
+  method: get
+  operationId: phoneUserSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:user_setting
+    - phone:read:user_setting:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/settings
+  method: patch
+  operationId: updateUserSettings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:user_setting
+    - phone:update:user_setting:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/settings/{settingType}
+  method: post
+  operationId: addUserSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write
+    - phone:write:admin
+    - phone:write:shared_setting
+    - phone:write:shared_setting:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/settings/{settingType}
+  method: delete
+  operationId: deleteUserSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:shared_setting
+    - phone:delete:shared_setting:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/users/{userId}/settings/{settingType}
+  method: patch
+  operationId: updateUserSetting
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:shared_setting
+    - phone:update:shared_setting:admin
+    - phone:write
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/call_element/{callElementId}/voice_mail
+  method: get
+  operationId: getVoicemailDetailsByCallElementId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:voicemail
+    - phone:read:voicemail:admin
+    - phone_voicemail:read
+    - phone_voicemail:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/call_logs/{id}/voice_mail
+  method: get
+  operationId: getVoicemailDetailsByCallIdOrCallLogId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:voicemail
+    - phone:read:voicemail:admin
+    - phone_voicemail:read
+    - phone_voicemail:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/users/{userId}/voice_mails
+  method: get
+  operationId: phoneUserVoiceMails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:list_voicemails
+    - phone:read:list_voicemails:admin
+    - phone_voicemail:read
+    - phone_voicemail:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/voice_mails
+  method: get
+  operationId: accountVoiceMails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_voicemails:admin
+    - phone_voicemail:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/voice_mails/download/{fileId}
+  method: get
+  operationId: phoneDownloadVoicemailFile
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:voicemail
+    - phone:read:voicemail:admin
+    - phone_voicemail:read
+    - phone_voicemail:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/voice_mails/{voicemailId}
+  method: get
+  operationId: getVoicemailDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read
+    - phone:read:admin
+    - phone:read:voicemail
+    - phone:read:voicemail:admin
+    - phone_voicemail:read
+    - phone_voicemail:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/voice_mails/{voicemailId}
+  method: delete
+  operationId: deleteVoicemail
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:voicemail
+    - phone:delete:voicemail:admin
+    - phone:write
+    - phone:write:admin
+    - phone_voicemail:write
+    - phone_voicemail:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/voice_mails/{voicemailId}
+  method: patch
+  operationId: updateVoicemailReadStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:voicemail
+    - phone:update:voicemail:admin
+    - phone:write
+    - phone:write:admin
+    - phone_voicemail:write
+    - phone_voicemail:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/rooms
+  method: get
+  operationId: listZoomRooms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_rooms:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/rooms
+  method: post
+  operationId: addZoomRoom
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:room:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/rooms/unassigned
+  method: get
+  operationId: listUnassignedZoomRooms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:list_rooms:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/rooms/{roomId}
+  method: get
+  operationId: getZoomRoom
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - phone:read:admin
+    - phone:read:room:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /phone/rooms/{roomId}
+  method: delete
+  operationId: RemoveZoomRoom
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:room:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/rooms/{roomId}
+  method: patch
+  operationId: updateZoomRoom
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:update:room:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/rooms/{roomId}/calling_plans
+  method: post
+  operationId: assignCallingPlanToRoom
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:room_calling_plan:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/rooms/{roomId}/calling_plans/{type}
+  method: delete
+  operationId: unassignCallingPlanFromRoom
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:room_calling_plan:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/rooms/{roomId}/phone_numbers
+  method: post
+  operationId: assignPhoneNumberToZoomRoom
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:write:admin
+    - phone:write:room_phone_number:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /phone/rooms/{roomId}/phone_numbers/{phoneNumberId}
+  method: delete
+  operationId: UnassignPhoneNumberFromZoomRoom
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - phone:delete:room_phone_number:admin
+    - phone:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/carrier/peering_numbers
+  method: get
+  operationId: Listpeeringphonenumbersforprovider
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:list_carrier_peering_numbers:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/peering_numbers
+  method: get
+  operationId: listPeeringPhoneNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:list_peering_numbers:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/peering_numbers
+  method: post
+  operationId: addPeeringPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:write:peering_number:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/peering_numbers
+  method: delete
+  operationId: deletePeeringPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:delete:peering_number:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/peering_numbers
+  method: patch
+  operationId: updatePeeringPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:update:peering_number:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/allocation
+  method: patch
+  operationId: AllocateNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:write:numbers:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/byoc_numbers
+  method: post
+  operationId: AddBYOCPhoneNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:write:byoc_numbers:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/numbers
+  method: get
+  operationId: listPhoneNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:list_numbers:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/numbers
+  method: delete
+  operationId: DeleteNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:delete:numbers:admin
+    - number_management_numbers:write:master
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/numbers/{phoneNumberId}
+  method: get
+  operationId: getPhoneNumber
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:numbers:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/numbers/{phoneNumberId}
+  method: patch
+  operationId: updatePhoneNumberDetail
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:update:numbers:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/plan
+  method: get
+  operationId: Listphonenumberplaninformation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:numbers_plan:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sms_campaigns
+  method: get
+  operationId: listAccountSMSCampaigns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:list_sms_campaigns:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sms_campaigns/{smsCampaignId}
+  method: get
+  operationId: GetSMSCampaign
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:sms_campaign:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sms_campaigns/{smsCampaignId}/phone_numbers
+  method: post
+  operationId: assignCampaignPhoneNumbers
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:update:numbers:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/sms_campaigns/{smsCampaignId}/phone_numbers
+  method: delete
+  operationId: unassignCampaignPhoneNumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:update:numbers:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/sms_consent
+  method: get
+  operationId: ListSMSConsents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:sms_consent:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sms_consent
+  method: post
+  operationId: CreateSMSConsent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:write:sms_consent:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/sms_consent
+  method: delete
+  operationId: DeleteSMSConsents
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:delete:sms_consent:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/sms_consent/{consentId}
+  method: get
+  operationId: GetSMSConsent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:sms_consent:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sms_consent/{consentId}
+  method: patch
+  operationId: UpdateSMSConsent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:update:sms_consent:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/sms_consent/{consentId}/phone_numbers
+  method: get
+  operationId: ListConsentPhoneNumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:sms_consent:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sms_consent/{consentId}/phone_numbers
+  method: post
+  operationId: AssignPhoneNumbersToConsent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:write:numbers:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/sms_consent/{consentId}/phone_numbers
+  method: delete
+  operationId: UnassignPhoneNumbersFromConsent
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - number_management:delete:numbers:admin
+    - number_management_numbers:write:admin
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /number_management/ported_numbers/orders
+  method: get
+  operationId: Listportednumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:list_ported_numbers:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/ported_numbers/orders/{orderId}
+  method: get
+  operationId: Getportednumbersdetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:ported_number:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sip_groups
+  method: get
+  operationId: ListSIPgroups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:list_sip_groups:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /number_management/sip_trunks
+  method: get
+  operationId: ListBYOCSIPtrunks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - number_management:read:list_sip_trunks:admin
+    - number_management_numbers:read:admin
+    token:
+      max-ttl: 3600
+    audit: none

@@ -1,0 +1,1306 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://developers.zoom.us/docs/api/meetings",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/meetings",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/meetings.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/phone",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/phone",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/phone.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/ai-services",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/ai-services",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/ai-services.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/video-sdk",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-sdk",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-sdk.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/contact-center",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/contact-center",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/contact-center.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/marketplace",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/marketplace",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/marketplace.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/chat",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chat",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chat.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/qss",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/qss",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/qss.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/chatbot",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chatbot",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chatbot.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/iq",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/iq",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/iq.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/iq/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/iq/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/iq/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/iq/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/iq/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/iq/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/qss/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/qss/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/qss/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/chat/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chat/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chat/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/meetings/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/meetings/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/meetings/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/phone/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/phone/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/phone/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/contact-center/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/contact-center/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/contact-center/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/video-sdk/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-sdk/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-sdk/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/chatbot/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chatbot/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/chatbot/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/marketplace/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/marketplace/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/marketplace/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/events/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/events/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/events/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/rooms",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/rooms",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/rooms.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/virtual-agent",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/virtual-agent",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/virtual-agent.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/rooms/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/rooms/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/rooms/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/whiteboard/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/whiteboard/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/whiteboard/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/scim2",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/scim2",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/scim2.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/whiteboard",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/whiteboard",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/whiteboard.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/crc",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/crc",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/crc.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/accounts",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/accounts",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/accounts.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/accounts/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/accounts/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/accounts/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/users",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/users",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/users.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/users/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/users/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/users/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/mail",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/mail",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/mail.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/mail/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/mail/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/mail/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/calendar",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/calendar",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/calendar.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/calendar/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/calendar/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/calendar/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/clips",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/clips",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/clips.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/scheduler",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/scheduler",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/scheduler.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/scheduler/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/scheduler/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/scheduler/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/number-management",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/number-management",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/number-management.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/number-management/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/number-management/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/number-management/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/quality-management",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/quality-management",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/quality-management.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/node/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/node/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/node/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/workforce-management",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/workforce-management",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/workforce-management.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/quality-management/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/quality-management/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/quality-management/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/cobrowse-sdk",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/cobrowse-sdk",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/cobrowse-sdk.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/commerce",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/commerce",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/commerce.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/cobrowse-sdk/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/cobrowse-sdk/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/cobrowse-sdk/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/healthcare",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/healthcare",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/healthcare.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/healthcare/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/healthcare/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/healthcare/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/rtms/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/rtms/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/rtms/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/ai-companion",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/ai-companion",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/ai-companion.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/video-management",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-management",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-management.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/video-management/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-management/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/video-management/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/canvas",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/canvas",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/canvas.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/auto-dialer",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/auto-dialer",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/auto-dialer.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/tasks",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/tasks",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/tasks.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/tasks/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/tasks/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/tasks/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/commerce/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/commerce/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/commerce/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/customer-managed-keys-hybrid",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/customer-managed-keys-hybrid",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/customer-managed-keys-hybrid.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://developers.zoom.us/docs/api/canvas/events",
+      "service-desc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/canvas/events",
+          "type": "text/html"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://developers.zoom.us/docs/api/canvas/events.md",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.zoom.us/api/v2/status.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

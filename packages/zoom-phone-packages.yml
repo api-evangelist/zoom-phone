@@ -1,0 +1,100 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  npm registry (registry.npmjs.org), PyPI, github.com/zoom, and
+  https://developers.zoom.us/docs/rivet/
+summary: >-
+  Zoom's only first-party server-side client library that covers the Zoom Phone API is Zoom
+  Rivet for JavaScript (@zoom/rivet), a Node.js/TypeScript framework whose module matrix
+  explicitly lists Phone alongside Accounts, Marketplace, Meetings, Team Chat and Users. Zoom
+  publishes no first-party Python, Java, .NET, Go, Ruby, PHP or Rust client for the REST API;
+  the widely used `zoomus` PyPI package is community-maintained (prschmid), not Zoom. The
+  other @zoom/* npm packages are client-side media SDKs (Meeting SDK, Video SDK, Apps SDK,
+  RTMS) that do not wrap the Phone REST API and are listed here for completeness only.
+packages:
+- language: javascript
+  registry: npm
+  name: "@zoom/rivet"
+  version: 0.4.0
+  url: https://www.npmjs.com/package/@zoom/rivet
+  source: https://github.com/zoom/rivet-javascript
+  docs: https://developers.zoom.us/docs/rivet/javascript/
+  install: npm install @zoom/rivet
+  official: true
+  covers_zoom_phone: true
+  note: >-
+    Server-side framework: OAuth/S2S OAuth token handling, typed Web API wrappers and webhook
+    event listeners. The README auth matrix lists Phone as a supported module under both User
+    OAuth and Server-to-Server OAuth. Authored by Zoom Communications, Inc.
+- language: javascript
+  registry: npm
+  name: "@zoom/rtms"
+  version: 1.1.0
+  url: https://www.npmjs.com/package/@zoom/rtms
+  source: https://github.com/zoom/rtms
+  install: npm install @zoom/rtms
+  official: true
+  covers_zoom_phone: false
+  note: Node.js wrapper for the Zoom Real-Time Media Streams C SDK (meetings/media, not Phone).
+- language: python
+  registry: pypi
+  name: rtms
+  version: 1.1.0
+  url: https://pypi.org/project/rtms/
+  install: pip install rtms
+  official: true
+  covers_zoom_phone: false
+  note: Python bindings for the Zoom RTMS C SDK, published by Zoom Communications, Inc.
+- language: javascript
+  registry: npm
+  name: "@zoom/appssdk"
+  version: 0.16.40
+  url: https://www.npmjs.com/package/@zoom/appssdk
+  install: npm install @zoom/appssdk
+  official: true
+  covers_zoom_phone: false
+  note: In-client Zoom Apps SDK (browser surface inside the Zoom client).
+- language: javascript
+  registry: npm
+  name: "@zoom/meetingsdk"
+  version: 6.2.0
+  url: https://www.npmjs.com/package/@zoom/meetingsdk
+  install: npm install @zoom/meetingsdk
+  official: true
+  covers_zoom_phone: false
+- language: javascript
+  registry: npm
+  name: "@zoom/videosdk"
+  version: 2.4.5
+  url: https://www.npmjs.com/package/@zoom/videosdk
+  install: npm install @zoom/videosdk
+  official: true
+  covers_zoom_phone: false
+third_party:
+- language: python
+  registry: pypi
+  name: zoomus
+  version: 1.2.1
+  url: https://pypi.org/project/zoomus/
+  source: https://github.com/prschmid/zoomus
+  official: false
+  note: >-
+    Community Python client for the Zoom REST API v1/v2. Includes some phone components but is
+    not maintained by Zoom.
+registries_probed:
+- registry: npm
+  result: "@zoom/rivet (Phone-capable), @zoom/rtms, @zoom/appssdk, @zoom/meetingsdk, @zoom/videosdk"
+- registry: pypi
+  result: rtms (official, media only); no official Zoom REST client
+- registry: maven-central
+  result: no first-party Zoom Phone client found
+- registry: nuget
+  result: no first-party Zoom Phone client found
+- registry: pkg.go.dev
+  result: no first-party Zoom Phone client found
+- registry: rubygems
+  result: no first-party Zoom Phone client found
+- registry: packagist
+  result: no first-party Zoom Phone client found
+- registry: crates.io
+  result: no first-party Zoom Phone client found

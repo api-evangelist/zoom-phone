@@ -1,0 +1,79 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://developers.zoom.us/docs/phone/smart-embed/,
+  https://developers.zoom.us/docs/phone/smart-embed-guide/,
+  https://developers.zoom.us/docs/phone/outbound-call/,
+  https://developers.zoom.us/docs/phone/outbound-sms/
+summary: >-
+  Zoom Phone's client-side surface is Smart Embed — a hosted, prebuilt softphone that a
+  third-party web app embeds as an iframe (or loads through a floating-widget script) and
+  drives entirely over window.postMessage. It is a hosted UI surface, not a component library:
+  there is no npm package, no web components, and no design system. The second client-side
+  surface is a set of URI schemes for launching calls and SMS from any external UI into the
+  installed Zoom desktop/mobile client.
+families:
+- family: Smart Embed (embedded softphone)
+  kind: hosted-iframe
+  url: https://applications.zoom.us/integration/phone/embeddablephone/home
+  loader_script: https://vaapplicationscontent.zoom.us/phoneSdk/static/smart-embed/js/sdk.js
+  marketplace_app: https://marketplace.zoom.us/apps/jnMbv3s2TaCBYMFz5yvzkA
+  docs: https://developers.zoom.us/docs/phone/smart-embed-guide/
+  minimum_size: 350x580 px
+  platforms: [Chrome, Edge, Safari, Firefox, Chrome extensions, SaaS CRMs with CTI frameworks]
+  prerequisites:
+  - Zoom Phone license and configured Zoom Phone account
+  - Zoom client 5.9.0 or higher
+  - 'Admin enables Account Settings > Zoom Phone > Automatically Call From Third Party Apps'
+  - Approved-domain list must include the embedding origin (pass originDomain for extensions)
+  - 10DLC compliance registration to use SMS
+  capabilities:
+  - Sign in / sign out with Zoom credentials inside the host app
+  - Click-to-call from host-app UI and manual dialing
+  - Inbound call handling and notifications
+  - In-call control (mute, record, hang up)
+  - Call history with recordings and voicemails
+  - Auto call logging and custom notes pages
+  integration_style: window.postMessage event bridge with strict origin validation
+  events:
+    outbound_to_widget:
+    - zp-init-config
+    - zp-make-call
+    - zp-input-sms
+    - zp-add-notes
+    - zp-contact-match-response
+    - zp-contact-search-response
+    inbound_from_widget:
+    - zp-call-ringing-event
+    - zp-call-connected-event
+    - zp-call-ended-event
+    - zp-call-log-completed-event
+    - zp-call-recording-completed-event
+    - zp-call-voicemail-received-event
+    - zp-ai-call-summary-event
+    - zp-contact-match-event
+    - zp-contact-search-event
+    - zp-save-log-event
+    - zp-sms-log-event
+    - zp-notes-save-event
+  security: >-
+    The host app MUST validate event.origin on every postMessage; Smart Embed is the only
+    Zoom Phone surface where the browser holds the session.
+- family: URI schemes (click-to-dial / click-to-SMS)
+  kind: uri-launch
+  docs: https://developers.zoom.us/docs/phone/outbound-call/
+  schemes: [callto, tel, zoomphonecall, zoomphonesms]
+  note: >-
+    Launches the installed Zoom client with a target number and optional caller-ID parameter.
+    No embedded UI, no session in the host page — the lightest possible CTI integration.
+- family: Contact Center Smart Embed
+  kind: hosted-iframe
+  docs: https://developers.zoom.us/docs/contact-center/smart-embed/
+  note: >-
+    Sibling surface for Zoom Contact Center rather than Zoom Phone; listed because blended
+    Phone + Contact Center desktops chain the two.
+not_published:
+- npm package for Smart Embed
+- web components / custom elements
+- React/Vue/Angular wrapper libraries
+- embeddable analytics or admin dashboards

@@ -2,25 +2,21 @@ aid: zoom-phone
 url: https://raw.githubusercontent.com/api-evangelist/zoom-phone/refs/heads/main/apis.yml
 name: Zoom Phone
 kind: company
-description: >-
-  Zoom Phone is the cloud PBX / UCaaS voice product of Zoom Communications, headquartered
-  in San Jose, California, and sold worldwide from its United States home market. It
-  replaces on-premise telephony with a cloud calling service — extensions, auto
-  receptionists, IVR, call queues, shared line groups, voicemail, call recording, fax,
-  emergency (E911) addressing, and SMS/MMS — delivered either on Zoom-provided PSTN
-  service, on a customer's own carrier through BYOC and Cloud Peering (Provider
-  Exchange), or resold through carrier partners. In the telecom value chain Zoom Phone
-  sits above the network as a UCaaS application layer that buys wholesale connectivity
-  and number inventory from carriers rather than operating a mobile network, and its
-  API posture reflects the software half of that split rather than the carrier half:
-  the Zoom Phone API is fully self-serve, published as downloadable OpenAPI 3.0 with
-  391 documented operations across 46 resource groups, a 71-event webhook catalog, a
-  separate Number Management API covering number allocation, BYOC numbers, ported
-  number orders, SIP trunks and 10DLC SMS campaigns, OAuth 2.0 with fine-grained
-  phone:* scopes, a public Postman workspace, and an official Node/TypeScript SDK. It
-  is not a mobile network operator, is not a GSMA Open Gateway signatory, and exposes
-  no CAMARA network APIs — no CAMARA reference was found anywhere in its developer
-  surface.
+description: 'Zoom Phone is the cloud PBX / UCaaS voice product of Zoom Communications, headquartered
+  in San Jose, California, and sold worldwide from its United States home market. It replaces on-premise
+  telephony with a cloud calling service — extensions, auto receptionists, IVR, call queues, shared
+  line groups, voicemail, call recording, fax, emergency (E911) addressing, and SMS/MMS — delivered
+  either on Zoom-provided PSTN service, on a customer''s own carrier through BYOC and Cloud Peering
+  (Provider Exchange), or resold through carrier partners. In the telecom value chain Zoom Phone
+  sits above the network as a UCaaS application layer that buys wholesale connectivity and number
+  inventory from carriers rather than operating a mobile network, and its API posture reflects the
+  software half of that split rather than the carrier half: the Zoom Phone API is fully self-serve,
+  published as downloadable OpenAPI 3.0 with 391 documented operations across 46 resource groups,
+  a 71-event webhook catalog, a separate Number Management API covering number allocation, BYOC numbers,
+  ported number orders, SIP trunks and 10DLC SMS campaigns, OAuth 2.0 with fine-grained phone:* scopes,
+  a public Postman workspace, and an official Node/TypeScript SDK. It is not a mobile network operator,
+  is not a GSMA Open Gateway signatory, and exposes no CAMARA network APIs — no CAMARA reference
+  was found anywhere in its developer surface.'
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Telecommunications
@@ -44,15 +40,13 @@ specificationVersion: '0.19'
 apis:
 - aid: zoom-phone:zoom-phone-api
   name: Zoom Phone API
-  description: >-
-    The Zoom Phone API is the administrative and operational REST API for Zoom's cloud
-    phone system. The harvested OpenAPI 3.0 document describes 238 paths and 391
-    operations across 46 resource groups — Users, Sites, Call Queues, Auto
-    Receptionists, Shared Line Groups, Common Areas, Phone Devices, Call Logs,
-    Recordings, Voicemails, Fax, SMS, SMS Campaigns, Phone Numbers, Emergency Addresses
-    and Emergency Service Locations, Outbound Calling, Routing Rules, Dashboard,
-    Reports, Provider Exchange and Carrier Reseller. Requires a Business or Enterprise
-    account with a Zoom Phone license.
+  description: The Zoom Phone API is the administrative and operational REST API for Zoom's cloud
+    phone system. The harvested OpenAPI 3.0 document describes 238 paths and 391 operations across
+    46 resource groups — Users, Sites, Call Queues, Auto Receptionists, Shared Line Groups, Common
+    Areas, Phone Devices, Call Logs, Recordings, Voicemails, Fax, SMS, SMS Campaigns, Phone Numbers,
+    Emergency Addresses and Emergency Service Locations, Outbound Calling, Routing Rules, Dashboard,
+    Reports, Provider Exchange and Carrier Reseller. Requires a Business or Enterprise account with
+    a Zoom Phone license.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
@@ -74,15 +68,13 @@ apis:
     url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
 - aid: zoom-phone:zoom-phone-webhooks
   name: Zoom Phone Webhooks
-  description: >-
-    The Zoom Phone event catalog, published as an OpenAPI 3.1 document using the
-    top-level webhooks object. It defines 71 real-time events covering call lifecycle
-    (phone.caller_ringing, phone.callee_answered, phone.caller_ended,
-    phone.callee_missed, phone.caller_hold, warm and blind transfers), recordings and
-    transcripts, voicemail, fax, call and fax logs, SMS send and delivery,
-    SMS campaign opt-in/opt-out and etiquette blocking, device registration,
-    emergency alerts, AI call summaries, and account and group setting changes.
-    Delivered to an HTTPS endpoint, with a WebSocket delivery option in public beta.
+  description: The Zoom Phone event catalog, published as an OpenAPI 3.1 document using the top-level
+    webhooks object. It defines 71 real-time events covering call lifecycle (phone.caller_ringing,
+    phone.callee_answered, phone.caller_ended, phone.callee_missed, phone.caller_hold, warm and blind
+    transfers), recordings and transcripts, voicemail, fax, call and fax logs, SMS send and delivery,
+    SMS campaign opt-in/opt-out and etiquette blocking, device registration, emergency alerts, AI
+    call summaries, and account and group setting changes. Delivered to an HTTPS endpoint, with a
+    WebSocket delivery option in public beta.
   humanURL: https://developers.zoom.us/docs/api/phone/events/
   tags:
   - Webhooks
@@ -98,13 +90,11 @@ apis:
     url: openapi/zoom-phone-webhooks-openapi.json
 - aid: zoom-phone:zoom-phone-number-management-api
   name: Zoom Phone Number Management API
-  description: >-
-    The Number Management API provisions and manages phone number inventory for Zoom
-    Phone, Zoom Contact Center, and Zoom Meetings accounts. The harvested OpenAPI 3.0
-    document describes 17 paths and 28 operations covering number allocation, BYOC
-    numbers, carrier and cloud peering numbers, ported number orders, SIP trunks and
-    SIP groups, phone plans, and 10DLC SMS campaigns and SMS consent — the most
-    carrier-facing surface Zoom publishes.
+  description: The Number Management API provisions and manages phone number inventory for Zoom Phone,
+    Zoom Contact Center, and Zoom Meetings accounts. The harvested OpenAPI 3.0 document describes
+    17 paths and 28 operations covering number allocation, BYOC numbers, carrier and cloud peering
+    numbers, ported number orders, SIP trunks and SIP groups, phone plans, and 10DLC SMS campaigns
+    and SMS consent — the most carrier-facing surface Zoom publishes.
   humanURL: https://developers.zoom.us/docs/api/number-management/
   baseURL: https://api.zoom.us/v2
   tags:
@@ -122,6 +112,18 @@ apis:
   - type: OpenAPI
     url: openapi/zoom-phone-number-management-openapi.json
 common:
+- type: AgenticAccess
+  url: agentic-access/zoom-phone-agentic-access.yml
+- type: TrustCenter
+  url: security/zoom-phone-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/zoom-phone-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/zoom-phone-domain-security.yml
+- type: Authentication
+  url: authentication/zoom-phone-authentication.yml
+- type: OAuthScopes
+  url: scopes/zoom-phone-scopes.yml
 - type: Website
   url: https://www.zoom.com/en/products/voip-phone/
 - type: DeveloperPortal
@@ -146,6 +148,84 @@ common:
   url: https://developers.zoom.us/blog/
 - type: StatusPage
   url: https://www.zoomstatus.com/
+- type: APIReference
+  url: https://developers.zoom.us/docs/api/phone/
+- type: GettingStarted
+  url: https://developers.zoom.us/docs/phone/start/
+- type: Quickstart
+  url: https://developers.zoom.us/docs/phone/first-app/
+- type: Support
+  url: https://developers.zoom.us/support/
+- type: Community
+  url: https://devforum.zoom.us/
+- type: SignUp
+  url: https://zoom.us/signup
+- type: TermsOfService
+  url: https://www.zoom.com/en/trust/terms/
+- type: TermsOfService
+  url: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  name: Zoom API License and Terms of Use
+- type: PrivacyPolicy
+  url: https://www.zoom.com/en/trust/privacy/
+- type: Postman
+  url: https://www.postman.com/zoom-developer/zoom-public-workspace/overview
+- type: ChangeLog
+  url: https://developers.zoom.us/changelog/?product=phone
+- type: StatusPage
+  url: https://status.zoom.us/
+- type: Deprecation
+  url: https://developers.zoom.us/docs/build/lifecycle/
+- type: Security
+  url: https://www.zoom.com/en/trust/reporting-vulnerability/
+- type: Compliance
+  url: https://www.zoom.com/en/trust/
+- type: SDKs
+  url: packages/zoom-phone-packages.yml
+  name: Zoom Rivet for JavaScript (Phone module)
+- type: MCPServer
+  url: mcp/zoom-phone-mcp.yml
+- type: Packages
+  url: packages/zoom-phone-packages.yml
+- type: WellKnown
+  url: well-known/zoom-phone-well-known.yml
+- type: SecurityTxt
+  url: well-known/zoom-phone-security.txt
+- type: APICatalog
+  url: well-known/zoom-phone-api-catalog.json
+- type: ToolCrosswalk
+  url: mcp/zoom-phone-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/zoom-phone-llms.txt
+- type: Overlay
+  url: overlays/zoom-phone-api-overlay.yaml
+  name: Zoom Phone API overlay
+- type: Overlay
+  url: overlays/zoom-phone-number-management-overlay.yaml
+  name: Number Management API overlay
+- type: Overlay
+  url: overlays/zoom-phone-webhooks-overlay.yaml
+  name: Zoom Phone Webhooks overlay
+- type: Conformance
+  url: conformance/zoom-phone-conformance.yml
+- type: ErrorCatalog
+  url: errors/zoom-phone-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/zoom-phone-lifecycle.yml
+- type: ChangeLog
+  url: changelog/zoom-phone-changelog.yml
+  name: Zoom Phone changelog (captured)
+- type: Conventions
+  url: conventions/zoom-phone-conventions.yml
+- type: RateLimits
+  url: rate-limits/zoom-phone-rate-limits.yml
+- type: Components
+  url: components/zoom-phone-components.yml
+- type: DataModel
+  url: data-model/zoom-phone-data-model.yml
+- type: Webhooks
+  url: asyncapi/zoom-phone-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,56 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://github.com/zoom/skills (Zoom's own Agent Skill pack, skills/phone/ and
+  skills/webhooks/), plus two skills generated from the Zoom Phone OpenAPI in this repo
+summary: >-
+  Zoom publishes first-party Agent Skills at github.com/zoom/skills — a Claude/Cursor plugin
+  marketplace of 22 skill packs, one of which (skills/phone/) is dedicated to Zoom Phone and
+  is reproduced here verbatim. Two additional skills are generated from the harvested Zoom
+  Phone OpenAPI for the flows the official pack points at but does not enumerate as
+  operationIds.
+skills:
+- file: zoom-phone-official-phone-skill.md
+  name: Zoom Phone (official Zoom skill pack)
+  method: searched
+  source: https://github.com/zoom/skills/blob/main/skills/phone/SKILL.md
+  api: openapi/zoom-phone-api-openapi.json
+  note: >-
+    Zoom's own routing guardrail across Smart Embed, REST + webhooks and URI schemes; cites the
+    verified 391-operation Phone inventory (2026-07-10).
+- file: zoom-phone-official-phone-runbook.md
+  name: Zoom Phone 5-minute preflight runbook (official)
+  method: searched
+  source: https://github.com/zoom/skills/blob/main/skills/phone/RUNBOOK.md
+- file: zoom-phone-official-deprecations-and-migrations.md
+  name: Zoom Phone deprecations and migration notes (official)
+  method: searched
+  source: https://github.com/zoom/skills/blob/main/skills/phone/references/deprecations-and-migrations.md
+- file: zoom-phone-official-smart-embed-event-contract.md
+  name: Smart Embed postMessage event contract (official)
+  method: searched
+  source: https://github.com/zoom/skills/blob/main/skills/phone/references/smart-embed-event-contract.md
+- file: zoom-phone-official-webhooks-skill.md
+  name: Zoom webhooks (official Zoom skill pack)
+  method: searched
+  source: https://github.com/zoom/skills/blob/main/skills/webhooks/SKILL.md
+  note: Signature validation and event subscription; applies to all 71 phone.* events.
+- file: zoom-phone-provision-phone-user.md
+  name: Provision a Zoom Phone user
+  method: generated
+  api: openapi/zoom-phone-api-openapi.json
+  operations: [listPhoneUsers, phoneUser, updateUserProfile, assignCallingPlan, assignPhoneNumber,
+    listAccountPhoneNumbers, listEmergencyAddresses, addEmergencyAddress,
+    getUserCallHandlingSetting, updateUserCallHandlingSetting, batchAddUsers]
+- file: zoom-phone-call-history-migration.md
+  name: Migrate Zoom Phone call records to Call History and Call Elements
+  method: generated
+  api: openapi/zoom-phone-api-openapi.json
+  operations: [accountCallHistory, getCallPath, getCallElement, phoneUserCallHistory,
+    syncUserCallHistory, deleteUserCallHistory, addClientCodeToCallHistory, accountCallLogs,
+    getCallLogDetails, phoneUserCallLogs, syncUserCallLogs]
+upstream_skill_pack:
+  repo: https://github.com/zoom/skills
+  packs: 22
+  install: Claude plugin marketplace (.claude-plugin/marketplace.json) and Cursor plugin
+  related_packs: [oauth, rest-api, webhooks, contact-center, rivet-sdk, zoom-mcp]

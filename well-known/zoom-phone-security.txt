@@ -1,0 +1,17 @@
+# Canonical URI 
+https://www.zoom.us/.well-known/security.txt
+
+# Report a Zoom Vulnerability through a form
+Contact: https://www.zoom.com/en/trust/vulnerability-disclosure/submit-vulnerability-report
+
+# Report a Zoom Vulnerability through email
+Contact: mailto:security-reports@zoom.us
+
+# PGP 
+Encryption: https://media.zoom.com/download/assets/zoom-vulnerability-management_0x4cbc9613_public.asc/21e0ae4a608b11ef8a28168792231784
+
+# Policy
+Policy: https://www.zoom.com/en/trust/reporting-vulnerability/
+
+Preferred-Languages: en 
+Expires: 2029-12-31T00:00:00.000Z

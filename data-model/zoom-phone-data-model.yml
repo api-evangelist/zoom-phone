@@ -1,0 +1,221 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  openapi/zoom-phone-api-openapi.json, openapi/zoom-phone-number-management-openapi.json
+  (path nesting, path/query id parameters, tag grouping), cross-checked against
+  https://developers.zoom.us/docs/phone/ and https://developers.zoom.us/docs/phone/migrate/
+summary: >-
+  Neither Zoom Phone OpenAPI declares components.schemas — every request and response body is
+  inlined — so the entity graph below is derived from path structure, id parameters and the 47
+  resource tags rather than from $ref links. The model has one organising abstraction: the
+  EXTENSION. Users, common areas, call queues, auto receptionists, shared line groups, Zoom
+  Rooms and group call pickups are all extension-bearing objects that can own numbers, call
+  handling settings, policies and outbound calling rules. Phone numbers are inventory that is
+  assigned to extensions; call records are immutable events that reference both.
+root_entities:
+- entity: account
+  id_field: accountId
+  note: The "me" keyword substitutes for the authenticated account.
+- entity: site
+  id_field: site_id / siteId
+  operations: 12
+  note: Multi-site accounts scope numbers, emergency addresses, policies and outbound calling.
+- entity: user
+  id_field: userId
+  operations: 24
+  note: A Zoom user with a Zoom Phone license; the most common extension type.
+- entity: common_area
+  id_field: commonAreaId
+  operations: 19
+- entity: call_queue
+  id_field: callQueueId
+  operations: 32
+- entity: auto_receptionist
+  id_field: autoReceptionistId
+  operations: 19
+- entity: shared_line_group
+  id_field: slgId
+  operations: 22
+- entity: phone_device
+  id_field: deviceId
+  operations: 11
+- entity: phone_number
+  id_field: phoneNumberId
+  operations: 8
+  also_in: Number Management API
+- entity: extension
+  id_field: extensionId
+  operations: 16
+  note: >-
+    The polymorphic handle. /phone/extension/{extensionId}/... targets whatever object type owns
+    that extension, which is why call handling and settings are modelled once, not per type.
+- entity: call_history
+  id_field: call_history_uuid
+  note: v3 record; supersedes call_log (v1) and call_history id (v2).
+- entity: call_element
+  id_field: call_element_id
+  note: v3 per-leg segment; supersedes call_path entries.
+- entity: recording
+  id_field: recordingId
+- entity: voicemail
+  id_field: voicemailId
+- entity: fax
+  id_field: faxId
+- entity: sms_session
+  id_field: sessionId
+- entity: sms_campaign
+  id_field: campaignId
+  also_in: Number Management API
+- entity: emergency_address
+  id_field: emergencyAddressId
+- entity: emergency_service_location
+  id_field: locationId
+- entity: sip_trunk
+  also_in: Number Management API
+- entity: ported_number_order
+  also_in: Number Management API
+- entity: peering_number
+  also_in: Number Management API
+  note: Cloud Peering / Provider Exchange inventory.
+relationships:
+- from: account
+  to: site
+  type: has_many
+  via: site_id
+- from: site
+  to: user
+  type: has_many
+  via: site_id
+- from: site
+  to: phone_number
+  type: has_many
+  via: site_id
+- from: user
+  to: extension
+  type: has_one
+  via: extension_id
+- from: common_area
+  to: extension
+  type: has_one
+  via: extension_id
+- from: call_queue
+  to: extension
+  type: has_one
+  via: extension_id
+- from: auto_receptionist
+  to: extension
+  type: has_one
+  via: extension_id
+- from: shared_line_group
+  to: extension
+  type: has_one
+  via: extension_id
+- from: extension
+  to: call_handling_setting
+  type: has_many
+  via: settingType
+  path: /phone/extension/{extensionId}/call_handling/settings/{settingType}
+- from: extension
+  to: phone_number
+  type: has_many
+  via: phoneNumberId
+- from: call_queue
+  to: member
+  type: has_many
+  via: /phone/call_queues/{callQueueId}/members
+- from: call_queue
+  to: custom_group
+  type: has_many
+  via: /phone/call_queues/{callQueueId}/custom_groups
+- from: shared_line_group
+  to: member
+  type: has_many
+  via: /phone/shared_line_groups/{slgId}/members
+- from: shared_line_group
+  to: policy
+  type: has_many
+  via: /phone/shared_line_groups/{slgId}/policies
+- from: user
+  to: call_history
+  type: has_many
+  via: /phone/users/{userId}/call_history
+- from: call_history
+  to: call_element
+  type: has_many
+  via: call_elements[].call_element_id
+- from: call_history
+  to: call_id
+  type: has_one
+  via: call_id
+  note: call_id is the real-time correlation key carried on phone.* webhook events.
+- from: call_element
+  to: recording
+  type: has_one
+  via: /phone/call_element/{call_element_id}
+- from: call_element
+  to: voicemail
+  type: has_one
+  via: callElementId
+- from: user
+  to: voicemail
+  type: has_many
+  via: /phone/users/{userId}/voice_mails
+- from: user
+  to: outbound_calling_policy
+  type: has_one
+  via: /phone/users/{userId}/outbound_calling
+- from: site
+  to: outbound_calling_policy
+  type: has_one
+  via: /phone/sites/{siteId}/outbound_calling
+- from: outbound_calling_policy
+  to: exception_rule
+  type: has_many
+  via: /outbound_calling/exception_rules
+- from: outbound_calling_policy
+  to: country_region
+  type: has_many
+  via: /outbound_calling/countries_regions
+- from: sms_campaign
+  to: phone_number
+  type: has_many
+  via: /sms_campaigns/{campaignId}/phone_numbers
+- from: phone_number
+  to: opt_status
+  type: has_one
+  via: /phone_numbers/{phoneNumberId}/opt_status
+  note: 10DLC consent state.
+- from: sms_session
+  to: sms_message
+  type: has_many
+  via: /phone/sms/sessions/{sessionId}
+- from: site
+  to: emergency_address
+  type: has_many
+  via: emergencyAddressId
+- from: emergency_service_location
+  to: emergency_address
+  type: belongs_to
+  via: emergency_address_id
+- from: phone_device
+  to: line_key
+  type: has_many
+  via: /phone/devices/{deviceId}/line_keys
+- from: phone_device
+  to: extension
+  type: belongs_to
+  via: assignee extension_id
+- from: ported_number_order
+  to: phone_number
+  type: has_many
+  via: /number_management/ported_numbers/orders
+- from: sip_trunk
+  to: peering_number
+  type: has_many
+  via: Number Management peering operations
+id_conventions:
+  style: opaque URL-safe base64-like strings (e.g. 8f71O6rWT8KFUGQmJIFAdQ)
+  prefixed_ids: false
+  uuid_ids: call_history_uuid uses a date-prefixed UUID form (20211008-48c1dfd4-91ce-...)
+  note: Zoom publishes no id-prefix registry; ids are not self-describing.
+render: null

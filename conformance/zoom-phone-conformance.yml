@@ -1,0 +1,110 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  live /.well-known/ probes, https://developers.zoom.us/docs/api/using-zoom-apis/,
+  https://developers.zoom.us/docs/integrations/oauth/, https://trust.zoom.com/,
+  and derived from the two Zoom Phone OpenAPI documents
+summary: >-
+  Zoom Phone conforms to the general web-API standards stack (OAuth 2.0 + RFC 8414 metadata,
+  OpenAPI 3.0/3.1, RFC 9116 security.txt, RFC 9727 api-catalog, llms.txt, MCP) and to the US
+  telecom compliance regime that a cloud PBX must satisfy (10DLC SMS registration, E911 /
+  Kari's Law / RAY BAUM'S Act emergency addressing, number portability). It does NOT implement
+  OpenID Connect discovery, RFC 9457 problem details, RFC 8594 sunset headers, SCIM on the
+  Phone surface, or any CAMARA / GSMA Open Gateway network API — Zoom Phone is a UCaaS
+  application layer, not a carrier.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    openapi securitySchemes declare type oauth2 (authorizationCode); Zoom supports
+    authorization_code, device_code, refresh_token, client_credentials and the Zoom-specific
+    account_credentials grant.
+  docs: https://developers.zoom.us/docs/integrations/oauth/
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: 'https://api.zoom.us/.well-known/oauth-authorization-server returns 200 with issuer https://zoom.us'
+- id: rfc9728-oauth-protected-resource-metadata
+  conforms: false
+  evidence: /.well-known/oauth-protected-resource returns 404 on api.zoom.us and mcp.zoom.us
+- id: openid-connect-discovery
+  conforms: false
+  evidence: >-
+    /.well-known/openid-configuration returns 404 on api.zoom.us and zoom.us. Zoom's API
+    identity layer is plain OAuth 2.0, not OIDC.
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/zoom-phone-api-openapi.json and openapi/zoom-phone-number-management-openapi.json declare openapi 3.0.0
+- id: openapi-3.1-webhooks
+  conforms: true
+  evidence: openapi/zoom-phone-webhooks-openapi.json is OpenAPI 3.1.0 using the top-level webhooks object (71 events)
+- id: asyncapi
+  conforms: false
+  evidence: no AsyncAPI document published; the event surface is expressed as OpenAPI 3.1 webhooks instead
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    error responses are application/json with a flat {code, message} envelope; no
+    application/problem+json media type appears in either spec
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: >-
+    deprecations are announced through the changelog and migration guides; no Sunset or
+    Deprecation response header is declared in the specs
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: 'https://api.zoom.us/.well-known/security.txt returns 200 with Contact, Policy, Encryption, Expires'
+- id: rfc9727-api-catalog
+  conforms: true
+  evidence: >-
+    https://developers.zoom.us/.well-known/api-catalog.json returns a 62-anchor linkset with
+    service-desc, service-doc and status links, including the Zoom Phone and Number Management
+    surfaces
+- id: llms-txt
+  conforms: true
+  evidence: 'https://developers.zoom.us/llms.txt returns 200 (1,133 lines) with a dedicated ## Phone section'
+- id: model-context-protocol
+  conforms: true
+  partial: true
+  evidence: >-
+    hosted MCP servers at mcp.zoom.us published to registry.modelcontextprotocol.io as
+    io.github.zoom/*; no Zoom Phone MCP server exists
+- id: cursor-pagination
+  conforms: true
+  evidence: 76 operations expose page_size + next_page_token (15-minute token expiry)
+- id: idempotency
+  conforms: false
+  evidence: no Idempotency-Key header or retry token in any of the 419 operations
+- id: scim2
+  conforms: false
+  evidence: >-
+    Zoom publishes a SCIM2 API for account user provisioning, but it does not cover Zoom Phone
+    extensions, sites, queues or numbers — Phone provisioning is Zoom-proprietary REST
+  reference: https://developers.zoom.us/docs/api/scim2/
+- id: camara
+  conforms: false
+  evidence: >-
+    no CAMARA reference anywhere in the Zoom developer surface; Zoom Phone is not a GSMA Open
+    Gateway signatory and operates no mobile network
+- id: 10dlc-a2p-messaging
+  conforms: true
+  evidence: >-
+    Number Management API exposes SMS campaign registration and consent operations
+    (listAccountSMSCampaigns, GetSMSCampaign, assignCampaignPhoneNumbers) and Phone emits
+    phone.sms_campaign_number_opt_in / opt_out / sms_etiquette_block events
+- id: e911-karis-law-ray-baums
+  conforms: true
+  evidence: >-
+    dedicated Emergency Addresses and Emergency Service Locations resource groups (11
+    operations) plus the phone.emergency_alert webhook event
+- id: number-portability
+  conforms: true
+  evidence: ported-number order operations in the Number Management API
+- id: byoc-cloud-peering
+  conforms: true
+  evidence: >-
+    BYOC number, carrier peering and Provider Exchange operations let a customer keep its own
+    carrier while Zoom provides the application layer
+compliance_program:
+  url: https://www.zoom.com/en/trust/
+  certifications: [SOC 2, ISO 27001, ISO 27017, ISO 27018, PCI DSS, FedRAMP, CSA STAR]
+  artifact: security/zoom-phone-trust-center.yml

@@ -1,0 +1,702 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  openapi/zoom-phone-api-openapi.json, openapi/zoom-phone-number-management-openapi.json
+  (4xx/5xx response descriptions), cross-checked against
+  https://developers.zoom.us/docs/api/rate-limits/ and
+  https://developers.zoom.us/docs/integrations/oauth-error-messages/
+format: custom
+rfc9457: false
+envelope: '{"code": <integer>, "message": "<string>"}'
+content_type: application/json
+summary: >-
+  Zoom Phone does not use RFC 9457 problem+json. Every error is a flat JSON object with a
+  numeric Zoom application `code` that is INDEPENDENT of the HTTP status — the same code can
+  arrive on a 400 or a 404 depending on the operation, and the same status carries dozens of
+  distinct codes. Zoom publishes no consolidated Phone error registry; the authoritative
+  source is the per-operation response description inside the OpenAPI, from which the 112
+  distinct codes below were derived. Zoom Phone declares NO 5xx responses anywhere in its
+  spec — the error contract stops at 4xx.
+http_statuses:
+- status: 429
+  occurrences: 395
+  title: Too Many Requests
+  remediation: >-
+    Back off and retry; see rate-limits/zoom-phone-rate-limits.yml. Zoom publishes no
+    Retry-After or X-RateLimit-* headers.
+- status: 400
+  occurrences: 355
+  title: Bad Request
+  remediation: Validate request body/query values against the operation schema and policy prerequisites.
+- status: 404
+  occurrences: 197
+  title: Not Found
+  remediation: The referenced extension, site, user, queue, number or call record does not exist.
+- status: 401
+  occurrences: 70
+  title: Unauthorized
+  remediation: Access token missing, expired or issued for the wrong account (code 124).
+- status: 403
+  occurrences: 33
+  title: Forbidden
+  remediation: >-
+    Scope missing, Zoom Phone not provisioned, or shared-access permission not granted by the
+    installing user.
+- status: 409
+  occurrences: 3
+  title: Conflict
+  remediation: The resource already exists in the target state (e.g. number already blocked).
+- status: 412
+  occurrences: 1
+  title: Precondition Failed
+  remediation: Account-level setting prevents the change (multi-site).
+- status: '5xx'
+  occurrences: 0
+  note: No server-error responses are declared in either Zoom Phone OpenAPI document.
+distinct_error_codes: 112
+problems:
+- code: '300'
+  occurrences: 154
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - '**Error Code:** `400`'
+  - '**Error Code:** `404`'
+  - '**Error Code:** `429`'
+  example_operations:
+  - addOutboundCallerNumbers
+  - deleteOutboundCallerNumbers
+  - AddAnAlertSetting
+- code: '400'
+  occurrences: 127
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - 'Auto Receptionist does not exist: {0}.'
+  - Batch phone numbers are limited to 50 per request.
+  - 'Billing account does not exist: {billingAccountId}.'
+  example_operations:
+  - listZoomPhoneAccountSettings
+  - AddAudioItem
+  - deleteAutoReceptionist
+- code: '404'
+  occurrences: 119
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - 'Auto Receptionist does not exist: {autoReceptionistId}.'
+  - 'Auto receptionist does not exist: {autoReceptionistId}.'
+  - 'AutoReceptionist does not exist, AutoReceptionistId: {autoReceptionId}'
+  example_operations:
+  - deleteAutoReceptionist
+  - getAutoReceptionistCallHandlingSettings
+  - updateAutoReceptionistCallHandlingSettings
+- code: '2001'
+  occurrences: 55
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - Account does not exist.
+  - 'The account (accountId: {0}) does not exist.'
+  example_operations:
+  - ListAudioItems
+  - AddAnAudio
+  - AddAudioItem
+- code: '124'
+  occurrences: 52
+  http_statuses:
+  - '400'
+  - '401'
+  - '404'
+  messages:
+  - Access token has expired.
+  - 'Account does not exist: "{accountId}".'
+  - 'Account does not exist: {accountId}.'
+  example_operations:
+  - ListAlertSettingsWithPagingQuery
+  - deleteCallLog
+  - GetCommonAreaOutboundCallingCountriesAndRegions
+- code: '1001'
+  occurrences: 41
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - Carrier not found
+  - File size exceeded maximum 50MB
+  - 'Recording does not exist: "{callId or callLogId}".'
+  example_operations:
+  - ListAudioItems
+  - AddAudioItem
+  - phoneUserCallLogs
+- code: '405'
+  occurrences: 29
+  http_statuses:
+  - '400'
+  messages:
+  - The number of items for `assignee_extension_ids` must not exceed 10.
+  - The number of items for `calling_plans` must not exceed 20.
+  - The number of items for `phone_numbers` must not exceed 20.
+  example_operations:
+  - updateCallHandling
+  - updateCallHandling
+  - assignCallingPlansToCommonArea
+- code: '13504'
+  occurrences: 24
+  http_statuses:
+  - '400'
+  messages:
+  - You do not enable the outbound calling policy setting.
+  example_operations:
+  - GetCommonAreaOutboundCallingCountriesAndRegions
+  - UpdateCommonAreaOutboundCallingCountriesOrRegions
+  - listCommonAreaOutboundCallingExceptionRule
+- code: '15104'
+  occurrences: 22
+  http_statuses:
+  - '400'
+  messages:
+  - The {hour_type} cannot be updated when business hours are set to `24 Hours a Day, 7 Days a Week`.
+  example_operations:
+  - updateAutoReceptionistCallHandlingSettings
+  - addAutoReceptionistSetting
+  - deleteAutoReceptionistSetting
+- code: '15101'
+  occurrences: 21
+  http_statuses:
+  - '400'
+  messages:
+  - 'Break hour does not exist: {breakHourId}.'
+  example_operations:
+  - getAutoReceptionistCallHandlingSettings
+  - updateAutoReceptionistCallHandlingSettings
+  - deleteAutoReceptionistSetting
+- code: '15102'
+  occurrences: 19
+  http_statuses:
+  - '400'
+  messages:
+  - 'Holiday hour does not exist: {holidayHourId}.'
+  example_operations:
+  - getAutoReceptionistCallHandlingSettings
+  - updateAutoReceptionistCallHandlingSettings
+  - deleteAutoReceptionistSetting
+- code: '13000'
+  occurrences: 15
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - Only power pack user can get CQ rules.
+  - The Call Queue does not exist, callQueueId:{callQueueId}.
+  - 'The call queue does not exist, callQueueId: {callQueueId}.'
+  example_operations:
+  - ListAlertSettingsWithPagingQuery
+  - getACallQueue
+  - Listcustomgroupsofacallqueue
+- code: '13500'
+  occurrences: 15
+  http_statuses:
+  - '404'
+  messages:
+  - 'The common area does not exist: {commonAreaId}.'
+  - 'The site does not exist: {siteId}.'
+  - 'The user does not exist: {userId}.'
+  example_operations:
+  - GetCommonAreaOutboundCallingCountriesAndRegions
+  - UpdateCommonAreaOutboundCallingCountriesOrRegions
+  - AddCommonAreaOutboundCallingExceptionRule
+- code: '8001'
+  occurrences: 10
+  http_statuses:
+  - '400'
+  messages:
+  - Site does not exist
+  - 'Site does not exist: {siteId}'
+  - 'Site does not exist: {siteId}.'
+  example_operations:
+  - listUserDefaultEmergencyAddress
+  - listUserDetectablePersonalLocation
+  - listUserLocationSharingPermission
+- code: '13600'
+  occurrences: 10
+  http_statuses:
+  - '400'
+  messages:
+  - The block list for inbound calls and messaging policy setting is not enabled.
+  - You do not enable the block list for inbound calls and messaging policy setting.
+  example_operations:
+  - ListExtensionLevelInboundBlockRules
+  - AddExtensiontLevelInboundBlockRules
+  - DeleteExtensiontLevelInboundBlockRules
+- code: '403'
+  occurrences: 9
+  http_statuses:
+  - '400'
+  - '403'
+  messages:
+  - You do not have permission, because the current site `{site_id}` does not belong to the target sites.
+  - You do not have permission.
+  example_operations:
+  - ListAlertSettingsWithPagingQuery
+  - AddAnAlertSetting
+  - GetAlertSettingDetails
+- code: '13802'
+  occurrences: 7
+  http_statuses:
+  - '400'
+  messages:
+  - 'Audio does not exist: {audioId}.'
+  example_operations:
+  - updateAutoReceptionistCallHandlingSettings
+  - updateCallQueueCallHandlingSetting
+  - updateCallQueuePolicy
+- code: '1003'
+  occurrences: 7
+  http_statuses:
+  - '400'
+  messages:
+  - Too many numbers, should less than 200
+  example_operations:
+  - addPeeringPhoneNumbers
+  - deletePeeringPhoneNumbers
+  - updatePeeringPhoneNumbers
+- code: '13002'
+  occurrences: 6
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - Current operation is not allowed, please contact support.
+  - The Custom Group does not exist, customGroupId:{customGroupId}.
+  - 'The custom group does not exist, customGroupId: {customGroupId}.'
+  example_operations:
+  - ListAlertSettingsWithPagingQuery
+  - Getacustomgroup
+  - Deleteacustomgroup
+- code: '13808'
+  occurrences: 6
+  http_statuses:
+  - '400'
+  messages:
+  - 'Extension does not exist: {extension_id}'
+  - 'Extension does not exist: {extension_id}.'
+  example_operations:
+  - updateAutoReceptionistCallHandlingSettings
+  - updateCallQueueCallHandlingSetting
+  - updateCommonAreaCallHandlingSetting
+- code: '429'
+  occurrences: 6
+  http_statuses:
+  - '400'
+  messages:
+  - Phone number batch operation is limited to 200 per request.
+  - Room batch operation is limited to 5 per request.
+  - You can only add up to {0} {1} to access your voicemail.
+  example_operations:
+  - AddPolicy
+  - createCRPhoneNumbers
+  - activeCRPhoneNumbers
+- code: '409'
+  occurrences: 6
+  http_statuses:
+  - '400'
+  - '409'
+  messages:
+  - '* Invalid short number length.'
+  - A conflict occurred with the target extension number. Try again later.
+  - Cannot create group. 'member_type' member(s) already exist(s) in current monitoring group.
+  example_operations:
+  - updateCommonArea
+  - addMembers
+  - createASharedLineGroup
+- code: '13800'
+  occurrences: 6
+  http_statuses:
+  - '400'
+  messages:
+  - You do not enable OP flag named 'Enable Caller Based Consent Options', please using same value to update 'inbound_audio_notification.recording_explicit_consent'
+  - You do not enable OP flag named 'Enable Caller Based Consent Options', please using same value to update 'inbound_audio_notification.recording_start_prompt'
+    and
+  - You do not enable OP flag named 'Enable Caller Based Consent Options', please using same value to update 'inbound_audio_notification.recording_start_prompt_audi
+  example_operations:
+  - updateSettingTemplate
+  - updateSiteDetails
+  - updateSiteDetails
+- code: '999'
+  occurrences: 6
+  http_statuses:
+  - '400'
+  messages:
+  - Invalid Field
+  - Invalid field.
+  - Invalid param (product)
+  example_operations:
+  - listPhoneNumbers
+  - updatePhoneNumberDetail
+  - Listphonenumberplaninformation
+- code: '13810'
+  occurrences: 5
+  http_statuses:
+  - '400'
+  messages:
+  - 'External contact does not exist: {0}.'
+  example_operations:
+  - updateAutoReceptionistCallHandlingSettings
+  - updateCallQueueCallHandlingSetting
+  - updateCommonAreaCallHandlingSetting
+- code: '301'
+  occurrences: 5
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - 'Call history does not exist for call log Id: {callLogId}.'
+  - 'Call history not found: {callLogId}.'
+  - 'Invalid client code: {client_code}'
+  example_operations:
+  - addClientCodeToCallHistory
+  - getCallHistoryDetail
+  - phoneUserCallHistory
+- code: '1002'
+  occurrences: 5
+  http_statuses:
+  - '400'
+  messages:
+  - Invalid expire, should between 1 and 604800 seconds
+  - Request data cannot be empty
+  - The request body format does not match, please refer to the document
+  example_operations:
+  - UploadFaxFiles
+  - addPeeringPhoneNumbers
+  - deletePeeringPhoneNumbers
+- code: '1002013'
+  occurrences: 5
+  http_statuses:
+  - '404'
+  messages:
+  - The consent does not exist.
+  example_operations:
+  - GetSMSConsent
+  - UpdateSMSConsent
+  - ListConsentPhoneNumbers
+- code: '13001'
+  occurrences: 4
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - Invalid value for parameter {policyType}.
+  - Non super admin can only list CQ rules.
+  example_operations:
+  - ListAlertSettingsWithPagingQuery
+  - addCQPolicySubSetting
+  - removeCQPolicySubSetting
+- code: '13003'
+  occurrences: 4
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - Custom group limit exceeded.
+  - The alert setting does not exist, alertSettingId:{0}.
+  example_operations:
+  - GetAlertSettingDetails
+  - DeleteAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '13508'
+  occurrences: 4
+  http_statuses:
+  - '400'
+  messages:
+  - 'The exception rule ID has one more record in the DB: {exceptionRuleId}.'
+  example_operations:
+  - deleteCommonAreaOutboundCallingExceptionRule
+  - deleteAccountOutboundCallingExceptionRule
+  - deleteSiteOutboundCallingExceptionRule
+- code: '13507'
+  occurrences: 4
+  http_statuses:
+  - '404'
+  messages:
+  - 'The exception rule does not exist: {exceptionRuleId}.'
+  example_operations:
+  - deleteCommonAreaOutboundCallingExceptionRule
+  - deleteAccountOutboundCallingExceptionRule
+  - deleteSiteOutboundCallingExceptionRule
+- code: '1000'
+  occurrences: 4
+  http_statuses:
+  - '400'
+  messages:
+  - Some data failed.
+  - 'Some data failed.for example:'
+  - 'Some data failed.for example: [ {"phoneNumber":"+12098888111","reason":"Phone Number format invalid"}, {"phoneNumber":"+12090000011","reason":"Phone
+    Number alre'
+  example_operations:
+  - addPeeringPhoneNumbers
+  - deletePeeringPhoneNumbers
+  - updatePeeringPhoneNumbers
+- code: '412'
+  occurrences: 3
+  http_statuses:
+  - '400'
+  - '412'
+  messages:
+  - Disable multiple sites after deleting other sites.
+  - The maximum number of Call Queue members is up to {maxSize}.
+  example_operations:
+  - createCallQueue
+  - addMembersToCallQueue
+  - updatePhoneSettings
+- code: '802'
+  occurrences: 3
+  http_statuses:
+  - '400'
+  messages:
+  - Data is not ready, please try again later
+  example_operations:
+  - listUserDefaultEmergencyAddress
+  - listUserDetectablePersonalLocation
+  - listUserNomadicEmergencyServices
+- code: '2040'
+  occurrences: 3
+  http_statuses:
+  - '404'
+  messages:
+  - 'User group does not exist: {groupId}.'
+  example_operations:
+  - GetGroupPolicyDetails
+  - updateGroupPolicy
+  - getGroupPhoneSettings
+- code: '13601'
+  occurrences: 3
+  http_statuses:
+  - '400'
+  messages:
+  - Blocked phone number already exists:{blocked_number}.
+  example_operations:
+  - AddExtensiontLevelInboundBlockRules
+  - AddAccountLevelInboundBlockRules
+  - UpdateAccountLevelInboundBlockRule
+- code: '13605'
+  occurrences: 3
+  http_statuses:
+  - '400'
+  messages:
+  - The block calls as threat policy setting is not enabled, it is not allowed selecting 'type' as 'block_as_threat.
+  - The block calls as threat policy setting is not enabled. It is not allowed selecting 'type' as 'block_as_threat.
+  example_operations:
+  - AddExtensiontLevelInboundBlockRules
+  - AddAccountLevelInboundBlockRules
+  - UpdateAccountLevelInboundBlockRule
+- code: '13604'
+  occurrences: 3
+  http_statuses:
+  - '400'
+  messages:
+  - Blocked number:{blocked_number} does not match the country:{country}.
+  example_operations:
+  - AddExtensiontLevelInboundBlockRules
+  - AddAccountLevelInboundBlockRules
+  - UpdateAccountLevelInboundBlockRule
+- code: '7015'
+  occurrences: 3
+  http_statuses:
+  - '400'
+  messages:
+  - The phone number {blocked_number} is invalid.
+  example_operations:
+  - AddExtensiontLevelInboundBlockRules
+  - AddAccountLevelInboundBlockRules
+  - UpdateAccountLevelInboundBlockRule
+- code: '13012'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The module:{0} does not support this rule:{1}.
+  example_operations:
+  - ListAlertSettingsWithPagingQuery
+  - AddAnAlertSetting
+- code: '13004'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - Alert rule on this target already exists.
+  - Custom group member limit exceeded.
+  example_operations:
+  - AddAnAlertSetting
+  - Addmemberstoacustomgroup
+- code: '13006'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The number of target is invalid.
+  example_operations:
+  - AddAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '13007'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The number of email recipients is invalid.
+  example_operations:
+  - AddAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '13008'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The number of chat channels is invalid.
+  example_operations:
+  - AddAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '13010'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - Invalid parameters.
+  example_operations:
+  - AddAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '13014'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The target id:{0} is invalid.
+  example_operations:
+  - AddAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '13023'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The number of email recipients is invalid.
+  example_operations:
+  - AddAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '13024'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The number of chat channels is invalid.
+  example_operations:
+  - AddAnAlertSetting
+  - UpdateAnAlertSetting
+- code: '3001'
+  occurrences: 2
+  http_statuses:
+  - '404'
+  messages:
+  - Error retrieving call logs.
+  example_operations:
+  - accountCallLogs
+  - phoneUserCallLogs
+- code: '13803'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - 'SMS template does not exist: {sms_template_id}.'
+  example_operations:
+  - updateCallQueuePolicy
+  - updateSiteDetails
+- code: '40401'
+  occurrences: 2
+  http_statuses:
+  - '404'
+  messages:
+  - Fax log not found
+  - 'Fax log not found for faxLogId: {faxLogId}'
+  example_operations:
+  - GetFaxLogDetails
+  - Downloadfaxfile
+- code: '400001'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  - '404'
+  messages:
+  - Fax log not found for faxLogId.
+  example_operations:
+  - DeleteFaxLog
+  - UpdateFaxLogReadStatus
+- code: '13602'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - You can't delete or change the number, because it is marked as Blocked Number more than the 'Automatic Blocking
+    Threshold'.
+  example_operations:
+  - DeleteAccountLevelInboundBlockRules
+  - UpdateAccountLevelInboundBlockRule
+- code: '13603'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - You can't delete or change the number, because it is marked as Threat Number more than the 'Automatic Threat
+    Blocking Threshold'.
+  example_operations:
+  - DeleteAccountLevelInboundBlockRules
+  - UpdateAccountLevelInboundBlockRule
+- code: '7012'
+  occurrences: 2
+  http_statuses:
+  - '404'
+  messages:
+  - Error retrieving SMS.
+  example_operations:
+  - accountSmsSession
+  - userSmsSession
+- code: '1004'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - BYOC Phone Numbers are not enabled for this account
+  - Not allow to access this account.
+  example_operations:
+  - smsByMessageId
+  - AddBYOCPhoneNumber
+- code: '7035'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - The number of new records exceeds the sync count. Please resync with the `FSync` method.
+  example_operations:
+  - smsSessionSync
+  - GetSmsSessions
+- code: '2031'
+  occurrences: 2
+  http_statuses:
+  - '403'
+  messages:
+  - Zoom Phone has not been enabled for this account.
+  example_operations:
+  - phoneSetting
+  - updatePhoneSettings
+- code: '15103'
+  occurrences: 2
+  http_statuses:
+  - '400'
+  messages:
+  - 'Call forward does not exist: {callForwardId}.'
+  example_operations:
+  - deleteUserCallForwardSetting
+  - updateUserCallHandlingSetting

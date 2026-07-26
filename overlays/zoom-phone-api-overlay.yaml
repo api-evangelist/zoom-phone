@@ -1,0 +1,54 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Zoom Phone API
+  version: 1.0.0
+extends: openapi/zoom-phone-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: zoom-phone
+    x-apievangelist-generated: '2026-07-25'
+    x-apievangelist-artifacts:
+      authentication: authentication/zoom-phone-authentication.yml
+      scopes: scopes/zoom-phone-scopes.yml
+      conventions: conventions/zoom-phone-conventions.yml
+      errors: errors/zoom-phone-problem-types.yml
+      lifecycle: lifecycle/zoom-phone-lifecycle.yml
+      rate_limits: rate-limits/zoom-phone-rate-limits.yml
+      conformance: conformance/zoom-phone-conformance.yml
+      data_model: data-model/zoom-phone-data-model.yml
+      webhooks: asyncapi/zoom-phone-webhooks.yml
+      skills: skills/_index.yml
+    x-apievangelist-notes:
+      error_format: flat {code, message}; not RFC 9457 problem+json
+      idempotency: not supported — no Idempotency-Key on any operation
+      pagination: cursor via page_size + next_page_token (15 minute token expiry)
+      rate_limit_labels: LIGHT/MEDIUM/HEAVY published in each operation description
+      components_schemas: none declared — all bodies are inlined
+- target: $.servers
+  update:
+  - url: https://api.zoom.us/v2
+    description: Global (default)
+  - url: https://api-eu.zoom.us/v2
+    description: European Union region
+  - url: https://api-au.zoom.us/v2
+    description: Australia region
+  - url: https://api-ca.zoom.us/v2
+    description: Canada region
+  - url: https://api-in.zoom.us/v2
+    description: India region
+  - url: https://api-sa.zoom.us/v2
+    description: Saudi Arabia region
+  - url: https://api-sg.zoom.us/v2
+    description: Singapore region
+  - url: https://api-uk.zoom.us/v2
+    description: United Kingdom region
+  - url: https://api-us.zoom.us/v2
+    description: United States region
+- target: $.info
+  update:
+    x-apievangelist-deprecations:
+      legacy_call_logs_api: sunset 2026-04
+      legacy_call_log_webhooks: sunset 2026-05
+      call_log_and_call_path_arrays: sunset 2026-11
+      deprecated_operations_in_spec: 31

@@ -1,0 +1,281 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  openapi/zoom-phone-webhooks-openapi.json (Zoom's own OpenAPI 3.1 webhooks document),
+  https://developers.zoom.us/docs/api/phone/events/,
+  https://developers.zoom.us/docs/phone/call-data/
+spec_type: none
+asyncapi: false
+summary: >-
+  Zoom publishes NO AsyncAPI document. Its event surface is described instead as an OpenAPI 3.1
+  document that uses the top-level `webhooks` object — a real, machine-readable event contract
+  with 71 Zoom Phone events, each carrying a payload schema, prerequisites and the classic +
+  granular OAuth scopes required to subscribe. That file is already captured verbatim at
+  openapi/zoom-phone-webhooks-openapi.json and wired as an OpenAPI pointer; this artifact is the
+  event catalog view of it. Nothing here is invented — every event name comes from Zoom's own
+  document.
+delivery:
+  transport: HTTPS POST to a subscribed endpoint URL
+  alternate: WebSocket delivery (public beta)
+  subscription: Marketplace app event subscriptions (OAuth or Webhook-Only app)
+  validation: endpoint.url_validation challenge — respond with plainToken + HMAC-SHA256 encryptedToken
+  signature_header: x-zm-signature
+  timestamp_header: x-zm-request-timestamp
+  signature_algorithm: HMAC-SHA256 over "v0:{x-zm-request-timestamp}:{raw body}" with the app secret token
+  retries: Zoom retries failed deliveries; consumers must deduplicate (no idempotency key is sent)
+  docs: https://developers.zoom.us/docs/api/phone/events/
+migration_note: >-
+  Four legacy call-log events (phone.call_log_deleted, phone.callee_call_log_completed,
+  phone.caller_call_log_completed, phone.call_log_permanently_deleted) are deprecated with a
+  May 2026 sunset — see lifecycle/zoom-phone-lifecycle.yml.
+event_count: 71
+groups:
+  ai_call: 1
+  call_element: 3
+  call_history: 3
+  call_lifecycle: 19
+  call_log: 4
+  conference: 1
+  device: 2
+  emergency: 2
+  fax: 4
+  peering: 1
+  recording: 10
+  route_group: 1
+  settings: 2
+  sms: 5
+  sms_campaign: 2
+  transfer: 5
+  voicemail: 6
+events:
+- event: phone.ai_call_summary_changed
+  group: ai_call
+  summary: ''
+- event: phone.call_element_deleted
+  group: call_element
+  summary: The **Call element has been deleted** event triggers each time a call element is deleted.
+- event: phone.callee_call_element_completed
+  group: call_element
+  summary: The **Callee call element is completed** event triggers every time the incoming call element record for
+    a call is made available for the callee to view.
+- event: phone.caller_call_element_completed
+  group: call_element
+  summary: The **Caller call element is completed** event triggers every time the outgoing call element record for
+    a call is made available for the caller to view.
+- event: phone.call_history_deleted
+  group: call_history
+  summary: The **Call history has been deleted** event triggers each time a call history is deleted.
+- event: phone.callee_call_history_completed
+  group: call_history
+  summary: The **Callee call history is completed** event triggers every time the incoming call history record for
+    a call is made available for the callee to view.
+- event: phone.caller_call_history_completed
+  group: call_history
+  summary: The **Caller call history is completed** event triggers every time the outgoing call history record for
+    a call is made available for the caller to view.
+- event: phone.callee_answered
+  group: call_lifecycle
+  summary: ''
+- event: phone.callee_ended
+  group: call_lifecycle
+  summary: The **Callee ended the phone call** event triggers whenever the callee, who is either a user on your
+    account or a user of your app, terminates a call on Zoom Phone.
+- event: phone.callee_hold
+  group: call_lifecycle
+  summary: ''
+- event: phone.callee_meeting_inviting
+  group: call_lifecycle
+  summary: ''
+- event: phone.callee_missed
+  group: call_lifecycle
+  summary: The **Callee missed a phone call** event triggers every time a callee misses a phone call.
+- event: phone.callee_mute
+  group: call_lifecycle
+  summary: The **Callee mutes a phone call** event triggers when the callee mutes themselves during a call.
+- event: phone.callee_parked
+  group: call_lifecycle
+  summary: ''
+- event: phone.callee_rejected
+  group: call_lifecycle
+  summary: The **Callee rejected a phone call** event triggers whenever a callee, who is either a user in your account
+    or a user of your app, declines an incoming call on their Zoom Phone.
+- event: phone.callee_ringing
+  group: call_lifecycle
+  summary: ''
+- event: phone.callee_unhold
+  group: call_lifecycle
+  summary: ''
+- event: phone.callee_unmute
+  group: call_lifecycle
+  summary: The **Callee unmutes a phone call** event triggers when the callee unmutes themselves during a call.
+- event: phone.caller_connected
+  group: call_lifecycle
+  summary: ''
+- event: phone.caller_ended
+  group: call_lifecycle
+  summary: The **Caller ended a phone call** event triggers whenever a caller, who is also a user in your account
+    or app, ends a phone call on Zoom Phone.
+- event: phone.caller_hold
+  group: call_lifecycle
+  summary: ''
+- event: phone.caller_meeting_inviting
+  group: call_lifecycle
+  summary: ''
+- event: phone.caller_mute
+  group: call_lifecycle
+  summary: The **Caller mutes a phone call** event triggers when the caller mutes themselves during a call.
+- event: phone.caller_ringing
+  group: call_lifecycle
+  summary: ''
+- event: phone.caller_unhold
+  group: call_lifecycle
+  summary: ''
+- event: phone.caller_unmute
+  group: call_lifecycle
+  summary: The **Caller unmutes a phone call** event triggers when the caller unmutes during a call.
+- event: phone.call_log_deleted
+  group: call_log
+  summary: The **Call log has been deleted** event triggers each time a call log is deleted. When a log is deleted,
+    it is sent to the trash.
+- event: phone.call_log_permanently_deleted
+  group: call_log
+  summary: The **Call log has been permanently deleted** event triggers each time a call log is permanently deleted
+    from the trash.
+- event: phone.callee_call_log_completed
+  group: call_log
+  summary: The **Callee call log is completed** event triggers every time the incoming call log record for a call
+    is made available for the callee to view.
+- event: phone.caller_call_log_completed
+  group: call_log
+  summary: The **Caller call log is completed** event triggers every time the outgoing call log record for a call
+    is made available for the Caller to view.
+- event: phone.conference_started
+  group: conference
+  summary: ''
+- event: phone.device_registration
+  group: device
+  summary: ''
+- event: phone.generic_device_provision
+  group: device
+  summary: ''
+- event: phone.emergency_alert
+  group: emergency
+  summary: ''
+- event: phone.peering_number_emergency_address_updated
+  group: emergency
+  summary: ''
+- event: phone.fax_log_deleted
+  group: fax
+  summary: The **Fax Log Deleted** event triggers when one or more fax logs are deleted from a Zoom Phone account.
+- event: phone.fax_log_permanently_deleted
+  group: fax
+  summary: The **Fax Log Permanently Deleted** event triggers when one or more fax logs are permanently deleted
+    from a Zoom Phone account.
+- event: phone.fax_received
+  group: fax
+  summary: The **Fax Received** event triggers when a fax is received.
+- event: phone.fax_sent
+  group: fax
+  summary: The **Fax Sent** event triggers when a fax has been successfully sent from a Zoom Phone user or extension.
+- event: phone.peering_number_cnam_updated
+  group: peering
+  summary: ''
+- event: phone.recording_completed
+  group: recording
+  summary: ''
+- event: phone.recording_completed_for_access_member
+  group: recording
+  summary: ''
+- event: phone.recording_deleted
+  group: recording
+  summary: The **Call recording has been deleted** event triggers when a recording has been deleted.
+- event: phone.recording_failed
+  group: recording
+  summary: ''
+- event: phone.recording_paused
+  group: recording
+  summary: The **Call recording is paused** event triggers when the owner pauses the recording during a phone call.
+- event: phone.recording_permanently_deleted
+  group: recording
+  summary: The **Call recording has been permenently deleted** event triggers when a recording has been deleted
+    permanently.
+- event: phone.recording_resumed
+  group: recording
+  summary: The **Call recording has resumed** event triggers when the owner resumes the recording during a phone
+    call.
+- event: phone.recording_started
+  group: recording
+  summary: The **Call recording has started** event triggers when the recordings has been initiated in a phone call.
+- event: phone.recording_stopped
+  group: recording
+  summary: The **Call recording has stopped** event triggers when the recording of a phone call has stopped.
+- event: phone.recording_transcript_completed
+  group: recording
+  summary: ''
+- event: phone.route_group_status_changed
+  group: route_group
+  summary: The **Route group status changed** event triggers when a SIP trunk status changes.
+- event: phone.account_settings_updated
+  group: settings
+  summary: ''
+- event: phone.group_settings_updated
+  group: settings
+  summary: The **Group settings updated** event triggers when group settings changed.
+- event: phone.sms_etiquette_block
+  group: sms
+  summary: ''
+- event: phone.sms_etiquette_warn
+  group: sms
+  summary: ''
+- event: phone.sms_received
+  group: sms
+  summary: The **SMS received by Zoom phone** event triggers when a user account receives an SMS message. The recipient
+    must be a user on your account or a user of your [webhook-enabled](http
+- event: phone.sms_sent
+  group: sms
+  summary: The **SMS sent from Zoom phone** event triggers when a user account sends an SMS message. The sender
+    must either be a user on your account or a user of your [webhook-enabled](https
+- event: phone.sms_sent_failed
+  group: sms
+  summary: ''
+- event: phone.sms_campaign_number_opt_in
+  group: sms_campaign
+  summary: ''
+- event: phone.sms_campaign_number_opt_out
+  group: sms_campaign
+  summary: ''
+- event: phone.blind_transfer_initiated
+  group: transfer
+  summary: ''
+- event: phone.transfer_recipient_updated
+  group: transfer
+  summary: ''
+- event: phone.warm_transfer_cancelled
+  group: transfer
+  summary: ''
+- event: phone.warm_transfer_completed
+  group: transfer
+  summary: ''
+- event: phone.warm_transfer_initiated
+  group: transfer
+  summary: ''
+- event: phone.transfer_call_to_voicemail_initiated
+  group: voicemail
+  summary: ''
+- event: phone.voicemail_deleted
+  group: voicemail
+  summary: The **Voicemail has been deleted** event triggers each time a voicemail is deleted. When a voicemail
+    is deleted, it is sent to the trash.
+- event: phone.voicemail_permanently_deleted
+  group: voicemail
+  summary: The **Voicemail has been permanently deleted** event triggers each time a voicemail is permanently deleted
+    from the trash.
+- event: phone.voicemail_received
+  group: voicemail
+  summary: ''
+- event: phone.voicemail_received_for_access_member
+  group: voicemail
+  summary: ''
+- event: phone.voicemail_transcript_completed
+  group: voicemail
+  summary: ''

@@ -1,0 +1,221 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://developers.zoom.us/docs/build/lifecycle/,
+  https://developers.zoom.us/docs/phone/migrate/,
+  https://developers.zoom.us/docs/phone/webhook-migrate/,
+  https://developers.zoom.us/changelog/ (product=Phone, Number Management), and derived
+  deprecated:true operations from the two Zoom Phone OpenAPI documents
+summary: >-
+  Zoom publishes a named developer lifecycle (initial release -> deprecation -> sunset -> end of
+  life) that applies to APIs, SDKs and webhooks, and it is actively exercised on Zoom Phone: the
+  legacy Call Logs API (v1) is fully deprecated in April 2026, the legacy Call Log webhooks in
+  May 2026, and the transitional call_log/call_path response arrays in November 2026. 31 of the
+  419 operations are already flagged deprecated in the specification itself.
+versioning:
+  scheme: uri-path
+  current: v2
+  base_url: https://api.zoom.us/v2
+  resource_versioning: >-
+    Zoom Phone versions resource families in place rather than bumping the path — Call Logs
+    (v1) -> Call History (v2, Dec 2023) -> Call History Enhancement / Call Elements (v3, 2025).
+  docs: https://developers.zoom.us/docs/api/using-zoom-apis/
+deprecation:
+  policy_url: https://developers.zoom.us/docs/build/lifecycle/
+  stages: [initial release, deprecation, sunset, end of life]
+  notice_contents: [deprecation date, recommended alternative, expected sunset timeline]
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Zoom announces deprecations through the dated changelog and migration guides. There is no
+    RFC 8594 Sunset or Deprecation response header on the Zoom Phone API; the only in-band
+    signal is the OpenAPI `deprecated: true` flag.
+  announcement_channel: https://developers.zoom.us/changelog/?product=phone
+sunsets:
+- item: Legacy Call Logs API (v1)
+  operations: [accountCallLogs, getCallLogDetails, phoneUserCallLogs, syncUserCallLogs, deleteCallLog, addClientCodeToCallLog]
+  date: '2026-04'
+  replacement: Call History API (GET /phone/call_history, GET /phone/call_history/{call_history_uuid})
+  guide: https://developers.zoom.us/docs/phone/migrate/
+- item: Legacy Call Logs webhooks (v1)
+  events: [phone.call_log_deleted, phone.callee_call_log_completed, phone.caller_call_log_completed, phone.call_log_permanently_deleted]
+  date: '2026-05'
+  replacement: Call Element events (phone.call_element_deleted, phone.callee_call_element_completed, phone.caller_call_element_completed)
+  guide: https://developers.zoom.us/docs/phone/webhook-migrate/
+- item: call_log response array on Get account's call history
+  date: '2026-11'
+  replacement: call_history array with call_history_uuid + call_id
+- item: call_path response array on Get call history
+  date: '2026-11'
+  replacement: call_elements array with call_element_id + call_id
+- item: Get call history detail endpoint
+  date: '2026-11'
+  replacement: 'GET /phone/call_element/{call_element_id}'
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public uptime SLA for the Zoom Phone API. Zoom Phone service-level commitments are
+    contractual (enterprise agreements), not published on the developer surface.
+status_page: https://status.zoom.us/
+status_api: https://status.zoom.us/api/v2/status.json
+status_page_alternate: https://www.zoomstatus.com/
+support:
+  developer_forum: https://devforum.zoom.us/
+  support: https://developers.zoom.us/support/
+deprecated_operations:
+- operationId: getCallHandling
+  method: GET
+  path: /phone/extension/{extensionId}/call_handling/settings
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get call handling settings
+- operationId: addCallHandling
+  method: POST
+  path: /phone/extension/{extensionId}/call_handling/settings/{settingType}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Add a call handling setting
+- operationId: updateCallHandling
+  method: PATCH
+  path: /phone/extension/{extensionId}/call_handling/settings/{settingType}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Update a call handling setting
+- operationId: getCallHistoryDetail
+  method: GET
+  path: /phone/call_history_detail/{callHistoryId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get call history detail
+- operationId: accountCallLogs
+  method: GET
+  path: /phone/call_logs
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get account's call logs
+- operationId: getCallLogDetails
+  method: GET
+  path: /phone/call_logs/{callLogId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get call log details
+- operationId: addClientCodeToCallLog
+  method: PUT
+  path: /phone/call_logs/{callLogId}/client_code
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Add a client code to a call log
+- operationId: phoneUserCallLogs
+  method: GET
+  path: /phone/users/{userId}/call_logs
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get user's call logs
+- operationId: syncUserCallLogs
+  method: GET
+  path: /phone/users/{userId}/call_logs/sync
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Sync user's call logs
+- operationId: deleteCallLog
+  method: DELETE
+  path: /phone/users/{userId}/call_logs/{callLogId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Delete a user's call log
+- operationId: addBYOCNumber
+  method: POST
+  path: /phone/byoc_numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Add BYOC phone numbers
+- operationId: listAccountPhoneNumbers
+  method: GET
+  path: /phone/numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List phone numbers
+- operationId: deleteUnassignedPhoneNumbers
+  method: DELETE
+  path: /phone/numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Delete unassigned phone numbers
+- operationId: getPhoneNumberDetails
+  method: GET
+  path: /phone/numbers/{phoneNumberId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get a phone number
+- operationId: updatePhoneNumberDetails
+  method: PATCH
+  path: /phone/numbers/{phoneNumberId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Update a phone number
+- operationId: listPhonePlans
+  method: GET
+  path: /phone/plans
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List plan information
+- operationId: listCarrierPeeringPhoneNumbers
+  method: GET
+  path: /phone/carrier_peering/numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List carrier peering phone numbers.
+- operationId: listPeeringPhoneNumbers
+  method: GET
+  path: /phone/peering/numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List peering phone numbers
+- operationId: addPeeringPhoneNumbers
+  method: POST
+  path: /phone/peering/numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Add peering phone numbers
+- operationId: deletePeeringPhoneNumbers
+  method: DELETE
+  path: /phone/peering/numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Remove peering phone numbers
+- operationId: updatePeeringPhoneNumbers
+  method: PATCH
+  path: /phone/peering/numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Update peering phone numbers
+- operationId: getPhoneRecordingsByCallIdOrCallLogId
+  method: GET
+  path: /phone/call_logs/{id}/recordings
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get recording by call ID
+- operationId: listAccountSMSCampaigns
+  method: GET
+  path: /phone/sms_campaigns
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List SMS campaigns
+- operationId: GetSMSCampaign
+  method: GET
+  path: /phone/sms_campaigns/{smsCampaignId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get an SMS campaign
+- operationId: assignCampaignPhoneNumbers
+  method: POST
+  path: /phone/sms_campaigns/{smsCampaignId}/phone_numbers
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Assign a phone number to SMS campaign
+- operationId: unassignCampaignPhoneNumber
+  method: DELETE
+  path: /phone/sms_campaigns/{smsCampaignId}/phone_numbers/{phoneNumberId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Unassign a phone number
+- operationId: listPortedNumbers
+  method: GET
+  path: /phone/ported_numbers/orders
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List ported numbers
+- operationId: getPortedNumbersDetails
+  method: GET
+  path: /phone/ported_numbers/orders/{orderId}
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get ported numbers details
+- operationId: listSipGroups
+  method: GET
+  path: /phone/sip_groups
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List SIP groups
+- operationId: listBYOCSIPTrunk
+  method: GET
+  path: /phone/sip_trunk/trunks
+  source: openapi/zoom-phone-api-openapi.json
+  summary: List BYOC SIP trunks
+- operationId: getVoicemailDetailsByCallIdOrCallLogId
+  method: GET
+  path: /phone/users/{userId}/call_logs/{id}/voice_mail
+  source: openapi/zoom-phone-api-openapi.json
+  summary: Get user voicemail details from a call log

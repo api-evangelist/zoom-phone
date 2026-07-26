@@ -1,0 +1,2645 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  openapi/zoom-phone-api-openapi.json, openapi/zoom-phone-number-management-openapi.json
+  (oauth2 flows + per-operation x-macro-scopes / x-granular-scopes), confirmed against
+  https://developers.zoom.us/docs/integrations/oauth-scopes-granular/
+docs: https://developers.zoom.us/docs/integrations/oauth-scopes-granular/
+docs_classic: https://developers.zoom.us/docs/integrations/oauth-scopes/
+docs_overview: https://developers.zoom.us/docs/integrations/oauth-scopes-overview/
+docs_migration: https://developers.zoom.us/docs/integrations/migrate/
+summary: >-
+  Zoom runs two parallel scope models. CLASSIC scopes are coarse (phone:read, phone:write,
+  phone:read:admin, phone:write:admin, phone:master); GRANULAR scopes are per-operation and
+  follow product:action:resource[:admin|:master] — phone:read:list_users:admin,
+  phone:write:calling_plan:admin, number_management:delete:numbers:admin. Every Zoom Phone
+  operation publishes BOTH forms in its spec extension block (x-macro-scopes and
+  x-granular-scopes), which is why 435 distinct scopes are derivable from the two specs. Zoom
+  is actively migrating apps off classic scopes onto granular ones; new apps should request
+  granular scopes only, and the :admin / :master suffixes gate account-level and
+  master-account access respectively.
+authorization_endpoint: https://zoom.us/oauth/authorize
+token_endpoint: https://zoom.us/oauth/token
+metadata: https://zoom.us/.well-known/oauth-authorization-server
+schemes:
+- name: openapi_oauth
+  source: openapi/zoom-phone-api-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /
+- name: openapi_oauth
+  source: openapi/zoom-phone-number-management-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /
+scopes:
+- scope: number_management:delete:numbers:admin
+  description: number_management:delete:numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:delete:peering_number:admin
+  description: number_management:delete:peering_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:delete:sms_consent:admin
+  description: number_management:delete:sms_consent:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:list_carrier_peering_numbers:admin
+  description: number_management:read:list_carrier_peering_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:list_numbers:admin
+  description: number_management:read:list_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:list_peering_numbers:admin
+  description: number_management:read:list_peering_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:list_ported_numbers:admin
+  description: number_management:read:list_ported_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:list_sip_groups:admin
+  description: number_management:read:list_sip_groups:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:list_sip_trunks:admin
+  description: number_management:read:list_sip_trunks:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:list_sms_campaigns:admin
+  description: number_management:read:list_sms_campaigns:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:numbers:admin
+  description: number_management:read:numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:numbers_plan:admin
+  description: number_management:read:numbers_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:ported_number:admin
+  description: number_management:read:ported_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:sms_campaign:admin
+  description: number_management:read:sms_campaign:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:read:sms_consent:admin
+  description: number_management:read:sms_consent:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:update:numbers:admin
+  description: number_management:update:numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:update:peering_number:admin
+  description: number_management:update:peering_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:update:sms_consent:admin
+  description: number_management:update:sms_consent:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:write:byoc_numbers:admin
+  description: number_management:write:byoc_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:write:numbers:admin
+  description: number_management:write:numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:write:peering_number:admin
+  description: number_management:write:peering_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management:write:sms_consent:admin
+  description: number_management:write:sms_consent:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management_numbers:read:admin
+  description: number_management_numbers:read:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management_numbers:write:admin
+  description: number_management_numbers:write:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: number_management_numbers:write:master
+  description: number_management_numbers:write:master
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-number-management-openapi.json
+- scope: phone:delete:alert_setting:admin
+  description: phone:delete:alert_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:audio
+  description: phone:delete:audio
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:audio:admin
+  description: phone:delete:audio:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:auto_receptionist:admin
+  description: phone:delete:auto_receptionist:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:auto_receptionist_number:admin
+  description: phone:delete:auto_receptionist_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:auto_receptionist_policy:admin
+  description: phone:delete:auto_receptionist_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:auto_receptionist_setting:admin
+  description: phone:delete:auto_receptionist_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:blocked_list:admin
+  description: phone:delete:blocked_list:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_handling_setting:admin
+  description: phone:delete:call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_log
+  description: phone:delete:call_log
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_log:admin
+  description: phone:delete:call_log:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_pickup_group:admin
+  description: phone:delete:call_pickup_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_pickup_group_member:admin
+  description: phone:delete:call_pickup_group_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue:admin
+  description: phone:delete:call_queue:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue_custom_group:admin
+  description: phone:delete:call_queue_custom_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue_custom_group:master
+  description: phone:delete:call_queue_custom_group:master
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue_custom_group_member:admin
+  description: phone:delete:call_queue_custom_group_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue_member:admin
+  description: phone:delete:call_queue_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue_number:admin
+  description: phone:delete:call_queue_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue_policy:admin
+  description: phone:delete:call_queue_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_queue_setting:admin
+  description: phone:delete:call_queue_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_recording
+  description: phone:delete:call_recording
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:call_recording:admin
+  description: phone:delete:call_recording:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:carrier_number:admin
+  description: phone:delete:carrier_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:common_area:admin
+  description: phone:delete:common_area:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:common_area_calling_plan:admin
+  description: phone:delete:common_area_calling_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:common_area_number:admin
+  description: phone:delete:common_area_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:common_area_outbound_calling_rule:admin
+  description: phone:delete:common_area_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:common_area_setting:admin
+  description: phone:delete:common_area_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:customized_number:admin
+  description: phone:delete:customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:device:admin
+  description: phone:delete:device:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:device_extension:admin
+  description: phone:delete:device_extension:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:directory:admin
+  description: phone:delete:directory:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:emergency_address:admin
+  description: phone:delete:emergency_address:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:emergency_location:admin
+  description: phone:delete:emergency_location:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:extension_inbound_block_rule
+  description: phone:delete:extension_inbound_block_rule
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:extension_inbound_block_rule:admin
+  description: phone:delete:extension_inbound_block_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:extension_inbound_block_rule_stat:admin
+  description: phone:delete:extension_inbound_block_rule_stat:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:external_contact:admin
+  description: phone:delete:external_contact:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:fax_log
+  description: phone:delete:fax_log
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:fax_log:admin
+  description: phone:delete:fax_log:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:firmware_update_rule:admin
+  description: phone:delete:firmware_update_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:inbound_block_rule:admin
+  description: phone:delete:inbound_block_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:line_keys
+  description: phone:delete:line_keys
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:line_keys:admin
+  description: phone:delete:line_keys:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:monitoring_group:admin
+  description: phone:delete:monitoring_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:monitoring_group_member:admin
+  description: phone:delete:monitoring_group_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:number:admin
+  description: phone:delete:number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:outbound_calling_rule:admin
+  description: phone:delete:outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:peering_number:admin
+  description: phone:delete:peering_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:private_directory_member:admin
+  description: phone:delete:private_directory_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:provision_template:admin
+  description: phone:delete:provision_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:role:admin
+  description: phone:delete:role:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:role_member:admin
+  description: phone:delete:role_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:room:admin
+  description: phone:delete:room:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:room_calling_plan:admin
+  description: phone:delete:room_calling_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:room_phone_number:admin
+  description: phone:delete:room_phone_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:routing_rule:admin
+  description: phone:delete:routing_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:shared_line_group:admin
+  description: phone:delete:shared_line_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:shared_line_group_number:admin
+  description: phone:delete:shared_line_group_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:shared_line_group_policy:admin
+  description: phone:delete:shared_line_group_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:shared_line_group_setting:admin
+  description: phone:delete:shared_line_group_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:shared_line_member:admin
+  description: phone:delete:shared_line_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:shared_setting
+  description: phone:delete:shared_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:shared_setting:admin
+  description: phone:delete:shared_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:site:admin
+  description: phone:delete:site:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:site_customized_number:admin
+  description: phone:delete:site_customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:site_outbound_calling_rule:admin
+  description: phone:delete:site_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:site_setting:admin
+  description: phone:delete:site_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:sms_campaign_number:admin
+  description: phone:delete:sms_campaign_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_call_handling_setting
+  description: phone:delete:user_call_handling_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_call_handling_setting:admin
+  description: phone:delete:user_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_customized_number
+  description: phone:delete:user_customized_number
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_customized_number:admin
+  description: phone:delete:user_customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_number
+  description: phone:delete:user_number
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_number:admin
+  description: phone:delete:user_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_outbound_calling_rule:admin
+  description: phone:delete:user_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_setting
+  description: phone:delete:user_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:user_setting:admin
+  description: phone:delete:user_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:users_calling_plan
+  description: phone:delete:users_calling_plan
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:users_calling_plan:admin
+  description: phone:delete:users_calling_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:voicemail
+  description: phone:delete:voicemail
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:delete:voicemail:admin
+  description: phone:delete:voicemail:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:master
+  description: phone:master
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:patch:alert_setting:admin
+  description: phone:patch:alert_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read
+  description: phone:read
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:admin
+  description: phone:read:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:ai_call_summary
+  description: phone:read:ai_call_summary
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:ai_call_summary:admin
+  description: phone:read:ai_call_summary:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:alert_setting:admin
+  description: phone:read:alert_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:audio
+  description: phone:read:audio
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:audio:admin
+  description: phone:read:audio:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:auto_receptionist:admin
+  description: phone:read:auto_receptionist:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:auto_receptionist_call_handling_setting:admin
+  description: phone:read:auto_receptionist_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:auto_receptionist_ivr:admin
+  description: phone:read:auto_receptionist_ivr:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:auto_receptionist_policy:admin
+  description: phone:read:auto_receptionist_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:auto_receptionist_setting:admin
+  description: phone:read:auto_receptionist_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:billing_account:admin
+  description: phone:read:billing_account:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:blocked_list:admin
+  description: phone:read:blocked_list:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_charges:admin
+  description: phone:read:call_charges:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_log:admin
+  description: phone:read:call_log:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_pickup_group:admin
+  description: phone:read:call_pickup_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_pickup_group_member:admin
+  description: phone:read:call_pickup_group_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_qos:admin
+  description: phone:read:call_qos:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_queue:admin
+  description: phone:read:call_queue:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_queue_call_handling_setting:admin
+  description: phone:read:call_queue_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_queue_custom_group:admin
+  description: phone:read:call_queue_custom_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_queue_custom_group:master
+  description: phone:read:call_queue_custom_group:master
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_queue_policy:admin
+  description: phone:read:call_queue_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_queue_setting:admin
+  description: phone:read:call_queue_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_recording
+  description: phone:read:call_recording
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:call_recording:admin
+  description: phone:read:call_recording:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:common_area:admin
+  description: phone:read:common_area:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:common_area_call_handling_setting:admin
+  description: phone:read:common_area_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:common_area_outbound_calling_rule:admin
+  description: phone:read:common_area_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:default_emergency_address:admin
+  description: phone:read:default_emergency_address:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:detectable_personal_location:admin
+  description: phone:read:detectable_personal_location:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:device:admin
+  description: phone:read:device:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:device_line_keys
+  description: phone:read:device_line_keys
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:device_line_keys:admin
+  description: phone:read:device_line_keys:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:directory:admin
+  description: phone:read:directory:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:emergency_address:admin
+  description: phone:read:emergency_address:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:emergency_location:admin
+  description: phone:read:emergency_location:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:external_contact:admin
+  description: phone:read:external_contact:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:fax_charges:admin
+  description: phone:read:fax_charges:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:fax_log
+  description: phone:read:fax_log
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:fax_log:admin
+  description: phone:read:fax_log:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:firmware_update_rule:admin
+  description: phone:read:firmware_update_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:group_policy:admin
+  description: phone:read:group_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:group_setting:admin
+  description: phone:read:group_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:line_keys
+  description: phone:read:line_keys
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:line_keys:admin
+  description: phone:read:line_keys:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_account_settings:admin
+  description: phone:read:list_account_settings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_alert_settings:admin
+  description: phone:read:list_alert_settings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_audios
+  description: phone:read:list_audios
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_audios:admin
+  description: phone:read:list_audios:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_auto_receptionists:admin
+  description: phone:read:list_auto_receptionists:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_billing_accounts:admin
+  description: phone:read:list_billing_accounts:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_blocked_lists:admin
+  description: phone:read:list_blocked_lists:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_handling_settings:admin
+  description: phone:read:list_call_handling_settings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_logs
+  description: phone:read:list_call_logs
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_logs:admin
+  description: phone:read:list_call_logs:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_pickup_groups:admin
+  description: phone:read:list_call_pickup_groups:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_queue_members:admin
+  description: phone:read:list_call_queue_members:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_queue_recordings:admin
+  description: phone:read:list_call_queue_recordings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_queues:admin
+  description: phone:read:list_call_queues:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_call_recordings:admin
+  description: phone:read:list_call_recordings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_calling_plans:admin
+  description: phone:read:list_calling_plans:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_carrier_numbers:admin
+  description: phone:read:list_carrier_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_common_area_activation_codes:admin
+  description: phone:read:list_common_area_activation_codes:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_common_area_settings:admin
+  description: phone:read:list_common_area_settings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_customized_number:admin
+  description: phone:read:list_customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_devices:admin
+  description: phone:read:list_devices:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_emergency_addresses:admin
+  description: phone:read:list_emergency_addresses:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_emergency_locations:admin
+  description: phone:read:list_emergency_locations:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_extension_inbound_block_rules
+  description: phone:read:list_extension_inbound_block_rules
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_extension_inbound_block_rules:admin
+  description: phone:read:list_extension_inbound_block_rules:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_extension_inbound_block_rules_stat:admin
+  description: phone:read:list_extension_inbound_block_rules_stat:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_external_contacts:admin
+  description: phone:read:list_external_contacts:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_fax_log
+  description: phone:read:list_fax_log
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_fax_log:admin
+  description: phone:read:list_fax_log:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_firmware_update_rules:admin
+  description: phone:read:list_firmware_update_rules:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_firmwares:admin
+  description: phone:read:list_firmwares:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_inbound_block_rules:admin
+  description: phone:read:list_inbound_block_rules:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_monitoring_group_members:admin
+  description: phone:read:list_monitoring_group_members:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_monitoring_groups:admin
+  description: phone:read:list_monitoring_groups:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_numbers:admin
+  description: phone:read:list_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_outbound_calling_rules:admin
+  description: phone:read:list_outbound_calling_rules:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_peering_numbers:admin
+  description: phone:read:list_peering_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_ported_numbers:admin
+  description: phone:read:list_ported_numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_private_directory_members:admin
+  description: phone:read:list_private_directory_members:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_provision_templates:admin
+  description: phone:read:list_provision_templates:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_recordings
+  description: phone:read:list_recordings
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_recordings:admin
+  description: phone:read:list_recordings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_roles:admin
+  description: phone:read:list_roles:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_rooms:admin
+  description: phone:read:list_rooms:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_routing_rules:admin
+  description: phone:read:list_routing_rules:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_setting_templates:admin
+  description: phone:read:list_setting_templates:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_shared_line_appearances:admin
+  description: phone:read:list_shared_line_appearances:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_shared_line_groups:admin
+  description: phone:read:list_shared_line_groups:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_sip_groups:admin
+  description: phone:read:list_sip_groups:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_sip_trunks:admin
+  description: phone:read:list_sip_trunks:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_site_customized_number:admin
+  description: phone:read:list_site_customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_sites:admin
+  description: phone:read:list_sites:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_sms_campaigns:admin
+  description: phone:read:list_sms_campaigns:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_sms_sessions
+  description: phone:read:list_sms_sessions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_sms_sessions:admin
+  description: phone:read:list_sms_sessions:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_tracked_locations:admin
+  description: phone:read:list_tracked_locations:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_user_customized_number
+  description: phone:read:list_user_customized_number
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_user_customized_number:admin
+  description: phone:read:list_user_customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_users:admin
+  description: phone:read:list_users:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_voicemails
+  description: phone:read:list_voicemails
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:list_voicemails:admin
+  description: phone:read:list_voicemails:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:location_sharing_permission:admin
+  description: phone:read:location_sharing_permission:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:monitoring_group:admin
+  description: phone:read:monitoring_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:nomadic_emergency_services:admin
+  description: phone:read:nomadic_emergency_services:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:numbers:admin
+  description: phone:read:numbers:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:operation_logs:admin
+  description: phone:read:operation_logs:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:policy:admin
+  description: phone:read:policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:ported_number:admin
+  description: phone:read:ported_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:provision_template:admin
+  description: phone:read:provision_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:realtime_location_devices:admin
+  description: phone:read:realtime_location_devices:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:realtime_location_users:admin
+  description: phone:read:realtime_location_users:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:recording_transcript
+  description: phone:read:recording_transcript
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:recording_transcript:admin
+  description: phone:read:recording_transcript:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:role:admin
+  description: phone:read:role:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:role_member:admin
+  description: phone:read:role_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:room:admin
+  description: phone:read:room:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:routing_rule:admin
+  description: phone:read:routing_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:setting_template:admin
+  description: phone:read:setting_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:settings:admin
+  description: phone:read:settings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:shared_line_group:admin
+  description: phone:read:shared_line_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:shared_line_group_call_handling_setting:admin
+  description: phone:read:shared_line_group_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:shared_line_group_policy:admin
+  description: phone:read:shared_line_group_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:shared_line_group_setting:admin
+  description: phone:read:shared_line_group_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:site:admin
+  description: phone:read:site:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:site_outbound_calling_rule:admin
+  description: phone:read:site_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:site_setting:admin
+  description: phone:read:site_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_campaign:admin
+  description: phone:read:sms_campaign:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_campaign_number_opt_status
+  description: phone:read:sms_campaign_number_opt_status
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_campaign_number_opt_status:admin
+  description: phone:read:sms_campaign_number_opt_status:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_charges:admin
+  description: phone:read:sms_charges:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_consent_number_opt_status:admin
+  description: phone:read:sms_consent_number_opt_status:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_message
+  description: phone:read:sms_message
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_message:admin
+  description: phone:read:sms_message:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_session
+  description: phone:read:sms_session
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:sms_session:admin
+  description: phone:read:sms_session:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user
+  description: phone:read:user
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user:admin
+  description: phone:read:user:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user_call_handling_setting
+  description: phone:read:user_call_handling_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user_call_handling_setting:admin
+  description: phone:read:user_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user_outbound_calling_rule:admin
+  description: phone:read:user_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user_policy:admin
+  description: phone:read:user_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user_setting
+  description: phone:read:user_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:user_setting:admin
+  description: phone:read:user_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:voicemail
+  description: phone:read:voicemail
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:read:voicemail:admin
+  description: phone:read:voicemail:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:audio
+  description: phone:update:audio
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:audio:admin
+  description: phone:update:audio:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:auto_receptionist:admin
+  description: phone:update:auto_receptionist:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:auto_receptionist_call_handling_setting:admin
+  description: phone:update:auto_receptionist_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:auto_receptionist_ivr:admin
+  description: phone:update:auto_receptionist_ivr:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:auto_receptionist_policy:admin
+  description: phone:update:auto_receptionist_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:auto_receptionist_setting:admin
+  description: phone:update:auto_receptionist_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:batch_users:admin
+  description: phone:update:batch_users:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:blocked_list:admin
+  description: phone:update:blocked_list:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_handling_setting:admin
+  description: phone:update:call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_log:admin
+  description: phone:update:call_log:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_pickup_group:admin
+  description: phone:update:call_pickup_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_queue:admin
+  description: phone:update:call_queue:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_queue_call_handling_setting:admin
+  description: phone:update:call_queue_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_queue_custom_group:admin
+  description: phone:update:call_queue_custom_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_queue_policy:admin
+  description: phone:update:call_queue_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_queue_setting:admin
+  description: phone:update:call_queue_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_recording
+  description: phone:update:call_recording
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:call_recording:admin
+  description: phone:update:call_recording:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:calling_plan
+  description: phone:update:calling_plan
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:calling_plan:admin
+  description: phone:update:calling_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:carrier_number:admin
+  description: phone:update:carrier_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:common_area:admin
+  description: phone:update:common_area:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:common_area_call_handling_setting:admin
+  description: phone:update:common_area_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:common_area_outbound_calling_rule:admin
+  description: phone:update:common_area_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:common_area_setting:admin
+  description: phone:update:common_area_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:device:admin
+  description: phone:update:device:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:device_line_keys
+  description: phone:update:device_line_keys
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:device_line_keys:admin
+  description: phone:update:device_line_keys:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:device_provision_template:admin
+  description: phone:update:device_provision_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:emergency_address:admin
+  description: phone:update:emergency_address:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:emergency_location:admin
+  description: phone:update:emergency_location:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:external_contact:admin
+  description: phone:update:external_contact:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:firmware_update_rule:admin
+  description: phone:update:firmware_update_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:group_policy:admin
+  description: phone:update:group_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:inbound_block_rule:admin
+  description: phone:update:inbound_block_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:inbound_blocked_for_all:admin
+  description: phone:update:inbound_blocked_for_all:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:line_keys
+  description: phone:update:line_keys
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:line_keys:admin
+  description: phone:update:line_keys:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:monitoring_group:admin
+  description: phone:update:monitoring_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:number:admin
+  description: phone:update:number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:outbound_calling_rule:admin
+  description: phone:update:outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:peering_number:admin
+  description: phone:update:peering_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:policy:admin
+  description: phone:update:policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:private_directory_member:admin
+  description: phone:update:private_directory_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:provision_template:admin
+  description: phone:update:provision_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:role:admin
+  description: phone:update:role:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:room:admin
+  description: phone:update:room:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:routing_rule:admin
+  description: phone:update:routing_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:setting_template:admin
+  description: phone:update:setting_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:settings:admin
+  description: phone:update:settings:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:shared_line_group:admin
+  description: phone:update:shared_line_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:shared_line_group_call_handling_setting:admin
+  description: phone:update:shared_line_group_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:shared_line_group_policy:admin
+  description: phone:update:shared_line_group_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:shared_line_group_setting:admin
+  description: phone:update:shared_line_group_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:shared_setting
+  description: phone:update:shared_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:shared_setting:admin
+  description: phone:update:shared_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:site:admin
+  description: phone:update:site:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:site_number:admin
+  description: phone:update:site_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:site_outbound_calling_rule:admin
+  description: phone:update:site_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:site_setting:admin
+  description: phone:update:site_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:sms_campaign_number_opt_status:admin
+  description: phone:update:sms_campaign_number_opt_status:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user
+  description: phone:update:user
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user:admin
+  description: phone:update:user:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user_call_handling_setting
+  description: phone:update:user_call_handling_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user_call_handling_setting:admin
+  description: phone:update:user_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user_outbound_calling_rule:admin
+  description: phone:update:user_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user_policy:admin
+  description: phone:update:user_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user_setting
+  description: phone:update:user_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:user_setting:admin
+  description: phone:update:user_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:voicemail
+  description: phone:update:voicemail
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:update:voicemail:admin
+  description: phone:update:voicemail:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write
+  description: phone:write
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:admin
+  description: phone:write:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:alert_setting:admin
+  description: phone:write:alert_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:apply_template_to_common_areas:admin
+  description: phone:write:apply_template_to_common_areas:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:audio
+  description: phone:write:audio
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:audio:admin
+  description: phone:write:audio:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:auto_receptionist:admin
+  description: phone:write:auto_receptionist:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:auto_receptionist_number:admin
+  description: phone:write:auto_receptionist_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:auto_receptionist_policy:admin
+  description: phone:write:auto_receptionist_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:auto_receptionist_setting:admin
+  description: phone:write:auto_receptionist_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:batch_audios
+  description: phone:write:batch_audios
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:batch_audios:admin
+  description: phone:write:batch_audios:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:batch_emergency_locations:admin
+  description: phone:write:batch_emergency_locations:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:batch_users:admin
+  description: phone:write:batch_users:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:blocked_list:admin
+  description: phone:write:blocked_list:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:byo_carrier_number:admin
+  description: phone:write:byo_carrier_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_handling_setting:admin
+  description: phone:write:call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_pickup_group:admin
+  description: phone:write:call_pickup_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_pickup_group_member:admin
+  description: phone:write:call_pickup_group_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_queue:admin
+  description: phone:write:call_queue:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_queue_custom_group:admin
+  description: phone:write:call_queue_custom_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_queue_custom_group_member:admin
+  description: phone:write:call_queue_custom_group_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_queue_member:admin
+  description: phone:write:call_queue_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_queue_number:admin
+  description: phone:write:call_queue_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_queue_policy:admin
+  description: phone:write:call_queue_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:call_queue_setting:admin
+  description: phone:write:call_queue_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:calling_plan
+  description: phone:write:calling_plan
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:calling_plan:admin
+  description: phone:write:calling_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:carrier_number:admin
+  description: phone:write:carrier_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:common_area:admin
+  description: phone:write:common_area:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:common_area_calling_plan:admin
+  description: phone:write:common_area_calling_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:common_area_number:admin
+  description: phone:write:common_area_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:common_area_outbound_calling_rule:admin
+  description: phone:write:common_area_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:common_area_setting:admin
+  description: phone:write:common_area_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:customized_number:admin
+  description: phone:write:customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:device:admin
+  description: phone:write:device:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:device_extension:admin
+  description: phone:write:device_extension:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:directory:admin
+  description: phone:write:directory:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:emergency_address:admin
+  description: phone:write:emergency_address:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:emergency_location:admin
+  description: phone:write:emergency_location:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:extension_inbound_block_rule
+  description: phone:write:extension_inbound_block_rule
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:extension_inbound_block_rule:admin
+  description: phone:write:extension_inbound_block_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:external_contact:admin
+  description: phone:write:external_contact:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:firmware_update_rule:admin
+  description: phone:write:firmware_update_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:inbound_block_rule:admin
+  description: phone:write:inbound_block_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:monitoring_group:admin
+  description: phone:write:monitoring_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:monitoring_group_member:admin
+  description: phone:write:monitoring_group_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:outbound_calling_rule:admin
+  description: phone:write:outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:peering_number:admin
+  description: phone:write:peering_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:private_directory_member:admin
+  description: phone:write:private_directory_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:provision_template:admin
+  description: phone:write:provision_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:reboot_device:admin
+  description: phone:write:reboot_device:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:role:admin
+  description: phone:write:role:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:role_member:admin
+  description: phone:write:role_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:room:admin
+  description: phone:write:room:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:room_calling_plan:admin
+  description: phone:write:room_calling_plan:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:room_phone_number:admin
+  description: phone:write:room_phone_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:routing_rule:admin
+  description: phone:write:routing_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:send_fax
+  description: phone:write:send_fax
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:send_fax:admin
+  description: phone:write:send_fax:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:setting_template:admin
+  description: phone:write:setting_template:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:shared_line_group:admin
+  description: phone:write:shared_line_group:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:shared_line_group_number:admin
+  description: phone:write:shared_line_group_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:shared_line_group_policy:admin
+  description: phone:write:shared_line_group_policy:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:shared_line_group_setting:admin
+  description: phone:write:shared_line_group_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:shared_line_member:admin
+  description: phone:write:shared_line_member:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:shared_setting
+  description: phone:write:shared_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:shared_setting:admin
+  description: phone:write:shared_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:site:admin
+  description: phone:write:site:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:site_customized_number:admin
+  description: phone:write:site_customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:site_outbound_calling_rule:admin
+  description: phone:write:site_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:site_setting:admin
+  description: phone:write:site_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:sms_campaign_number:admin
+  description: phone:write:sms_campaign_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:sync_device:admin
+  description: phone:write:sync_device:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_call_handling_setting
+  description: phone:write:user_call_handling_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_call_handling_setting:admin
+  description: phone:write:user_call_handling_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_customized_number
+  description: phone:write:user_customized_number
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_customized_number:admin
+  description: phone:write:user_customized_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_number
+  description: phone:write:user_number
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_number:admin
+  description: phone:write:user_number:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_outbound_calling_rule:admin
+  description: phone:write:user_outbound_calling_rule:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_setting
+  description: phone:write:user_setting
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone:write:user_setting:admin
+  description: phone:write:user_setting:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_call_log:read
+  description: phone_call_log:read
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_call_log:read:admin
+  description: phone_call_log:read:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_call_log:write
+  description: phone_call_log:write
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_call_log:write:admin
+  description: phone_call_log:write:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_peering:read:admin
+  description: phone_peering:read:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_peering:write:admin
+  description: phone_peering:write:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_recording:read
+  description: phone_recording:read
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_recording:read:admin
+  description: phone_recording:read:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_recording:write
+  description: phone_recording:write
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_recording:write:admin
+  description: phone_recording:write:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_sms:read
+  description: phone_sms:read
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_sms:read:admin
+  description: phone_sms:read:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_sms:write
+  description: phone_sms:write
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_sms:write:admin
+  description: phone_sms:write:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_voicemail:read
+  description: phone_voicemail:read
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_voicemail:read:admin
+  description: phone_voicemail:read:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_voicemail:write
+  description: phone_voicemail:write
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+- scope: phone_voicemail:write:admin
+  description: phone_voicemail:write:admin
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/zoom-phone-api-openapi.json

@@ -1,0 +1,132 @@
+generated: '2026-07-25'
+method: searched
+source: https://developers.zoom.us/docs/api/rate-limits/
+docs: https://developers.zoom.us/docs/api/rate-limits/
+summary: >-
+  Zoom rate limits are enforced at the ACCOUNT level (shared across every app installed on the
+  account) and scale with the account plan. Every endpoint carries a Rate Limit Label — LIGHT,
+  MEDIUM, HEAVY or RESOURCE-INTENSIVE — published inside its OpenAPI description, and the label
+  selects which per-second/daily quota the call draws from. Zoom Phone APIs have their own,
+  higher table than the general Zoom API table. Exceeding a limit returns HTTP 429.
+enforcement:
+  scope: account
+  shared_across_apps: true
+  varies_by_plan: true
+  status_code: 429
+  labels_published_in_spec: true
+  retry_after_header: false
+  rate_limit_headers: false
+  note: >-
+    Zoom documents no X-RateLimit-* response headers and the OpenAPI declares no Retry-After
+    header; the daily-limit error message tells callers to "refer to the response header for
+    details on when you can make another request".
+rate_limits:
+- api: Zoom Phone API
+  plan: Pro
+  label: LIGHT
+  limit_count: 20
+  interval: second
+- api: Zoom Phone API
+  plan: Business+
+  label: LIGHT
+  limit_count: 40
+  interval: second
+- api: Zoom Phone API
+  plan: Pro
+  label: MEDIUM
+  limit_count: 10
+  interval: second
+- api: Zoom Phone API
+  plan: Business+
+  label: MEDIUM
+  limit_count: 20
+  interval: second
+- api: Zoom Phone API
+  plan: Pro
+  label: HEAVY
+  limit_count: 5
+  interval: second
+  daily_limit: 15000
+  note: Daily limit shared between heavy and resource-intensive APIs.
+- api: Zoom Phone API
+  plan: Business+
+  label: HEAVY
+  limit_count: 10
+  interval: second
+  daily_limit: 30000
+  note: Daily limit shared between heavy and resource-intensive APIs.
+- api: Zoom Phone API
+  plan: Pro
+  label: RESOURCE-INTENSIVE
+  limit_count: 5
+  interval: minute
+  daily_limit: 15000
+- api: Zoom Phone API
+  plan: Business+
+  label: RESOURCE-INTENSIVE
+  limit_count: 10
+  interval: minute
+  daily_limit: 30000
+general_zoom_api_limits:
+- plan: Free
+  label: LIGHT
+  limit_count: 4
+  interval: second
+  daily_limit: 6000
+- plan: Pro
+  label: LIGHT
+  limit_count: 30
+  interval: second
+- plan: Business+
+  label: LIGHT
+  limit_count: 80
+  interval: second
+- plan: Free
+  label: MEDIUM
+  limit_count: 2
+  interval: second
+  daily_limit: 2000
+- plan: Pro
+  label: MEDIUM
+  limit_count: 20
+  interval: second
+- plan: Business+
+  label: MEDIUM
+  limit_count: 60
+  interval: second
+- plan: Free
+  label: HEAVY
+  limit_count: 1
+  interval: second
+  daily_limit: 1000
+- plan: Pro
+  label: HEAVY
+  limit_count: 10
+  interval: second
+  note: 'Combined daily cap: 30,000 requests/day for heavy + resource-intensive.'
+- plan: Business+
+  label: HEAVY
+  limit_count: 40
+  interval: second
+  note: 'Combined daily cap: 60,000 requests/day for heavy + resource-intensive.'
+label_distribution:
+  source: derived from the Rate Limit Label published in each OpenAPI operation description
+  LIGHT: 310
+  MEDIUM: 86
+  HEAVY: 18
+  unlabelled: 5
+  total_operations: 419
+errors:
+- limit_type: per-second
+  status: 429
+  message: You have reached the maximum per-second rate limit for this API. Try again later.
+- limit_type: daily
+  status: 429
+  message: >-
+    You have reached the maximum daily rate limit for this API. Refer to the response header
+    for details on when you can make another request.
+best_practices:
+- Build retry mechanisms for failed requests.
+- Reduce request frequency where possible.
+- Cache responses to minimize repetitive requests.
+- Use webhooks instead of polling for real-time call state.

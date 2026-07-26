@@ -1,0 +1,365 @@
+generated: '2026-07-25'
+method: searched
+source: https://developers.zoom.us/changelog/
+docs: https://developers.zoom.us/changelog/?product=phone
+summary: >-
+  Zoom runs one dated, product-filtered platform changelog covering every API. Filtering to
+  product=Phone and product=Number Management yields 107 entries running from 2022-01-24 to
+  2026-07-20 — a genuinely maintained release feed, roughly two entries a month. Entries are
+  tagged api-release (95), deprecation (16), bug-fix (16), action-required (11),
+  breaking-change (4), sdk-version (2) and new-feature (1). The 30 most recent Phone and
+  Number Management entries are captured below; the live changelog remains the source of truth.
+scheme: dated-entries-by-product
+current_version: v2
+entry_count_phone_and_number_management: 107
+first_entry: '2022-01-24'
+latest_entry: '2026-07-20'
+tag_counts:
+  api-release: 95
+  deprecation: 16
+  bug-fix: 16
+  action-required: 11
+  breaking-change: 4
+  sdk-version: 2
+  new-feature: 1
+entries:
+- date: '2026-07-20'
+  product: Number Management
+  title: Add new request field to Cloud Peering Provider Exchange APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/number-management/july-20-2026
+  summary: Added the `customer_account_number` request field to the Cloud Peering Provider Exchange APIs for retrieving
+    peering numbers.
+- date: '2026-07-20'
+  product: Phone
+  title: Expand Zoom Phone APIs with new IVR, Call Queue, Fax, and settings fields
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/july-20-2026
+  summary: Added new request and response fields across Zoom Phone APIs, including IVR, Call Queues, Fax, Users,
+    Sites, Accounts, Groups, and Auto Receptionists, to support expanded routing, configuration, disclaimer, and
+    policy management capabilities.
+- date: '2026-07-16'
+  product: Number Management
+  title: Return assigned user names for phone numbers
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/number-management/july-16-2026
+  summary: Added the `assigned_to_name` response field to the Phone Numbers APIs to return the name of the user
+    or entity assigned to each phone number.
+- date: '2026-07-02'
+  product: Phone
+  title: Warm transfer with Zoom Phone
+  tags:
+  - api-release
+  - breaking-change
+  breaking: true
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/july-02-2026
+  summary: As of May 18th 2026, internal changes were made that require a new retrieval process for accessing warm
+    transfer call data. The following sections outline the changes. Moving forward, make sure your systems use the
+    appropriate implementation methods to ensure operations.
+- date: '2026-06-29'
+  product: Phone
+  title: Update Call Queue Custom Groups
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/june-29-2026
+  summary: Added new APIs to update custom groups in a call queue.
+- date: '2026-06-22'
+  product: Phone
+  title: Expanded Zoom Phone APIs for call handling, settings, recordings, and voicemail
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/june-22-2026
+  summary: Added comprehensive Zoom Phone APIs for managing call handling, settings, custom groups, recordings,
+    voicemails, and user configurations across common areas, call queues, shared line groups, auto receptionists,
+    and users. Also enhanced reporting, monitoring group, emergency service location, and use
+- date: '2026-06-04'
+  product: Phone
+  title: Add call ID filtering to call history APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/june-04-2026
+  summary: Added a new `call_ids` request field to the Call Logs APIs to retrieve call history for specific call
+    IDs.
+- date: '2026-06-01'
+  product: Phone
+  title: New call ID filtering for call history APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/june-01-2026
+  summary: Added a new `call_ids` request field to Call Logs APIs to enable filtering and retrieval of call history
+    records by specific call IDs.
+- date: '2026-05-28'
+  product: Phone
+  title: Deprecation of Call Log APIs and enhancements to Call History APIs
+  tags:
+  - breaking-change
+  - deprecation
+  breaking: true
+  deprecation: true
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/deprecation-of-call-log-apis-and-enhancements-to-call-history-apis
+  summary: "Zoom Phone API introduced new endpoints in December 2023 to replace Call Logs. The v1 Call Logs APIs\
+    \ will be deprecated in May 2026. This timeline extends the previously announced deprecation to give developers\
+    \ more time to migrate.\r Key migration endpoints\r - Get account call history: Returns summa"
+- date: '2026-05-26'
+  product: Phone
+  title: Phone API endpoint deprecations
+  tags:
+  - breaking-change
+  - deprecation
+  breaking: true
+  deprecation: true
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/phone-api-endpoint-deprecations
+  summary: "Zoom deprecated several endpoints for phone numbers, plans, cloud peering, SMS campaigns, and related\
+    \ settings. \r Use the new Number Management APIs for enhanced, streamlined management.\r Migrate by June 30,\
+    \ 2026.  We will not support deprecated endpoints after this date and fully sunset on December"
+- date: '2026-05-18'
+  product: Phone
+  title: New Call Queue policy APIs and expanded Zoom Phone policy settings
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/may-18-2026
+  summary: Introduced Call Queue policy APIs and added new fields across Zoom Phone resources to support call screening,
+    SMS automation, voicemail settings, transcription language, and routing.
+- date: '2026-04-23'
+  product: Phone
+  title: Enhance SMS APIs with delivery status and sorting options
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/april-23-2026
+  summary: Adds a `delivery_status` response field to SMS session and message endpoints, and introduces a `sort
+    `request field to SMS session APIs to control result ordering.
+- date: '2026-04-20'
+  product: Phone
+  title: New connection type field
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/april-20-2026
+  summary: Added a `connection_type` field to the `phone.transfer_recipient_updated` webhook to improve tracking
+    and integration logic for transfer recipient changes.
+- date: '2026-04-06'
+  product: Phone
+  title: Upcoming deprecation of Call Log APIs and enhancements to Call History APIs
+  tags:
+  - breaking-change
+  - deprecation
+  breaking: true
+  deprecation: true
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/upcoming-deprecation-of-call-log-apis-and-enhancements-to-call-history-apis
+  summary: "Zoom Phone API introduced new endpoints in December 2023 to replace Call Logs. The v1 Call Logs APIs\
+    \ will be deprecated in May 2026. This timeline extends the previously announced deprecation to give developers\
+    \ more time to migrate.\r Key migration endpoints\r - Get account call history: Returns summa"
+- date: '2026-03-26'
+  product: Number Management
+  title: Improved Cloud Peering Provider Exchange APIs with new request and response fields
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/number-management/march-26-2026
+  summary: New request and response fields to Cloud Peering Provider Exchange APIs, including `allocated_product`
+    and capability indicators.
+- date: '2026-03-23'
+  product: Phone
+  title: Enhanced Phone Devices API responses
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/march-23-2026
+  summary: Added new network, policy, firmware, and description fields to Phone Devices list API responses.
+- date: '2026-03-02'
+  product: Phone
+  title: Expanded Fax log management APIs and webhook events
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/march-02-2026
+  summary: Added new Fax APIs to update and delete fax logs and introduced related webhook events. Enhanced Fax
+    log APIs with a new `read_status` response field.
+- date: '2026-02-09'
+  product: Phone
+  title: SMS charges report now includes delivery status details
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/february-09-2026
+  summary: The SMS charges report APIs now return `delivery_status` and `delivery_detail` fields  to track message
+    delivery outcomes for billed SMS messages.
+- date: '2026-01-19'
+  product: Phone
+  title: User phone settings now include opt-out status
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/january-19-2026
+  summary: The Users Phone Settings APIs now return a new `allow_opt_out` field. Developers can now determine whether
+    a user can opt out of phone features.
+- date: '2026-01-12'
+  product: Phone
+  title: Phone user activation status available
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/january-12-2026
+  summary: Enhanced the Phone Users APIs with an `activation_status` response field to indicate each user’s phone
+    activation state.
+- date: '2025-12-22'
+  product: Phone
+  title: New fax file and document upload APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/december-22-2025
+  summary: Introduces four new Fax endpoints enabling file and document uploads at both the global and account levels,
+    supporting expanded faxing workflows.
+- date: '2025-12-15'
+  product: Number Management
+  title: New SMS consent management APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/number-management/december-15-2025
+  summary: Introduces a full set of APIs to create, update, retrieve, and delete SMS consent records and associated
+    phone numbers at both the account and global level.
+- date: '2025-12-15'
+  product: Phone
+  title: Expanded response fields for Phone settings and webhooks
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/december-15-2025
+  summary: Adds numerous new response fields to Groups and Accounts Phone Settings APIs, and extends related webhook
+    events with additional settings fields for improved configuration visibility.
+- date: '2025-12-08'
+  product: Phone
+  title: Call Logs APIs now include caller and callee account codes
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/december-08-2025
+  summary: Added new `caller_account_code` and `callee_account_code` fields to all Call Logs–related endpoints for
+    clearer account attribution across call history and call element APIs.
+- date: '2025-11-24'
+  product: Phone
+  title: New fax reporting and log retrieval APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/november-24-2025
+  summary: Adds multiple Reports and Fax API endpoints enabling detailed fax charge reporting, fax log retrieval,
+    and access to associated fax files across account, extension, and phone-level resources.
+- date: '2025-11-17'
+  product: Phone
+  title: Added site_id field support in Phone Devices APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/november-17-2025
+  summary: Enhanced the Phone Devices APIs to include a new site_id request fields.
+- date: '2025-11-13'
+  product: Phone
+  title: Call History API migration
+  tags:
+  - api-release
+  - deprecation
+  breaking: false
+  deprecation: true
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/november-13-2025
+  summary: The Zoom Call History API endpoints replace the deprecated legacy Call Logs endpoints. The new APIs include
+    all existing functionality with added capabilities, such as enhanced filtering, sorting, and detailed call history
+    retrieval. Developers should update their integrations to use the new Call Hi
+- date: '2025-11-10'
+  product: Phone
+  title: New and enhanced Call Logs APIs
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/november-10-2025
+  summary: Zoom has launched new Call Logs endpoints that enable detailed call history retrieval, while also introducing
+    a call_elements response field to the existing Call Logs APIs to provide richer call data.
+- date: '2025-10-23'
+  product: Phone
+  title: New Call Logs APIs and enhanced webhook and response fields
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/october-23-2025
+  summary: This update introduces new Call Logs APIs for retrieving detailed call element information and new webhook
+    events for monitoring call element activity. It also enhances existing Recordings, Voicemails, and Call Logs
+    APIs by adding the call_element_id and call_history response fields, improving trace
+- date: '2025-10-20'
+  product: Phone
+  title: Support for shared_lines_call_setting in Users API
+  tags:
+  - api-release
+  breaking: false
+  deprecation: false
+  action_required: false
+  url: https://developers.zoom.us/changelog/phone/october-20-2025
+  summary: The Users APIs now include a new shared_lines_call_setting field in both request and response payloads,
+    enabling configuration and retrieval of shared line call settings.

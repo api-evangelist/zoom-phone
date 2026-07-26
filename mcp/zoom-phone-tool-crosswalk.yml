@@ -1,0 +1,451 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  openapi/zoom-phone-api-openapi.json, openapi/zoom-phone-number-management-openapi.json,
+  mcp/zoom-phone-mcp.yml, https://developers.zoom.us/.well-known/mcp/server-card.json
+summary: >-
+  Zoom ships both a large REST surface for Zoom Phone (419 operations across two OpenAPI
+  documents) and a fleet of hosted MCP servers — but the two do not overlap. No Zoom MCP
+  server exposes Zoom Phone provisioning, call history, SMS or number management, and the
+  live tools/list on the general Workspace server is auth-gated (HTTP 401, -32001
+  "Access token is required"), so no tool names or inputSchemas are published for ANY Zoom
+  server. This crosswalk therefore records a complete divergence rather than a mapping: every
+  Zoom Phone capability is REST-only. No tool-to-operation bindings are invented.
+surfaces:
+  openapi:
+  - file: openapi/zoom-phone-api-openapi.json
+    operations: 391
+    base_url: https://api.zoom.us/v2
+    gated: false
+  - file: openapi/zoom-phone-number-management-openapi.json
+    operations: 28
+    base_url: https://api.zoom.us/v2
+    gated: false
+  graphql: null
+  mcp:
+    url: https://mcp.zoom.us/mcp/zoom/streamable
+    gated: true
+    gate: 'tools/list -> HTTP 401 {"code":-32001,"message":"Access token is required"}'
+    phone_server: 'https://mcp.zoom.us/mcp/phone/streamable -> HTTP 404 {"code":-32602,"message":"instance not found"}'
+crosswalk: []
+mcp_only:
+- tool: null
+  reason: >-
+    No Zoom Phone MCP tools are published. The Workspace, Docs, Whiteboard, Chat, Meetings,
+    Tasks and Revenue Accelerator servers advertise capabilities only in prose (server card
+    descriptions and registry `examples` blocks), never as named tools with schemas.
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_operations_total: 419
+  rest_operations_with_tool: 0
+  note: >-
+    tools_named is 0 because the live manifest is auth-gated AND Zoom's llms.txt/docs do not
+    enumerate tools. Re-run this crosswalk with an authenticated tools/list to bind real tools.
+rest_only:
+- capability: Accounts
+  api: Zoom Phone API
+  operations: 4
+  examples:
+  - addOutboundCallerNumbers
+  - deleteOutboundCallerNumbers
+  - listCustomizeOutboundCallerNumbers
+  - listZoomPhoneAccountSettings
+- capability: Alerts
+  api: Zoom Phone API
+  operations: 5
+  examples:
+  - AddAnAlertSetting
+  - DeleteAnAlertSetting
+  - GetAlertSettingDetails
+  - ListAlertSettingsWithPagingQuery
+- capability: Audio Library
+  api: Zoom Phone API
+  operations: 6
+  examples:
+  - AddAnAudio
+  - AddAudioItem
+  - DeleteAudioItem
+  - GetAudioItem
+- capability: Auto Receptionists
+  api: Zoom Phone API
+  operations: 19
+  examples:
+  - AddPolicy
+  - DeletePolicy
+  - addAutoReceptionist
+  - addAutoReceptionistSetting
+- capability: Billing Account
+  api: Zoom Phone API
+  operations: 2
+  examples:
+  - GetABillingAccount
+  - listBillingAccount
+- capability: Blocked List
+  api: Zoom Phone API
+  operations: 5
+  examples:
+  - addAnumberToBlockedList
+  - deleteABlockedList
+  - getABlockedList
+  - listBlockedList
+- capability: Call Handling
+  api: Zoom Phone API
+  operations: 4
+  examples:
+  - addCallHandling
+  - deleteCallHandling
+  - getCallHandling
+  - updateCallHandling
+- capability: Call Logs
+  api: Zoom Phone API
+  operations: 15
+  examples:
+  - accountCallHistory
+  - accountCallLogs
+  - addClientCodeToCallHistory
+  - addClientCodeToCallLog
+- capability: Call Queues
+  api: Zoom Phone API
+  operations: 32
+  examples:
+  - Addmemberstoacustomgroup
+  - Createacustomgroupinacallqueue
+  - Deleteacustomgroup
+  - Getacustomgroup
+- capability: Carrier Reseller
+  api: Zoom Phone API
+  operations: 4
+  examples:
+  - activeCRPhoneNumbers
+  - createCRPhoneNumbers
+  - deleteCRPhoneNumber
+  - listCRPhoneNumbers
+- capability: Common Areas
+  api: Zoom Phone API
+  operations: 19
+  examples:
+  - AddCommonAreaSetting
+  - ApplyTemplatetoCommonAreas
+  - Generateactivationcodesforcommonareas
+  - UpdateCommonAreaPinCode
+- capability: Dashboard
+  api: Zoom Phone API
+  operations: 11
+  examples:
+  - getCallLogMetricsDetails
+  - getCallQoS
+  - listCallLogsMetrics
+  - listPastCallMetrics
+- capability: Device Line Keys
+  api: Zoom Phone API
+  operations: 2
+  examples:
+  - batchUpdateDeviceLineKeySetting
+  - listDeviceLineKeySetting
+- capability: Dial by Name Directory
+  api: Zoom Phone API
+  operations: 6
+  examples:
+  - AddUsersToDirectory
+  - AddUsersToDirectoryBySite
+  - DeleteUsersFromDirectory
+  - DeleteUsersFromDirectoryBySite
+- capability: Emergency Addresses
+  api: Zoom Phone API
+  operations: 5
+  examples:
+  - addEmergencyAddress
+  - deleteEmergencyAddress
+  - getEmergencyAddress
+  - listEmergencyAddresses
+- capability: Emergency Service Locations
+  api: Zoom Phone API
+  operations: 6
+  examples:
+  - addLocation
+  - batchAddLocations
+  - deleteLocation
+  - getLocation
+- capability: External Contacts
+  api: Zoom Phone API
+  operations: 5
+  examples:
+  - addExternalContact
+  - deleteAExternalContact
+  - getAExternalContact
+  - listExternalContacts
+- capability: Fax
+  api: Zoom Phone API
+  operations: 8
+  examples:
+  - DeleteFaxLog
+  - Downloadfaxfile
+  - GetAccount'sFaxLogs
+  - GetFaxLogDetails
+- capability: Firmware Update Rules
+  api: Zoom Phone API
+  operations: 6
+  examples:
+  - AddFirmwareRule
+  - DeleteFirmwareUpdateRule
+  - GetFirmwareRuleDetail
+  - ListFirmwareRules
+- capability: Group Call Pickup
+  api: Zoom Phone API
+  operations: 8
+  examples:
+  - GetGCP
+  - addGCP
+  - addGCPMembers
+  - deleteGCP
+- capability: Groups
+  api: Zoom Phone API
+  operations: 3
+  examples:
+  - GetGroupPolicyDetails
+  - getGroupPhoneSettings
+  - updateGroupPolicy
+- capability: IVR
+  api: Zoom Phone API
+  operations: 2
+  examples:
+  - getAutoReceptionistIVR
+  - updateAutoReceptionistIVR
+- capability: Inbound Blocked List
+  api: Zoom Phone API
+  operations: 10
+  examples:
+  - AddAccountLevelInboundBlockRules
+  - AddExtensiontLevelInboundBlockRules
+  - DeleteAccountLevelInboundBlockRules
+  - DeleteAccountLevelInboundBlockedStatistics
+- capability: Line Keys
+  api: Zoom Phone API
+  operations: 3
+  examples:
+  - BatchUpdateLineKeySetting
+  - DeleteLineKey
+  - listLineKeySetting
+- capability: Monitoring Groups
+  api: Zoom Phone API
+  operations: 9
+  examples:
+  - addMembers
+  - createMonitoringGroup
+  - deleteMonitoringGroup
+  - getMonitoringGroupById
+- capability: Outbound Calling
+  api: Zoom Phone API
+  operations: 24
+  examples:
+  - AddAccountOutboundCallingExceptionRule
+  - AddCommonAreaOutboundCallingExceptionRule
+  - AddSiteOutboundCallingExceptionRule
+  - AddUserOutboundCallingExceptionRule
+- capability: Phone Devices
+  api: Zoom Phone API
+  operations: 11
+  examples:
+  - ListSmartphones
+  - addExtensionsToADevice
+  - addPhoneDevice
+  - deleteADevice
+- capability: Phone Numbers
+  api: Zoom Phone API
+  operations: 8
+  examples:
+  - UnassignPhoneNumber
+  - addBYOCNumber
+  - assignPhoneNumber
+  - deleteUnassignedPhoneNumbers
+- capability: Phone Plans
+  api: Zoom Phone API
+  operations: 2
+  examples:
+  - listCallingPlans
+  - listPhonePlans
+- capability: Phone Roles
+  api: Zoom Phone API
+  operations: 11
+  examples:
+  - AddPhoneRoleTargets
+  - AddRoleMembers
+  - DelRoleMembers
+  - DeletePhoneRole
+- capability: Private Directory
+  api: Zoom Phone API
+  operations: 4
+  examples:
+  - addMembersToAPrivateDirectory
+  - listPrivateDirectoryMembers
+  - removeAMemberFromAPrivateDirectory
+  - updateAPrivateDirectoryMember
+- capability: Provider Exchange
+  api: Zoom Phone API
+  operations: 5
+  examples:
+  - addPeeringPhoneNumbers
+  - deletePeeringPhoneNumbers
+  - listCarrierPeeringPhoneNumbers
+  - listPeeringPhoneNumbers
+- capability: Provision Templates
+  api: Zoom Phone API
+  operations: 5
+  examples:
+  - GetProvisionTemplate
+  - addProvisionTemplate
+  - deleteProvisionTemplate
+  - listAccountProvisionTemplate
+- capability: Recordings
+  api: Zoom Phone API
+  operations: 9
+  examples:
+  - UpdateAutoDeleteField
+  - UpdateRecordingStatus
+  - deleteCallRecording
+  - getPhoneRecordingByCallElementId
+- capability: Reports
+  api: Zoom Phone API
+  operations: 4
+  examples:
+  - GetCallChargesUsageReport
+  - GetSMSChargesUsageReport
+  - Getfaxchargesusagereport
+  - getPSOperationLogs
+- capability: Routing Rules
+  api: Zoom Phone API
+  operations: 5
+  examples:
+  - addRoutingRule
+  - deleteRoutingRule
+  - getRoutingRule
+  - listRoutingRule
+- capability: SMS
+  api: Zoom Phone API
+  operations: 7
+  examples:
+  - GetSmsSessions
+  - accountSmsSession
+  - postSmsMessage
+  - smsByMessageId
+- capability: SMS Campaign
+  api: Zoom Phone API
+  operations: 7
+  examples:
+  - GetSMSCampaign
+  - assignCampaignPhoneNumbers
+  - getNumberCampaignOptStatus
+  - getUserNumberCampaignOptStatus
+- capability: SMS Consent
+  api: Zoom Phone API
+  operations: 1
+  examples:
+  - getNumberConsentOptStatus
+- capability: Setting Templates
+  api: Zoom Phone API
+  operations: 4
+  examples:
+  - addSettingTemplate
+  - getSettingTemplate
+  - listSettingTemplates
+  - updateSettingTemplate
+- capability: Settings
+  api: Zoom Phone API
+  operations: 8
+  examples:
+  - GetAccountPolicyDetails
+  - getPortedNumbersDetails
+  - listBYOCSIPTrunk
+  - listPortedNumbers
+- capability: Shared Line Appearance
+  api: Zoom Phone API
+  operations: 1
+  examples:
+  - listSharedLineAppearances
+- capability: Shared Line Group
+  api: Zoom Phone API
+  operations: 22
+  examples:
+  - addMembersToSharedLineGroup
+  - addSLGPolicySubSetting
+  - addSharedLineGroupSetting
+  - assignPhoneNumbersSLG
+- capability: Sites
+  api: Zoom Phone API
+  operations: 12
+  examples:
+  - addSiteOutboundCallerNumbers
+  - addSiteSetting
+  - createPhoneSite
+  - deletePhoneSite
+- capability: Users
+  api: Zoom Phone API
+  operations: 24
+  examples:
+  - GetUserPolicyDetails
+  - addUserCallForwardSetting
+  - addUserOutboundCallerNumbers
+  - addUserProfileSetting
+- capability: Voicemails
+  api: Zoom Phone API
+  operations: 8
+  examples:
+  - accountVoiceMails
+  - deleteVoicemail
+  - getVoicemailDetails
+  - getVoicemailDetailsByCallElementId
+- capability: Zoom Rooms
+  api: Zoom Phone API
+  operations: 10
+  examples:
+  - RemoveZoomRoom
+  - UnassignPhoneNumberFromZoomRoom
+  - addZoomRoom
+  - assignCallingPlanToRoom
+- capability: Cloud Peering Provider Exchange
+  api: Number Management API
+  operations: 5
+  examples:
+  - Listpeeringphonenumbersforprovider
+  - addPeeringPhoneNumbers
+  - deletePeeringPhoneNumbers
+  - listPeeringPhoneNumbers
+- capability: Phone Numbers
+  api: Number Management API
+  operations: 6
+  examples:
+  - AddBYOCPhoneNumber
+  - AllocateNumber
+  - DeleteNumbers
+  - getPhoneNumber
+- capability: Phone Plan
+  api: Number Management API
+  operations: 1
+  examples:
+  - Listphonenumberplaninformation
+- capability: SMS Campaigns
+  api: Number Management API
+  operations: 4
+  examples:
+  - GetSMSCampaign
+  - assignCampaignPhoneNumbers
+  - listAccountSMSCampaigns
+  - unassignCampaignPhoneNumber
+- capability: SMS Consent
+  api: Number Management API
+  operations: 8
+  examples:
+  - AssignPhoneNumbersToConsent
+  - CreateSMSConsent
+  - DeleteSMSConsents
+  - GetSMSConsent
+- capability: Setting
+  api: Number Management API
+  operations: 4
+  examples:
+  - Getportednumbersdetails
+  - ListBYOCSIPtrunks
+  - ListSIPgroups
+  - Listportednumbers

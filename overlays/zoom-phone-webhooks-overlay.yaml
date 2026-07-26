@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Zoom Phone Webhooks
+  version: 1.0.0
+extends: openapi/zoom-phone-webhooks-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: zoom-phone
+    x-apievangelist-generated: '2026-07-25'
+    x-apievangelist-artifacts:
+      authentication: authentication/zoom-phone-authentication.yml
+      scopes: scopes/zoom-phone-scopes.yml
+      conventions: conventions/zoom-phone-conventions.yml
+      errors: errors/zoom-phone-problem-types.yml
+      lifecycle: lifecycle/zoom-phone-lifecycle.yml
+      rate_limits: rate-limits/zoom-phone-rate-limits.yml
+      conformance: conformance/zoom-phone-conformance.yml
+      data_model: data-model/zoom-phone-data-model.yml
+      webhooks: asyncapi/zoom-phone-webhooks.yml
+      skills: skills/_index.yml
+    x-apievangelist-notes:
+      error_format: flat {code, message}; not RFC 9457 problem+json
+      idempotency: not supported — no Idempotency-Key on any operation
+      pagination: n/a (event document)
+      rate_limit_labels: LIGHT/MEDIUM/HEAVY published in each operation description
+      components_schemas: none declared — all bodies are inlined

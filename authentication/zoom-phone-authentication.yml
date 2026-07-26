@@ -1,0 +1,59 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  openapi/zoom-phone-api-openapi.json, openapi/zoom-phone-number-management-openapi.json,
+  https://developers.zoom.us/docs/integrations/oauth/,
+  https://developers.zoom.us/docs/internal-apps/s2s-oauth/,
+  https://developers.zoom.us/docs/api/using-zoom-apis/,
+  https://api.zoom.us/.well-known/oauth-authorization-server
+docs: https://developers.zoom.us/docs/integrations/oauth/
+summary_narrative: >-
+  Zoom Phone accepts exactly one credential: an OAuth 2.0 bearer access token in the
+  Authorization header. The apiKey scheme the specs declare (openapi_authorization, header
+  "Authorization") is the spec's representation of that bearer header, not a separate API-key
+  model — there are no Zoom Phone API keys. Four app shapes issue tokens: user-managed OAuth
+  (authorization_code), Server-to-Server OAuth (Zoom's own account_credentials grant, the right
+  choice for provisioning and reporting), device authorization (device_code), and client
+  credentials. Access tokens are short-lived and refreshed with refresh_token; the token
+  response carries an api_url naming the region that should serve the account. JWT app
+  credentials survive only for the Video/Meeting SDKs, not the Phone REST API.
+oauth_metadata:
+  issuer: https://zoom.us
+  authorization_endpoint: https://zoom.us/oauth/authorize
+  token_endpoint: https://zoom.us/oauth/token
+  grant_types_supported: [authorization_code, refresh_token, client_credentials, 'urn:ietf:params:oauth:grant-type:jwt-bearer']
+  token_endpoint_auth_methods_supported: [client_secret_basic]
+  response_types_supported: [code]
+  service_documentation: https://developers.zoom.us/docs/integrations/oauth/
+  source: https://api.zoom.us/.well-known/oauth-authorization-server (RFC 8414, HTTP 200)
+  openid_connect: false
+webhook_authentication:
+  signature_header: x-zm-signature
+  timestamp_header: x-zm-request-timestamp
+  algorithm: HMAC-SHA256 over "v0:{timestamp}:{raw body}" with the app secret token
+  validation: endpoint.url_validation challenge/response
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: openapi_authorization
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+  - openapi/zoom-phone-number-management-openapi.json
+- name: openapi_oauth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /
+    scopes: 410
+  sources:
+  - openapi/zoom-phone-api-openapi.json
+  - openapi/zoom-phone-number-management-openapi.json

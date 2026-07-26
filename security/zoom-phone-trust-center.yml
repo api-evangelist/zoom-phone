@@ -1,0 +1,23 @@
+generated: '2026-07-25'
+method: searched
+probe: true
+source: https://trust.zoom.com/
+url: https://trust.zoom.com/
+certifications:
+- SOC 2
+- ISO 27001
+- ISO 27017
+- ISO 27018
+- PCI DSS
+- FedRAMP
+- CSA STAR
+evidence:
+- source: https://trust.zoom.com/
+  keywords:
+  - soc 2
+  - iso/iec 27001
+  - pci dss
+  - pci-dss
+  - fedramp
+  - trust center
+  - csa star

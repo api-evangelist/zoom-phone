@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.0",
+  "serverInfo": {
+    "name": "Zoom MCP Server",
+    "version": "1.0.0"
+  },
+  "transport": {
+    "type": "http",
+    "endpoint": "https://mcp.zoom.us/mcp/zoom/streamable"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": false
+  },
+  "description": "It is used for OpenAI Apps & Connectors, enabling seamless interaction and automated features.",
+  "icon": "https://file.zoom.us/public/file/qRnlTyeQQu-uURCTPDgbjw/MS4zLst0Vj6yHwW6rXovufpXsohivKG_CEyhw68dV8XBG5-1/pic_607393ebcdf34802a62bed74507b0afc-E2830709-BD1D-4A6B-AEDB-34638B97579C.jpg",
+  "authentication": {
+    "type": "s2s",
+    "tokenType": "oauth"
+  },
+  "relatedServers": [
+    {
+      "schemaVersion": "1.0",
+      "serverInfo": {
+        "name": "Zoom Whiteboard MCP Server",
+        "version": "1.0.0"
+      },
+      "transport": {
+        "type": "http",
+        "endpoint": "https://mcp.zoom.us/mcp/whiteboard/streamable"
+      },
+      "capabilities": {
+        "tools": true,
+        "resources": false,
+        "prompts": false
+      },
+      "description": "Use this MCP server to create new Zoom Whiteboards and diagrams from prompts. Generate fully editable workshop and planning boards, as well as diagrams ranging from simple flowcharts to technical class and ER diagrams. This MCP server can also locate existing whiteboards in a user’s account. The assistant only accesses boards the user can access.",
+      "icon": "https://file.zoom.us/public/file/wuBFnsaaQOShe3WvmnNvuw/MS4zLnQ5AkWHtocF8k_LRZ54qiJ7HybDKyxa29YmuSfFSwGE/pic_33f1782b320a4343a7fc16fcad4ad005-whiteboard.png",
+      "authentication": {
+        "type": "s2s",
+        "tokenType": "oauth"
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "serverInfo": {
+        "name": "Zoom Docs MCP Server",
+        "version": "1.0.0"
+      },
+      "transport": {
+        "type": "http",
+        "endpoint": "https://mcp.zoom.us/mcp/docs/streamable"
+      },
+      "capabilities": {
+        "tools": true,
+        "resources": false,
+        "prompts": false
+      },
+      "description": "The Zoom Docs MCP Server provides a unified interface for creating, updating, and managing Zoom documents. It enables developers and AI agents to efficiently manage document content and metadata through simple, structured tool calls with Markdown support.",
+      "icon": "https://file.zoom.us/public/file/kVnFxkKtTzOoe9l1u9-WDA/MS4zLv-m-U7rrMCs4Fxq9BQr5IlJRLi1o5NhVjUZu9hbqlKX/pic_682da0386e7d4201a4b656d42b691849-favicon_docs.f4886b66.png",
+      "authentication": {
+        "type": "s2s",
+        "tokenType": "oauth"
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "serverInfo": {
+        "name": "Zoom Chat MCP Server",
+        "version": "1.0.0"
+      },
+      "transport": {
+        "type": "http",
+        "endpoint": "https://mcp.zoom.us/mcp/team_chat/streamable"
+      },
+      "capabilities": {
+        "tools": true,
+        "resources": false,
+        "prompts": false
+      },
+      "description": "Zoom Chat MCP for Zoom user: messages (send/edit), channels (create/update/members). Scoped to caller’s account; E2E/archived/policy restrictions apply.",
+      "icon": "https://file.zoom.us/public/file/tKTymeX8Sz-vpiDjiNEeTQ/MS4zLsrjkGrfxEwLpi7447aiPciLOn0TPQqnws7GM1fXP8Yk/pic_3c8e759d21d34187988d6913c6104ebf-EqSOT-VhTEmbppHQf9kYDA-Group.png",
+      "authentication": {
+        "type": "s2s",
+        "tokenType": "oauth"
+      }
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://developers.zoom.us/docs/api/using-zoom-apis/,
+  https://developers.zoom.us/docs/api/rate-limits/,
+  https://developers.zoom.us/docs/integrations/oauth/, and derived from
+  openapi/zoom-phone-api-openapi.json + openapi/zoom-phone-number-management-openapi.json
+summary: >-
+  The Zoom Phone API follows the platform-wide Zoom REST conventions: one global base URL with
+  the version in the path, OAuth 2.0 bearer tokens only, opaque cursor pagination via
+  next_page_token, a flat {code, message} error envelope (not RFC 9457), per-endpoint rate
+  limit labels, and no idempotency contract of any kind.
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  flows: [authorization_code, device_code, refresh_token, account_credentials, client_credentials]
+  server_to_server: account_credentials grant (Server-to-Server OAuth app)
+  scopes: granular (phone:*, number_management:*) and classic (phone:read:admin, phone:write:admin, phone:master)
+  jwt_apps: retired for new apps; JWT remains for Video SDK/Meeting SDK credentials
+  docs: https://developers.zoom.us/docs/integrations/oauth/
+  artifact: authentication/zoom-phone-authentication.yml
+base_url:
+  global: https://api.zoom.us/v2/
+  versioning_in_path: true
+  regional:
+    discovery: the api_url field in the OAuth access-token response names the serving region
+    hosts:
+      AU: https://api-au.zoom.us
+      CA: https://api-ca.zoom.us
+      EU: https://api-eu.zoom.us
+      IN: https://api-in.zoom.us
+      SA: https://api-sa.zoom.us
+      SG: https://api-sg.zoom.us
+      UK: https://api-uk.zoom.us
+      US: https://api-us.zoom.us
+      vanity: https://{vanity}.zoom.us
+    note: The global host always works regardless of the api_url returned.
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key header, parameter or retry-token appears anywhere in the 419 Zoom Phone
+    operations, and the Zoom API documentation never uses the word idempotent. The Zoom Phone
+    Agent Skill runbook pushes idempotency onto the CONSUMER instead — "keep idempotency logic
+    for duplicate event deliveries" for webhooks. Writes (POST /phone/users, number allocation,
+    SMS send) are therefore not safely retryable without caller-side deduplication.
+pagination:
+  style: cursor
+  request_params:
+    page_size:
+      default: 30
+      maximum: 100
+      note: Some report/call-history endpoints allow up to 300.
+    next_page_token:
+      type: string
+      expires: 15 minutes
+  response_fields: [next_page_token, page_size, total_records]
+  used_by_operations: 76
+  note: >-
+    Legacy page_number/offset pagination is not used by Zoom Phone; every list endpoint is
+    token-cursored. An empty next_page_token means the last page.
+filtering:
+  common_params: [keyword, site_id, status, type, from, to, page_size, next_page_token]
+  date_range: >-
+    from/to query parameters on call history, SMS, recordings and report endpoints, in
+    yyyy-MM-dd or yyyy-MM-ddTHH:mm:ssZ, generally capped at a 30-day window per request.
+field_expansion:
+  supported: false
+  note: >-
+    No expand/fields/include parameter. Related objects are fetched with a second call using the
+    id returned in the parent (e.g. call_history_uuid -> GET /phone/call_history/{uuid}).
+metadata:
+  custom_fields: false
+  note: >-
+    No provider-side metadata bag. Call disposition context is carried out-of-band by the
+    caller (Smart Embed zp-save-log-event) or through client_code on legacy call logs.
+identifiers:
+  style: opaque base64-ish strings (e.g. 8f71O6rWT8KFUGQmJIFAdQ)
+  me_keyword: >-
+    "me" may be substituted for userId or accountId in any supported path to act as the
+    authenticated user (required for user-level OAuth apps).
+  double_encoding: >-
+    Identifiers containing "/" (notably meeting UUIDs) must be URL-encoded twice.
+  key_ids:
+    call_id: real-time call identifier carried on phone.* webhook events
+    call_history_uuid: post-call record identifier (v3), replaces the legacy call log id
+    call_element_id: per-leg/segment identifier (v3), replaces call_path entries
+request_tracing:
+  request_id_header: null
+  note: >-
+    Zoom publishes no request-id/correlation header for the REST API. Webhook deliveries carry
+    x-zm-request-timestamp and x-zm-signature; the Phone domain correlates on call_id.
+versioning:
+  scheme: uri-path
+  current: v2
+  product_versioning: >-
+    Individual Zoom Phone resource families are versioned in-place (Call Logs v1 -> Call History
+    v2 -> Call Element v3) rather than by bumping the /v2 path.
+  artifact: lifecycle/zoom-phone-lifecycle.yml
+errors:
+  envelope: '{"code": <integer>, "message": "<string>"}'
+  format: custom
+  rfc9457: false
+  content_type: application/json
+  note: >-
+    Zoom returns a numeric application error code independent of the HTTP status (for example
+    code 124 "Invalid access token" on 401, code 13003 on 404). Codes are documented per
+    operation in the OpenAPI response descriptions.
+  artifact: errors/zoom-phone-problem-types.yml
+rate_limiting:
+  style: account-level quotas by endpoint label
+  labels: [LIGHT, MEDIUM, HEAVY, RESOURCE-INTENSIVE]
+  status_code: 429
+  headers: none published
+  artifact: rate-limits/zoom-phone-rate-limits.yml
+time:
+  format: ISO 8601
+  utc: 'yyyy-MM-ddTHH:mm:ssZ'
+  local: 'yyyy-MM-ddTHH:mm:ss'
+webhooks:
+  signature_header: x-zm-signature
+  timestamp_header: x-zm-request-timestamp
+  algorithm: HMAC-SHA256 over "v0:{timestamp}:{body}" using the app secret token
+  validation_challenge: >-
+    endpoint.url_validation event; respond with plainToken and the HMAC-SHA256 encryptedToken.
+  delivery: HTTPS POST, WebSocket delivery in public beta
+  artifact: asyncapi/zoom-phone-webhooks.yml
+downloads:
+  download_url: >-
+    Recording/voicemail/fax assets return a dynamically generated download_url; authenticate
+    with the OAuth access token or the download_access_token as a Bearer token, and follow
+    redirects.
+operational_rules:
+- Apps with a high error-to-request ratio may be disabled by Zoom.
+- A 403 "authenticated user has not permitted access to the targeted resource" indicates shared
+  access permissions were not granted, including on user-level /v2/phone/** calls.
+cross_links:
+  authentication: authentication/zoom-phone-authentication.yml
+  scopes: scopes/zoom-phone-scopes.yml
+  errors: errors/zoom-phone-problem-types.yml
+  lifecycle: lifecycle/zoom-phone-lifecycle.yml
+  rate_limits: rate-limits/zoom-phone-rate-limits.yml
