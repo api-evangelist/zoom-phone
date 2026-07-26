@@ -1,0 +1,292 @@
+aid: zoom-phone
+name: Zoom Phone
+review:
+  question: >-
+    Does Zoom Phone publish a real, self-serve developer surface with downloadable
+    machine-readable specifications, and what is its posture toward the telecom
+    sector's standards programmes (CAMARA / GSMA Open Gateway / TM Forum)?
+  answer: true
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: United States
+findings:
+  summary: >-
+    Zoom Phone is the UCaaS half of the telecom split, not the carrier half. Its
+    developer surface is a genuine self-serve portal — no login wall, no sales form
+    between a developer and the reference — and the reference pages are rendered from
+    downloadable OpenAPI documents that were fetched and verified as parsing specs.
+    Three real specifications were harvested. The company is not a mobile network
+    operator: it buys PSTN connectivity, number inventory and SIP trunking from
+    carriers, and its most carrier-facing API is number provisioning and porting, not
+    network exposure. No CAMARA reference of any kind was found in its developer
+    documentation, marketing, or specifications, and Zoom does not appear on the GSMA
+    Open Gateway operator list — which is expected, because Open Gateway signatories
+    are operators and Zoom is their customer.
+  developerPortal:
+    url: https://developers.zoom.us/
+    httpStatus: 200
+    confirmed: true
+    gated: false
+    assessment: >-
+      Real self-serve developer portal. developer.zoom.us (200) and zoom.us/developer
+      (200) both redirect to developers.zoom.us. Full API reference, OAuth guides, an
+      app marketplace at marketplace.zoom.us (200), and a public Postman workspace are
+      all reachable anonymously. Building an app requires a Zoom account and calling
+      the Phone APIs requires a Business or Enterprise account with a Zoom Phone
+      license, but the documentation and specifications themselves are open.
+  probes:
+  - url: https://developers.zoom.us/
+    status: 200
+    note: Canonical developer portal.
+  - url: https://developer.zoom.us/
+    status: 200
+    note: Redirects to developers.zoom.us.
+  - url: https://zoom.us/developer
+    status: 200
+    note: Redirects to developers.zoom.us.
+  - url: https://docs.zoom.us/
+    status: 200
+    note: End-user/admin support documentation, not the API reference.
+  - url: https://api.zoom.us/
+    status: 200
+    note: API host. Base URL for all documented operations is https://api.zoom.us/v2.
+  - url: https://marketplace.zoom.us/
+    status: 200
+    note: Zoom App Marketplace — where apps are created and OAuth credentials issued.
+  - url: https://zoom.us/api
+    status: 404
+  - url: https://developers.zoom.us/docs/api/phone/
+    status: 200
+    note: Zoom Phone API reference.
+  - url: https://developers.zoom.us/docs/api/phone/events/
+    status: 200
+    note: Zoom Phone webhook/event reference.
+  - url: https://developers.zoom.us/docs/api/number-management/
+    status: 200
+    note: Number Management API reference.
+  - url: https://zoom.us/.well-known/oauth-authorization-server
+    status: 200
+    note: Real RFC 8414 OAuth authorization server metadata served anonymously.
+  - url: https://zoom.us/.well-known/openid-configuration
+    status: 404
+  - url: https://api.zoom.us/.well-known/openid-configuration
+    status: 404
+  openapi:
+    downloadable: true
+    specsHarvested: 3
+    discoveryMethod: >-
+      The reference pages at developers.zoom.us are rendered client-side from JSON
+      specification documents under /api-hub/. The spec URLs were found by fetching the
+      reference HTML and extracting the referenced .json paths, then fetched directly
+      and validated as parsing OpenAPI documents (not HTML).
+    specs:
+    - file: openapi/zoom-phone-api-openapi.json
+      sourceURL: https://developers.zoom.us/api-hub/phone/methods/endpoints.json
+      httpStatus: 200
+      fetched: '2026-07-25'
+      bytes: 2362179
+      openapiVersion: 3.0.0
+      title: Phone
+      apiVersion: '2'
+      servers:
+      - https://api.zoom.us/v2
+      paths: 238
+      operations: 391
+      note: >-
+        Verbatim. 46 resource groups including Provider Exchange and Carrier Reseller
+        (BYOC / cloud peering), SMS and SMS Campaign (10DLC), Emergency Addresses and
+        Emergency Service Locations (E911).
+    - file: openapi/zoom-phone-webhooks-openapi.json
+      sourceURL: https://developers.zoom.us/api-hub/phone/events/webhooks.json
+      httpStatus: 200
+      fetched: '2026-07-25'
+      bytes: 927853
+      openapiVersion: 3.1.0
+      title: Phone
+      apiVersion: 1.0.0
+      webhooks: 71
+      note: >-
+        Verbatim. OpenAPI 3.1 document with a top-level `webhooks` object and no
+        `paths` — a real, machine-readable event catalog rather than an AsyncAPI.
+    - file: openapi/zoom-phone-number-management-openapi.json
+      sourceURL: https://developers.zoom.us/api-hub/number-management/methods/endpoints.json
+      httpStatus: 200
+      fetched: '2026-07-25'
+      bytes: 134950
+      openapiVersion: 3.0.0
+      title: Number Management
+      apiVersion: '2'
+      servers:
+      - https://api.zoom.us/v2
+      paths: 17
+      operations: 28
+      note: >-
+        Verbatim. Shared across Zoom Phone, Zoom Contact Center and Zoom Meetings;
+        covers allocation, BYOC numbers, carrier and cloud peering numbers, ported
+        number orders, SIP trunks and SIP groups.
+  camara:
+    posture: >-
+      No CAMARA reference found — UCaaS application provider, not a network operator;
+      reaches the PSTN through carrier partners (BYOC / Cloud Peering / Provider
+      Exchange), not through CAMARA network APIs.
+    apis: []
+    evidence: >-
+      No occurrence of CAMARA, "network API", Open Gateway, SIM Swap, Number
+      Verification, Device Location, Quality on Demand or Carrier Billing was found in
+      the harvested Zoom Phone or Number Management specifications, in the developer
+      documentation, or in searches of Zoom's public material. Zoom's carrier-facing
+      surface is number provisioning and SIP interconnect, which is wholesale telecom
+      plumbing, not standardised network exposure. This is a genuine absence, not a
+      press release: there is no CAMARA announcement to discount.
+    openGatewayMember: false
+    openGatewayNote: >-
+      GSMA Open Gateway signatories are mobile network operators. Zoom is a UCaaS
+      software vendor that consumes operator connectivity and does not appear on the
+      operator list.
+    aduna: false
+    adunaNote: >-
+      No evidence of an Aduna relationship. Zoom's channel to carriers is its own
+      Provider Exchange / BYOC programme and carrier reseller agreements.
+    ciba: false
+    cibaNote: >-
+      CIBA (Client-Initiated Backchannel Authentication) does not appear anywhere in
+      Zoom's OAuth metadata, documentation, or harvested specifications. Zoom's OAuth
+      metadata advertises authorization_code, refresh_token, client_credentials and
+      jwt-bearer grants only.
+  tmforum:
+    conformanceFound: false
+    note: >-
+      No TM Forum Open API conformance certification (TMF620, TMF622, TMF641 or any
+      other) was found for Zoom or Zoom Phone. Zoom's ordering and provisioning surface
+      is its own proprietary Number Management and Phone APIs, not TM Forum ODA Open
+      APIs.
+  threeGPP:
+    nefOrScef: false
+    networkSlicing: false
+    edgeMec: false
+    note: >-
+      None. Zoom operates no radio or core network, so there is no NEF/SCEF, network
+      slicing, or MEC surface. The nearest analogue is SIP trunk and peering
+      configuration in the Number Management API.
+  auth:
+    model: OAuth 2.0
+    details: >-
+      OAuth 2.0 with fine-grained product scopes. RFC 8414 authorization server
+      metadata is served anonymously at https://zoom.us/.well-known/oauth-authorization-server
+      (200) advertising issuer https://zoom.us, authorization endpoint
+      https://zoom.us/oauth/authorize, token endpoint https://zoom.us/oauth/token,
+      response type `code`, grant types authorization_code, refresh_token,
+      client_credentials and urn:ietf:params:oauth:grant-type:jwt-bearer, and
+      client_secret_basic client authentication. In Zoom's own terms this is the
+      user-level OAuth app (authorization code) and the Server-to-Server OAuth app
+      (client credentials). The harvested Phone spec declares two security schemes,
+      `openapi_oauth` (oauth2, authorizationCode) and `openapi_authorization` (apiKey
+      in the Authorization header). Scopes are granular and versioned, e.g.
+      phone:read:admin, phone:write:admin, phone:read:list_alert_settings:admin,
+      phone:delete:customized_number:admin.
+    ciba: false
+    mtls: false
+  webhooks:
+    published: true
+    catalogSize: 71
+    machineReadable: openapi/zoom-phone-webhooks-openapi.json
+    transport: HTTPS POST to a subscriber endpoint; WebSocket delivery offered in public beta.
+    note: >-
+      A real, complete event catalog — call lifecycle, recordings and transcripts,
+      voicemail, fax, SMS delivery and 10DLC opt-in/opt-out, device registration,
+      emergency alerts and AI call summaries.
+  sdks:
+  - name: '@zoom/rivet'
+    language: JavaScript / TypeScript (Node.js)
+    registry: npm
+    url: https://www.npmjs.com/package/@zoom/rivet
+    source: https://github.com/zoom/rivet-javascript
+    note: >-
+      Official first-party server SDK — API client, webhook server and OAuth handling,
+      including Zoom Phone endpoints and events. Confirmed 200 on the npm registry
+      (https://registry.npmjs.org/@zoom/rivet) and on GitHub.
+    firstParty: true
+  sdkGaps: >-
+    No first-party Python, Java, .NET or Go SDK was found; https://github.com/zoom/rivet-python
+    and https://pypi.org/pypi/zoom-rivet/json both return 404. Non-Node developers work
+    from the OpenAPI, the Postman workspace, or community libraries.
+  postman:
+    public: true
+    workspace: https://www.postman.com/zoom-developer/zoom-public-workspace/overview
+    phoneCollection: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+    httpStatus: 200
+  graphql:
+    found: false
+  grpc:
+    found: false
+  channelToDevelopers: >-
+    Direct and self-serve. Developers register an app on the Zoom App Marketplace, get
+    OAuth credentials, and call https://api.zoom.us/v2 themselves. There is no
+    aggregator, no partner gate, and no sales conversation in the path to the
+    documentation — the only commercial gate is that Phone endpoints require a paid
+    Zoom Phone license on a Business or Enterprise account.
+  productFamily:
+  - Voice / cloud PBX — users, extensions, sites, call queues, auto receptionists, IVR, shared line groups, call handling, routing rules
+  - Devices — phone devices, line keys, provision templates, firmware update rules, Zoom Rooms phones
+  - Call data — call logs, call history, dashboard and quality metrics, reports, billing account
+  - Media — call recordings, recording transcripts, voicemail, voicemail transcripts, audio library, fax
+  - Messaging — SMS/MMS sessions and messages, 10DLC SMS campaigns, SMS consent and etiquette policy
+  - Numbers and connectivity — phone numbers, phone plans, number allocation, BYOC numbers, carrier and cloud peering, ported number orders, SIP trunks and SIP groups
+  - Emergency services — emergency addresses, emergency service locations, emergency alerts (E911/nomadic 911)
+  - Channel — Provider Exchange and Carrier Reseller endpoints for carrier partners reselling Zoom Phone
+transports:
+- protocol: REST
+  scheme: https
+  baseURL: https://api.zoom.us/v2
+  documented: true
+- protocol: Webhooks
+  scheme: https
+  documented: true
+  note: 71 Zoom Phone events delivered as HTTPS POST callbacks; catalog published as OpenAPI 3.1 webhooks.
+- protocol: WebSocket
+  scheme: wss
+  documented: true
+  note: >-
+    Offered as an alternative delivery channel for event subscriptions, documented as
+    public beta. It is an event transport, not a separate API surface.
+- protocol: SIP
+  documented: true
+  note: >-
+    SIP trunks and SIP groups are configurable via the Number Management API for BYOC
+    and premises peering. The signalling itself is carrier interconnect, not a public
+    developer API.
+- protocol: GraphQL
+  documented: false
+- protocol: gRPC
+  documented: false
+sources:
+- url: https://developers.zoom.us/
+  type: DeveloperPortal
+  note: Self-serve portal, 200, no login wall in front of the reference.
+- url: https://developers.zoom.us/docs/api/phone/
+  type: APIReference
+  note: Zoom Phone reference; states base URL https://api.zoom.us/v2 and OAuth 2.0 authorization.
+- url: https://developers.zoom.us/api-hub/phone/methods/endpoints.json
+  type: OpenAPI
+  note: Source of openapi/zoom-phone-api-openapi.json, 200, OpenAPI 3.0.0, 391 operations.
+- url: https://developers.zoom.us/api-hub/phone/events/webhooks.json
+  type: OpenAPI
+  note: Source of openapi/zoom-phone-webhooks-openapi.json, 200, OpenAPI 3.1.0, 71 webhooks.
+- url: https://developers.zoom.us/api-hub/number-management/methods/endpoints.json
+  type: OpenAPI
+  note: Source of openapi/zoom-phone-number-management-openapi.json, 200, OpenAPI 3.0.0, 28 operations.
+- url: https://zoom.us/.well-known/oauth-authorization-server
+  type: Authentication
+  note: RFC 8414 metadata; no CIBA grant, no OIDC discovery document served.
+- url: https://developers.zoom.us/docs/integrations/oauth/
+  type: Documentation
+  note: OAuth app types — user-level (authorization code) and Server-to-Server (client credentials).
+- url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  type: PostmanCollection
+  note: Public Postman workspace with a Zoom Phone collection, 200.
+- url: https://github.com/zoom/rivet-javascript
+  type: SDK
+  note: Official Node/TypeScript SDK, 200.
+- url: https://zoom.us/pricing/zoom-phone
+  type: Pricing
+  note: Public per-seat pricing for the Zoom Phone plans that gate API access.
