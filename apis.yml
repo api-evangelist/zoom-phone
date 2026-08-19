@@ -36,7 +36,7 @@ tags:
 - Communications
 created: '2026-07-25'
 modified: '2026-07-25'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: zoom-phone:zoom-phone-api
   name: Zoom Phone API
