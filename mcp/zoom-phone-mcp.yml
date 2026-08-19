@@ -1,20 +1,16 @@
 generated: '2026-07-25'
 method: searched
 status: published
-source: >-
-  https://developers.zoom.us/.well-known/mcp/server-card.json,
-  https://github.com/zoom/mcp-registry, https://developers.zoom.us/docs/mcp/
-summary: >-
-  Zoom operates a fleet of first-party hosted MCP servers at mcp.zoom.us, advertised through an
-  MCP server card at /.well-known/mcp/server-card.json on the developer host and published to
-  the official MCP registry (registry.modelcontextprotocol.io) from github.com/zoom/mcp-registry
-  as io.github.zoom/*. All servers use streamable HTTP transport with server-to-server OAuth.
-  There is NO Zoom Phone-specific MCP server: the Phone REST surface (391 operations) is not
-  exposed as MCP tools today. mcp.zoom.us/mcp/phone/streamable returns
-  -32602 "instance not found". Anonymous tools/list against the general Workspace server
-  returns HTTP 401 with -32001 "Access token is required", so live tool schemas require an
-  authenticated introspection — no tool names are published anywhere for this provider, and
-  none are invented here.
+source: https://developers.zoom.us/.well-known/mcp/server-card.json, https://github.com/zoom/mcp-registry,
+  https://developers.zoom.us/docs/mcp/
+summary: 'Zoom operates a fleet of first-party hosted MCP servers at mcp.zoom.us, advertised through an
+  MCP server card at /.well-known/mcp/server-card.json on the developer host and published to the official
+  MCP registry (registry.modelcontextprotocol.io) from github.com/zoom/mcp-registry as io.github.zoom/*.
+  All servers use streamable HTTP transport with server-to-server OAuth. There is NO Zoom Phone-specific
+  MCP server: the Phone REST surface (391 operations) is not exposed as MCP tools today. mcp.zoom.us/mcp/phone/streamable
+  returns -32602 "instance not found". Anonymous tools/list against the general Workspace server returns
+  HTTP 401 with -32001 "Access token is required", so live tool schemas require an authenticated introspection
+  — no tool names are published anywhere for this provider, and none are invented here.'
 server:
   name: Zoom MCP Server (Workspace)
   transport: http
@@ -53,10 +49,9 @@ related_servers:
 - name: Zoom Revenue Accelerator MCP Server
   url: https://mcp.zoom.us/mcp/revenue_accelerator/streamable
   registry_id: io.github.zoom/zoom-revenue-accelerator
-  note: >-
-    Revenue Accelerator is a conversational-intelligence add-on for Meetings AND Phone, so it
-    is the only Zoom MCP surface that touches Phone data (sales call conversations) — it does
-    not manage Phone provisioning.
+  note: Revenue Accelerator is a conversational-intelligence add-on for Meetings AND Phone, so it is the
+    only Zoom MCP surface that touches Phone data (sales call conversations) — it does not manage Phone
+    provisioning.
 - name: Zoom Meetings MCP Server
   registry_id: io.github.zoom/zoom-meetings
 - name: Zoom Tasks MCP Server
@@ -69,7 +64,12 @@ clients:
   source: https://github.com/zoom/zoom-plugin-codex
 - name: Claude plugin for Zoom integrations
   source: https://github.com/zoom/zoom-plugin
-gap: >-
-  For agent-driven Zoom Phone work today the path is the REST API plus the Phone Agent Skill
-  (skills/), not MCP. A Phone MCP server is the single largest agent-readiness gap in this
-  provider's surface.
+gap: For agent-driven Zoom Phone work today the path is the REST API plus the Phone Agent Skill (skills/),
+  not MCP. A Phone MCP server is the single largest agent-readiness gap in this provider's surface.
+deployment:
+  mode: remote
+  endpoint: https://mcp.zoom.us/mcp/zoom/streamable
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census
