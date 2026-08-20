@@ -77,6 +77,11 @@ apis:
     WebSocket delivery option in public beta.
   humanURL: https://developers.zoom.us/docs/api/phone/events/
   tags:
+  - Webhook
+  - Event
+  - Call Events
+  - Real-Time
+  tags_raw:
   - Webhooks
   - Events
   - Call Events
