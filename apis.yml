@@ -38,84 +38,1338 @@ created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.23'
 apis:
-- aid: zoom-phone:zoom-phone-api
-  name: Zoom Phone API
-  description: The Zoom Phone API is the administrative and operational REST API for Zoom's cloud
-    phone system. The harvested OpenAPI 3.0 document describes 238 paths and 391 operations across
-    46 resource groups — Users, Sites, Call Queues, Auto Receptionists, Shared Line Groups, Common
-    Areas, Phone Devices, Call Logs, Recordings, Voicemails, Fax, SMS, SMS Campaigns, Phone Numbers,
-    Emergency Addresses and Emergency Service Locations, Outbound Calling, Routing Rules, Dashboard,
-    Reports, Provider Exchange and Carrier Reseller. Requires a Business or Enterprise account with
-    a Zoom Phone license.
+- aid: zoom-phone:zoom-phone-accounts-api
+  name: Zoom Phone Accounts API
+  description: The Accounts API from Zoom Phone — 2 operation(s) for accounts.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
-  - Voice
-  - Cloud PBX
-  - Call Logs
-  - SMS
-  - Provisioning
+  - Accounts
   properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-accounts-api-openapi.yml
   - type: Documentation
     url: https://developers.zoom.us/docs/api/phone/
   - type: APIReference
     url: https://developers.zoom.us/docs/api/phone/
-  - type: OpenAPI
-    url: openapi/zoom-phone-api-openapi.json
   - type: Documentation
     url: https://developers.zoom.us/docs/integrations/oauth/
   - type: PostmanCollection
     url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
-- aid: zoom-phone:zoom-phone-webhooks
-  name: Zoom Phone Webhooks
-  description: The Zoom Phone event catalog, published as an OpenAPI 3.1 document using the top-level
-    webhooks object. It defines 71 real-time events covering call lifecycle (phone.caller_ringing,
-    phone.callee_answered, phone.caller_ended, phone.callee_missed, phone.caller_hold, warm and blind
-    transfers), recordings and transcripts, voicemail, fax, call and fax logs, SMS send and delivery,
-    SMS campaign opt-in/opt-out and etiquette blocking, device registration, emergency alerts, AI
-    call summaries, and account and group setting changes. Delivered to an HTTPS endpoint, with a
-    WebSocket delivery option in public beta.
-  humanURL: https://developers.zoom.us/docs/api/phone/events/
-  tags:
-  - Webhook
-  - Event
-  - Call Events
-  - Real-Time
-  tags_raw:
-  - Webhooks
-  - Events
-  - Call Events
-  - Real Time
-  properties:
   - type: Documentation
     url: https://developers.zoom.us/docs/api/phone/events/
   - type: APIReference
     url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-alerts-api
+  name: Zoom Phone Alerts API
+  description: The Alerts API from Zoom Phone — 2 operation(s) for alerts.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Alerts
+  properties:
   - type: OpenAPI
-    url: openapi/zoom-phone-webhooks-openapi.json
-- aid: zoom-phone:zoom-phone-number-management-api
-  name: Zoom Phone Number Management API
-  description: The Number Management API provisions and manages phone number inventory for Zoom Phone,
-    Zoom Contact Center, and Zoom Meetings accounts. The harvested OpenAPI 3.0 document describes
-    17 paths and 28 operations covering number allocation, BYOC numbers, carrier and cloud peering
-    numbers, ported number orders, SIP trunks and SIP groups, phone plans, and 10DLC SMS campaigns
-    and SMS consent — the most carrier-facing surface Zoom publishes.
-  humanURL: https://developers.zoom.us/docs/api/number-management/
+    url: openapi/zoom-phone-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-audio-library-api
+  name: Zoom Phone Audio Library API
+  description: The Audio Library API from Zoom Phone — 3 operation(s) for audio library.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Audio Library
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-audio-library-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-auto-receptionists-api
+  name: Zoom Phone Auto Receptionists API
+  description: The Auto Receptionists API from Zoom Phone — 10 operation(s) for auto receptionists.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Auto Receptionists
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-auto-receptionists-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-billing-account-api
+  name: Zoom Phone Billing Account API
+  description: The Billing Account API from Zoom Phone — 2 operation(s) for billing account.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Billing Account
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-billing-account-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-blocked-list-api
+  name: Zoom Phone Blocked List API
+  description: The Blocked List API from Zoom Phone — 2 operation(s) for blocked list.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Blocked List
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-blocked-list-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-call-handling-api
+  name: Zoom Phone Call Handling API
+  description: The Call Handling API from Zoom Phone — 2 operation(s) for call handling.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Call Handling
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-call-handling-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-call-logs-api
+  name: Zoom Phone Call Logs API
+  description: The Call Logs API from Zoom Phone — 15 operation(s) for call logs.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Call Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-call-logs-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-call-queues-api
+  name: Zoom Phone Call Queues API
+  description: The Call Queues API from Zoom Phone — 18 operation(s) for call queues.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Call Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-call-queues-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-carrier-reseller-api
+  name: Zoom Phone Carrier Reseller API
+  description: The Carrier Reseller API from Zoom Phone — 2 operation(s) for carrier reseller.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Carrier Reseller
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-carrier-reseller-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-cloud-peering-provider-exchange-api
+  name: Zoom Phone Cloud Peering Provider Exchange API
+  description: >-
+    The Cloud Peering Provider Exchange API from Zoom Phone — 2 operation(s) for cloud peering provider
+    exchange.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Cloud Peering Provider Exchange
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-cloud-peering-provider-exchange-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-common-areas-api
+  name: Zoom Phone Common Areas API
+  description: The Common Areas API from Zoom Phone — 14 operation(s) for common areas.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Common Areas
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-common-areas-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-dashboard-api
+  name: Zoom Phone Dashboard API
+  description: The Dashboard API from Zoom Phone — 11 operation(s) for dashboard.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-dashboard-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-device-line-keys-api
+  name: Zoom Phone Device Line Keys API
+  description: The Device Line Keys API from Zoom Phone — 1 operation(s) for device line keys.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Device Line Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-device-line-keys-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-dial-by-name-directory-api
+  name: Zoom Phone Dial by Name Directory API
+  description: >-
+    The Dial by Name Directory API from Zoom Phone — 2 operation(s) for dial by name directory.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Dial by Name Directory
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-dial-by-name-directory-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-emergency-addresses-api
+  name: Zoom Phone Emergency Addresses API
+  description: The Emergency Addresses API from Zoom Phone — 2 operation(s) for emergency addresses.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Emergency Addresses
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-emergency-addresses-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-emergency-service-locations-api
+  name: Zoom Phone Emergency Service Locations API
+  description: >-
+    The Emergency Service Locations API from Zoom Phone — 3 operation(s) for emergency service locations.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Emergency Service Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-emergency-service-locations-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-external-contacts-api
+  name: Zoom Phone External Contacts API
+  description: The External Contacts API from Zoom Phone — 2 operation(s) for external contacts.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - External Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-external-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-fax-api
+  name: Zoom Phone Fax API
+  description: The Fax API from Zoom Phone — 6 operation(s) for fax.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Fax
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-fax-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-firmware-update-rules-api
+  name: Zoom Phone Firmware Update Rules API
+  description: >-
+    The Firmware Update Rules API from Zoom Phone — 3 operation(s) for firmware update rules.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Firmware Update Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-firmware-update-rules-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-group-call-pickup-api
+  name: Zoom Phone Group Call Pickup API
+  description: The Group Call Pickup API from Zoom Phone — 4 operation(s) for group call pickup.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Group Call Pickup
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-group-call-pickup-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-groups-api
+  name: Zoom Phone Groups API
+  description: The Groups API from Zoom Phone — 2 operation(s) for groups.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-inbound-blocked-list-api
+  name: Zoom Phone Inbound Blocked List API
+  description: The Inbound Blocked List API from Zoom Phone — 5 operation(s) for inbound blocked list.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Inbound Blocked List
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-inbound-blocked-list-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-ivr-api
+  name: Zoom Phone IVR API
+  description: The IVR API from Zoom Phone — 1 operation(s) for ivr.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - IVR
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-ivr-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-line-keys-api
+  name: Zoom Phone Line Keys API
+  description: The Line Keys API from Zoom Phone — 2 operation(s) for line keys.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Line Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-line-keys-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-monitoring-groups-api
+  name: Zoom Phone Monitoring Groups API
+  description: The Monitoring Groups API from Zoom Phone — 4 operation(s) for monitoring groups.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Monitoring Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-monitoring-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-outbound-calling-api
+  name: Zoom Phone Outbound Calling API
+  description: The Outbound Calling API from Zoom Phone — 12 operation(s) for outbound calling.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Outbound Calling
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-outbound-calling-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-phone-devices-api
+  name: Zoom Phone Phone Devices API
+  description: The Phone Devices API from Zoom Phone — 8 operation(s) for phone devices.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Phone Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-phone-devices-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-phone-numbers-api
+  name: Zoom Phone Phone Numbers API
+  description: The Phone Numbers API from Zoom Phone — 10 operation(s) for phone numbers.
+  humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
   - Phone Numbers
-  - Number Porting
-  - BYOC
-  - SIP Trunks
-  - Carrier Peering
-  - SMS Campaigns
   properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-phone-numbers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
   - type: Documentation
     url: https://developers.zoom.us/docs/api/number-management/
   - type: APIReference
     url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-phone-plan-api
+  name: Zoom Phone Phone Plan API
+  description: The Phone Plan API from Zoom Phone — 1 operation(s) for phone plan.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Phone Plan
+  properties:
   - type: OpenAPI
-    url: openapi/zoom-phone-number-management-openapi.json
+    url: openapi/zoom-phone-phone-plan-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-phone-plans-api
+  name: Zoom Phone Phone Plans API
+  description: The Phone Plans API from Zoom Phone — 2 operation(s) for phone plans.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Phone Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-phone-plans-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-phone-roles-api
+  name: Zoom Phone Phone Roles API
+  description: The Phone Roles API from Zoom Phone — 4 operation(s) for phone roles.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Phone Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-phone-roles-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-private-directory-api
+  name: Zoom Phone Private Directory API
+  description: The Private Directory API from Zoom Phone — 2 operation(s) for private directory.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Private Directory
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-private-directory-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-provider-exchange-api
+  name: Zoom Phone Provider Exchange API
+  description: The Provider Exchange API from Zoom Phone — 2 operation(s) for provider exchange.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Provider Exchange
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-provider-exchange-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-provision-templates-api
+  name: Zoom Phone Provision Templates API
+  description: The Provision Templates API from Zoom Phone — 2 operation(s) for provision templates.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Provision Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-provision-templates-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-recordings-api
+  name: Zoom Phone Recordings API
+  description: The Recordings API from Zoom Phone — 8 operation(s) for recordings.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Recordings
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-recordings-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-reports-api
+  name: Zoom Phone Reports API
+  description: The Reports API from Zoom Phone — 4 operation(s) for reports.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-routing-rules-api
+  name: Zoom Phone Routing Rules API
+  description: The Routing Rules API from Zoom Phone — 2 operation(s) for routing rules.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Routing Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-routing-rules-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-setting-api
+  name: Zoom Phone Setting API
+  description: The Setting API from Zoom Phone — 4 operation(s) for setting.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Setting
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-setting-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-setting-templates-api
+  name: Zoom Phone Setting Templates API
+  description: The Setting Templates API from Zoom Phone — 2 operation(s) for setting templates.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Setting Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-setting-templates-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-settings-api
+  name: Zoom Phone Settings API
+  description: The Settings API from Zoom Phone — 6 operation(s) for settings.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-settings-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-shared-line-appearance-api
+  name: Zoom Phone Shared Line Appearance API
+  description: >-
+    The Shared Line Appearance API from Zoom Phone — 1 operation(s) for shared line appearance.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Shared Line Appearance
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-shared-line-appearance-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-shared-line-group-api
+  name: Zoom Phone Shared Line Group API
+  description: The Shared Line Group API from Zoom Phone — 13 operation(s) for shared line group.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Shared Line Group
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-shared-line-group-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-sites-api
+  name: Zoom Phone Sites API
+  description: The Sites API from Zoom Phone — 4 operation(s) for sites.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-sites-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-sms-api
+  name: Zoom Phone SMS API
+  description: The SMS API from Zoom Phone — 7 operation(s) for sms.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - SMS
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-sms-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-sms-campaign-api
+  name: Zoom Phone SMS Campaign API
+  description: The SMS Campaign API from Zoom Phone — 6 operation(s) for sms campaign.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - SMS Campaign
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-sms-campaign-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-sms-campaigns-api
+  name: Zoom Phone SMS Campaigns API
+  description: The SMS Campaigns API from Zoom Phone — 3 operation(s) for sms campaigns.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - SMS Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-sms-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-sms-consent-api
+  name: Zoom Phone SMS Consent API
+  description: The SMS Consent API from Zoom Phone — 4 operation(s) for sms consent.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - SMS Consent
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-sms-consent-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-users-api
+  name: Zoom Phone Users API
+  description: The Users API from Zoom Phone — 13 operation(s) for users.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-voicemails-api
+  name: Zoom Phone Voicemails API
+  description: The Voicemails API from Zoom Phone — 6 operation(s) for voicemails.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Voicemails
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-voicemails-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
+- aid: zoom-phone:zoom-phone-zoom-rooms-api
+  name: Zoom Phone Zoom Rooms API
+  description: The Zoom Rooms API from Zoom Phone — 7 operation(s) for zoom rooms.
+  humanURL: https://developers.zoom.us/docs/api/phone/
+  baseURL: https://api.zoom.us/v2
+  tags:
+  - Zoom Rooms
+  properties:
+  - type: OpenAPI
+    url: openapi/zoom-phone-zoom-rooms-api-openapi.yml
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/integrations/oauth/
+  - type: PostmanCollection
+    url: https://www.postman.com/zoom-developer/zoom-public-workspace/documentation/uba96fr/phone
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/phone/events/
+  - type: Documentation
+    url: https://developers.zoom.us/docs/api/number-management/
+  - type: APIReference
+    url: https://developers.zoom.us/docs/api/number-management/
 common:
 - type: AgenticAccess
   url: agentic-access/zoom-phone-agentic-access.yml
