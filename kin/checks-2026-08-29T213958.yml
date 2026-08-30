@@ -1,65 +1,42 @@
 ---
 kin_checks:
   slug: zoom-phone
-  schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  schema_version: 0.16.0
+  scored_at: '2026-08-29'
+  run_ts: 2026-08-29T213958
   note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.15.1.yml; counts below let you verify that.
+    in rubric/scoring-0.16.0.yml; counts below let you verify that.
   counts:
     total: 130
-    earned: 57
-    partial: 6
-    missed: 47
+    earned: 62
+    partial: 8
+    missed: 40
     na: 20
   checks:
+  - id: maintainer_present
+    status: missed
+  - id: human_url_per_api
+    status: missed
   - id: base_url_per_api
+    status: missed
+  - id: well_known_published
     status: missed
   - id: apis_json_self_hosted
     status: missed
   - id: openapi_3_2
     status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 51 openapi documents pass
   - id: openapi_3_1
     status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: info_complete
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: servers_defined
-    status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 51 openapi documents pass
   - id: servers_resolvable
-    status: missed
-  - id: operations_summary_coverage
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: operations_description_coverage
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: operations_tagged
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: operations_operation_ids
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: response_coverage
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: error_responses_documented
-    status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: examples_present
     status: missed
   - id: components_reuse
     status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: security_schemes_defined
+    detail: 0 of 51 openapi documents pass
+  - id: webhooks_or_callbacks
     status: missed
-    detail: 0 of 1 openapi documents pass
-  - id: security_applied
-    status: missed
-    detail: 0 of 1 openapi documents pass
+    detail: 0 of 51 openapi documents pass
   - id: json_schema_present
     status: missed
   - id: json_schema_per_resource
@@ -79,6 +56,8 @@ kin_checks:
   - id: balanced_severities
     status: missed
   - id: vocabulary_published
+    status: missed
+  - id: overlay_published
     status: missed
   - id: roadmap_present
     status: missed
@@ -107,8 +86,6 @@ kin_checks:
     status: missed
   - id: idempotency
     status: missed
-  - id: openapi_examples
-    status: missed
   - id: consent_identity
     status: missed
   - id: agent_card
@@ -121,6 +98,13 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
+  - id: response_coverage
+    status: partial
+    earned: 4.9
+    detail: 50 of 51 openapi documents pass
+  - id: examples_present
+    status: partial
+    earned: 3.33
   - id: github_org_present
     status: partial
     earned: 1.0
