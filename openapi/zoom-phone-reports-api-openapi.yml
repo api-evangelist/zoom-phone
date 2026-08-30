@@ -1,0 +1,1208 @@
+openapi: 3.2.0
+info:
+  title: Phone Reports API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Reports
+paths:
+  /phone/reports/call_charges:
+    get:
+      tags:
+      - Reports
+      summary: Get call charges usage report
+      description: "Retrieves the Phone Call Charges Report. \n\nThe Call charges usage report allows account owners and admins to view monthly Zoom phone call charges. Account owners and admins can also access this information when they log into their Zoom accounts and navigate to [Call Charges Usage Report](https://zoom.us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;chargeRestrict=0&amp;by=1).\n\n **Prerequisites:** \n\n* Account must be enrollled in Pro or a higher plan\n* Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_charges:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      operationId: GetCallChargesUsageReport
+      parameters:
+      - name: from
+        in: query
+        description: The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. The from date should not exceed recent 13 months. If unspecified, it returns data from the past 30 days.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: '**Required** only when the `from` parameter is specified. The end time and date in **yyyy-mm-dd** or **yyyy-MM-dd''T''HH:mm:ss''Z''** format is the same format as the `from` parameter.'
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: page_size
+        in: query
+        description: The number of records to be returned within a single API call. The default is **30** and the maximum is **300**.
+        required: false
+        schema:
+          type: integer
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes..
+        required: false
+        schema:
+          type: string
+          example: cWiI3vTqdcENiV9RJz3Rh8iP1ksNPheW8c1
+      - name: billing_account_id
+        in: query
+        description: The billing account ID.
+        required: false
+        schema:
+          type: string
+          example: 3WWAEiEjTj2IQuyDiKMd_A
+      - name: show_charges_only
+        in: query
+        description: This field shows calls with charges only. The default value is `false`.
+        required: false
+        schema:
+          type: boolean
+          example: false
+      - name: call_ids
+        in: query
+        description: The call IDs to filter the call charge report. The maximum limit is 100.
+        required: false
+        schema:
+          type: string
+          example: 069e986d5006516028c,069e6d3ec00650201c6
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200`
+
+
+            Call charges returned.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+                  page_size:
+                    maximum: 300
+                    type: integer
+                    description: 'The given page size. '
+                    example: 20
+                    default: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records returned within a single API call.
+                    example: 10
+                  from:
+                    type: string
+                    description: The start time and date of the call.
+                    example: '2021-10-01'
+                  to:
+                    type: string
+                    description: The end time and date of the SMS/MMS.
+                    example: '2021-10-12'
+                  call_charges:
+                    maxItems: 300
+                    type: array
+                    description: An array of call charges
+                    items:
+                      type: object
+                      properties:
+                        charge_id:
+                          type: string
+                          description: The call charge's unique identifier.
+                          example: 20260411-21sf18-e1a8-4211-119e-14ce313a9eac
+                        call_log_id:
+                          type: string
+                          description: The ID of the call log. You can use this value to fetch the details of the call log using [Get call log details](https://developers.zoom.us/docs/api/rest/reference/phone/methods/#operation/getCallLogDetails).
+                          example: 1csf78-e9a8-4e14-859e-94ce323a9eef
+                          deprecated: true
+                        call_id:
+                          type: string
+                          description: The call ID of the charge report.
+                          example: 069e986d5006516028c
+                        direction:
+                          type: string
+                          description: The direction of the call.
+                          example: inbound
+                          enum:
+                          - inbound
+                          - outbound
+                        caller_number:
+                          type: string
+                          description: The caller's phone number.
+                          example: '1001'
+                        caller_billing_number:
+                          type: string
+                          description: The caller's billing phone number.
+                          example: '+2100000980'
+                        caller_billing_number_type:
+                          type: string
+                          description: The caller's billing phone number type.
+                          example: voip
+                          enum:
+                          - fixed_line
+                          - mobile
+                          - fixed_line_or_mobile
+                          - toll_free
+                          - premium_rate
+                          - shared_cost
+                          - voip
+                          - personal_number
+                          - pager
+                          - uan
+                          - voicemail
+                          - unknown
+                        callee_number:
+                          type: string
+                          description: The callee's phone number.
+                          example: '1008'
+                        callee_billing_number:
+                          type: string
+                          description: The callee's billing phone number.
+                          example: '+21058945728'
+                        callee_billing_number_type:
+                          type: string
+                          description: The callee's billing phone number type.
+                          example: toll_free
+                          enum:
+                          - fixed_line
+                          - mobile
+                          - fixed_line_or_mobile
+                          - toll_free
+                          - premium_rate
+                          - shared_cost
+                          - voip
+                          - personal_number
+                          - pager
+                          - uan
+                          - voicemail
+                          - unknown
+                        call_type:
+                          type: string
+                          description: 'The type of call:
+
+                            * `voip` (Voice over IP)
+
+                            * `local` (Public Switched Telephone Network)
+
+                            * `tollfree`
+
+                            * `international`
+
+                            * `callCenter`'
+                          example: voip
+                          enum:
+                          - voip
+                          - local
+                          - tollfree
+                          - international
+                          - callCenter
+                        service_type:
+                          type: string
+                          description: "The type of service:\n* `meeting` \n* `call` (normal call)`"
+                          example: call
+                          enum:
+                          - meeting
+                          - call
+                        calling_party_name:
+                          type: string
+                          description: The name of the calling party.
+                          example: User
+                        cost_center:
+                          type: string
+                          description: The name of the cost center.
+                          example: Phone cost center
+                        employee_id:
+                          type: string
+                          description: The employee's ID.
+                          example: A9877
+                        department:
+                          type: string
+                          description: The name of the department.
+                          example: Engineering
+                        start_time:
+                          type: string
+                          description: The call start time in GMT `date-time` format.
+                          example: '2021-10-08T16:01:15Z'
+                        answer_time:
+                          type: string
+                          description: The call answer time in GMT `date-time` format.
+                          example: '2021-10-08T16:02:15Z'
+                        end_time:
+                          type: string
+                          description: The call end time in GMT `date-time` format.
+                          example: '2021-10-08T16:12:15Z'
+                        duration:
+                          type: integer
+                          description: The duration of the call in minutes.
+                          example: 1
+                        charge_mode:
+                          type: string
+                          description: The mode of charging.
+                          example: per_min
+                          enum:
+                          - per_min
+                          - per_call
+                          - per_call_per_min
+                          - per_min_after_t_duration
+                          - per_call_per_min_after_t_duration
+                          x-enum-descriptions:
+                          - per minute
+                          - per call
+                          - per call and per minute
+                          - per minute after t duration
+                          - per call and per minute after t
+                        rate:
+                          type: string
+                          description: The rate of billing.
+                          example: '0.0205'
+                        currency:
+                          type: string
+                          description: The currency of the billed amount.
+                          example: USD
+                        total_charge:
+                          type: string
+                          description: The total charge.
+                          example: '0'
+                        billing_number:
+                          type: string
+                          description: The billing number.
+                          example: 2100000980 Ext. 1001
+                        forward_number_billing:
+                          type: string
+                          description: The billing for the forward number.
+                          example: '2100000980'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n**Error Code:** `400` <br>\n The billing_account_id is invalid. <br>\n**Error Code:** `400` <br>\n Invalid start date. Report is provided only for recent 13 months. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:call_charges:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:call_charges:admin
+  /phone/reports/fax_charges:
+    get:
+      tags:
+      - Reports
+      summary: Get fax charges usage report
+      description: "Retrieves the Phone Fax Charges Report. The fax charges usage report allows account owners and admins to view monthly Zoom phone fax charges. \n\nAccount owners and admins can also access this information when they log into their Zoom accounts and navigate to [Fax Charges Usage Report](https://zoom.us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;by=3). \n\n**Prerequisites** \n* Account must be enrollled in Pro or a higher plan\n* Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:fax_charges:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      operationId: Getfaxchargesusagereport
+      parameters:
+      - name: from
+        in: query
+        description: The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. The from date should not exceed recent 13 months. If unspecified, it returns data from the past 30 days.
+        required: false
+        schema:
+          type: string
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: '**Required** only when the `from` parameter is specified. The end time and date in **yyyy-mm-dd** or **yyyy-MM-dd''T''HH:mm:ss''Z''** format is the same format as the `from` parameter.'
+        required: false
+        schema:
+          type: string
+          example: '2021-12-31'
+      - name: page_size
+        in: query
+        description: The number of records to be returned within a single API call. The default is 30 and the maximum is 300.
+        required: false
+        schema:
+          type: integer
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: cWiI3vTqdcENiV9RJz3Rh8iP1ksNPheW8c1
+      - name: fax_id
+        in: query
+        description: The fax ID is used to filter the charge of a specific fax within the period.
+        required: false
+        schema:
+          type: string
+          example: FD361623719B460388970623D2AB808A
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200` Fax charges returned.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+                  page_size:
+                    type: integer
+                    description: 'The given page size. '
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records returned within a single API call.
+                    example: 10
+                  from:
+                    type: string
+                    description: The start time and date of the fax.
+                    example: '2025-06-01'
+                  to:
+                    type: string
+                    description: The end time and date of the fax.
+                    example: '2025-06-30'
+                  fax_charges:
+                    type: array
+                    description: An array of fax charges.
+                    items:
+                      type: object
+                      properties:
+                        fax_id:
+                          type: string
+                          description: The fax ID.
+                          example: FD361623719B460388970623D2AB808A
+                        sender_number:
+                          type: string
+                          description: The sender's phone number.
+                          example: '+2100000980'
+                        receiver_number:
+                          type: string
+                          description: The receiver's phone number.
+                          example: '+21058945728'
+                        billing_number:
+                          type: string
+                          description: The billing phone number.
+                          example: '+21058945728'
+                        end_time:
+                          type: string
+                          description: The fax end time in ISO 8601 GMT (UTC) date-time format.
+                          example: '2025-07-02T15:51:00Z'
+                        charge_mode:
+                          type: string
+                          description: The mode of charging.
+                          example: per_page
+                          enum:
+                          - per_page
+                        fax_type:
+                          type: string
+                          description: The type of fax.
+                          example: international
+                          enum:
+                          - local
+                          - international
+                        unlimited:
+                          type: boolean
+                          description: 'Whether the fax usage for this record is included in unlimited faxing available with certain plans. More details: [Understanding Online Fax licensing](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0080618#mcetoc_1iq1lcq3n18)
+
+                            '
+                          example: false
+                        total_pages:
+                          type: integer
+                          description: The total pages.
+                          example: 5
+                        rate:
+                          type: string
+                          description: The rate of billing.
+                          example: '0.0406'
+                        currency:
+                          type: string
+                          description: 'The currency of the billed amount. Following the [[ISO 4217](https://www.iso.org/iso-4217-currency-codes.html)] standard, such as ''USD'' for US dollars. '
+                          example: USD
+                        currency_sign:
+                          type: string
+                          description: The display symbol associated with the currency. It's used for presentation purposes only. This field is optional and should not be used for currency identification or calculation logic.
+                          example: $
+                        charge_status:
+                          type: string
+                          description: 'The charge status.
+
+                            * `pending`: the charge has not been calculated yet. The values of `charged_pages` and `total_charge` are not available. They will be determined at the end of the billing cycle.
+
+                            * `calculated`: the charge has been calculated, and the values of `charged_pages` and `total_charge` are available.'
+                          example: calculated
+                          enum:
+                          - pending
+                          - calculated
+                        charged_pages:
+                          type: integer
+                          description: The charged pages. Only present when `charge_status` is 'calculated'.
+                          example: 5
+                        total_charge:
+                          type: string
+                          description: The total charge. Only present when `charge_status` is 'calculated'.
+                          example: '0.203'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n**Error Code:** `400` <br>\n Invalid from/to time. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:fax_charges:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:fax_charges:admin
+  /phone/reports/operationlogs:
+    get:
+      tags:
+      - Reports
+      summary: Get operation logs report
+      description: "Retrieves the phone system operation logs report.\n\nThe phone system operation logs report allows account owners and admins to view monthly Zoom phone related admin operation details. \n\n Account owners and admins can also access this information by logging into their Zoom accounts and navigating to [Phone System Operation Logs](https://zoom.us/pbx/page/report/operations#/report/operation-logs).  \n   \n  **Prerequisites:**   \n \n* Account must be enrollled in Pro or a higher plan\n* Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:operation_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      operationId: getPSOperationLogs
+      parameters:
+      - name: from
+        in: query
+        description: The start time and date in **yyyy-mm-dd**format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. If unspecified, returns data within the 24 hours.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2020-11-01'
+      - name: to
+        in: query
+        description: '**Required** only when the `from` parameter is specified. The end time and date is in **yyyy-mm-dd** format; the same format as the `from` parameter.'
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: category_type
+        in: query
+        description: "This field filters the response by the category of the action performed. By default, the value of this field is &quot;all&quot; and thus, the response will include log of all operations for the defined period.  \n   \n To only include response for a specific category type, provide a value for `category_type` from this [table](https://marketplace.zoom.us/docs/api-reference/other-references/phone-operation-categories)."
+        required: false
+        schema:
+          type: string
+          example: all
+          default: all
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nReport returned."
+          content:
+            application/json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    next_page_token:
+                      type: string
+                      description: The next page token paginates through a large set of result. A next page token returns whenever the set of the available result list exceeds the page size. The expiration period is 15 minutes.
+                      example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+                    page_size:
+                      maximum: 300
+                      type: integer
+                      description: 'The amount of records returns within a single API call. '
+                      example: 20
+                      default: 30
+                  description: The pagination object.
+                - type: object
+                  properties:
+                    total_records:
+                      type: integer
+                      description: The total number of records returned.
+                      example: 10
+                    from:
+                      type: string
+                      description: The start time and date of the log.
+                      example: '2021-10-01'
+                    to:
+                      type: string
+                      description: The end time and date of the log.
+                      example: '2021-10-12'
+                - type: object
+                  properties:
+                    operation_logs:
+                      type: array
+                      description: The array of operation log objects.
+                      items:
+                        type: object
+                        properties:
+                          action:
+                            type: string
+                            description: The action that was performed.
+                            example: ADD
+                          category_type:
+                            type: string
+                            description: The category type of the operation.
+                            example: Phone Number
+                          operation_detail:
+                            type: string
+                            description: The Operation details.
+                            example: Add BYOC +86 182 5188 5564
+                          operator:
+                            type: string
+                            description: The user who performed the operation.
+                            example: user@test.com
+                          time:
+                            type: string
+                            description: The time at which the operation was performed.
+                            format: date-time
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:operation_logs:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:operation_logs:admin
+  /phone/reports/sms_charges:
+    get:
+      tags:
+      - Reports
+      summary: Get SMS/MMS charges usage report
+      description: 'Retrieves the **SMS/MMS Charges Report**.  The **SMS/MMS charges usage report** allows account owners and admins to view monthly Zoom phone SMS charges. Account owners and admins can also access this information by when they log into their Zoom accounts and navigate to [ SMS/MMS Charges Usage Report](https://zoom.us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;chargeRestrict=0&amp;by=2).  **Prerequisites**  * Account must be enrolled in Pro or a higher plan * Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_charges:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`'
+      operationId: GetSMSChargesUsageReport
+      parameters:
+      - name: from
+        in: query
+        description: The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. The from date should not exceed recent 13 months. If unspecified, it returns data from the past 30 days.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: This field is **required** only when you specify the `from` parameter. End time and date is in a **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format.  The `from` parameter uses the the same format.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: page_size
+        in: query
+        description: The number of records to be returned within a single API call. The default is **30**, and the maximum is **300**.
+        required: false
+        schema:
+          type: integer
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: cWiI3vTqdcENiV9RJz3Rh8iP1ksNPheW8c1
+      - name: show_charges_only
+        in: query
+        description: This field shows SMS/MMS with charges only. Defaults to false.
+        required: false
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`\n\n SMS/MMS charges successfully returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+                  page_size:
+                    maximum: 300
+                    type: integer
+                    description: The given page size.
+                    example: 20
+                  total_records:
+                    type: integer
+                    description: The total number of records returned within a single API call.
+                    example: 10
+                  from:
+                    type: string
+                    description: The start time and date of the sms/mms
+                    example: '2021-10-01'
+                  to:
+                    type: string
+                    description: The end time and date of the sms/mms
+                    example: '2021-10-12'
+                  sms_charges:
+                    type: array
+                    description: An array of sms/mms charges
+                    items:
+                      type: object
+                      properties:
+                        session_id:
+                          type: string
+                          description: The session ID. You can use this value to fetch the sms session details using [Get SMS session details](https://developers.zoom.us/docs/api/rest/reference/phone/methods/#operation/smsSessionDetails).
+                          example: da21222c4254690b545b305d6616e261
+                        message_id:
+                          type: string
+                          description: The message ID. You can use this value to fetch details about a specific message in an SMS session using [Get SMS by message ID](https://developers.zoom.us/docs/api/rest/reference/phone/methods/#operation/smsByMessageId).
+                          example: 2159E06A-7195-4B54-831E-54DB8FDEC510
+                        message_type:
+                          type: string
+                          description: The message type
+                          example: SMS
+                        from_number:
+                          type: string
+                          description: The sender's phone number.
+                          example: '2019980987'
+                        from_extension_number:
+                          type: string
+                          description: The sender's extension number.
+                          example: '1008'
+                        from_display_name:
+                          type: string
+                          description: The sender's display name.
+                          example: Sender A
+                        from_email:
+                          type: string
+                          description: The sender's email.
+                          example: sender.a@gmail.com
+                        to_number:
+                          type: string
+                          description: The receiver's phone number.
+                          example: '2013450986'
+                        to_extension_number:
+                          type: string
+                          description: The receiver's extension number.
+                          example: '1008'
+                        to_display_name:
+                          type: string
+                          description: The receiver's display name.
+                          example: Receiver A
+                        to_email:
+                          type: string
+                          description: The receiver's email.
+                          example: receiver.a@gmail.com
+                        sent_time:
+                          type: string
+                          description: The UTC time the message was sent.
+                          example: '2022-03-23T02:58:01Z'
+                        billing_number:
+                          type: string
+                          description: The billing phone number.
+                          example: '+2100000980'
+                        cost_center:
+                          type: string
+                          description: The name of the cost center.
+                          example: Phone cost center
+                        department:
+                          type: string
+                          description: The name of the department.
+                          example: Engineering
+                        rate:
+                          type: string
+                          description: The rate of billing.
+                          example: '0.0205'
+                        currency:
+                          type: string
+                          description: Currency of the billed amount.
+                          example: USD
+                        total_charge:
+                          type: string
+                          description: The total charge.
+                          example: '0'
+                        delivery_status:
+                          type: string
+                          description: The delivery status.
+                          example: Delivered
+                          enum:
+                          - Sent
+                          - Failed to send
+                          - Delivered
+                          - Failed to deliver
+                          - Received
+                          - Unknown
+                        delivery_detail:
+                          type: string
+                          description: The delivery detail.
+                          example: The message was successfully delivered to the intended recipient(s) on the mobile operator's network.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n The next page token is invalid or expired <br>\n**Error Code:** `400` <br>\n Invalid start date. Report is provided only for recent 13 months <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:sms_charges:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:sms_charges:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

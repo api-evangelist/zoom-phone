@@ -1,0 +1,1208 @@
+openapi: 3.2.0
+info:
+  title: Phone Alerts API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Alerts
+paths:
+  /phone/alert_settings:
+    get:
+      tags:
+      - Alerts
+      summary: List alert settings with paging query
+      description: 'Gets [alert settings](https://support.zoom.us/hc/en-us/articles/7146944434445) for an account with paging query.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_alert_settings:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+      operationId: ListAlertSettingsWithPagingQuery
+      parameters:
+      - name: page_size
+        in: query
+        description: The number of records a single API call returns.
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The current page number of the returned records.
+        required: false
+        schema:
+          type: string
+          example: 2z0Ov7kngllAbfQi4ZR2eQTb3mFVYQpYAe2
+      - name: module
+        in: query
+        description: "This field filters the specific alert list by the module. The module and its code mappings are shown as:  \n \n`Call Queue Management`-`1`, `Route Group Management`-`2`, `Devices &amp; Phones Management`-`3`, `Call Quality Management`-`4`, `Emergency Services Management`-`5`"
+        required: false
+        schema:
+          type: integer
+          example: 1
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+      - name: rule
+        in: query
+        description: "This field filters the specific alert list by the rule. The rule and its code mappings display as:  \n \n`Service Level`-`1`, `Inbound Abandoned Calls`-`2`, `Inbound Overflowed Calls`-`3`, `Inbound Avg Call Waiting Time`-`4`, `Inbound Forwarded to Voicemail`-`5`, `Number of Waiting Calls`-`6`, `Member Availability (Active)`-`7`, `Member Availability (Opt-in/Opt-out)`-`8`, `Route groups status change`-`9`, `Devices go offline`-`10`, `Devices go online`-`11`, `Device offline rate`-`12`, `QoS Alert`-`13`, `Emergency Call Alert`-`14`.  \n \nWhen the value of the `module` is `1`, the value of `rule` can only be in the range of `1` to `8`.   \n \nWhen the value of the `module` is `2`, the value of `rule` can only be `9`.  \n \nWhen the value of the `module` is `3`, the value of `rule` can only be in the range of `10` to `12`.  \n \nWhen the value of the `module` is `4`, the value of `rule` can only be `13`.  \n \nWhen the value of the `module` is `5`, the value of `rule` can only be `14`."
+        required: false
+        schema:
+          type: integer
+          example: 1
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+      - name: status
+        in: query
+        description: 'The alert''s status:
+
+          * `0` &mdash; Inactive.
+
+          * `1` &mdash; Active.'
+        required: false
+        schema:
+          type: integer
+          example: 1
+          enum:
+          - 0
+          - 1
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n \nAlert settings listed successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token is returned whenever the set of the available result list exceeds the page size.
+                    example: 2z0Ov7kngllAbfQi4ZR2eQTb3mFVYQpYAe3
+                  page_size:
+                    type: integer
+                    description: The size of each page.
+                    example: 30
+                  alert_settings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        alert_setting_id:
+                          type: string
+                          description: The unique identifier of the alert setting.
+                          example: uvsOCaiDQR2M-NviKFHo0w
+                        alert_setting_name:
+                          type: string
+                          description: The name of the alert setting.
+                          example: Call Queue Alert
+                        module:
+                          type: integer
+                          description: "The module of the alert. The module and its code mappings display as:  \n \n`Call Queue Management`-`1`, `Route Group Management`-`2`, `Devices &amp; Phones Management`-`3`, `Call Quality Management`-`4`, `Emergency Services Management`-`5`"
+                          example: 1
+                        rule:
+                          type: integer
+                          description: "The rule of the alert. The rule and its code mappings display as:  \n \n`Service Level`-`1`, `Inbound Abandoned Calls`-`2`, `Inbound Overflowed Calls`-`3`, `Inbound Avg Call Waiting Time`-`4`, `Inbound Forwarded to Voicemail`-`5`, `Number of Waiting Calls`-`6`, `Member Availability (Active)`-`7`, `Member Availability (Opt-in/Opt-out)`-`8`, `Route groups status change`-`9`, `Devices go offline`-`10`, `Devices go online`-`11`, `Device offline rate`-`12`, `QoS Alert`-`13`, `Emergency Call Alert`-`14`."
+                          example: 1
+                        rule_conditions:
+                          type: array
+                          description: The rule conditions.
+                          items:
+                            type: object
+                            properties:
+                              rule_condition_type:
+                                type: integer
+                                description: "The condition type. \n* `1`-`Threshold` \n* `2`-`Warning` \n* `3`-`Critical` \n* `4`-`Alert` \n* `5`-`Severity`.   \n \n The `Threshold` is used in the case of the `Service Level` rule.   \n \n The `Warning` or `Critical` is used in the case of the `Service Level` or `Inbound Abandoned Calls` or `Inbound Overflowed Calls` or `Number of Waiting Calls` or `Inbound Forwarded to Voicemail` or `Member Availability (Active)` or `Member Availability (Opt-in/Opt-out)` or `Device offline rate` or `Inbound Avg Call Waiting Time` or `QoS Alert` rule.   \n \n The `Alert` is used in the case of the `Devices go offline` or `device_online_time` rule.   \n \n The `Severity` is used in the case of the `Emergency Call Alert` or `Route groups status change` rule."
+                                example: 5
+                                enum:
+                                - 1
+                                - 2
+                                - 3
+                                - 4
+                                - 5
+                              rule_condition_value:
+                                type: string
+                                description: "The rule condition value.  \n \n In the case of the value of `rule_condition_type`  is `1`, the available values: `15`, `30`, `60`, `120`, `180`, `240`, `300`.   \n \n In the case of the value of `rule_condition_type `is `2` or `3`, when the value of `rule` represents `Service Level` or `Inbound Abandoned Calls` or `Inbound Overflowed Calls` or `Inbound Forwarded to Voicemail` or `Member Availability (Active)` or `Member Availability (Opt-in/Opt-out)` or `Device offline rate`, the unit is `percentage`, the value can only be in the range of `1` to `100`, when the value of `rule` represents `Inbound Avg Call Waiting Time`, the unit is `seconds`, the available values: `10`, `15`, `20`, `25`, `30`, `45`, `60`, `120`, `180`, `240`, `300`, `600`, `900`, `1200`, `1500`, `1800`, when the value of `rule` represents `QoS Alert`, the value can be only in the range of `0` to `5`.   \n \n In the case of the value of `rule_condition_type` is `4`, the available values:`5`, `10`, `15`,`30`,`60`.  \n \nIn the case of the value of `rule_condition_type` is `5`,the available values:`Warning`,`Critical`."
+                                example: Warning
+                        targets:
+                          type: array
+                          description: The targets of the alert.
+                          items:
+                            type: object
+                            properties:
+                              target_name:
+                                type: string
+                                description: The target name.
+                                example: test api
+                        time_frame_type:
+                          type: string
+                          description: "The time frame type.  \n \nThe available values: `all_day`, `specific_time`"
+                          example: specific_time
+                          enum:
+                          - all_day
+                          - specific_time
+                        time_frame_from:
+                          type: string
+                          description: "The start time of time frame in which the alert was triggered, in `HH:mm:ss` format.   \n \nWhen the `time_frame_type` is `all_day`, the value is `00:00:00`"
+                          example: 08:30:00
+                        time_frame_to:
+                          type: string
+                          description: "The end time of time frame in which the alert was triggered, in `HH:mm:ss` format.   \n \nWhen the `time_frame_type` is `all_day`, the value is `00:00:00`"
+                          example: '18:00:00'
+                        frequency:
+                          type: integer
+                          description: "The frequency of alert triggers. The unit is `minutes`.   \n \n When the value of `module` represents `Call Queue Management` or `Route Group Management` or `Devices &amp; Phones Management` or `Call Quality Management`, it will be used."
+                          example: 5
+                          enum:
+                          - 5
+                          - 10
+                          - 15
+                          - 30
+                          - 60
+                        email_recipients:
+                          type: array
+                          description: The email addresses of recipients.
+                          items:
+                            type: string
+                            example: test@example.com
+                        chat_channels:
+                          type: array
+                          description: "The chat channels.   \n \n This field applies when the value of `module` represents `Call Queue Management` or `Route Group Management` or `Devices &amp; Phones Management` or `Call Quality Management`."
+                          items:
+                            type: object
+                            properties:
+                              chat_channel_name:
+                                type: string
+                                description: The channel name.
+                                example: ApiTA_Site_2020_07_21_11_02_26_901
+                              token:
+                                type: string
+                                description: The verification token.
+                                example: eyJhbGciOiJIUzUxMiIsInYiOiIy
+                              end_point:
+                                type: string
+                                description: The end point.
+                                example: https://www.testexample.com
+                        status:
+                          type: integer
+                          description: 'The alert''s status:
+
+                            * `0` &mdash; Inactive.
+
+                            * `1` &mdash; Active.'
+                          example: 1
+                          enum:
+                          - 0
+                          - 1
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `13000` <br>\n Only power pack user can get CQ rules.<br> <br>\n**Error Code:** `13001` <br>\n Non super admin can only list CQ rules.<br> <br>\n**Error Code:** `13002` <br>\n Current operation is not allowed, please contact support.<br> <br>\n**Error Code:** `13012` <br>\n The module:{0} does not support this rule:{1}.<br> <br>\n**Error Code:** `403` <br>\n You do not have permission. <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_alert_settings:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_alert_settings:admin
+    post:
+      tags:
+      - Alerts
+      summary: Add an alert setting
+      description: "[Adds an alert setting](https://support.zoom.us/hc/en-us/articles/7146944434445).\n\n**Prerequisites:**  \n \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:alert_setting:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: AddAnAlertSetting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - alert_setting_name
+              - module
+              - rule
+              - rule_conditions
+              - target_type
+              - time_frame_from
+              - time_frame_to
+              - time_frame_type
+              type: object
+              properties:
+                alert_setting_name:
+                  type: string
+                  description: The name of the alert setting.
+                  example: Call Queue Alert
+                module:
+                  type: integer
+                  description: "The module of the alert. The module and its code mappings are shown as:\n\n `Call Queue Management`-`1`, `Route Group Management`-`2`, `Devices &amp; Phones Management`-`3`, `Call Quality Management`-`4`, and `Emergency Services Management`-`5`"
+                  example: 1
+                rule:
+                  type: integer
+                  description: "The rule of the alert. The rule and its code mappings are shown as: \n\n`Service Level`-`1`, `Inbound Abandoned Calls`-`2`, `Inbound Overflowed Calls`-`3`, `Inbound Avg Call Waiting Time`-`4`, `Inbound Forwarded to Voicemail`-`5`, `Number of Waiting Calls`-`6`, `Member Availability (Active)`-`7`, `Member Availability (Opt-in/Opt-out)`-`8`, `Route groups status change`-`9`, `Devices go offline`-`10`, `Devices go online`-`11`, `Device offline rate`-`12`, `QoS Alert`-`13`, and `Emergency Call Alert`-`14`. \n\nWhen the value of the `module` is `1`, the value of `rule` can only be in the range of `1` to `8`. \n\nWhen the value of the `module` is `2`, the value of `rule` can only be `9`. \n\nWhen the value of the `module` is `3`, the value of `rule` can only be in the range of `10` to `12`. \n\nWhen the value of the `module` is `4`, the value of `rule` can only be `13`. \n\nWhen the value of the `module` is `5`, the value of `rule` can only be `14`. \n\n Alerts of rule `7` or rule `8` cannot exceed 30 in number."
+                  example: 1
+                target_type:
+                  type: integer
+                  description: "The target type. \n* `1`-`User` \n* `2`-`Account` \n* `3`-`Call Queue` \n* `4`-`Site` \n* `5`-`Device`"
+                  example: 1
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+                target_ids:
+                  type: array
+                  description: "The target IDs of the alert. The target type can be `User`, `Account`, `Call Queue`, `Site`, and  `Device`. \n\nWhen the value of `rule` is in the range of `1` to `8`, it only supports the `Call Queue` and if the number of `Call Queue` is `1`, you should pass the `Extension ID` of the specific call queue. \n\nWhen the value of the `rule` is `9`, it can only support the `Account`. You only need to specify the value of `target_type`. This field doesn't need a specified value. \n\nWhen the value of the `rule` is `10`, it can support the `Account` or `Device`. If you want to set the `Account`, you only need to specify the value of `target_type`. This field doesn't need a specified value. If you want to set the `Device`, you should pass the `Device ID` of the specific device. The number of `Device` is up to `5`. \n\nWhen the value of the `rule` is `11`, it can support the `Device`. The number of `Device` is up to `5`. You should pass the `Device ID` of the specific device. \n\nWhen the value of the `rule` is `12`, it can support the `Site` and the number of `Site` is `1`. You should pass the `Site ID` of the specific site. \n\nWhen the value of the `rule` is `13`, it can support the `User` and the number of `User` is up to `5`. You should pass the `Extension ID` of the specific user. \n\nWhen the value of the `rule` is `14`, it can support the `Site` and the number of `Site` is `1`. You should pass the `Site ID` of the specific site."
+                  items:
+                    type: string
+                    example: 1PXbl7s6Q52nbePrUxUZTg
+                rule_conditions:
+                  type: array
+                  description: The rule conditions.
+                  items:
+                    type: object
+                    properties:
+                      rule_condition_type:
+                        type: integer
+                        description: "The condition type. \n* `1`-`Threshold` \n* `2`-`Warning` \n* `3`-`Critical` \n* `4`-`Alert` \n* `5`-`Severity` \n\nWe use the `Threshold` for the `Service Level` rule. \n\nWe use the `Warning` or `Critical` for: `Service Level`, `Inbound Abandoned Calls`, `Inbound Overflowed Calls`, `Inbound Forwarded to Voicemail`, `Number of Waiting Calls`, `Member Availability (Active)`, `Member Availability (Opt-in/Opt-out)`, `Device offline rate`, `Inbound Avg Call Waiting Time`, or `QoS Alert` rule. \n\nWe use `Alert` for the `Devices go offline` or `Devices go online` rule. \n\nWe use `Severity` for the `Emergency Call Alert` or `Route groups status change` rule."
+                        example: 5
+                        enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                      rule_condition_value:
+                        type: string
+                        description: "The rule condition value. \n\n`rule_condition_type` is `1`: The available values are `15`, `30`, `60`, `120`, `180`, `240`, `300`. \n\n`rule_condition_type `is `2` or `3`: When the value of `rule` represents `Service Level`, `Inbound Abandoned Calls`, `Inbound Overflowed Calls`, `Inbound Forwarded to Voicemail`, `Member Availability (Active)`, `Member Availability (Opt-in/Opt-out)`, or `Device offline rate`, the unit is `percentage`. The value can only be in the range of `1` to `100`. When the value of `rule` represents `Inbound Avg Call Waiting Time`, the unit is `seconds`. The available values are `10`, `15`, `20`, `25`, `30`, `45`, `60`, `120`, `180`, `240`, `300`, `600`, `900`, `1200`, `1500`, and `1800`. When the value of `rule` represents `QoS Alert`, the value can be only in the range of `0` to `5`. \n\n`rule_condition_type` is `4`: The available values:`5`, `10`, `15`,`30`, and `60`. \n\n`rule_condition_type` is `5`: The available values are`Warning` and `Critical`."
+                        example: Warning
+                time_frame_type:
+                  type: string
+                  description: "The time frame type. \n\nThe available values: `all_day` and `specific_time`"
+                  example: specific_time
+                  enum:
+                  - all_day
+                  - specific_time
+                time_frame_from:
+                  type: string
+                  description: "The start time of time frame in which the alert was triggered, in `HH:mm:ss` format. \n\nWhen the `time_frame_type` is `all_day`, the value is `00:00:00`. \n\nThe value should be either at the whole hour or at half past the hour."
+                  example: 08:30:00
+                time_frame_to:
+                  type: string
+                  description: "The end time of time frame in which the alert was triggered, in `HH:mm:ss` format. \n\nWhen the `time_frame_type` is `all_day`, the value is `00:00:00`. \n\nThe value should be either at the whole hour or at half past the hour."
+                  example: '18:00:00'
+                frequency:
+                  type: integer
+                  description: "The frequency of alert triggers. The unit is `minutes`. \n\nWhen the value of `module` represents `Call Queue Management` or `Route Group Management` or `Devices &amp; Phones Management` or `Call Quality Management`, it will be used."
+                  example: 5
+                  enum:
+                  - 5
+                  - 10
+                  - 15
+                  - 30
+                  - 60
+                email_recipients:
+                  type: array
+                  description: The email addresses of recipients. The number of the emails is up to `10`
+                  items:
+                    type: string
+                    example: test@example.com
+                chat_channels:
+                  type: array
+                  description: The chat channels. It's used When the value of `module` represents `Call Queue Management`, `Route Group Management`, `Devices &amp; Phones Management`, and `Call Quality Management`. The number of the chat channels is up to `3`
+                  items:
+                    type: object
+                    properties:
+                      chat_channel_name:
+                        type: string
+                        description: The channel name
+                        example: ApiTA_Site_2020_07_21_11_02_26_901
+                      token:
+                        type: string
+                        description: The verification token.
+                        example: eyJhbGciOiJIUzUxMiIsInYiOiIy
+                      end_point:
+                        type: string
+                        description: The end point.
+                        example: https://www.testexample.com
+                status:
+                  type: integer
+                  description: "The alert's status: \n* `0` — Inactive. \n* `1` — Active."
+                  example: 1
+                  enum:
+                  - 0
+                  - 1
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201` **Created**  \n \nAlert setting added successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alert_setting_id:
+                    type: string
+                    description: The unique identifier of the alert setting.
+                    example: uvsOCaiDQR2M-NviKFHo0w
+                  alert_setting_name:
+                    type: string
+                    description: The name of the alert setting.
+                    example: Call Queue Alert
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n Validation Failed<br> <br>\n**Error Code:** `13004` <br>\n Alert rule on this target already exists.<br> <br>\n**Error Code:** `13005` <br>\n This alert can only be set up once.<br> <br>\n**Error Code:** `13006` <br>\n The number of target is invalid. <br> <br>\n**Error Code:** `13007` <br>\n The number of email recipients is invalid. <br> <br>\n**Error Code:** `13008` <br>\n The number of chat channels is invalid.<br> <br>\n**Error Code:** `13009` <br>\n Fail to create alert.<br> <br>\n**Error Code:** `13010` <br>\n Invalid parameters.<br> <br>\n**Error Code:** `13012` <br>\n The module:{0} does not support this rule:{1}.<br> <br>\n**Error Code:** `13013` <br>\n The rule:{0} does not support this target type:{1}.<br> <br>\n**Error Code:** `13014` <br>\n The target id:{0} is invalid.<br> <br>\n**Error Code:** `403` <br>\n You do not have permission.<br> <br>\n**Error Code:** `13015` <br>\n The rule:{0} can not support the rule condition type:{1}.<br> <br>\n**Error Code:** `13016` <br>\n The rule:{0} is missing the rule condition type:{1}.<br> <br>\n**Error Code:** `13017` <br>\n The value of the rule condition type:{0} is invalid.<br> <br>\n**Error Code:** `13018` <br>\n The value of alert field:{0} is invalid.<br> <br>\n**Error Code:** `13019` <br>\n The group does not exist, groupId:{0}.<br> <br>\n**Error Code:** `13020` <br>\n There are duplicated rule condition types.<br> <br>\n**Error Code:** `13021` <br>\n The rule condition value can not be same.<br> <br>\n**Error Code:** `13022` <br>\n The number of alerts for this module:{0} has reached the limit, and it is not allowed to create alerts of this rule:{1}.<br> <br>\n**Error Code:** `13023` <br>\n The number of email recipients is invalid.<br> <br>\n**Error Code:** `13024` <br>\n The number of chat channels is invalid. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write:alert_setting:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:write:alert_setting:admin
+  /phone/alert_settings/{alertSettingId}:
+    get:
+      tags:
+      - Alerts
+      summary: Get alert setting details
+      description: "Returns detailed information about a specific [alert setting](https://support.zoom.us/hc/en-us/articles/7146944434445).\n\n**Prerequisites:**\n\n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:alert_setting:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: GetAlertSettingDetails
+      parameters:
+      - name: alertSettingId
+        in: path
+        description: The unique Identifier of the alert setting.
+        required: true
+        schema:
+          type: string
+          example: uvsOCaiDQR2M-NviKFHo0w
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n\n Alert setting information retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alert_setting_id:
+                    type: string
+                    description: The unique identifier of the alert setting.
+                    example: uvsOCaiDQR2M-NviKFHo0w
+                  alert_setting_name:
+                    type: string
+                    description: The name of the alert setting.
+                    example: Call Queue Alert
+                  module:
+                    type: integer
+                    description: 'The module of the alert. The module and its code mappings displays as: `Call Queue Management`-`1`, `Route Group Management`-`2`, `Devices &amp; Phones Management`-`3`, `Call Quality Management`-`4`, `Emergency Services Management`-`5`'
+                    example: 1
+                  rule:
+                    type: integer
+                    description: 'The rule of the alert. The rule and its code mappings displays as: `Service Level`-`1`, `Inbound Abandoned Calls`-`2`, `Inbound Overflowed Calls`-`3`, `Inbound Avg Call Waiting Time`-`4`, `Inbound Forwarded to Voicemail`-`5`, `Number of Waiting Calls`-`6`, `Member Availability (Active)`-`7`, `Member Availability (Opt-in/Opt-out)`-`8`, `Route groups status change`-`9`, `Devices go offline`-`10`, `Devices go online`-`11`, `Device offline rate`-`12`, `QoS Alert`-`13`, `Emergency Call Alert`-`14`.'
+                    example: 1
+                  rule_conditions:
+                    type: array
+                    description: The rule conditions.
+                    items:
+                      type: object
+                      properties:
+                        rule_condition_type:
+                          type: integer
+                          description: "The condition type. \n* `1`-`Threshold` \n* `2`-`Warning` \n* `3`-`Critical` \n* `4`-`Alert` \n* `5`-`Severity`. \n\nThe `Threshold` is used for the `Service Level` rule. \n\nThe `Warning` or `Critical` is used for the `Service Level`, `Inbound Abandoned Calls`, `Inbound Overflowed Calls`, `Number of Waiting Calls`, `Inbound Forwarded to Voicemail`, `Member Availability (Active)`, `Member Availability (Opt-in/Opt-out)`, `Device offline rate`, `Inbound Avg Call Waiting Time`, or `QoS Alert` rule. \n\nThe `Alert` is used for the `Devices go offline` or `device_online_time` rule. \n\nThe `Severity` is used for the `Emergency Call Alert` or `Route groups status change` rule."
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 5
+                        rule_condition_value:
+                          type: string
+                          description: "The rule condition value. \n\n If the `rule_condition_type` is `1`, the available values are `15`, `30`, `60`, `120`, `180`, `240`, and `300`. \n\nIn the case of the value of `rule_condition_type `is `2` or `3`, when the value of `rule` represents `Service Level`, `Inbound Abandoned Calls`, `Inbound Overflowed Calls`, `Inbound Forwarded to Voicemail`, `Member Availability (Active)`, `Member Availability (Opt-in/Opt-out)`, or `Device offline rate`, the unit is `percentage`. The value can only be in the range of `1` to `100`, when the value of `rule` represents `Inbound Avg Call Waiting Time`, the unit is `seconds`. The available values are `10`, `15`, `20`, `25`, `30`, `45`, `60`, `120`, `180`, `240`, `300`, `600`, `900`, `1200`, `1500`, and `1800`. When the value of `rule` represents `QoS Alert`, the value can be only in the range of `0` to `5`. \n\nIn the case of the value of `rule_condition_type` is `4`, the available values are`5`, `10`, `15`,`30`, and `60`. \n\nIn the case of the value of `rule_condition_type` is `5`, the available values are `Warning` and`Critical`."
+                          example: Warning
+                  targets:
+                    type: array
+                    description: The targets of the alert.
+                    items:
+                      type: object
+                      properties:
+                        target_id:
+                          type: string
+                          description: The target ID.
+                          example: -GHFnf5WQe-H-_r0Wwx9iQ
+                        target_name:
+                          type: string
+                          description: The target name.
+                          example: test api
+                        target_type:
+                          type: integer
+                          description: "The target type. \n* `1`-`User` \n* `2`-`Account` \n* `3`-`Call Queue` \n* `4`-`Site` \n* `5`-`Device`"
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 5
+                        target_extension_number:
+                          type: integer
+                          description: The extension number of the Zoom Phone that the `User` uses.
+                          format: int64
+                          example: 123
+                        site:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The [site](https://support.zoom.us/hc/en-us/articles/360020809672) of the phone user.
+                              example: '123123'
+                            name:
+                              type: string
+                              description: The name of the [site](https://support.zoom.us/hc/en-us/articles/360020809672).
+                              example: Main Site
+                        assignees:
+                          type: array
+                          description: This field applies when the the value of `target_type` represents `Devices`.
+                          items:
+                            type: object
+                            properties:
+                              extension_number:
+                                type: integer
+                                description: The extension number of the Zoom Phone the `user` or `commonArea` uses.
+                                format: int64
+                                example: 123
+                              name:
+                                type: string
+                                description: Name.
+                                example: Pooja
+                              extension_type:
+                                type: string
+                                description: The type of the assignee. Its available only if the device is assigned.
+                                example: user
+                                enum:
+                                - user
+                                - commonArea
+                              extension_id:
+                                type: string
+                                description: The extension ID of the `user` or `common area`.
+                                example: MjGXQfCxShapaxJDka7
+                  time_frame_type:
+                    type: string
+                    description: "The time frame type. \n\nThe available values: `all_day`, `specific_time`"
+                    example: specific_time
+                    enum:
+                    - all_day
+                    - specific_time
+                  time_frame_from:
+                    type: string
+                    description: "The start time of time frame in which the alert was triggered, in `HH:mm:ss` format.\n\n When the `time_frame_type` is `all_day`, the value is `00:00:00`"
+                    example: 08:30:00
+                  time_frame_to:
+                    type: string
+                    description: "The end time of time frame in which the alert was triggered, in `HH:mm:ss` format. \n\n When the `time_frame_type` is `all_day`, the value is `00:00:00`"
+                    example: '18:00:00'
+                  frequency:
+                    type: integer
+                    description: "The frequency of alert triggers. The unit is `minutes`. \n\nIt's used when the value of `module` represents `Call Queue Management`, `Route Group Management`, `Devices &amp; Phones Management`, or `Call Quality Management`."
+                    example: 5
+                    enum:
+                    - 5
+                    - 10
+                    - 15
+                    - 30
+                    - 60
+                  email_recipients:
+                    type: array
+                    description: The email addresses of recipients.
+                    items:
+                      type: string
+                      example: test@example.com
+                  chat_channels:
+                    type: array
+                    description: The chat channels. This field applies when the value of `module` represents `Call Queue Management`, `Route Group Management`, `Devices &amp; Phones Management`, or `Call Quality Management`.
+                    items:
+                      type: object
+                      properties:
+                        chat_channel_name:
+                          type: string
+                          description: The channel name.
+                          example: ApiTA_Site_2020_07_21_11_02_26_901
+                        token:
+                          type: string
+                          description: The verification token.
+                          example: eyJhbGciOiJIUzUxMiIsInYiOiIy
+                        end_point:
+                          type: string
+                          description: The end point.
+                          example: https://www.testexample.com
+                  status:
+                    type: integer
+                    description: "The alert's status: \n* `0` — Inactive. \n* `1` — Active."
+                    example: 1
+                    enum:
+                    - 0
+                    - 1
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `403` <br>\n You do not have permission. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `13003` <br>\n The alert setting does not exist, alertSettingId:{0}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:alert_setting:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:alert_setting:admin
+    delete:
+      tags:
+      - Alerts
+      summary: Delete an alert setting
+      description: 'Deletes an [alert setting](https://support.zoom.us/hc/en-us/articles/7146944434445).
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:alert_setting:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: DeleteAnAlertSetting
+      parameters:
+      - name: alertSettingId
+        in: path
+        description: The alert setting ID.
+        required: true
+        schema:
+          type: string
+          example: brW-o_riQSG3T9tLJ4v1yw
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nAlert setting deleted successfully."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `403` <br>\n You do not have permission. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13003` <br>\n The alert setting does not exist, alertSettingId:{0}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:delete:alert_setting:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:delete:alert_setting:admin
+    patch:
+      tags:
+      - Alerts
+      summary: Update an alert setting
+      description: "Updates information of an [Alert setting](https://support.zoom.us/hc/en-us/articles/7146944434445).\n\n**Prerequisites:**  \n \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:patch:alert_setting:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: UpdateAnAlertSetting
+      parameters:
+      - name: alertSettingId
+        in: path
+        description: The alert setting ID.
+        required: true
+        schema:
+          type: string
+          example: brW-o_riQSG3T9tLJ4v1yw
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                alert_setting_name:
+                  type: string
+                  description: The name of the alert setting.
+                  example: Call Queue Alert
+                rule_conditions:
+                  type: array
+                  description: The rule conditions.
+                  items:
+                    type: object
+                    properties:
+                      rule_condition_type:
+                        type: integer
+                        description: "The condition type. \n* `1`-`Threshold` \n* `2`-`Warning` \n* `3`-`Critical` \n* `4`-`Alert` \n* `5`-`Severity`.   \n \n The `Threshold` is used for the `Service Level` rule.   \n \n The `Warning` or `Critical` is used for the `Service Level`, `Inbound Abandoned Calls`, `Inbound Overflowed Calls`, `Number of Waiting Calls`, `Inbound Forwarded to Voicemail`, `Member Availability (Active)`, `Member Availability (Opt-in/Opt-out)`, `Device offline rate`, `Inbound Avg Call Waiting Time`, or `QoS Alert` rule.   \n \n The `Alert` is used for the `Devices go offline` or `device_online_time` rule.   \n \n The `Severity` is used for the `Emergency Call Alert` or `Route groups status change` rule."
+                        example: 1
+                        enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                      rule_condition_value:
+                        type: string
+                        description: "The rule condition value.  \n \n In the case of the value of `rule_condition_type`  is `1`, the available values: `15`, `30`, `60`, `120`, `180`, `240`, `300`.   \n \n In the case of the value of `rule_condition_type `is `2` or `3`, when the value of `rule` represents `Service Level` or `Inbound Abandoned Calls` or `Inbound Overflowed Calls` or `Inbound Forwarded to Voicemail` or `Member Availability (Active)` or `Member Availability (Opt-in/Opt-out)` or `Device offline rate`, the unit is `percentage`, the value can only be in the range of `1` to `100`, when the value of `rule` represents `Inbound Avg Call Waiting Time`, the unit is `seconds`, the available values: `10`, `15`, `20`, `25`, `30`, `45`, `60`, `120`, `180`, `240`, `300`, `600`, `900`, `1200`, `1500`, `1800`, when the value of `rule` represents `QoS Alert`, the value can be only in the range of `0` to `5`.   \n \n In the case of the value of `rule_condition_type` is `4`, the available values:`5`, `10`, `15`,`30`,`60`.  \n \nIn the case of the value of `rule_condition_type` is `5`,the available values:`Warning`,`Critical`."
+                        example: Warning
+                target_ids:
+                  type: array
+                  description: "The target IDs of the alert.   \n \nWhen the rule is `Devices go offline` and the old value of this field does not represents `Account`, it can be updated incrementally.  \n \n When the rule is `Devices go online` or `QoS Alert`, it can be updated incrementally.   \n \n\n In the case of `Devices go online` or `Devices go offline` rule, you should pass the `Device ID` of the specific device and the number of Device is up to `5`  \n \n In the case of `QoS Alert` rule, you should pass the `Extension ID` of the specific user and the number of User is up to `5`"
+                  items:
+                    type: string
+                    example: vcmGf5wETQy2qExibfWUiA
+                time_frame_type:
+                  type: string
+                  description: "The time frame type.  \n \nThe available values: `all_day`, `specific_time`"
+                  example: specific_time
+                  enum:
+                  - all_day
+                  - specific_time
+                time_frame_from:
+                  type: string
+                  description: "The start time of time frame in which the alert was triggered, in `HH:mm:ss` format.   \n \nWhen the `time_frame_type` is `all_day`, the value is `00:00:00`.\n\n The value should be either at the whole hour or at half past the hour."
+                  example: 08:30:00
+                time_frame_to:
+                  type: string
+                  description: "The end time of time frame in which the alert was triggered, in `HH:mm:ss` format.   \n \nWhen the `time_frame_type` is `all_day`, the value is `00:00:00`.\n\n The value should be either at the whole hour or at half past the hour."
+                  example: '18:00:00'
+                frequency:
+                  type: integer
+                  description: "The frequency of alert triggers. The unit is `minutes`.    \n \n When the value of `module` represents `Call Queue Management` or `Route Group Management` or `Devices &amp; Phones Management` or `Call Quality Management`, it will be used."
+                  example: 5
+                  enum:
+                  - 5
+                  - 10
+                  - 15
+                  - 30
+                  - 60
+                email_recipients:
+                  type: array
+                  description: The email addresses of recipients. The number of the emails is up to `10`
+                  items:
+                    type: string
+                    example: test@example.com
+                chat_channels:
+                  type: array
+                  description: "The chat channels.    \n \n This field applies when the value of `module` represents `Call Queue Management` or `Route Group Management` or `Devices &amp; Phones Management` or `Call Quality Management`. The number of the chat channels is up to `3`"
+                  items:
+                    type: object
+                    properties:
+                      chat_channel_name:
+                        type: string
+                        description: The channel name.
+                        example: ApiTA_Site_2020_07_21_11_02_26_901
+                      token:
+                        type: string
+                        description: The verification token.
+                        example: eyJhbGciOiJIUzUxMiIsInYiOiIy
+                      end_point:
+                        type: string
+                        description: The end point.
+                        example: https://www.testexample.com
+                status:
+                  type: integer
+                  description: 'The alert''s status:
+
+                    * `0` &mdash; Inactive.
+
+                    * `1` &mdash; Active.'
+                  example: 1
+                  enum:
+                  - 0
+                  - 1
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nAlert setting updated successfully."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `300` <br>\n Validation Failed<br> <br>\n**Error Code:** `13006` <br>\n The number of target is invalid.<br> <br>\n**Error Code:** `13007` <br>\n The number of email recipients is invalid. <br> <br>\n**Error Code:** `13008` <br>\n The number of chat channels is invalid.<br> <br>\n**Error Code:** `13010` <br>\n Invalid parameters.<br> <br>\n**Error Code:** `13011` <br>\n The specified extension is in the private directory whom you do not have access to.<br> <br>\n**Error Code:** `13014` <br>\n The target id:{0} is invalid.<br> <br>\n**Error Code:** `403` <br>\n You do not have permission.<br> <br>\n**Error Code:** `13023` <br>\n The number of email recipients is invalid.<br> <br>\n**Error Code:** `13024` <br>\n The number of chat channels is invalid. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `13003` <br>\n The alert setting does not exist, alertSettingId:{0}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:patch:alert_setting:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:patch:alert_setting:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

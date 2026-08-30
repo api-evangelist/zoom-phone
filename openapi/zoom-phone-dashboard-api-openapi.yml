@@ -1,0 +1,2352 @@
+openapi: 3.2.0
+info:
+  title: Phone Dashboard API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Dashboard
+paths:
+  /phone/metrics/call_logs:
+    get:
+      tags:
+      - Dashboard
+      summary: List call logs
+      description: "Returns monthly call logs metrics.\n\nThe call logs that provide a record of all incoming and outgoing calls over Zoom Phone in an account. \n\nYou can use query parameters to filter the response by date, site and MOS(Mean Opinion Score) of the call. \n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      operationId: listCallLogsMetrics
+      parameters:
+      - name: from
+        in: query
+        description: The start date in **yyyy-mm-dd** format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. If unspecified, returns data from the past 1 day.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: This setting is **required** only when the `from` parameter is specified. The end date is in **yyyy-mm-dd** format, which is the same format as the `from` parameter.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: site_id
+        in: query
+        description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites). Use this query parameter if you have enabled multiple sites and would like to filter the response of this API call by call logs of a specific phone site.
+        required: false
+        schema:
+          type: string
+          example: SQv52YtkRLC2dwrDdYtGsA
+      - name: quality_type
+        in: query
+        description: "This setting filters call logs by voice quality. Zoom uses MOS of 3.5 as a general baseline to categorize calls by call quality. A MOS greater than or equal to 3.5 means good quality, while below 3.5 means poor quality.   \n   \n The value of this field can be one of the following:  \n \n* `good`: Retrieve call logs of the call(s) with good quality of voice.  \n \n* `bad`: Retrieve call logs of the call(s) with good quality of voice.  \n \n* `all`: Retrieve all call logs without filtering by voice quality. \n\n\n\n"
+        required: false
+        schema:
+          type: string
+          example: good
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_logs:
+                    type: array
+                    description: Call logs.
+                    items:
+                      type: object
+                      properties:
+                        call_id:
+                          type: string
+                          description: The unique identifier of the phone call.
+                          example: '7081466125443483485'
+                        callee:
+                          type: object
+                          properties:
+                            codec:
+                              type: string
+                              description: The audio codec.
+                              example: ES8311
+                            device_private_ip:
+                              type: string
+                              description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 10.100.111.237
+                            device_public_ip:
+                              type: string
+                              description: This setting displays the device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 38.99.100.2
+                            device_type:
+                              type: string
+                              description: "The device type, and if applicable, its version number. Acceptable device types: \n* `Windows_Client` \n* `MAC_Client` \n* `Linux_Client`  \n* `Android_Phone` \n* `IOS_Phone` \n* `Android_Pad` \n* `IOS_Pad` \n* [Zoom Phone Appliance](https://support.zoom.us/hc/en-us/articles/360001299063#h_cc0dac0d-44aa-4fb6-8e39-359166c38715) \n* `Windows_VDI_Client` \n* `MAC_VDI_Client` \n* `Linux_VDI_Client`"
+                              example: MAC_Client 5.11.9.9957
+                            extension_number:
+                              type: string
+                              description: The full extension number of the callee.
+                              example: '100994'
+                            headset:
+                              type: string
+                              description: The headset the callee uses.
+                              example: Edifier
+                            isp:
+                              type: string
+                              description: ISP.
+                              example: Cogent Communications
+                            microphone:
+                              type: string
+                              description: The microphone the callee uses for the call.
+                              example: '+12053194087'
+                            phone_number:
+                              type: string
+                              description: The phone number of the callee in E164 format.
+                              example: '+12053194087'
+                            site_id:
+                              type: string
+                              description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites).
+                              example: ZNWikLeVSjuaMvUoxFqCuw
+                          description: The callee object that contains information of the calee.
+                        caller:
+                          type: object
+                          properties:
+                            codec:
+                              type: string
+                              description: Audio codec.
+                              example: ES8311
+                            device_private_ip:
+                              type: string
+                              description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 10.100.111.232
+                            device_public_ip:
+                              type: string
+                              description: This setting display sthe device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 38.99.100.3
+                            device_type:
+                              type: string
+                              description: "The device type, and if applicable, its version number. Acceptable device types: \n* `Windows_Client` \n* `MAC_Client` \n* `Linux_Client`  \n* `Android_Phone` \n* `IOS_Phone` \n* `Android_Pad` \n* `IOS_Pad` \n* [Zoom Phone Appliance](https://support.zoom.us/hc/en-us/articles/360001299063#h_cc0dac0d-44aa-4fb6-8e39-359166c38715) \n* `Windows_VDI_Client` \n* `MAC_VDI_Client` \n* `Linux_VDI_Client` "
+                              example: MAC_Client
+                            extension_number:
+                              type: string
+                              description: The full extension number of the caller.
+                              example: '100152'
+                            headset:
+                              type: string
+                              description: The headset the caller uses for the call.
+                              example: Edifier
+                            isp:
+                              type: string
+                              description: ISP.
+                              example: Cogent Communications
+                            microphone:
+                              type: string
+                              description: The microphone the caller uses for the call.
+                              example: '+12053194087'
+                            phone_number:
+                              type: string
+                              description: The phone number of the caller in E164 format.
+                              example: '+12053194087'
+                            site_id:
+                              type: string
+                              description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites).
+                              example: ZNWikLeVSjuaMvUoxFqCuw
+                          description: The caller object that contains information of the caller.
+                        date_time:
+                          type: string
+                          description: The date and time when the call started.
+                          example: '2021-04-01T02:59:32Z'
+                        direction:
+                          type: string
+                          description: The direction of the call. The value of this field can be either `internal` or `outbound`.
+                          example: internal
+                        duration:
+                          type: integer
+                          description: The duration of the full call in seconds.
+                          example: 20
+                        mos:
+                          type: string
+                          description: The  Mean Opinion Score (MOS). Zoom uses MOS as the main measurement to report on voice quality. MOS measures voice quality on a scale of one to five. A score of 1 indicates unacceptable voice quality for all users. A score of five is the best voice quality.
+                          example: '4.5'
+                  from:
+                    type: string
+                    description: The start time and date of the report.
+                    example: '2021-03-31'
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single call.
+                    example: 30
+                  to:
+                    type: string
+                    description: The end time and date of the report.
+                    example: '2021-04-01'
+                  total_records:
+                    type: integer
+                    description: The total number of records available across all pages.
+                    example: 20
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_call_logs:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_call_logs:admin
+  /phone/metrics/call_logs/{callId}/qos:
+    get:
+      tags:
+      - Dashboard
+      summary: Get call QoS
+      description: "Gets the call quality of service (QoS) data for a call made or received by a Zoom phone user in the account. \n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license   \n   \n \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_qos:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: getCallQoS
+      parameters:
+      - name: callId
+        in: path
+        description: The unique identifier of the call.
+        required: true
+        schema:
+          type: string
+          example: '7081466125443483485'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_id:
+                    type: string
+                    description: The unique identifier of the phone call.
+                    example: '7081466125443483485'
+                  callee_qos:
+                    type: object
+                    properties:
+                      device_private_ip:
+                        type: string
+                        description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 10.100.111.237
+                      device_public_ip:
+                        type: string
+                        description: This setting displays the device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 38.99.100.2
+                      receiving:
+                        type: array
+                        description: The QoS that the callee receives.
+                        items:
+                          type: object
+                          properties:
+                            date_time:
+                              type: string
+                              description: The date and time when the QoS was received.
+                              format: date-time
+                              example: '2022-04-01T03:05:43Z'
+                            qos:
+                              type: object
+                              properties:
+                                avg_loss:
+                                  type: string
+                                  description: The average amount of packet loss. For example, the percentage of packets that fail to arrive at their destination.
+                                  example: 0.82%
+                                bitrate:
+                                  type: string
+                                  description: The number of bits per second, in kbps, that can be transmitted along a digital network.
+                                  example: 14.98kbps
+                                jitter:
+                                  type: string
+                                  description: The variation in the delay of received packets, in milliseconds.
+                                  example: 7.53ms
+                                max_loss:
+                                  type: string
+                                  description: The maximum amount of packet loss. For example, the maximum percentage of packets that fail to arrive at their destination.
+                                  example: 1.51%
+                                mos:
+                                  type: string
+                                  description: 'The MOS (Mean Opinion Score).
+
+
+                                    MOS measures voice quality on a scale of 1 to 5. A score than or equal to 3.5 means good quality, while below 3.5 means poor quality.'
+                                  example: '3.6'
+                                network_delay:
+                                  type: string
+                                  description: The amount of time, in milliseconds, it takes for a VoIP (Voice Over IP) packet to travel from one point to another.
+                                  example: '307'
+                      sending:
+                        type: array
+                        description: The QoS that the callee sends.
+                        items:
+                          type: object
+                          properties:
+                            date_time:
+                              type: string
+                              description: The date and time when the QoS was delivered.
+                              format: date-time
+                              example: '2022-04-01T03:05:43Z'
+                            qos:
+                              type: object
+                              properties:
+                                avg_loss:
+                                  type: string
+                                  description: The average amount of packet loss. For example, the percentage of packets that fail to arrive at their destination.
+                                  example: 0.82%
+                                bitrate:
+                                  type: string
+                                  description: The number of bits per second, in kbps, that can be transmitted along a digital network.
+                                  example: 14.98kbps
+                                jitter:
+                                  type: string
+                                  description: The variation in the delay of received packets, in milliseconds.
+                                  example: 7.53ms
+                                max_loss:
+                                  type: string
+                                  description: The maximum amount of packet loss. For example, the maximum percentage of packets that fail to arrive at their destination.
+                                  example: 1.51%
+                                mos:
+                                  type: string
+                                  description: 'The MOS (Mean Opinion Score).
+
+
+                                    MOS measures voice quality on a scale of 1 to 5. A score than or equal to 3.5 means good quality, while below 3.5 means poor quality.'
+                                  example: '3.6'
+                                network_delay:
+                                  type: string
+                                  description: The amount of time, in milliseconds, it takes for a VoIP (Voice Over IP) packet to travel from one point to another.
+                                  example: '307'
+                  caller_qos:
+                    type: object
+                    properties:
+                      device_private_ip:
+                        type: string
+                        description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 10.100.111.237
+                      device_public_ip:
+                        type: string
+                        description: This setting displays the device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 38.99.100.2
+                      receiving:
+                        type: array
+                        description: The QoS (quality of service) that the caller receives .
+                        items:
+                          type: object
+                          properties:
+                            date_time:
+                              type: string
+                              description: The date and time when the QoS was received.
+                              format: date-time
+                              example: '2022-04-01T03:05:43Z'
+                            qos:
+                              type: object
+                              properties:
+                                avg_loss:
+                                  type: string
+                                  description: The average amount of packet loss. For example, the percentage of packets that fail to arrive at their destination.
+                                  example: 1.29%
+                                bitrate:
+                                  type: string
+                                  description: The number of bits per second, in kbps, that can be transmitted along a digital network.
+                                  example: 16.31kbps
+                                jitter:
+                                  type: string
+                                  description: The variation in the delay of received packets in milliseconds.
+                                  example: 5.15ms
+                                max_loss:
+                                  type: string
+                                  description: The maximum amount of packet loss. For example, the maximum percentage of packets that fail to arrive at their destination.
+                                  example: 2.01%
+                                mos:
+                                  type: string
+                                  description: 'The MOS (Mean Opinion Score).
+
+
+                                    MOS measures voice quality on a scale of 1 to 5. A score than or equal to 3.5 means good quality, while below 3.5 means poor quality.'
+                                  example: '3.6'
+                                network_delay:
+                                  type: string
+                                  description: The amount of time, in milliseconds, it takes for a VoIP (Voice Over IP) packet to travel from one point to another.
+                                  example: '301'
+                      sending:
+                        type: array
+                        description: The QoS that the caller sent.
+                        items:
+                          type: object
+                          properties:
+                            date_time:
+                              type: string
+                              description: The date and time when the QoS was delivered.
+                              format: date-time
+                              example: '2022-04-01T03:05:43Z'
+                            qos:
+                              type: object
+                              properties:
+                                avg_loss:
+                                  type: string
+                                  description: The average amount of packet loss, i.e., the percentage of packets that fail to arrive at their destination.
+                                  example: 1.29%
+                                bitrate:
+                                  type: string
+                                  description: The number of bits per second in kbps that can be transmitted along a digital network.
+                                  example: 16.31kbps
+                                jitter:
+                                  type: string
+                                  description: The variation in the delay of received packets. The value of this field is expressed in milliseconds.
+                                  example: 5.15ms
+                                max_loss:
+                                  type: string
+                                  description: The maximum amount of packet loss, i.e., the maximum percentage of packets that fail to arrive at their destination.
+                                  example: 2.01%
+                                mos:
+                                  type: string
+                                  description: The Mean Opinion Score (MOS) measures voice quality on a scale of one to five. A MOS greater than or equal to 3.5 means good quality, while below 3.5 means poor quality.
+                                  example: '3.6'
+                                network_delay:
+                                  type: string
+                                  description: The amount of time (in milliseconds) it takes for a VoIP packet to travel from one point to another.
+                                  example: '303'
+                    description: The quality of service object that represents the call quality data of the caller.
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:call_qos:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:call_qos:admin
+  /phone/metrics/call_logs/{call_id}:
+    get:
+      tags:
+      - Dashboard
+      summary: Get call details from call log
+      description: "Returns call log details of a specific call. \n\nThe call logs provide a record of all incoming and outgoing calls over Zoom Phone in an account.\n\n **Prerequisites:**\n * Business, or Education account\n * Zoom Phone license \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_log:admin`"
+      operationId: getCallLogMetricsDetails
+      parameters:
+      - name: call_id
+        in: path
+        description: "The unique identifier of the phone call. \nThe value of this field can be retrieved from [List Call Logs]() API."
+        required: true
+        schema:
+          type: string
+          example: '7081466125443483485'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_id:
+                    type: string
+                    description: The unique identifier of the phone call.
+                    example: '7081466125443483485'
+                  callee:
+                    type: object
+                    properties:
+                      codec:
+                        type: string
+                        description: The audio codec.
+                        example: ES8311
+                      device_private_ip:
+                        type: string
+                        description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 10.100.111.237
+                      device_public_ip:
+                        type: string
+                        description: This setting displays the device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 38.99.100.2
+                      device_type:
+                        type: string
+                        description: "The device type, and if applicable, its version number. Acceptable device types: \n* `Windows_Client` \n* `MAC_Client` \n* `Linux_Client`  \n* `Android_Phone` \n* `IOS_Phone` \n* `Android_Pad` \n* `IOS_Pad` \n* [Zoom Phone Appliance](https://support.zoom.us/hc/en-us/articles/360001299063#h_cc0dac0d-44aa-4fb6-8e39-359166c38715) \n* `Windows_VDI_Client` \n* `MAC_VDI_Client` \n* `Linux_VDI_Client` "
+                        example: MAC_Client
+                      extension_number:
+                        type: string
+                        description: The full extension number of the callee.
+                        example: '100994'
+                      headset:
+                        type: string
+                        description: The headset the callee uses for the call.
+                        example: Edifier
+                      isp:
+                        type: string
+                        description: ISP.
+                        example: Cogent Communications
+                      microphone:
+                        type: string
+                        description: The microphone the callee uses for the call.
+                        example: '+18889843519'
+                      phone_number:
+                        type: string
+                        description: The phone number of the callee in E164 format.
+                        example: '+18889843519'
+                      site_id:
+                        type: string
+                        description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites).
+                        example: ZNWikLeVSjuaMvUoxFqCuw
+                      id:
+                        type: string
+                        description: The ID of the extension for `user`, `callQueue`, `autoReceptionist`, or `sharedLineGroup`.
+                        example: DYHrdpjrS3uaOf7dPkkg8w
+                      extension_type:
+                        type: string
+                        description: "The type of extension:  \n* `user`  \n* `callQueue` \n* `autoReceptionist` \n* `sharedLineGroup`"
+                        example: user
+                        enum:
+                        - user
+                        - callQueue
+                        - autoReceptionist
+                        - sharedLineGroup
+                      display_name:
+                        type: string
+                        description: The extension's name.
+                        example: user A
+                    description: The callee object that contains information of the callee.
+                  caller:
+                    type: object
+                    properties:
+                      codec:
+                        type: string
+                        description: The audio codec.
+                        example: ES8311
+                      device_private_ip:
+                        type: string
+                        description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 10.100.111.237
+                      device_public_ip:
+                        type: string
+                        description: This setting displays the device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                        example: 38.99.100.2
+                      device_type:
+                        type: string
+                        description: "The device type, and if applicable, its version number. Acceptable device types: \n* `Windows_Client` \n* `MAC_Client` \n* `Linux_Client`  \n* `Android_Phone` \n* `IOS_Phone` \n* `Android_Pad` \n* `IOS_Pad` \n* [Zoom Phone Appliance](https://support.zoom.us/hc/en-us/articles/360001299063#h_cc0dac0d-44aa-4fb6-8e39-359166c38715) \n* `Windows_VDI_Client` \n* `MAC_VDI_Client` \n* `Linux_VDI_Client` "
+                        example: MAC_Client
+                      extension_number:
+                        type: string
+                        description: The full extension number of the caller.
+                        example: '100152'
+                      headset:
+                        type: string
+                        description: The headset the caller uses for the call.
+                        example: Edifier
+                      isp:
+                        type: string
+                        description: ISP.
+                        example: Cogent Communications
+                      microphone:
+                        type: string
+                        description: The microphone the caller uses for the call.
+                        example: '+12053194087'
+                      phone_number:
+                        type: string
+                        description: The phone number of the caller in E164 format.
+                        example: '+12053194087'
+                      site_id:
+                        type: string
+                        description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites).
+                        example: ZNWikLeVSjuaMvUoxFqCuw
+                      id:
+                        type: string
+                        description: The ID of the extension for `user`, `callQueue`, `autoReceptionist`, or `sharedLineGroup`.
+                        example: S5ODD6U3RcGs7H01n8vswA
+                      extension_type:
+                        type: string
+                        description: "The type of extension:  \n* `user`  \n* `callQueue` \n* `autoReceptionist` \n* `sharedLineGroup`"
+                        example: user
+                        enum:
+                        - user
+                        - callQueue
+                        - autoReceptionist
+                        - sharedLineGroup
+                      display_name:
+                        type: string
+                        description: The extension's name.
+                        example: user B
+                    description: The caller object that contains information of the caller.
+                  date_time:
+                    type: string
+                    description: The date and time when the call started.
+                    example: '2022-04-01T03:05:18Z'
+                  direction:
+                    type: string
+                    description: "The direction of the call. \nThe value of this field can be either `internal` or `outbound`."
+                    example: internal
+                  duration:
+                    type: integer
+                    description: The duration of the call in seconds.
+                    example: 27
+                  mos:
+                    type: string
+                    description: " The Mean Opinion Score (MOS). \n \n Zoom uses MOS as the main measurement to report on voice quality. MOS measures voice quality on a scale of one to five. A score of one indicates unacceptable voice quality for all users. A score of five is the best voice quality."
+                    example: '3.6'
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:call_log:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:call_log:admin
+  /phone/metrics/emergency_services/default_emergency_address/users:
+    get:
+      tags:
+      - Dashboard
+      summary: List default emergency address users
+      description: "Returns the users who provide a default personal emergency address rather than a default site address or default account address.   \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:default_emergency_address:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: listUserDefaultEmergencyAddress
+      parameters:
+      - name: status
+        in: query
+        description: The status of **Default Emergency Address**.
+        required: true
+        schema:
+          type: string
+          example: set
+          enum:
+          - set
+          - not_set
+      - name: site_id
+        in: query
+        description: The site's ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: keyword
+        in: query
+        description: The name, email, or extension number of the user.
+        required: false
+        schema:
+          type: string
+          example: james
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the maximu  page number is 100.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Locations returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2
+                  page_size:
+                    type: number
+                    description: The total number of records returned from a single API call.
+                    example: 1
+                  total_records:
+                    type: number
+                    description: The total number of records found for this query.
+                    example: 6
+                  records:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          description: The user's email.
+                          example: test.user@gmail.com
+                        user_display_name:
+                          type: string
+                          description: The user's name.
+                          example: James Lu
+                        extension_id:
+                          type: string
+                          description: The user's extension ID.
+                          example: VodZOCkyRM-wfOqr1xmuMQ
+                        extension_number:
+                          type: integer
+                          description: The user's extension number.
+                          format: int64
+                          example: 10010
+                        site_name:
+                          type: string
+                          description: The site's name.
+                          example: Main Site
+                        site_id:
+                          type: string
+                          description: The unique identifier of the site.
+                          example: oB18huSERjqbzrsyL2bD5w
+                        status:
+                          type: string
+                          description: The status of **Default Emergency Address**.
+                          example: set
+                          enum:
+                          - set
+                          - not_set
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `802` <br>\n Data is not ready, please try again later <br>\n**Error Code:** `8001` <br>\n Site does not exist <br>\n**Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n**Error Code:** `400` <br>\n status can't be empty. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:default_emergency_address:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:default_emergency_address:admin
+  /phone/metrics/emergency_services/detectable_personal_location/users:
+    get:
+      tags:
+      - Dashboard
+      summary: List detectable personal location users
+      description: "Returns the users who created one or more detectable personal locations with associated network data. (Exclude users didn't enable Location Permission on client.) \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:detectable_personal_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: listUserDetectablePersonalLocation
+      parameters:
+      - name: status
+        in: query
+        description: The status of **Detectable Personal Location**.
+        required: true
+        schema:
+          type: string
+          example: set
+          enum:
+          - set
+          - not_set
+      - name: site_id
+        in: query
+        description: The site's ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: keyword
+        in: query
+        description: The name, email, or extension number of the user.
+        required: false
+        schema:
+          type: string
+          example: james
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the maximum page number is 100.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Locations returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2
+                  page_size:
+                    type: number
+                    description: The total number of records returned from a single API call.
+                    example: 1
+                  total_records:
+                    type: number
+                    description: The total number of records found for this query.
+                    example: 6
+                  records:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          description: The user's email.
+                          example: test.user@gmail.com
+                        user_display_name:
+                          type: string
+                          description: The user's name.
+                          example: James Lu
+                        extension_id:
+                          type: string
+                          description: The user's extension ID.
+                          example: VodZOCkyRM-wfOqr1xmuMQ
+                        extension_number:
+                          type: integer
+                          description: The user's extension number.
+                          format: int64
+                          example: 10010
+                        site_name:
+                          type: string
+                          description: The site's name.
+                          example: Main Site
+                        site_id:
+                          type: string
+                          description: The unique identifier of the site.
+                          example: oB18huSERjqbzrsyL2bD5w
+                        status:
+                          type: string
+                          description: The status of **Detectable Personal Location**.
+                          example: set
+                          enum:
+                          - set
+                          - not_set
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `802` <br>\n Data is not ready, please try again later <br>\n**Error Code:** `8001` <br>\n Site does not exist <br>\n**Error Code:** `400` <br>\n status can't be empty. <br>\n**Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:detectable_personal_location:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:detectable_personal_location:admin
+  /phone/metrics/emergency_services/location_sharing_permission/users:
+    get:
+      tags:
+      - Dashboard
+      summary: List users permission for location sharing
+      description: "Returns users that have enabled location services and allowed location sharing with Zoom applications on client devices. \n\n(Excludes users who are unable to use Nomadic Emergency Services, or users on client versions lower than 5.4.0.) \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:location_sharing_permission:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: listUserLocationSharingPermission
+      parameters:
+      - name: site_id
+        in: query
+        description: The site's ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: keyword
+        in: query
+        description: The name, email, or extension number of the user.
+        required: false
+        schema:
+          type: string
+          example: james
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the maximum page number is 100.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Locations returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2
+                  page_size:
+                    type: number
+                    description: The total number of records returned from a single API call.
+                    example: 1
+                  total_records:
+                    type: number
+                    description: The total number of records found for this query.
+                    example: 6
+                  user_permissions:
+                    maxItems: 300
+                    type: array
+                    description: The list of users permission for location sharing
+                    items:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          description: The user's email.
+                          example: test.user@gmail.com
+                        user_display_name:
+                          type: string
+                          description: The user's name.
+                          example: james lu
+                        extension_id:
+                          type: string
+                          description: The user's extension ID.
+                          example: VodZOCkyRM-wfOqr1xmuMQ
+                        extension_number:
+                          type: integer
+                          description: The user's extension number.
+                          format: int64
+                          example: 10010
+                        site_name:
+                          type: string
+                          description: The site's name.
+                          example: Main Site
+                        site_id:
+                          type: string
+                          description: The unique identifier of the site.
+                          example: oB18huSERjqbzrsyL2bD5w
+                        device_permissions:
+                          maxItems: 500
+                          type: array
+                          description: The device's permission list of user.
+                          items:
+                            type: object
+                            properties:
+                              last_seen_time:
+                                type: number
+                                description: The last seen time stamp of the device.
+                                example: 1730774641337
+                              location_sharing:
+                                type: string
+                                description: The status of **Users Permission for Location Sharing**.
+                                example: allowed
+                                enum:
+                                - allowed
+                                - disallowed
+                              platform:
+                                type: string
+                                description: The platform of the device.
+                                example: win
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `8001` <br>\n Site does not exist <br>\n**Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:location_sharing_permission:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:location_sharing_permission:admin
+  /phone/metrics/emergency_services/nomadic_emergency_services/users:
+    get:
+      tags:
+      - Dashboard
+      summary: List nomadic emergency services users
+      description: "Returns users who have been enabled for nomadic emergency services.\n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:nomadic_emergency_services:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: listUserNomadicEmergencyServices
+      parameters:
+      - name: status
+        in: query
+        description: The status of **Nomadic Emergency Services is disabled**.
+        required: true
+        schema:
+          type: string
+          example: enabled
+          enum:
+          - enabled
+          - disabled
+      - name: site_id
+        in: query
+        description: The site's ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: keyword
+        in: query
+        description: The name, email, or extension number of the user.
+        required: false
+        schema:
+          type: string
+          example: james
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the max page number is 100.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Locations returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2
+                  page_size:
+                    type: number
+                    description: The total number of records returned from a single API call.
+                    example: 1
+                  total_records:
+                    type: number
+                    description: The total number of records found for this query.
+                    example: 6
+                  records:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          description: The user's email.
+                          example: test.user@gmail.com
+                        user_display_name:
+                          type: string
+                          description: The user's name.
+                          example: James Lu
+                        extension_id:
+                          type: string
+                          description: The user's extension ID.
+                          example: VodZOCkyRM-wfOqr1xmuMQ
+                        extension_number:
+                          type: integer
+                          description: The user's extension number.
+                          format: int64
+                          example: 10010
+                        site_name:
+                          type: string
+                          description: The site's name.
+                          example: Main Site
+                        site_id:
+                          type: string
+                          description: The unique identifier of the site.
+                          example: oB18huSERjqbzrsyL2bD5w
+                        status:
+                          type: string
+                          description: 'The status of **Nomadic Emergency Services**. '
+                          example: enabled
+                          enum:
+                          - enabled
+                          - disabled
+                        reason_for_disabling:
+                          type: integer
+                          description: 'The reason of disabling nomadic emergency services, only returned if service is disabled
+
+                            `1`: Nomadic Emergency Services is disabled
+
+                            `2`: Routing emergency calls to The Safety Team and PSAP is disabled
+
+                            `3`: The assigned number of this user is not a US/CA number
+
+                            `4`: Placing emergency calls to PSAP for extension-only users is disabled, or no US/CA numbers has been assigned to Emergency Number Pool.
+
+                            `5`: This user is only assigned with BYOC numbers and BYOC carriers were set to route the emergency calls, or for extension-only users, only BYOC numbers has been assigned to Emergency Number Pool and the BYOC carrier was set to route the emergency calls.'
+                          format: int32
+                          example: 2
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 5
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `802` <br>\n Data is not ready, please try again later <br>\n**Error Code:** `8001` <br>\n Site does not exist <br>\n**Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n**Error Code:** `400` <br>\n status can't be empty. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:nomadic_emergency_services:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:nomadic_emergency_services:admin
+  /phone/metrics/emergency_services/realtime_location/devices:
+    get:
+      tags:
+      - Dashboard
+      summary: List real time location for IP phones
+      description: "Returns currently detected location of IP phones.\n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:realtime_location_devices:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: listPhoneRealtimelocation
+      parameters:
+      - name: location_type
+        in: query
+        description: 'The location''s type. '
+        required: true
+        schema:
+          type: string
+          example: personal
+          enum:
+          - company
+          - personal
+          - unknown
+      - name: site_id
+        in: query
+        description: The site's ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: keyword
+        in: query
+        description: The device name or device MAC address.
+        required: false
+        schema:
+          type: string
+          example: Desk Phone
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the maximum page number is 100.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Locations returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        device_id:
+                          type: string
+                          description: The device ID.
+                          example: -tDdYIstSumpA0L13GztIQ
+                        device_name:
+                          type: string
+                          description: The device's name.
+                          example: Desk Phone
+                        site_id:
+                          type: string
+                          description: The unique identifier of the site.
+                          example: NjHmTu16Qfe8yOiNJuekXA
+                        site_name:
+                          type: string
+                          description: The site name.
+                          example: HF site
+                        public_ip:
+                          type: string
+                          description: The device's public IP address.
+                          example: 192.168.1.1
+                        private_ip:
+                          type: string
+                          description: The device's subnet or private IP address.
+                          example: 192.168.1.1
+                        bssid:
+                          type: string
+                          description: The BSSID (Basic Service Set Identifiers) of the wifi network which the device connected to
+                          example: SA43YjfBTS6gJbUpfvIziQ
+                        emergency_address:
+                          type: string
+                          description: The emergency location's address.
+                          example: 55 ALMADEN BLVD
+                        mac_address:
+                          type: string
+                          description: The MAC address or serial number of the device.
+                          example: 543968a78ee7
+                        location_name:
+                          type: string
+                          description: The location's name.
+                          example: example location
+                        network_switch:
+                          type: object
+                          properties:
+                            port:
+                              type: string
+                              description: The port of the network switch.
+                              example: '2'
+                            mac_address:
+                              type: string
+                              description: The MAC address or serial number of network switch.
+                              example: 543968a78ee7
+                        location_type:
+                          type: string
+                          description: 'The type of location: `personal`, `company`, `unknown`'
+                          example: personal
+                          enum:
+                          - company
+                          - personal
+                          - unknown
+                        assigned_info:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              extension_id:
+                                type: string
+                                description: The extension ID of the user's Zoom Phone.
+                                example: IqoQmDRqS-aIoXqV_FZ88w
+                              extension_number:
+                                type: integer
+                                description: The extension number of the user's Zoom Phone.
+                                format: int64
+                                example: 10010
+                              user_email:
+                                type: string
+                                description: The email of the user.
+                                example: test.user@gmai.com
+                              user_display_name:
+                                type: string
+                                description: The name of the user.
+                                example: James Lu
+                  total_records:
+                    type: integer
+                    description: The total number of records found for this query.
+                    example: 1
+                  page_size:
+                    maximum: 300
+                    type: integer
+                    description: The total number of records returned from a single API call.
+                    example: 30
+                    default: 30
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `8001` <br>\n Site does not exist <br>\n**Error Code:** `400` <br>\n location_type can't be empty. <br>\n**Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:realtime_location_devices:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:realtime_location_devices:admin
+  /phone/metrics/emergency_services/realtime_location/users:
+    get:
+      tags:
+      - Dashboard
+      summary: List real time location for users
+      description: "Returns the user's currently detected location. (Excludes users who didn't enable location permission on the client.)  \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:realtime_location_users:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: listUserRealtimeLocation
+      parameters:
+      - name: location_type
+        in: query
+        description: The location's type.
+        required: true
+        schema:
+          type: string
+          example: personal
+          enum:
+          - company
+          - personal
+          - unknown
+      - name: site_id
+        in: query
+        description: The site's ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: keyword
+        in: query
+        description: The name, email or extension number of the user.
+        required: false
+        schema:
+          type: string
+          example: james
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes, and the max page number is 100.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Locations returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 6VXOgUaNNeZ7qL7bENvXPgclgeZ3bf3nbj2
+                  page_size:
+                    type: number
+                    description: The total number of records returned from a single API call.
+                    example: 1
+                  total_records:
+                    type: number
+                    description: The total number of records found for this query.
+                    example: 6
+                  records:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          description: The user's email
+                          example: test.user@gmail.com
+                        bssid:
+                          type: string
+                          description: The BSSID (Basic Service Set Identifiers) of the wifi network which the user is connected to.
+                          example: d0:15:a6:1f:4f:35
+                        user_display_name:
+                          type: string
+                          description: The user's name
+                          example: James Lu
+                        extension_id:
+                          type: string
+                          description: The user's extension ID.
+                          example: VodZOCkyRM-wfOqr1xmuMQ
+                        extension_number:
+                          type: integer
+                          description: The user's extension number.
+                          format: int64
+                          example: 10010
+                        site_name:
+                          type: string
+                          description: The site's name.
+                          example: Main Site
+                        site_id:
+                          type: string
+                          description: The unique identifier of the site.
+                          example: oB18huSERjqbzrsyL2bD5w
+                        public_ip:
+                          type: string
+                          description: The device's public IP address.
+                          example: 66.172.49.116
+                        private_ip:
+                          type: string
+                          description: The device's subnet or private IP address.
+                          example: 10.100.161.25
+                        emergency_address:
+                          type: string
+                          description: The emergency location's address.
+                          example: 55 ALMADEN BLVD
+                        location_name:
+                          type: string
+                          description: The location's name.
+                          example: example location
+                        network_switch:
+                          type: object
+                          properties:
+                            port:
+                              type: string
+                              description: The port of the network switch.
+                              example: '2'
+                            mac_address:
+                              type: string
+                              description: The MAC address or serial number of network switch.
+                              example: 543968a78ee7
+                        location_type:
+                          type: string
+                          description: 'The type of location: `company`, `personal`, `unknown`'
+                          example: unknown
+                          enum:
+                          - company
+                          - personal
+                          - unknown
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `8001` <br>\n Site does not exist <br>\n**Error Code:** `400` <br>\n location_type can't be empty. <br>\n**Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:realtime_location_users:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:realtime_location_users:admin
+  /phone/metrics/location_tracking:
+    get:
+      tags:
+      - Dashboard
+      summary: List tracked locations
+      description: "Lists the tracked locations. \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_tracked_locations:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      operationId: listTrackedLocations
+      parameters:
+      - name: type
+        in: query
+        description: 'The type of response data. Supports  only six responses at this time.
+
+          `1`: Nomadic Emergency Services.
+
+          `2`: Users Permission for Location Sharing.
+
+          `3`: Default Emergency Address.
+
+          `4`: Detectable Personal Location.
+
+          `5`: Real-time Location for Users.
+
+          `6`: Real-time Location for IP Phones.'
+        required: false
+        schema:
+          type: integer
+          example: 6
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+      - name: site_id
+        in: query
+        description: The site's ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: location_type
+        in: query
+        description: The location's type. 'Company' is the default value.
+        required: false
+        schema:
+          type: string
+          example: personal
+          enum:
+          - company
+          - personal
+          - unknown
+      - name: keyword
+        in: query
+        description: The device name or device MAC address.
+        required: false
+        schema:
+          type: string
+          example: device name
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Locations returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location_tracking:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assignees:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              extension_number:
+                                type: integer
+                                description: The extension number of the user's Zoom Phone.
+                                format: int64
+                                example: 10010
+                              id:
+                                type: string
+                                description: The user ID of the user with the assigned device.
+                                example: IqoQmDRqS-aIoXqV_FZ88w
+                              name:
+                                type: string
+                                description: The name of the user.
+                                example: testUser
+                        city:
+                          type: string
+                          description: The city of the location.
+                          example: SAN JOSE
+                        country:
+                          maxLength: 2
+                          minLength: 2
+                          type: string
+                          description: The two-lettered country code (Aplha-2 code in ISO-3166 format) standard of the location.
+                          example: US
+                        device:
+                          type: object
+                          properties:
+                            bssid:
+                              type: string
+                              description: The device's BSSIDs (Basic Service Set Identifiers).
+                              example: SA43YjfBTS6gJbUpfvIziQ
+                            id:
+                              type: string
+                              description: The device ID.
+                              example: -tDdYIstSumpA0L13GztIQ
+                            mac_address:
+                              type: string
+                              description: The MAC address or serial number of the device.
+                              example: 543968a78ee7
+                            name:
+                              type: string
+                              description: The device name.
+                              example: Desk Phone
+                            private_ip:
+                              type: string
+                              description: The device's subnet or private IP address.
+                              example: 192.168.1.1
+                            public_ip:
+                              type: string
+                              description: The device's public IP address.
+                              example: 192.168.1.1
+                        emergency_address:
+                          type: string
+                          description: The emergency location's address.
+                          example: 55 ALMADEN BLVD
+                        name:
+                          type: string
+                          description: The location's name.
+                          example: testLocation
+                        network_switch:
+                          type: object
+                          properties:
+                            mac_address:
+                              type: string
+                              description: The MAC address or serial number of network switch.
+                              example: 543968a78ee7
+                            port:
+                              type: string
+                              description: The port of the network switch.
+                              example: '2'
+                        site:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The unique identifier of the site.
+                              example: NjHmTu16Qfe8yOiNJuekXA
+                            name:
+                              type: string
+                              description: The site name.
+                              example: testSite
+                        type:
+                          type: string
+                          description: The type of location
+                          example: personal
+                          enum:
+                          - company
+                          - personal
+                          - unknown
+                        zip:
+                          type: string
+                          description: The zip code of the location.
+                          example: '95113'
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+                  page_size:
+                    maximum: 100
+                    type: integer
+                    description: The total number of records returned from a single API call.
+                    example: 30
+                    default: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records found for this query.
+                    example: 1
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_tracked_locations:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_tracked_locations:admin
+  /phone/metrics/past_calls:
+    get:
+      tags:
+      - Dashboard
+      summary: List past call metrics
+      description: " Returns all the call logs metrics of the account from the selected time period. The call logs provide a record of all incoming and outgoing calls over Zoom Phone in an account. You can use query parameters to filter the response by metrics of the call (such as date, phone number, extension number and quality type). \n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`"
+      operationId: listPastCallMetrics
+      parameters:
+      - name: from
+        in: query
+        description: The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. If unspecified, returns data from the past 30 days.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: '**Required** only when the `from` parameter is specified. End time and date in **yyyy-mm-dd** or **yyyy-MM-dd''T''HH:mm:ss''Z''** format, the same format as the `from` parameter.'
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: phone_number
+        in: query
+        description: This setting filters call logs of a specified phone number.
+        required: false
+        schema:
+          type: string
+          example: '12058945458'
+      - name: extension_number
+        in: query
+        description: This setting filters call logs of a specified extension number
+        required: false
+        schema:
+          type: string
+          example: '1000001028'
+      - name: quality_type
+        in: query
+        description: "This setting filters call logs by voice quality. Zoom uses MOS of 3.5 as a general baseline to categorize calls by call quality. A MOS greater than or equal to 3.5 means good quality, while below 3.5 means poor quality.   \n   \n The value of this field can be one of the following:  \n \n* `good`: Retrieve call logs of the call(s) with good quality of voice.  \n \n* `bad`: Retrieve call logs of the call(s) with good quality of voice.  \n  \n"
+        required: false
+        schema:
+          type: string
+          example: good
+          enum:
+          - good
+          - bad
+      - name: department
+        in: query
+        description: The department the extension belongs to.
+        required: false
+        schema:
+          type: string
+          example: Phone department
+      - name: cost_center
+        in: query
+        description: The cost center the extension belongs to.
+        required: false
+        schema:
+          type: string
+          example: Phone cost center
+      - name: directions
+        in: query
+        description: The directions of the call.
+        required: false
+        schema:
+          maxItems: 3
+          type: array
+          items:
+            type: string
+            example: inbound
+            enum:
+            - inbound
+            - outbound
+            - internal
+      - name: durations
+        in: query
+        description: "The duration of the call.   \n \n* `0`: The call that lasts 1 to 5 minutes.   \n \n* `1`: The call that lasts 5 to 10 minutes.   \n \n* `2`: The call that lasts more than 10 minutes.   \n \n* `3`: The call that lasts less than 1 minute."
+        required: false
+        schema:
+          maxItems: 4
+          type: array
+          items:
+            type: integer
+            example: 1
+            enum:
+            - 0
+            - 1
+            - 2
+            - 3
+      - name: site_id
+        in: query
+        description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites). Use this query parameter if you have enabled multiple sites and would like to filter the response of this API call by call logs of a specific phone site.
+        required: false
+        schema:
+          type: string
+          example: SQv52YtkRLC2dwrDdYtGsA
+      - name: page_size
+        in: query
+        description: The number of records returned within a single call.
+        required: false
+        schema:
+          maximum: 100
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+      responses:
+        '200':
+          description: "**HTTP Status code:** `200`  \n  List past call metrics successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_logs:
+                    type: array
+                    description: The call logs.
+                    items:
+                      type: object
+                      properties:
+                        call_id:
+                          type: string
+                          description: The unique identifier of the phone call.
+                          example: '7081466125443483485'
+                        callee:
+                          type: object
+                          properties:
+                            codec:
+                              type: string
+                              description: The audio codec.
+                              example: ES8311
+                            device_private_ip:
+                              type: string
+                              description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 10.100.111.237
+                            device_public_ip:
+                              type: string
+                              description: This setting displays the device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 38.99.100.2
+                            device_type:
+                              type: string
+                              description: "The device type, and if applicable, its version number. Acceptable device types: \n* `Windows_Client` \n* `MAC_Client` \n* `Linux_Client`  \n* `Android_Phone` \n* `IOS_Phone` \n* `Android_Pad` \n* `IOS_Pad` \n* [Zoom Phone Appliance](https://support.zoom.us/hc/en-us/articles/360001299063#h_cc0dac0d-44aa-4fb6-8e39-359166c38715) \n* `Windows_VDI_Client` \n* `MAC_VDI_Client` \n* `Linux_VDI_Client` "
+                              example: MAC_Client
+                            extension_number:
+                              type: string
+                              description: The full extension number of the callee.
+                              example: '100994'
+                            headset:
+                              type: string
+                              description: The headset the callee uses for the call.
+                              example: Edifier
+                            isp:
+                              type: string
+                              description: The internet service provider.
+                              example: Cogent Communications
+                            microphone:
+                              type: string
+                              description: The microphone the callee uses for the call.
+                              example: '+12053194087'
+                            phone_number:
+                              type: string
+                              description: The phone number of the callee in E164 format.
+                              example: '+12053194087'
+                            site_id:
+                              type: string
+                              description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites).
+                              example: ZNWikLeVSjuaMvUoxFqCuw
+                          description: The callee object that contains information of the callee.
+                        caller:
+                          type: object
+                          properties:
+                            codec:
+                              type: string
+                              description: The audio codec.
+                              example: ES8311
+                            device_private_ip:
+                              type: string
+                              description: This setting displays the device's private IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 10.100.111.232
+                            device_public_ip:
+                              type: string
+                              description: This setting displays the device's public IP address if the account has the `show_device_ip_for_call_log` parameter set to `enabled`.
+                              example: 38.99.100.3
+                            device_type:
+                              type: string
+                              description: "The device type, and if applicable, its version number. Acceptable device types: \n* `Windows_Client` \n* `MAC_Client` \n* `Linux_Client`  \n* `Android_Phone` \n* `IOS_Phone` \n* `Android_Pad` \n* `IOS_Pad` \n* [Zoom Phone Appliance](https://support.zoom.us/hc/en-us/articles/360001299063#h_cc0dac0d-44aa-4fb6-8e39-359166c38715) \n* `Windows_VDI_Client` \n* `MAC_VDI_Client` \n* `Linux_VDI_Client` "
+                              example: MAC_Client
+                            extension_number:
+                              type: string
+                              description: The full extension number of the caller.
+                              example: '100152'
+                            headset:
+                              type: string
+                              description: The headset the caller uses for the call.
+                              example: Edifier
+                            isp:
+                              type: string
+                              description: The internet service provider.
+                              example: Cogent Communications
+                            microphone:
+                              type: string
+                              description: The microphone the caller uses for the call.
+                              example: '+12053194087'
+                            phone_number:
+                              type: string
+                              description: The phone number of the caller in E164 format.
+                              example: '+12053194087'
+                            site_id:
+                              type: string
+                              description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites).
+                              example: ZNWikLeVSjuaMvUoxFqCuw
+                          description: The caller object that contains information of the caller.
+                        date_time:
+                          type: string
+                          description: The date and time when the call started.
+                          example: '2021-04-01T02:59:32Z'
+                        direction:
+                          type: string
+                          description: The direction of the call.
+                          example: internal
+                          enum:
+                          - inbound
+                          - outbound
+                          - internal
+                        duration:
+                          type: integer
+                          description: The duration of the call in seconds.
+                          example: 20
+                        mos:
+                          type: string
+                          description: The Mean Opinion Score (MOS). Zoom uses (MOS) as the main measurement to report on voice quality. MOS measures voice quality on a scale of one to five. A score of 1 indicates unacceptable voice quality for all users. A score of five is the best voice quality.
+                          example: '4.5'
+                  from:
+                    type: string
+                    description: The start time and date of the report.
+                    example: '2021-03-31'
+                  to:
+                    type: string
+                    description: The end time and date of the report.
+                    example: '2021-04-01'
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single call.
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records available across all pages.
+                    example: 20
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_call_logs:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_call_logs:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

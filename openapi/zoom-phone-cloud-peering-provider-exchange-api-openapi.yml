@@ -1,0 +1,805 @@
+openapi: 3.2.0
+info:
+  title: Number Management Cloud Peering Provider Exchange API
+  description: Number Management APIs are part of Zoom's API suite. They let developers manage and provision phone numbers in a Zoom Phone, Contact Center, or Meetings account programmatically. They also help businesses and service providers automate phone number operations at scale.
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Cloud Peering Provider Exchange
+paths:
+  /number_management/carrier/peering_numbers:
+    get:
+      tags:
+      - Cloud Peering Provider Exchange
+      summary: List peering phone numbers for provider
+      description: "Returns phone numbers the carrier pushes to different customers.\n\n**Prerequisites** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_carrier_peering_numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: Listpeeringphonenumbersforprovider
+      parameters:
+      - name: page_size
+        in: query
+        description: The total number of records returned from a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          format: int32
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      - name: phone_number
+        in: query
+        description: 'The phone number the partner provides in [E.164](https://en.wikipedia.org/wiki/E.164
+
+          ) format.
+
+
+
+          *  If this parameter is not specified, API will return all the phone numbers from the partner. '
+        required: false
+        schema:
+          type: string
+          example: '+18108001001'
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n Cloud peering numbers successfully returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 8X8xSdRVKHsabD6Im4tIPODq6GzDOvV5fO1
+                  numbers:
+                    type: array
+                    description: The information about the phone numbers pushed by the carrier to different customers.
+                    items:
+                      required:
+                      - assigned
+                      - phone_number
+                      - sip_trunk_name
+                      - status
+                      type: object
+                      properties:
+                        customer_account_name:
+                          type: string
+                          description: The customer's account name.
+                          example: Some customer's account name
+                        customer_account_number:
+                          type: string
+                          description: The customer's account number.
+                          example: Some customer's account number
+                        assigned:
+                          type: boolean
+                          description: 'Whether the phone number is assigned:
+
+                            * `false` &mdash; Unassigned.
+
+                            * `true` &mdash; Assigned.'
+                          example: true
+                        billing_ref_id:
+                          type: string
+                          description: "Partners can specify their billing reference ID, with the maximum length of 36 characters. \n*  Zoom will send back the specified billing_ref_id in the SIP Header X-TO-CARRIER-ACCOUNT for the outbound calls to the provider."
+                          example: Some billing referenceId
+                        phone_number:
+                          type: string
+                          description: The phone number the partner provides in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+                          example: '+18108001001'
+                        allocated_product:
+                          type: string
+                          description: Partners can allocate phone numbers for exclusive use by a specific Zoom Product (ZOOM_PHONE or ZOOM_CONTACT_CENTER). Partners can also make the Phone Numbers not specific to any product (UNALLOCATED), allowing Zoom customers to freely assign the numbers to any Zoom Product.
+                          example: ZOOM_PHONE
+                          enum:
+                          - UNALLOCATED
+                          - ZOOM_PHONE
+                          - ZOOM_CONTACT_CENTER
+                        service_info:
+                          type: string
+                          description: Free form descriptive text of the service associated with the number. This description will be surfaced to Zoom customer viewing the phone number. Partners can include description highlighting the capabilities or limitations associated with the number. The maximum is 255 characters.
+                          example: Some service info
+                        sip_trunk_name:
+                          type: string
+                          description: This field is a unique name that Zoom assigns for a group of trunks established with the partner during the cloud peering infrastructure setup. A partner with global presence may have one or more SIP trunks to handle calls for phone numbers in different regions.Partner needs to specify the name of the SIP trunk associated with the specified phone number. All calls originating from this number will be routed through the specified SIP Trunk, and Zoom will expect to receive inbound calls through the same trunk.During failure scenarios, calls will be routed via alternate trunks within the same trunk group identified  by the `sip_trunk_name`.
+                          example: test-carrier-sip-trunk
+                        status:
+                          type: boolean
+                          description: Providers can set the status to indicate whether the phone number is active (true) or inactive (false).  Providers can use inactive (false) state to provision phone numbers that are still in the process of being ported in, and update the status to active (true) when the porting is complete.
+                          example: true
+                        voice_msg_capacity:
+                          type: string
+                          description: 'This field allows this number to be restricted to a single user or enabled for any of the shared workflows.
+
+                            1. **Zoom Phone user only**: The number can only be assigned to Zoom Phone users.
+
+                            2. **Multi-use**: The number can be used in any of the shared workflows.'
+                          example: MULTI_USE
+                          default: MULTI_USE
+                          enum:
+                          - ZOOM_PHONE_USER_ONLY
+                          - MULTI_USE
+                        voice_direction:
+                          type: string
+                          description: This field allows this number to be configured for Inbound, Outbound, or Two-Way voice calling.
+                          example: INBOUND_AND_OUTBOUND
+                          default: INBOUND_AND_OUTBOUND
+                          enum:
+                          - INBOUND_AND_OUTBOUND
+                          - INBOUND_ONLY
+                          - OUTBOUND_ONLY
+                          - NOT_SUPPORTED
+                        outbound_dialer_not_supported:
+                          type: boolean
+                          description: 'This field allows this number to be assigned to an Outbound dialer use case. Requires Multiple capacity setting and Outbound capability. Not available with single voice and messaging capacity.
+
+                            1. **false** means allowed.
+
+                            '
+                          example: false
+                        outbound_cli_share_not_supported:
+                          type: boolean
+                          description: 'This field allows this number to be used as a Caller ID across all products. Requires Multiple capacity setting and Outbound capability.
+
+                            1. **false** means allowed.
+
+                            '
+                          example: false
+                        message_capability:
+                          type: string
+                          description: 'This number can be used for SMS/MMS. This setting is configurable for mobile numbers but automatically determined by the system for non-mobile numbers. Applicable only if the carrier is integrated for messaging services.
+
+                            1. If messaging is not integrated, or if it''s a non-mobile number, the value is **NOT_APPLICABLE**, meaning this function is not applicable.
+
+                            2. If messaging is integrated and it''s a mobile number, the value is **Supported** or Not **Supported**.'
+                          example: NOT_APPLICABLE
+                          enum:
+                          - NOT_APPLICABLE
+                          - SUPPORTED
+                          - NOT_SUPPORTED
+                  total_records:
+                    type: integer
+                    description: The total number of records returned for this API call.
+                    format: int32
+                    example: 20
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1001` <br>\n Carrier not found <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:list_carrier_peering_numbers:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - ProviderPortal:Read
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:list_carrier_peering_numbers:admin
+  /number_management/peering_numbers:
+    get:
+      tags:
+      - Cloud Peering Provider Exchange
+      summary: List peering phone numbers
+      description: "Returns the details associated with a specific phone number, or all the phone numbers the partner previously provisioned for the Zoom customer account.\n\n**Prerequisites:** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license. \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_peering_numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: listPeeringPhoneNumbers
+      parameters:
+      - name: page_size
+        in: query
+        description: The total number of records returned from a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          format: int32
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      - name: phone_number
+        in: query
+        description: 'The phone number the partner provides in [E.164](https://en.wikipedia.org/wiki/E.164
+
+          ) format.
+
+
+
+          *  If this parameter is not specified, API will return all the phone numbers previously assigned to the Zoom customer account by the partner. '
+        required: false
+        schema:
+          type: string
+          example: '+12097654882'
+      - name: carrier_code
+        in: query
+        description: 'A unique code that Zoom provides to the partner at the time of establishing cloud peering infrastructure. This unique code is also tied to the developer `client ID` included as part of the token
+
+
+          This parameter is **required** if you do **not** use an OAuth token or the OAuth token does not contain the `clientId`.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 8801
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200` **OK**&lt;br&gt;Carrier peering numbers successfully returned.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 8X8xSdRVKHsabD6Im4tIPODq6GzDOvV5fO1
+                  numbers:
+                    type: array
+                    description: The information about the carrier's phone numbers.
+                    items:
+                      required:
+                      - allocated_product
+                      - assigned
+                      - phone_number
+                      - sip_trunk_name
+                      - status
+                      type: object
+                      properties:
+                        assigned:
+                          type: boolean
+                          description: Whether the phone number is assigned:* `false` &mdash; Unassigned.* `true` &mdash; Assigned.
+                          example: true
+                        billing_ref_id:
+                          type: string
+                          description: "Partners can specify their billing reference ID, with the maximum length of 36 characters. \n*  Zoom will send back the specified billing_ref_id in the SIP Header X-TO-CARRIER-ACCOUNT for the outbound calls to the provider."
+                          example: Some billing referenceId
+                        allocated_product:
+                          type: string
+                          description: Partners can allocate phone numbers for exclusive use by a specific Zoom Product (ZOOM_PHONE or ZOOM_CONTACT_CENTER). Partners can also make the Phone Numbers not specific to any product (UNALLOCATED), allowing Zoom customers to freely assign the numbers to any Zoom Product.
+                          example: ZOOM_PHONE
+                          enum:
+                          - UNALLOCATED
+                          - ZOOM_PHONE
+                          - ZOOM_CONTACT_CENTER
+                        phone_number:
+                          type: string
+                          description: 'The phone number the partner provides in [E.164](https://en.wikipedia.org/wiki/E.164
+
+                            ) format.
+
+                            '
+                          example: '+18108001001'
+                        service_info:
+                          type: string
+                          description: Free form descriptive text of the service associated with the number. This description will be surfaced to Zoom customer viewing the phone number. Partners can include description highlighting the capabilities or limitations associated with the number. The maximum is 255 characters.
+                          example: Inbound only number' or 'Metered charges apply
+                        sip_trunk_name:
+                          type: string
+                          description: 'This field is a unique name that Zoom assigns for a group of trunks established with the partner during the cloud peering infrastructure setup. A partner with global presence may have one or more SIP trunks to handle calls for phone numbers in different regions.
+
+                            Partner needs to specify the name of the SIP trunk associated with the specified phone number. All calls originating from this number will be routed through the specified SIP Trunk, and Zoom will expect to receive inbound calls through the same trunk.
+
+                            During failure scenarios, calls will be routed via alternate trunks within the same trunk group identified  by the `sip_trunk_name`.'
+                          example: test-carrier-sip-trunk
+                        status:
+                          type: boolean
+                          description: Providers can set the status to indicate whether the phone number is active (true) or inactive (false).  Providers can use inactive (false) state to provision phone numbers that are still in the process of being ported in, and update the status to active (true) when the porting is complete.
+                          example: true
+                        voice_msg_capacity:
+                          type: string
+                          description: 'This field allows this number to be restricted to a single user or enabled for any of the shared workflows.
+
+                            1. **Zoom Phone user only**: The number can only be assigned to Zoom Phone users.
+
+                            2. **Multi-use**: The number can be used in any of the shared workflows.'
+                          example: MULTI_USE
+                          default: MULTI_USE
+                          enum:
+                          - ZOOM_PHONE_USER_ONLY
+                          - MULTI_USE
+                        voice_direction:
+                          type: string
+                          description: This field allows this number to be configured for Inbound, Outbound, or Two-Way voice calling.
+                          example: INBOUND_AND_OUTBOUND
+                          default: INBOUND_AND_OUTBOUND
+                          enum:
+                          - INBOUND_AND_OUTBOUND
+                          - INBOUND_ONLY
+                          - OUTBOUND_ONLY
+                          - NOT_SUPPORTED
+                        outbound_dialer_not_supported:
+                          type: boolean
+                          description: 'This field allows this number to be assigned to an Outbound dialer use case. Requires Multiple capacity setting and Outbound capability. Not available with single voice and messaging capacity.
+
+                            1. **false** means allowed.
+
+                            '
+                          example: false
+                        outbound_cli_share_not_supported:
+                          type: boolean
+                          description: 'This field allows this number to be used as a Caller ID across all products. Requires Multiple capacity setting and Outbound capability.
+
+                            1. **false** means allowed.
+
+                            '
+                          example: false
+                        message_capability:
+                          type: string
+                          description: 'This number can be used for SMS/MMS. This setting is configurable for mobile numbers but automatically determined by the system for non-mobile numbers. Applicable only if the carrier is integrated for messaging services.
+
+                            1. If messaging is not integrated, or if it''s a non-mobile number, the value is **NOT_APPLICABLE**, meaning this function is not applicable.
+
+                            2. If messaging is integrated and it''s a mobile number, the value is **Supported** or Not **Supported**.'
+                          example: NOT_APPLICABLE
+                          enum:
+                          - NOT_APPLICABLE
+                          - SUPPORTED
+                          - NOT_SUPPORTED
+                  total_records:
+                    type: integer
+                    description: The total number of records returned for this API call.
+                    format: int64
+                    example: 20
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1001` <br>\n Carrier not found <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:list_peering_numbers:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Read
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:list_peering_numbers:admin
+    post:
+      tags:
+      - Cloud Peering Provider Exchange
+      summary: Add peering phone numbers
+      description: 'Enables provider exchange partners to add phone numbers to a Zoom account.
+
+
+        **Prerequisites**
+
+        * [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)
+
+        * Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.
+
+        * Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:peering_number:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: addPeeringPhoneNumbers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - phone_numbers
+              type: object
+              properties:
+                carrier_code:
+                  type: integer
+                  description: 'A unique code that Zoom provides to the partner at the time of establishing cloud peering infrastructure. This unique code is also tied to the developer `client ID` included as part of the token.
+
+
+                    This parameter is **required** if you do **not** use an OAuth token or the OAuth token does not contain the `clientId`.'
+                  format: int32
+                  example: 3456
+                allocated_product:
+                  type: string
+                  description: Partners can allocate phone numbers for exclusive use by a specific Zoom product (ZOOM_PHONE or ZOOM_CONTACT_CENTER). Partners can also make the phone numbers not specific to any product (UNALLOCATED), allowing Zoom customers to freely assign the numbers to any Zoom product.
+                  example: ZOOM_PHONE
+                  enum:
+                  - UNALLOCATED
+                  - ZOOM_PHONE
+                  - ZOOM_CONTACT_CENTER
+                phone_numbers:
+                  maxItems: 200
+                  minItems: 1
+                  type: array
+                  description: The information about the added phone numbers. The maximum value is 200.
+                  items:
+                    required:
+                    - phone_number
+                    - sip_trunk_name
+                    - status
+                    type: object
+                    properties:
+                      billing_ref_id:
+                        maxLength: 60
+                        type: string
+                        description: 'Partners can specify their billing reference ID, with the maximum length of 60 characters.
+
+                          * Zoom will send back the specified billing_ref_id in the SIP Header X-TO-CARRIER-ACCOUNT for outbound calls to the provider.'
+                        example: Some billing referenceId
+                      phone_number:
+                        type: string
+                        description: The phone number the partner provides in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+                        example: '+12097654882'
+                      number_type:
+                        type: string
+                        description: 'If you''re certain the number is Toll/VirtualService/TollFree/Mobile, specify it. Otherwise, Zoom will automatically calculate the number type.
+
+                          * If allocated_product is ZOOM_PHONE/UNALLOCATED, the number_type can be Toll/TollFree/Mobile.
+
+                          * If allocated_product is ZOOM_CONTACT_CENTER, the number_type can be VirtualService/TollFree/Mobile.'
+                        example: Mobile
+                        enum:
+                        - Mobile
+                        - Toll
+                        - TollFree
+                        - VirtualService
+                      service_info:
+                        maxLength: 255
+                        type: string
+                        description: The free form descriptive text of the service associated with the number. This description surfaces to the Zoom customer viewing the phone number. Partners can include description highlighting the capabilities or limitations associated with the number. The maximum is 255 characters.
+                        example: '''Inbound only number'' or ''Metered charges apply'''
+                      sip_trunk_name:
+                        type: string
+                        description: A unique name that Zoom assigns for a group of trunks established with the partner during the cloud peering infrastructure setup. A partner with global presence may have one or more SIP trunks to handle calls for phone numbers in different regions. Partner needs to specify the name of the SIP trunk associated with the specified phone number. All calls originating from this number will be routed through the specified SIP trunk, and Zoom will expect to receive inbound calls through the same trunk. During failure scenarios, calls will be routed through alternate trunks within the same trunk group identified by the `sip_trunk_name`.
+                        example: first-markert-carrier-trunk
+                      status:
+                        type: boolean
+                        description: Providers can set the status to indicate whether the phone number is active (true) or inactive (false). Providers can use inactive (false) state to provision phone numbers that are still in the process of being ported in, and update the status to active (true) when the porting is complete.
+                        example: true
+                      voice_msg_capacity:
+                        type: string
+                        description: 'This field allows this number to be restricted to a single user or enabled for any of the shared workflows.
+
+                          1. **Zoom Phone user only**: The number can only be assigned to Zoom Phone users.
+
+                          2. **Multi-use**: The number can be used in any of the shared workflows.'
+                        example: MULTI_USE
+                        default: MULTI_USE
+                        enum:
+                        - ZOOM_PHONE_USER_ONLY
+                        - MULTI_USE
+                      voice_direction:
+                        type: string
+                        description: This field allows this number to be configured for Inbound, Outbound, or Two-Way voice calling.
+                        example: INBOUND_AND_OUTBOUND
+                        default: INBOUND_AND_OUTBOUND
+                        enum:
+                        - INBOUND_AND_OUTBOUND
+                        - INBOUND_ONLY
+                        - OUTBOUND_ONLY
+                        - NOT_SUPPORTED
+                      outbound_dialer_not_supported:
+                        type: boolean
+                        description: 'This field allows this number to be assigned to an Outbound dialer use case. Requires Multiple capacity setting and Outbound capability. Not available with single voice and messaging capacity.
+
+                          1. **false** means allowed.
+
+                          '
+                        example: false
+                      outbound_cli_share_not_supported:
+                        type: boolean
+                        description: 'This field allows this number to be used as a Caller ID across all products. Requires Multiple capacity setting and Outbound capability.
+
+                          1. **false** means allowed.
+
+                          '
+                        example: false
+                      message_capability:
+                        type: string
+                        description: 'This number can be used for SMS/MMS. This setting is configurable for mobile numbers but automatically determined by the system for non-mobile numbers. Applicable only if the carrier is integrated for messaging services.
+
+                          1. If messaging is not integrated, or if it''s a non-mobile number, the value is **NOT_APPLICABLE**, meaning this function is not applicable.
+
+                          2. If messaging is integrated and it''s a mobile number, the value is **Supported** or Not **Supported**.'
+                        example: NOT_APPLICABLE
+                        enum:
+                        - NOT_APPLICABLE
+                        - SUPPORTED
+                        - NOT_SUPPORTED
+      responses:
+        '201':
+          description: '**HTTP Status Code:** `201` **Created**   Peering phone numbers successfully added.'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  some data failed \n\n **Error Code:** `1000` <br>\n Some data failed.for example:\n[   \n  {\"phoneNumber\":\"+12098888111\",\"reason\":\"Invalid Sip Trunk\"},   \n  {\"phoneNumber\":\"+12090000011\",\"reason\":\"Invalid number\"}\n] <br>\n**Error Code:** `1001` <br>\n Carrier not found <br>\n**Error Code:** `1002` <br>\n Request data cannot be empty <br>\n**Error Code:** `1003` <br>\n Too many numbers, should less than 200 <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:write:peering_number:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Edit
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:write:peering_number:admin
+    delete:
+      tags:
+      - Cloud Peering Provider Exchange
+      summary: Remove peering phone numbers
+      description: "Removes the phone number from the Zoom customer account. \n\nPartners can remove only the phone numbers they have previously added to Zoom account.\n\n**Prerequisites:** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license. \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:delete:peering_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: deletePeeringPhoneNumbers
+      parameters:
+      - name: carrier_code
+        in: query
+        description: '
+
+          This is unique code that Zoom provides to the partner at the time of establishing cloud peering infrastructure. This unique code is also tied to the developer `client ID` included as part of the token
+
+
+          This parameter is **required** if you do **not** use an OAuth token or the OAuth token does not contain the `clientId`.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          example: 8091
+      - name: phone_numbers
+        in: query
+        description: 'The phone number the partner provides in [E.164](https://en.wikipedia.org/wiki/E.164
+
+          ) format.
+
+          '
+        required: true
+        schema:
+          maxItems: 200
+          minItems: 1
+          type: array
+          example:
+          - '+12097865343'
+          - '+12097865211'
+          items:
+            type: string
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200` **Created**   Phone number successfully deleted. '
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  request failed \n\n **Error Code:** `1000` <br>\n Some data failed.\nfor example:\n[\n   {\"phoneNumber\":\"+12098888111\",\"reason\":\"Phone number does not exist\"},\n   {\"phoneNumber\":\"+12090000011\",\"reason\":\"Invalid number\"}\n] <br>\n**Error Code:** `1001` <br>\n Carrier not found <br>\n**Error Code:** `1002` <br>\n Request data cannot be empty <br>\n**Error Code:** `1003` <br>\n Too many numbers, should less than 200 <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:delete:peering_number:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - ContactCenterMgt:Edit
+        - PbxAdmin:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:delete:peering_number:admin
+    patch:
+      tags:
+      - Cloud Peering Provider Exchange
+      summary: Update peering phone numbers
+      description: "Allows partners to update the status or details associated with the phone numbers.\n\n**Prerequisites** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license. \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:peering_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: updatePeeringPhoneNumbers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - phone_numbers
+              type: object
+              properties:
+                carrier_code:
+                  type: integer
+                  description: '
+
+                    A unique code that Zoom provides to the partner at the time of establishing cloud peering infrastructure. This unique code is also tied to the developer `client ID` included as part of the token
+
+
+                    This parameter is **required** if you do **not** use an OAuth token or the OAuth token does not contain the `clientId`.'
+                  format: int32
+                  example: 3456
+                allocated_product:
+                  type: string
+                  description: '`allocated_product` can only be updated for numbers that were previously set to ''UNALLOCATED''.  To change `allocated_product` value for phone numbers previously allocated to ZOOM_PHONE or ZOOM_CONTACT_CENTER, partners need to remove and reinsert the numbers.'
+                  example: ZOOM_PHONE
+                  enum:
+                  - UNALLOCATED
+                  - ZOOM_PHONE
+                  - ZOOM_CONTACT_CENTER
+                phone_numbers:
+                  maxItems: 200
+                  minItems: 1
+                  type: array
+                  description: The list of phone numbers and the corresponding details that need to be updated. The maximum value is 200.
+                  items:
+                    required:
+                    - phone_number
+                    type: object
+                    properties:
+                      phone_number:
+                        type: string
+                        description: 'The phone number the partner provides in [E.164](https://en.wikipedia.org/wiki/E.164
+
+                          ) format.
+
+
+                          '
+                        example: '+12097654882'
+                      billing_ref_id:
+                        maxLength: 60
+                        type: string
+                        description: 'Partners can specify their billing reference ID. The maximum length is 60 characters.
+
+                          *  Zoom will send back the specified billing_ref_id in the SIP Header X-TO-CARRIER-ACCOUNT for the outbound calls to the provider.'
+                        example: Some billing referenceId
+                      service_info:
+                        maxLength: 255
+                        type: string
+                        description: Free form descriptive text of the service associated with the number. This description will be surfaced to Zoom customer viewing the phone number. Partners can include description highlighting the capabilities or limitations associated with the number. The maximum is 255 characters.
+                        example: Inbound only number' or 'Metered charges apply
+                      sip_trunk_name:
+                        type: string
+                        description: 'A unique name that Zoom assigns for a group of trunks established with the partner during the cloud peering infrastructure setup. A partner with global presence may have one or more SIP trunks to handle calls for phone numbers in different regions.
+
+                          Partner needs to specify the name of the SIP trunk associated with the specified phone number. All calls originating from this number will be routed through the specified SIP Trunk, and Zoom will expect to receive inbound calls through the same trunk.
+
+                          During failure scenarios, calls will be routed via alternate trunks within the same trunk group identified  by the `sip_trunk_name`.'
+                        example: first-markert-carrier-trunk
+                      status:
+                        type: boolean
+                        description: Providers can set the status to indicate whether the phone number is active (true) or inactive (false).  Providers can use inactive (false) state to provision phone numbers that are still in the process of being ported in, and update the status to active (true) when the porting is complete.
+                        example: true
+                      voice_msg_capacity:
+                        type: string
+                        description: 'This field allows this number to be restricted to a single user or enabled for any of the shared workflows.
+
+                          1. **Zoom Phone user only**: The number can only be assigned to Zoom Phone users.
+
+                          2. **Multi-use**: The number can be used in any of the shared workflows.'
+                        example: MULTI_USE
+                        default: MULTI_USE
+                        enum:
+                        - ZOOM_PHONE_USER_ONLY
+                        - MULTI_USE
+                      voice_direction:
+                        type: string
+                        description: This field allows this number to be configured for Inbound, Outbound, or Two-Way voice calling.
+                        example: INBOUND_AND_OUTBOUND
+                        default: INBOUND_AND_OUTBOUND
+                        enum:
+                        - INBOUND_AND_OUTBOUND
+                        - INBOUND_ONLY
+                        - OUTBOUND_ONLY
+                        - NOT_SUPPORTED
+                      outbound_dialer_not_supported:
+                        type: boolean
+                        description: 'This field allows this number to be assigned to an Outbound dialer use case. Requires Multiple capacity setting and Outbound capability. Not available with single voice and messaging capacity.
+
+                          1. **false** means allowed.
+
+                          '
+                        example: false
+                      outbound_cli_share_not_supported:
+                        type: boolean
+                        description: 'This field allows this number to be used as a Caller ID across all products. Requires Multiple capacity setting and Outbound capability
+
+                          1. **false** means allowed.
+
+                          '
+                        example: false
+                      message_capability:
+                        type: string
+                        description: 'This number can be used for SMS/MMS. This setting is configurable for mobile numbers but automatically determined by the system for non-mobile numbers. Applicable only if the carrier is integrated for messaging services.
+
+                          1. If messaging is not integrated, or if it''s a non-mobile number, the value is **NOT_APPLICABLE**, meaning this function is not applicable.
+
+                          2. If messaging is integrated and it''s a mobile number, the value is **Supported** or Not **Supported**.'
+                        example: NOT_APPLICABLE
+                        enum:
+                        - NOT_APPLICABLE
+                        - SUPPORTED
+                        - NOT_SUPPORTED
+      responses:
+        '204':
+          description: '**HTTP Status Code:** `200` **OK**Phone number successfully updated.'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  request failed \n\n **Error Code:** `1000` <br>\n Some data failed.for example:\n[   \n  {\"phoneNumber\":\"+12098888111\",\"reason\":\"Invalid Sip Trunk\"}, \n  {\"phoneNumber\":\"+12090000011\",\"reason\":\"Invalid number\"}\n] <br>\n**Error Code:** `1001` <br>\n Carrier not found <br>\n**Error Code:** `1002` <br>\n Request data cannot be empty <br>\n**Error Code:** `1003` <br>\n Too many numbers, should less than 200 <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:update:peering_number:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - ContactCenterMgt:Edit
+        - PbxAdmin:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:update:peering_number:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            number_management_numbers:read:admin: number_management_numbers:read:admin
+            number_management:read:list_carrier_peering_numbers:admin: number_management:read:list_carrier_peering_numbers:admin
+            number_management:read:list_peering_numbers:admin: number_management:read:list_peering_numbers:admin
+            number_management_numbers:write:admin: number_management_numbers:write:admin
+            number_management:delete:peering_number:admin: number_management:delete:peering_number:admin
+            number_management:write:peering_number:admin: number_management:write:peering_number:admin
+            number_management:update:peering_number:admin: number_management:update:peering_number:admin
+            number_management:write:numbers:admin: number_management:write:numbers:admin
+            number_management:write:byoc_numbers:admin: number_management:write:byoc_numbers:admin
+            number_management:read:list_numbers:admin: number_management:read:list_numbers:admin
+            number_management_numbers:write:master: number_management_numbers:write:master
+            number_management:delete:numbers:admin: number_management:delete:numbers:admin
+            number_management:read:numbers:admin: number_management:read:numbers:admin
+            number_management:update:numbers:admin: number_management:update:numbers:admin
+            number_management:read:numbers_plan:admin: number_management:read:numbers_plan:admin
+            number_management:read:list_sms_campaigns:admin: number_management:read:list_sms_campaigns:admin
+            number_management:read:sms_campaign:admin: number_management:read:sms_campaign:admin
+            number_management:delete:sms_consent:admin: number_management:delete:sms_consent:admin
+            number_management:read:sms_consent:admin: number_management:read:sms_consent:admin
+            number_management:write:sms_consent:admin: number_management:write:sms_consent:admin
+            number_management:update:sms_consent:admin: number_management:update:sms_consent:admin
+            number_management:read:list_ported_numbers:admin: number_management:read:list_ported_numbers:admin
+            number_management:read:ported_number:admin: number_management:read:ported_number:admin
+            number_management:read:list_sip_groups:admin: number_management:read:list_sip_groups:admin
+            number_management:read:list_sip_trunks:admin: number_management:read:list_sip_trunks:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

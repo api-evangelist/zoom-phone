@@ -1,0 +1,1663 @@
+openapi: 3.2.0
+info:
+  title: Phone Recordings API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Recordings
+paths:
+  /phone/call_element/{callElementId}/recording:
+    get:
+      tags:
+      - Recordings
+      summary: Get a recording by call element ID
+      description: "Returns an account's [call recording](https://support.zoom.us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the call element's `callElementId`.\n**Prerequisites** \n* A Pro or higher account with Zoom Phone license \n* Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`,`phone:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_recording`,`phone:read:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: getPhoneRecordingByCallElementId
+      parameters:
+      - name: callElementId
+        in: path
+        description: The ID of the call element.
+        required: true
+        schema:
+          type: string
+          example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nOK."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_id:
+                    type: string
+                    description: The phone call's unique ID.
+                    example: '7069775907364530379'
+                  call_element_id:
+                    type: string
+                    description: The phone call element's unique ID.
+                    example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                  callee_name:
+                    type: string
+                    description: The callee's contact name.
+                    example: User A
+                  callee_number:
+                    type: string
+                    description: The callee's phone number.
+                    example: '1000001004'
+                  callee_number_type:
+                    type: integer
+                    description: "The callee's number type: \n* `1` — Internal number. \n* `2` — External number. \n* `3` — Customized emergency number."
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                  caller_name:
+                    type: string
+                    description: The caller's contact name.
+                    example: User B
+                  caller_number:
+                    type: string
+                    description: The caller's phone number.
+                    example: '1000123476'
+                  caller_number_type:
+                    type: integer
+                    description: "The caller's number type: \n* `1` — Internal number. \n* `2` — External number."
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                  outgoing_by:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The user's name.
+                        example: User B
+                      extension_number:
+                        type: string
+                        description: The user's extension number.
+                        example: '123476'
+                    description: The user who initiates the call. The current recording must belong to the initiator and the call queue for it to be available.
+                  accepted_by:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The user's name.
+                        example: User A
+                      extension_number:
+                        type: string
+                        description: The user's extension number.
+                        example: '132001'
+                    description: The call-receiving user. The current recording must belong to the receiver and call queue for it to be available.
+                  date_time:
+                    type: string
+                    description: The date and time when the recording was received.
+                    format: date-time
+                    example: '2022-03-08T05:37:23Z'
+                  direction:
+                    type: string
+                    description: 'The call''s direction:
+
+                      * `inbound`
+
+                      * `outbound`'
+                    example: inbound
+                    enum:
+                    - inbound
+                    - outbound
+                  download_url:
+                    type: string
+                    description: "The URL from which to download the recording. \n\nFor security purposes, you **must** provide an OAuth access token in the Authorization header to download the recording file using this URL."
+                    example: https://domain/recording/download/EvVNLihbQ1WpeG_ALwnNzg
+                  duration:
+                    type: integer
+                    description: The call recording's duration, in seconds.
+                    example: 115
+                  end_time:
+                    type: string
+                    description: The recording's end time.
+                    format: date-time
+                    example: '2022-03-08T05:39:19Z'
+                  id:
+                    type: string
+                    description: The recording's ID.
+                    example: 1dfe35c05f0f4bf1b2e4a8869a731178
+                  meeting_uuid:
+                    type: string
+                    description: The meeting ID associated with the recording, if any.
+                    example: egLSRuj2SlWet+wLi87LNA==
+                  owner:
+                    type: object
+                    properties:
+                      extension_number:
+                        type: integer
+                        description: The extension number associated with the call number.
+                        format: int64
+                        example: 1000123476
+                      id:
+                        type: string
+                        description: The owner's ID.
+                        example: NL3cEpSdRc-c2t8aLoZqiw
+                      name:
+                        type: string
+                        description: The name of the owner.
+                        example: user@test.com
+                      type:
+                        type: string
+                        description: The owner's type, can be `user`, `callQueue`, or `sharedOffice`(deprecated and to be replaced by `commonArea` after the transition period.)
+                        example: user
+                        enum:
+                        - user
+                        - callQueue
+                        - commonArea
+                      extension_status:
+                        type: string
+                        description: "This field indicates the status of extension. \n* `inactive` \n* `deleted`"
+                        example: deleted
+                        enum:
+                        - inactive
+                        - deleted
+                      extension_deleted_time:
+                        type: string
+                        description: The date time the extension was deleted. It exists only when extension_status is `deleted`.
+                        example: '2022-10-14T22:10:54Z'
+                    description: The owner of the recording.
+                  soft_deleted:
+                    type: boolean
+                    description: Whether this recording soft deletes and moves to trash.
+                    example: true
+                  soft_deleted_type:
+                    type: string
+                    description: This field indicates how the recording was deleted. It exists only when the recording is from trash.
+                    example: Manual
+                    enum:
+                    - Manual
+                    - Data Retention
+                  deleted_time:
+                    type: string
+                    description: The time and date the recording was deleted. It exists only when recording is from trash.
+                    format: date-time
+                    example: '2023-04-18T22:10:49.907Z'
+                  days_left_auto_permanently_delete:
+                    type: integer
+                    description: The number of days left until recording is permanently deleted. If the recording never auto deletes, the value is '-1'. It exists only when recording is from trash.
+                    example: 30
+                  recording_type:
+                    type: string
+                    description: The recording type. The allowed value is `OnDemand` or `Automatic`.
+                    example: OnDemand
+                    enum:
+                    - OnDemand
+                    - Automatic
+                  file_url:
+                    type: string
+                    description: The download URL for the recording. For security purposes, you must provide an OAuth access token in the auth header to download the recording file using this url.
+                    example: https://domain/recording/download/8f7345c50a654182ab1672fdb3be61ff
+                  disclaimer_status:
+                    type: integer
+                    description: "The status of disclaimer for recording:  \n* `0` - passive/implicit \n* `1` - agree (active/explicit and press 1)  \n* `2` - passive agree (active/explicit and no press)"
+                    example: 0
+                    enum:
+                    - 0
+                    - 1
+                    - 2
+                  caller_account_code:
+                    type: string
+                    description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '111'
+                  callee_account_code:
+                    type: string
+                    description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '222'
+                description: The information about the user's phone recording.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n Recording does not exist for {callElementId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        - phone:read
+        - phone:read:call_recording
+        - phone:read:call_recording:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        - phone:read
+        x-granular-scopes:
+        - phone:read:call_recording
+        - phone:read:call_recording:admin
+  /phone/call_logs/{id}/recordings:
+    get:
+      tags:
+      - Recordings
+      summary: Get recording by call ID
+      description: "Returns an account's [call recording](https://support.zoom.us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the recording's `callId` or `callLogId`. \n\n**Note**: Returns the `file_url` in the JSON query results.\n\n**Prerequisites** \n* A Pro or higher account with Zoom Phone license \n* Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_recording`,`phone:read:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: getPhoneRecordingsByCallIdOrCallLogId
+      parameters:
+      - name: id
+        in: path
+        description: This field gets the unique ID of the call log. You can use `callLogId` and `callId` as path parameters. You can find the value for this field with the **[Get account's call logs](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/accountCallLogs)** API or the **[Get user's call logs](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/phoneUserCallLogs)** API.
+        required: true
+        schema:
+          type: string
+          example: '7069775907364530379'
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nOK."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_id:
+                    type: string
+                    description: The phone call's unique ID.
+                    example: '7069775907364530379'
+                  call_log_id:
+                    type: string
+                    description: The phone call log's unique ID.
+                    example: 1dfe35c0-5f0f-4bf1-b2e4-a8869a731178
+                    deprecated: true
+                  call_history_id:
+                    type: string
+                    description: The phone call history's unique ID.
+                    example: 20220308-1dfe35c0-5f0f-4bf1-b2e4-a8869a731178
+                    deprecated: true
+                  call_element_id:
+                    type: string
+                    description: The phone call element's unique ID.
+                    example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                  callee_name:
+                    type: string
+                    description: The callee's contact name.
+                    example: User A
+                  callee_number:
+                    type: string
+                    description: The callee's phone number.
+                    example: '1000001004'
+                  callee_number_type:
+                    type: integer
+                    description: "The callee's number type: \n* `1` — Internal number. \n* `2` — External number. \n* `3` — Customized emergency number."
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                  caller_name:
+                    type: string
+                    description: The caller's contact name.
+                    example: User B
+                  caller_number:
+                    type: string
+                    description: The caller's phone number.
+                    example: '1000123476'
+                  caller_number_type:
+                    type: integer
+                    description: "The caller's number type: \n* `1` — Internal number. \n* `2` — External number."
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                  outgoing_by:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The user's name.
+                        example: User B
+                      extension_number:
+                        type: string
+                        description: The user's extension number.
+                        example: '123476'
+                    description: The user who initiates the call. The current recording must belong to the initiator and the call queue for it to be available.
+                  accepted_by:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The user's name.
+                        example: User A
+                      extension_number:
+                        type: string
+                        description: The user's extension number.
+                        example: '132001'
+                    description: The call-receiving user. The current recording must belong to the receiver and call queue for it to be available.
+                  date_time:
+                    type: string
+                    description: The date and time when the recording was received.
+                    format: date-time
+                    example: '2022-03-08T05:37:23Z'
+                  direction:
+                    type: string
+                    description: 'The call''s direction:
+
+                      * `inbound`
+
+                      * `outbound`'
+                    example: inbound
+                  download_url:
+                    type: string
+                    description: "The URL from which to download the recording. \n\nFor security purposes, you **must** provide an OAuth access token in the Authorization header to download the recording file using this URL. \n\nFor example: \n\n```curl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token} \\\n  --header 'content-type: application/json'\n```"
+                    example: https://domain/recording/download/EvVNLihbQ1WpeG_ALwnNzg
+                  duration:
+                    type: integer
+                    description: The call recording's duration, in seconds.
+                    example: 115
+                  end_time:
+                    type: string
+                    description: The recording's end time.
+                    format: date-time
+                    example: '2022-03-08T05:39:19Z'
+                  id:
+                    type: string
+                    description: The recording's ID.
+                    example: 1dfe35c05f0f4bf1b2e4a8869a731178
+                  meeting_uuid:
+                    type: string
+                    description: The meeting ID associated with the recording, if any.
+                    example: egLSRuj2SlWet+wLi87LNA==
+                  owner:
+                    type: object
+                    properties:
+                      extension_number:
+                        type: integer
+                        description: The extension number associated with the call number.
+                        format: int64
+                        example: 1000123476
+                      id:
+                        type: string
+                        description: The owner's ID.
+                        example: NL3cEpSdRc-c2t8aLoZqiw
+                      name:
+                        type: string
+                        description: The name of the owner.
+                        example: user@test.com
+                      type:
+                        type: string
+                        description: The owner's type, can be `user`, `callQueue`, or `sharedOffice`(deprecated and to be replaced by `commonArea` after the transition period.)
+                        example: user
+                        enum:
+                        - user
+                        - callQueue
+                        - commonArea
+                      extension_status:
+                        type: string
+                        description: "This field indicates the status of extension. \n* `inactive` \n* `deleted`"
+                        example: deleted
+                        enum:
+                        - inactive
+                        - deleted
+                      extension_deleted_time:
+                        type: string
+                        description: The date time the extension was deleted. It exists only when extension_status is `deleted`.
+                        example: '2022-10-14T22:10:54Z'
+                    description: The owner of the recording.
+                  deleted_time:
+                    type: string
+                    description: The time and date the recording was deleted. It exists only when recording is from trash.
+                    format: date-time
+                    example: '2023-04-18T22:10:49.907Z'
+                  days_left_auto_permantely_delete:
+                    type: integer
+                    description: The number of days left until recording is permanently deleted. If the recording never auto deletes, the value is '-1'. It exists only when recording is from trash.
+                    example: 30
+                  soft_deleted_type:
+                    type: string
+                    description: This field indicates how the recording was deleted. It exists only when the recording is from trash.
+                    example: Manual
+                    enum:
+                    - Manual
+                    - Data Retention
+                  recording_type:
+                    type: string
+                    description: The recording type. The allowed value is `OnDemand` or `Automatic`.
+                    example: OnDemand
+                    enum:
+                    - OnDemand
+                    - Automatic
+                  file_url:
+                    type: string
+                    description: "The download URL for the recording. For security purposes, you must provide an OAuth access token in the auth header to download the recording file using this url.\nExample request:\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                    example: https://domain/recording/download/8f7345c50a654182ab1672fdb3be61ff
+                  disclaimer_status:
+                    type: integer
+                    description: "The status of disclaimer for recording:  \n* `0` - passive/implicit \n* `1` - agree (active/explicit and press 1)  \n* `2` - passive agree (active/explicit and no press)"
+                    example: 0
+                    enum:
+                    - 0
+                    - 1
+                    - 2
+                  caller_account_code:
+                    type: string
+                    description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '111'
+                  callee_account_code:
+                    type: string
+                    description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '222'
+                description: The information about the user's phone recording.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Account does not exist: \"{accountId}\". <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1001` <br>\n Recording does not exist: \"{callId or callLogId}\". <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      deprecated: true
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        - phone:read:call_recording
+        - phone:read:call_recording:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        x-granular-scopes:
+        - phone:read:call_recording
+        - phone:read:call_recording:admin
+  /phone/recording/download/{fileId}:
+    get:
+      tags:
+      - Recordings
+      summary: Download a phone recording
+      description: "Downloads the phone recording. \n\n**Prerequisites:**\n\n* A Business or Enterprise account\n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_recording`,`phone:read:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: phoneDownloadRecordingFile
+      parameters:
+      - name: fileId
+        in: path
+        description: The file ID of the phone recording.
+        required: true
+        schema:
+          type: string
+          example: SJD6tIJpQHeTU4RDde-NVA
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n \n"
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `404` <br>\n File does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        - phone:read:call_recording
+        - phone:read:call_recording:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        x-granular-scopes:
+        - phone:read:call_recording
+        - phone:read:call_recording:admin
+  /phone/recording_transcript/download/{recordingId}:
+    get:
+      tags:
+      - Recordings
+      summary: Download a phone recording transcript
+      description: "Downloads the phone recording transcript. \n\n**Prerequisites**\n\n* A Business or Enterprise account\n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:recording_transcript`,`phone:read:recording_transcript:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: phoneDownloadRecordingTranscript
+      parameters:
+      - name: recordingId
+        in: path
+        description: The phone recording ID.
+        required: true
+        schema:
+          type: string
+          example: 8f7345c50a654182ab1672fdb3be61ff
+      responses:
+        '302':
+          description: "**HTTP Status Code:** `302` **OK**  \nYou will be redirected to a download URL where you can access the transcript file in JSON format. The file will have a structure similar to the following\n```json\n{\n    \"type\": \"zoom_transcript\",\n    \"ver\": 1,\n    \"recording_id\": \"RECORDING_ID\",\n    \"meeting_id\": \"MEETING_ID\",\n    \"account_id\": \"ACCOUNT_ID\",\n    \"host_id\": \"HOST_ID\",\n    \"recording_start\": \"YYYY-MM-DDThh:mm:ssZ\",\n    \"recording_end\": \"YYYY-MM-DDThh:mm:ssZ\",\n    \"timeline\": [\n        {\n            \"text\": \"TRANSCRIPTED TEXT APPEARS HERE\",\n            \"raw_text\": \"TRANSCRIPTED RAW TEXT APPEARS HERE\",\n            \"ts\": \"00:00:00.000\",\n            \"end_ts\": \"00:00:00.600\",\n            \"users\": [],\n            \"userId\": \"USER PHONE EXTENSION NUMBER APPEARS HERE\",\n            \"userIds\": [],\n            \"channelMark\": \"L\"\n        }\n    ]\n}\n```"
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `404` <br>\n File does not exist.<br> <br>\n**Error Code:** `12000` <br>\n Unable to transcribe this recording.<br> <br>\n**Error Code:** `12001` <br>\n Admin has disabled this transcription.<br> <br>\n**Error Code:** `12002` <br>\n This recording is still in the process of being transcribed. Reopen this recording in a few minutes.<br> <br>\n**Error Code:** `12003` <br>\n Transcripts failed to download. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        - phone:read:recording_transcript
+        - phone:read:recording_transcript:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        x-granular-scopes:
+        - phone:read:recording_transcript
+        - phone:read:recording_transcript:admin
+  /phone/recordings:
+    get:
+      tags:
+      - Recordings
+      summary: Get call recordings
+      description: "Returns an account's [call recordings](https://support.zoom.us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings). \n\n**Prerequisites:** \n* A Pro or higher account plan \n * A Zoom Phone license \n * Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_recordings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: getPhoneRecordings
+      parameters:
+      - name: page_size
+        in: query
+        description: "The number of records returned within a single API call. \n\nThe default is **30** and the maximum is **300**."
+        required: false
+        schema:
+          type: integer
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The current page number of the returned records.
+        required: false
+        schema:
+          type: string
+          example: cWiI3vTqdcENiV9RJz3Rh8iP1ksNPheW8c1
+      - name: from
+        in: query
+        description: "The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd T HH:mm:ssZ** format. \n\nThe date range defined in the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. \n\nIf unspecified, it returns data from the past 30 days."
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: "This field is **required** only when the `from` parameter is specified. \n\nThe end time and date display in **yyyy-mm-dd** or **yyyy-MM-dd T HH:mm:ssZ** format, which is the same format as the `from` parameter."
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: owner_type
+        in: query
+        description: "The owner type. \n\nThe allowed values are `null`, `user`, `callQueue`, or `sharedOffice`(deprecated and to be replaced by `commonArea` after the transition period). \n\nThe default value is `null`.  If the value is `null`, it returns all owner types."
+        required: false
+        schema:
+          type: string
+          example: all
+          default: all
+      - name: recording_type
+        in: query
+        description: The recording type. The allowed values are `null`, `OnDemand`, or `Automatic`. The default value is `null`. If `null`, it returns all recording types.
+        required: false
+        schema:
+          type: string
+          example: OnDemand
+      - name: site_id
+        in: query
+        description: "The site ID. \n\nThe default value is `All sites`."
+        required: false
+        schema:
+          type: string
+          example: 8f71O6rWT8KFUGQmJIFAdQ
+          default: All sites
+      - name: query_date_type
+        in: query
+        description: "The query date type, which can be `start_time` or `end_time`. \n\nThe default value is `start_time`."
+        required: false
+        schema:
+          type: string
+          example: start_time
+          default: start_time
+      - name: group_id
+        in: query
+        description: "The group ID. \n\nThe default value is `All groups`."
+        required: false
+        schema:
+          type: string
+          example: SJD6tIJpQHeTU4RDde-NVA
+          default: All groups
+      responses:
+        '200':
+          description: "**HTTP Status Code** `200`  \n \nOK."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The current page number of returned records.
+                    example: cWiI3vTqdcENiV9RJz3Rh8iP1ksNPheW8c1
+                  page_size:
+                    type: integer
+                    description: "The number of records returned within a single API call. \n\nThe default is **30**, and the maximum is **300**."
+                    example: 30
+                  recordings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        auto_delete_policy:
+                          type: string
+                          description: The time to allow Zoom to automatically delete recordings after retention duration. To see this field, the 'Auto Delete Data After Retention Duration' setting must be enabled in Account Settings .
+                          example: 1 year
+                        call_id:
+                          type: string
+                          description: The phone call's unique ID.
+                          example: '7072598989368295984'
+                        call_log_id:
+                          type: string
+                          description: The phone call log's unique ID.
+                          example: 6f9c2948-40ad-46bc-8700-34ca2d098098
+                        call_element_id:
+                          type: string
+                          description: The phone call element's unique ID.
+                          example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                        callee_name:
+                          type: string
+                          description: The contact name of the callee.
+                          example: User A
+                        callee_number:
+                          type: string
+                          description: The phone number of the callee. It could be an e164 number or an extension. The extension number is a combination of the site number and a short extension.
+                          example: '1000001004'
+                        callee_number_type:
+                          type: integer
+                          description: "The callee's number type: \n* `1` — Internal number. \n* `2` — External number. \n* `3` — Customized emergency number."
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                        caller_name:
+                          type: string
+                          description: The contact name of the caller.
+                          example: User B
+                        caller_number:
+                          type: string
+                          description: The phone number associated with the caller. It could be an e164 number or an extension. The extension number is a combination of the site number and the short extension.
+                          example: '1000123476'
+                        caller_number_type:
+                          type: integer
+                          description: "The caller's number type: \n* `1` — Internal number. \n* `2` — External number."
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                        outgoing_by:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              description: The user's name.
+                              example: User B
+                            extension_number:
+                              type: string
+                              description: The user's extension number.
+                              example: '123476'
+                          description: The call-initiating user. The current recording must belong to the initiator and call queue for it to be available.
+                        accepted_by:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              description: The user's name
+                              example: User A
+                            extension_number:
+                              type: string
+                              description: The user's extension number
+                              example: '10201'
+                          description: The call-receiving user. The current recording must belong to the receiver and call queue for it to be available.
+                        date_time:
+                          type: string
+                          description: The date and time when the recording was received.
+                          format: date-time
+                          example: '2022-03-08T05:37:23Z'
+                        disclaimer_status:
+                          type: integer
+                          description: "The status of disclaimer for recording: \n* `0` - passive/implicit \n* `1` - agree (active/explicit and press 1) \n* `2` - passive agree (active/explicit and no press)"
+                          example: 0
+                          enum:
+                          - 0
+                          - 1
+                          - 2
+                        direction:
+                          type: string
+                          description: The direction of the call. The values are `inbound` or `outbound`.
+                          example: outbound
+                          enum:
+                          - inbound
+                          - outbound
+                        download_url:
+                          type: string
+                          description: "The download URL for the recording. For security purposes, you must provide an OAuth access token in the auth header to download the recording file using this URL.\nExample request\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                          example: https://domain/recording/download/EvVNLihbQ1WpeG_ALwnNzg
+                        duration:
+                          type: integer
+                          description: The call recording's duration, in seconds.
+                          example: 115
+                        end_time:
+                          type: string
+                          description: The recording's end time.
+                          format: date-time
+                          example: '2022-03-08T05:39:19Z'
+                        id:
+                          type: string
+                          description: The unique identifier of the recording.
+                          example: 6f9c294840ad46bc870034ca2d098098
+                        meeting_uuid:
+                          type: string
+                          description: The meeting ID associated with the recording, if any.
+                          example: egLSRuj2SlWet+wLi87LNA==
+                        owner:
+                          type: object
+                          properties:
+                            extension_number:
+                              type: integer
+                              description: The extension number associated to the call number.
+                              format: int64
+                              example: 1000123476
+                            id:
+                              type: string
+                              description: The owner's ID.
+                              example: NL3cEpSdRc-c2t8aLoZqiw
+                            name:
+                              type: string
+                              description: The name of the owner.
+                              example: user@test.com
+                            type:
+                              type: string
+                              description: The owner's type, can be `user`, `callQueue`, or `sharedOffice`(deprecated and to be replaced by `commonArea`. During the transition period, if `sharedOffice` is provided as the `owner_type` parameter, `sharedOffice` is returned as a response. Conversely, if `commonArea` is provided, `commonArea` will be returned. If `null` is provided, `sharedOffice` will be returned temporarily, but it will be replaced by `commonArea` after the transition period).
+                              example: user
+                              enum:
+                              - user
+                              - callQueue
+                              - commonArea
+                            extension_status:
+                              type: string
+                              description: "This field indicates the status of extension: \n* `inactive` \n* `deleted`"
+                              example: deleted
+                              enum:
+                              - inactive
+                              - deleted
+                            extension_deleted_time:
+                              type: string
+                              description: The date time the extension was deleted. It exists only when extension_status is `deleted`.
+                              example: '2022-10-14T22:10:54Z'
+                          description: The owner of the recording.
+                        recording_type:
+                          type: string
+                          description: The recording type. The allowed values are `OnDemand` or `Automatic`.
+                          example: OnDemand
+                        site:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The site ID.
+                              example: 8f71O6rWT8KFUGQmJIFAdQ
+                            name:
+                              type: string
+                              description: The site name.
+                              example: Main Site
+                        transcript_download_url:
+                          type: string
+                          description: "The download URL for the recording transcript. For security purposes, you must provide an OAuth access token in the auth header to download the recording transcript file using this URL.\nExample request\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                          example: https://domain/recording_transcript/download/8f7345c50a654182ab1672fdb3be61ff
+                        auto_delete_enable:
+                          type: boolean
+                          description: This field indicates whether the recording has Auto Delete Data After Retention Duration setting enabled or not.
+                          example: true
+                        caller_account_code:
+                          type: string
+                          description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '111'
+                        callee_account_code:
+                          type: string
+                          description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '222'
+                  total_records:
+                    type: integer
+                    description: The total number of records returned.
+                    example: 50
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Validation failed. You provided an incorrect value for the template type. Provide a valid value and try again. <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone_recording:read:admin
+        - phone:read:list_call_recordings:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        - phone_recording:read:admin
+        x-granular-scopes:
+        - phone:read:list_call_recordings:admin
+  /phone/recordings/{recordingId}:
+    delete:
+      tags:
+      - Recordings
+      summary: Delete a call recording
+      description: "Deletes a call recording.\n\n**Prerequisites:** \n* User must belong to a Business or Enterprise account \n* User must have a Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_recording`,`phone:delete:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: deleteCallRecording
+      parameters:
+      - name: recordingId
+        in: path
+        description: The unique identifier of the recording.
+        required: true
+        schema:
+          type: string
+          example: 6f9c294840ad46bc870034ca2d098098
+      responses:
+        '204':
+          description: "**HTTP Status Code**: `204`   \n \nRecording deleted.\n"
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `124` <br>\nInvalid access token.\n\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found\n\n**Error Code:** `404` <br>\nRecording does not exist: {recordingId}.<br>\n\n**Error Code:** `2001` <br>\nAccount does not exist.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write
+        - phone_recording:write
+        - phone_recording:write:admin
+        - phone:delete:call_recording
+        - phone:delete:call_recording:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        - phone:write
+        - phone_recording:write
+        - phone_recording:write:admin
+        x-granular-scopes:
+        - phone:delete:call_recording
+        - phone:delete:call_recording:admin
+    patch:
+      tags:
+      - Recordings
+      summary: Update auto delete field
+      description: "Updates the auto delete field for recording. It only updates if you enable the **Auto Delete Data After Retention Duration** setting in the account settings for recordings. \n\n**Prerequisites:** \n* User must belong to a Business or Enterprise account \n* User must have a Zoom Phone license.\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_recording`,`phone:update:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: UpdateAutoDeleteField
+      parameters:
+      - name: recordingId
+        in: path
+        description: The unique identifier of the recording.
+        required: true
+        schema:
+          type: string
+          example: 6f9c294840ad46bc870034ca2d098098
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auto_delete_enable:
+                  type: boolean
+                  description: Whether to enable auto delete field in recording.
+                  example: true
+      responses:
+        '204':
+          description: "**HTTP Status Code**: `204`   \n Auto delete field updated."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `124` <br>\n Invalid access token. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found \n\n **Error Code:** `404` <br>\n Recording does not exist: {recordingId}. <br>\n**Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write
+        - phone_recording:write
+        - phone_recording:write:admin
+        - phone:update:call_recording
+        - phone:update:call_recording:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        - phone:write
+        - phone_recording:write
+        - phone_recording:write:admin
+        x-granular-scopes:
+        - phone:update:call_recording
+        - phone:update:call_recording:admin
+  /phone/recordings/{recordingId}/status:
+    put:
+      tags:
+      - Recordings
+      summary: Update Recording Status
+      description: "Updates the status of a single recording in account. \n\n**Prerequisites:** \n* User must belong to a Business or Enterprise account. \n* User must have a Zoom Phone license.\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_recording`,`phone:update:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: UpdateRecordingStatus
+      parameters:
+      - name: recordingId
+        in: path
+        description: The recording ID.
+        required: true
+        schema:
+          type: string
+          example: 6f9c294840ad46bc870034ca2d098098
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  description: "This field corresponds to actions that you can use to update recording status. Example: Recovering recordings from trash. \n\nAllowed values: `recover`."
+                  example: recover
+                  enum:
+                  - recover
+      responses:
+        '204':
+          description: "**HTTP Status Code**: `204`   \n Recording recovered from trash."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `124` <br>\n Invalid access token. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n Recording does not exist: {recordingId}. <br>\n**Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write
+        - phone_recording:write
+        - phone_recording:write:admin
+        - phone:update:call_recording
+        - phone:update:call_recording:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        - phone:write
+        - phone_recording:write
+        - phone_recording:write:admin
+        x-granular-scopes:
+        - phone:update:call_recording
+        - phone:update:call_recording:admin
+  /phone/users/{userId}/recordings:
+    get:
+      tags:
+      - Recordings
+      summary: Get user's recordings
+      description: "Gets a user's [Zoom Phone recordings](https://support.zoom.us/hc/en-us/articles/360021336671-Viewing-Call-History-and-Recordings). For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_recordings`,`phone:read:list_recordings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: phoneUserRecordings
+      parameters:
+      - name: userId
+        in: path
+        description: The user ID or email address of the user. For user-level apps, pass `me` as the value for userId.
+        required: true
+        schema:
+          type: string
+          example: DYHrdpjrS3uaOf7dPkkg8w
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through large result sets. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      - name: from
+        in: query
+        description: The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. The month defined should fall within the last six months. If unspecified, returns data from the past 30 days.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: '**Required** only when the `from` parameter is specified. End time and date in **yyyy-mm-dd** or **yyyy-MM-dd''T''HH:mm:ss''Z''** format, the same format as the `from` parameter.'
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nUser object returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  from:
+                    type: string
+                    description: The start time and date of the query.
+                    format: date
+                    example: '2021-11-01'
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: 6jqhz348c100oHbw6cVER45YderniREnwr1
+                  page_count:
+                    type: integer
+                    description: Total number of pages.
+                    example: 1
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single API call for each page.
+                    example: 30
+                  recordings:
+                    maxItems: 100
+                    type: array
+                    description: The recordings.
+                    items:
+                      type: object
+                      properties:
+                        call_id:
+                          type: string
+                          description: The phone call's unique ID.
+                          example: '7025841973929235024'
+                        call_log_id:
+                          type: string
+                          description: The phone call log's unique ID.
+                          example: 8f7345c5-0a65-4182-ab16-72fdb3be61ff
+                          deprecated: true
+                        call_history_id:
+                          type: string
+                          description: The phone call history's unique ID.
+                          example: 20211102-8f7345c5-0a65-4182-ab16-72fdb3be61ff
+                          deprecated: true
+                        call_element_id:
+                          type: string
+                          description: The phone call element's unique ID.
+                          example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                        callee_name:
+                          type: string
+                          description: The contact name of callee.
+                          example: User A
+                        callee_number:
+                          type: string
+                          description: The number of callee.
+                          example: '1000001004'
+                        callee_number_type:
+                          type: integer
+                          description: "The callee's number type: \n* `1` &mdash; Internal number. \n* `2` &mdash; External number.\n* `3` &mdash; Customized emergency number."
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                        caller_name:
+                          type: string
+                          description: The contact name of caller.
+                          example: User B
+                        caller_number:
+                          type: string
+                          description: Number of caller.
+                          example: '1000001028'
+                        caller_number_type:
+                          type: integer
+                          description: "The caller's number type: \n* `1` &mdash; Internal number. \n* `2` &mdash; External number."
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                        outgoing_by:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              description: The user's name.
+                              example: User B
+                            extension_number:
+                              type: string
+                              description: The user's extension number.
+                              example: '123476'
+                          description: The call-initiating user. The current recording must belong to the initiator and call queue for it to be available.
+                        accepted_by:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              description: The user's name.
+                              example: User A
+                            extension_number:
+                              type: string
+                              description: The user's extension number.
+                              example: '101001'
+                          description: The call-receiving user. The current recording must belong to the receiver and call queue for it to be available.
+                        date_time:
+                          type: string
+                          description: The date and time at which the record is received
+                          example: '2021-11-02T05:35:20Z'
+                        direction:
+                          type: string
+                          description: The direction of the call. &quot;inbound&quot; | &quot;outbound&quot;
+                          example: inbound
+                        download_url:
+                          type: string
+                          description: "The download URL for the recording. For security purposes, you must provide an OAuth access token in the auth header to download the recording file using this url.   \n \n\nExample request:  \n \n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token} \\\n  --header 'content-type: application/json'\n```\n"
+                          example: https://domain/recording/download/EvVNLihbQ1WpeG_ALwnNzg
+                        duration:
+                          type: integer
+                          description: The call recording's duration, in seconds.
+                          example: 11
+                        id:
+                          type: string
+                          description: The ID of recording.
+                          example: 8f7345c50a654182ab1672fdb3be61ff
+                        meeting_uuid:
+                          type: string
+                          description: The meeting ID associated with the recording, if any.
+                          example: egLSRuj2SlWet+wLi87LNA==
+                        transcript_download_url:
+                          type: string
+                          description: "The download URL for the recording transcript. For security purposes, you must provide an OAuth access token in the auth header to download the recording transcript file using this url.   \n \n\nExample request:  \n \n```\ncurl --request GET \\\n  --url {transcript_download_url} \\\n  --header 'authorization: Bearer {access_token} \\\n  --header 'content-type: application/json'\n```\n"
+                          example: https://domain/recording_transcript/download/8f7345c50a654182ab1672fdb3be61ff
+                        caller_account_code:
+                          type: string
+                          description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '111'
+                        callee_account_code:
+                          type: string
+                          description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '222'
+                  to:
+                    type: string
+                    description: The end time and date of the query.
+                    format: date
+                    example: '2021-11-03'
+                  total_records:
+                    type: integer
+                    description: The total number of records returned.
+                    example: 50
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Invalid user id. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1001` <br>\n User does not exist: {userId}. <br>\n**Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        - phone:read:list_recordings
+        - phone:read:list_recordings:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_recording:read
+        - phone_recording:read:admin
+        x-granular-scopes:
+        - phone:read:list_recordings
+        - phone:read:list_recordings:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

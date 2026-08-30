@@ -1,0 +1,1097 @@
+openapi: 3.2.0
+info:
+  title: Phone Monitoring Groups API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Monitoring Groups
+paths:
+  /phone/monitoring_groups:
+    get:
+      tags:
+      - Monitoring Groups
+      summary: Get a list of monitoring groups on an account
+      description: "Returns an account's [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711) list.\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_monitoring_groups:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: listMonitoringGroup
+      parameters:
+      - name: type
+        in: query
+        description: The monitoring group's type.
+        required: false
+        schema:
+          type: integer
+          example: 1
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+      - name: site_id
+        in: query
+        description: The unique identifier of the monitoring group's site.
+        required: false
+        schema:
+          type: string
+          example: 8f71O6rWT8KFUGQmJIFAdQ
+      - name: page_size
+        in: query
+        description: The size of the page.
+        required: false
+        schema:
+          type: integer
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The current page number of returned records.
+        required: false
+        schema:
+          type: string
+          example: ICF5K4lVmGG4kyIyGxSfBU2LH4QQG95cn32
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Account monitoring groups list returned. "
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  monitoring_groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The monitoring group ID.
+                          example: oDmRjKVTRymXGMtgtBK2Sg
+                        monitor_members_count:
+                          type: integer
+                          description: The number of monitors.
+                          example: 1
+                        monitored_members_count:
+                          type: integer
+                          description: The number of monitored users.
+                          example: 1
+                        monitoring_privileges:
+                          type: array
+                          description: This field sets the group's monitoring privileges.
+                          items:
+                            type: string
+                            example: listen
+                            enum:
+                            - listen
+                            - whisper
+                            - barge
+                            - take_over
+                        name:
+                          type: string
+                          description: The monitoring instance name.
+                          example: pbx_api_test_uacap
+                        prompt:
+                          type: boolean
+                          description: Whether to play a disclaimer prompt to the call participants
+                          example: true
+                        site:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The site ID.
+                              example: 8f71O6rWT8KFUGQmJIFAdQ
+                            name:
+                              type: string
+                              description: The site name.
+                              example: Main Site
+                          description: The site of the monitoring group.
+                        type:
+                          type: integer
+                          description: 'The monitoring type.
+
+                            * `1` &mdash; Users &amp; Common Areas.
+
+                            * `2` &mdash; Call Queues.
+
+                            * `3` &mdash; Shared Line Group.
+
+                            * `4` &mdash; Shared Line Appearance.'
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                  next_page_token:
+                    type: string
+                    description: The current page number of returned records.
+                    example: ICF5K4lVmGG4kyIyGxSfBU2LH4QQG95cn32
+                  page_size:
+                    type: integer
+                    description: The size of the page.
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records available across all pages.
+                    example: 1
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n The next page token is invalid or expired. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_monitoring_groups:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_monitoring_groups:admin
+    post:
+      tags:
+      - Monitoring Groups
+      summary: Create a monitoring group
+      description: "Creates a [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: createMonitoringGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                monitoring_privileges:
+                  type: array
+                  description: This field sets monitoring group's privileges.
+                  items:
+                    type: string
+                    example: listen
+                    enum:
+                    - listen
+                    - whisper
+                    - barge
+                    - take_over
+                name:
+                  type: string
+                  description: The monitoring group's name.
+                  example: pbx_api_test_uacap
+                prompt:
+                  type: boolean
+                  description: Whether to play a disclaimer prompt to the call participants.
+                  example: true
+                site_id:
+                  type: string
+                  description: The unique identifier of the monitoring group's site.
+                  example: 8f71O6rWT8KFUGQmJIFAdQ
+                type:
+                  type: integer
+                  description: 'The monitoring type.
+
+                    * `1` &mdash; Users &amp; Common Areas.
+
+                    * `2` &mdash; Call Queues.
+
+                    * `3` &mdash; Shared Line Group.
+
+                    * `4` &mdash; Shared Line Appearance.'
+                  example: 1
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201`  \n \nMonitoring created."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The monitoring group ID.
+                    example: oDmRjKVTRymXGMtgtBK2Sg
+                  name:
+                    type: string
+                    description: The monitoring group's name.
+                    example: pbx_api_test_uacap
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Name is required.\nType is required\nSite ID is required.\nThe privilege does not exist.\nType should be `1`, `2`, or `3`. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write:monitoring_group:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:write:monitoring_group:admin
+  /phone/monitoring_groups/{monitoringGroupId}:
+    get:
+      tags:
+      - Monitoring Groups
+      summary: Get monitoring group by ID
+      description: "Returns a [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711) for the specified ID.\n\n**Prerequisites:** \n* A Business or Enterprise account\n * A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: getMonitoringGroupById
+      parameters:
+      - name: monitoringGroupId
+        in: path
+        description: The monitoring group ID.
+        required: true
+        schema:
+          type: string
+          example: oDmRjKVTRymXGMtgtBK2Sg
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Monitoring returned. "
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The monitoring group ID.
+                    example: oDmRjKVTRymXGMtgtBK2Sg
+                  monitor_members_count:
+                    type: integer
+                    description: The number of monitors.
+                    example: 1
+                  monitored_members_count:
+                    type: integer
+                    description: The number of monitored users.
+                    example: 1
+                  monitoring_privileges:
+                    type: array
+                    description: This field sets the group's monitoring privileges.
+                    items:
+                      type: string
+                      example: listen
+                      enum:
+                      - listen
+                      - whisper
+                      - barge
+                      - take_over
+                  name:
+                    type: string
+                    description: The monitoring group's name.
+                    example: pbx_api_test_uacap
+                  prompt:
+                    type: boolean
+                    description: Whether to play a disclaimer prompt to the call participants.
+                    example: true
+                  site:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: The site ID.
+                        example: 8f71O6rWT8KFUGQmJIFAdQ
+                      name:
+                        type: string
+                        description: The site name.
+                        example: Main Site
+                    description: The site of monitoring group.
+                  type:
+                    type: integer
+                    description: 'The monitoring type.
+
+                      * `1` &mdash; Users &amp; Common Areas.
+
+                      * `2` &mdash; Call Queues.
+
+                      * `3` &mdash; Shared Line Group.
+
+                      * `4` &mdash; Shared Line Appearance.'
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `404` <br>\n The group does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:monitoring_group:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:monitoring_group:admin
+    delete:
+      tags:
+      - Monitoring Groups
+      summary: Delete a monitoring group
+      description: "Use this API to delete a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: deleteMonitoringGroup
+      parameters:
+      - name: monitoringGroupId
+        in: path
+        description: Monitoring group ID.
+        required: true
+        schema:
+          type: string
+          example: oDmRjKVTRymXGMtgtBK2Sg
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nMonitoring group deleted."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:delete:monitoring_group:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:delete:monitoring_group:admin
+    patch:
+      tags:
+      - Monitoring Groups
+      summary: Update a monitoring group
+      description: "Use this API to update a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: updateMonitoringGroup
+      parameters:
+      - name: monitoringGroupId
+        in: path
+        description: Monitoring group ID.
+        required: true
+        schema:
+          type: string
+          example: oDmRjKVTRymXGMtgtBK2Sg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                monitoring_privileges:
+                  type: array
+                  description: Set of monitoring group's privileges.
+                  items:
+                    type: string
+                    example: take_over
+                    enum:
+                    - listen
+                    - whisper
+                    - barge
+                    - take_over
+                name:
+                  type: string
+                  description: Monitoring group's name.
+                  example: testUpdateName
+                prompt:
+                  type: boolean
+                  description: Whether Play a disclaimer prompt to the call participants
+                  example: false
+                site_id:
+                  type: string
+                  description: Unique identifier of the monitoring group's site.
+                  example: NjHmTu16Qfe8yOiNJuekXA
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nMonitoring group updated."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nThe privilege does not exist.\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:update:monitoring_group:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:update:monitoring_group:admin
+  /phone/monitoring_groups/{monitoringGroupId}/monitor_members:
+    get:
+      tags:
+      - Monitoring Groups
+      summary: Get members of a monitoring group
+      description: "Use this API to return members list of a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_monitoring_group_members:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      operationId: listMembers
+      parameters:
+      - name: monitoringGroupId
+        in: path
+        description: Monitoring group ID.
+        required: true
+        schema:
+          type: string
+          example: oDmRjKVTRymXGMtgtBK2Sg
+      - name: member_type
+        in: query
+        description: Member type
+        required: true
+        schema:
+          type: string
+          example: monitor
+          enum:
+          - monitor
+          - monitored
+      - name: page_size
+        in: query
+        description: The size of the page.
+        required: false
+        schema:
+          type: integer
+          example: 1
+      - name: next_page_token
+        in: query
+        description: The current page number of returned records.
+        required: false
+        schema:
+          type: string
+          example: ICF5K4lVmGG4kyIyGxSfBU2LH4QQG95cn32
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Members in a monitoring group returned. "
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        display_name:
+                          type: string
+                          description: Member name.
+                          example: testUser
+                        extension_id:
+                          type: string
+                          description: Extension ID.
+                          example: JpjPXizWTz-l35tFRUK3Gg
+                        extension_number:
+                          type: integer
+                          description: Extension number.
+                          format: int64
+                          example: 10010
+                        extension_type:
+                          type: string
+                          description: Extension type
+                          example: user
+                          enum:
+                          - user
+                          - call_queue
+                          - shared_line_group
+                          - common_area_phone
+                  next_page_token:
+                    type: string
+                    description: The current page number of returned records.
+                    example: ICF5K4lVmGG4kyIyGxSfBU2LH4QQG95cn32
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single API call.
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The number of records
+                    example: 1
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nMissing 'member_type'.\nThe next page token is invalid or expired.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_monitoring_group_members:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_monitoring_group_members:admin
+    post:
+      tags:
+      - Monitoring Groups
+      summary: Add members to a monitoring group
+      description: "Use this API to add members to a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:monitoring_group_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: addMembers
+      parameters:
+      - name: monitoringGroupId
+        in: path
+        description: Monitoring group ID.
+        required: true
+        schema:
+          type: string
+          example: CLdSxmPsSZuo4umbSsO1aw
+      - name: member_type
+        in: query
+        description: Member type
+        required: true
+        schema:
+          type: string
+          example: monitor
+          enum:
+          - monitor
+          - monitored
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                description: Monitor's extension ID
+                example: JpjPXizWTz-l35tFRUK3Gg
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201`   \n Add members to a monitoring group."
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nThe maximum number of monitors is 100.\nThe maximum number of monitored is 100.\nThe group does not exist.\n\n**Error Code:** `409` <br>\nCannot create group. 'member_type' member(s) already exist(s) in current monitoring group.\nCannot create group. 'member_type' member(s) already exist(s) in other monitoring group.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write:monitoring_group_member:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:write:monitoring_group_member:admin
+    delete:
+      tags:
+      - Monitoring Groups
+      summary: Remove all monitors or monitored members from a monitoring group
+      description: "Use this API to remove all monitor or monitored members from a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:monitoring_group_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: removeMembers
+      parameters:
+      - name: monitoringGroupId
+        in: path
+        description: Monitoring group ID.
+        required: true
+        schema:
+          type: string
+          example: oDmRjKVTRymXGMtgtBK2Sg
+      - name: member_type
+        in: query
+        description: Member type
+        required: true
+        schema:
+          type: string
+          example: monitor
+          enum:
+          - monitor
+          - monitored
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nRemove all monitor or monitored members from a monitoring group."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:delete:monitoring_group_member:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:delete:monitoring_group_member:admin
+  /phone/monitoring_groups/{monitoringGroupId}/monitor_members/{memberExtensionId}:
+    delete:
+      tags:
+      - Monitoring Groups
+      summary: Remove a member from a monitoring group
+      description: "Use this API to remove a member from a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:monitoring_group_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: removeMember
+      parameters:
+      - name: monitoringGroupId
+        in: path
+        description: Monitoring group ID.
+        required: true
+        schema:
+          type: string
+          example: CLdSxmPsSZuo4umbSsO1aw
+      - name: memberExtensionId
+        in: path
+        description: Member's extension ID.
+        required: true
+        schema:
+          type: string
+          example: JpjPXizWTz-l35tFRUK3Gg
+      - name: member_type
+        in: query
+        description: Member type
+        required: false
+        schema:
+          type: string
+          example: monitor
+          enum:
+          - monitor
+          - monitored
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nRemove a member from a monitoring group."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `404` <br>\nThe group does not exist.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:delete:monitoring_group_member:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:delete:monitoring_group_member:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

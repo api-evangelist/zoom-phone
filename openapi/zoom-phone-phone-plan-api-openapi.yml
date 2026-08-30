@@ -1,0 +1,159 @@
+openapi: 3.2.0
+info:
+  title: Number Management Phone Plan API
+  description: Number Management APIs are part of Zoom's API suite. They let developers manage and provision phone numbers in a Zoom Phone, Contact Center, or Meetings account programmatically. They also help businesses and service providers automate phone number operations at scale.
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Phone Plan
+paths:
+  /number_management/plan:
+    get:
+      tags:
+      - Phone Plan
+      summary: List phone number plan information
+      description: 'Retrieves an account''s  phone number plan information, phone number usage, and availability.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:numbers_plan:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: Listphonenumberplaninformation
+      parameters:
+      - name: product
+        in: query
+        description: The product (e.g., ZOOM_PHONE).
+        required: true
+        schema:
+          type: string
+          example: ZOOM_PHONE
+          enum:
+          - ZOOM_PHONE
+          - ZOOM_CONTACT_CENTER
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 200
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: zi4JE9iWsGMZ92F9xhnlcZRxl2Fh47qio02
+      responses:
+        '200':
+          description: The phone number plan usage information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: zi4JE9iWsGMZ92F9xhnlcZRxl2Fh47qio02
+                  page_size:
+                    type: integer
+                    description: The page size in use.
+                    example: 100
+                  plans:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assigned:
+                          type: integer
+                          description: The total number of phone number plans.
+                          example: 10
+                        available:
+                          type: integer
+                          description: The remaining number of phone number plans to assign.
+                          example: 10
+                        subscribed:
+                          type: integer
+                          description: The total number of phone number plan subscriptions bought.
+                          example: 20
+                        name:
+                          type: string
+                          description: The name of the phone number plan.
+                          example: US/CA Included Phone Numbers
+                        is_unlimited:
+                          type: boolean
+                          description: If the plan is unlimited, the value is true; any other value indicates a limited plan.
+                          example: true
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `999` <br>\n Invalid param (product) <br>\n**Error Code:** `1002006` <br>\n product cannot be empty <br>\n**Error Code:** `1003100` <br>\n The next page token is either invalid or has expired <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  Lack of valid authentication \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:numbers_plan:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Read
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:numbers_plan:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            number_management_numbers:read:admin: number_management_numbers:read:admin
+            number_management:read:list_carrier_peering_numbers:admin: number_management:read:list_carrier_peering_numbers:admin
+            number_management:read:list_peering_numbers:admin: number_management:read:list_peering_numbers:admin
+            number_management_numbers:write:admin: number_management_numbers:write:admin
+            number_management:delete:peering_number:admin: number_management:delete:peering_number:admin
+            number_management:write:peering_number:admin: number_management:write:peering_number:admin
+            number_management:update:peering_number:admin: number_management:update:peering_number:admin
+            number_management:write:numbers:admin: number_management:write:numbers:admin
+            number_management:write:byoc_numbers:admin: number_management:write:byoc_numbers:admin
+            number_management:read:list_numbers:admin: number_management:read:list_numbers:admin
+            number_management_numbers:write:master: number_management_numbers:write:master
+            number_management:delete:numbers:admin: number_management:delete:numbers:admin
+            number_management:read:numbers:admin: number_management:read:numbers:admin
+            number_management:update:numbers:admin: number_management:update:numbers:admin
+            number_management:read:numbers_plan:admin: number_management:read:numbers_plan:admin
+            number_management:read:list_sms_campaigns:admin: number_management:read:list_sms_campaigns:admin
+            number_management:read:sms_campaign:admin: number_management:read:sms_campaign:admin
+            number_management:delete:sms_consent:admin: number_management:delete:sms_consent:admin
+            number_management:read:sms_consent:admin: number_management:read:sms_consent:admin
+            number_management:write:sms_consent:admin: number_management:write:sms_consent:admin
+            number_management:update:sms_consent:admin: number_management:update:sms_consent:admin
+            number_management:read:list_ported_numbers:admin: number_management:read:list_ported_numbers:admin
+            number_management:read:ported_number:admin: number_management:read:ported_number:admin
+            number_management:read:list_sip_groups:admin: number_management:read:list_sip_groups:admin
+            number_management:read:list_sip_trunks:admin: number_management:read:list_sip_trunks:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

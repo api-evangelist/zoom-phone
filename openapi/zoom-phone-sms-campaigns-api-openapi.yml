@@ -1,0 +1,398 @@
+openapi: 3.2.0
+info:
+  title: Number Management SMS Campaigns API
+  description: Number Management APIs are part of Zoom's API suite. They let developers manage and provision phone numbers in a Zoom Phone, Contact Center, or Meetings account programmatically. They also help businesses and service providers automate phone number operations at scale.
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: SMS Campaigns
+paths:
+  /number_management/sms_campaigns:
+    get:
+      tags:
+      - SMS Campaigns
+      summary: List SMS campaigns
+      description: 'Returns a list of all SMS campaigns in a Zoom account.
+
+
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_sms_campaigns:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: listAccountSMSCampaigns
+      parameters:
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n \nSMS campaign listed successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: bkOcmnm6mn6ioYAi10BcgRiEL38WzAo6jP2
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single API call.
+                    example: 30
+                  sms_campaigns:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        sms_campaign_id:
+                          type: string
+                          description: The campaign's ID.
+                          example: C-BlVwSdjvS3WXk5gzfIQFfQ
+                        display_name:
+                          type: string
+                          description: The display name for the SMS campaign.
+                          example: Test SMS Campaign
+                        status:
+                          type: string
+                          description: The status of the SMS campaign.
+                          example: active
+                          enum:
+                          - active
+                          - expired
+                          - pending
+                          - declined
+                        brand:
+                          type: object
+                          properties:
+                            brand_id:
+                              type: string
+                              description: The brand's ID.
+                              example: B-c3AN66d_Q4mrQFNUaW-G2w
+                            name:
+                              type: string
+                              description: The brand's name.
+                              example: Test Campaign
+                          description: The business information from Zoom account.
+                  total_records:
+                    type: integer
+                    description: The total number of records returned.
+                    example: 1
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:list_sms_campaigns:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Read
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:list_sms_campaigns:admin
+  /number_management/sms_campaigns/{smsCampaignId}:
+    get:
+      tags:
+      - SMS Campaigns
+      summary: Get an SMS campaign
+      description: "Returns a specific SMS campaign.\n\n**Prerequisites** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_campaign:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: GetSMSCampaign
+      parameters:
+      - name: smsCampaignId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n \nSMS campaign details retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sms_campaign_id:
+                    type: string
+                    description: The campaign's ID.
+                    example: C-BlVwSdjvS3WXk5gzfIQFfQ
+                  display_name:
+                    type: string
+                    description: The display name for the SMS campaign.
+                    example: Test SMS Campaign
+                  status:
+                    type: string
+                    description: The status of the SMS campaign. Returns `--` if the campaign is in an exception status.
+                    example: active
+                    enum:
+                    - active
+                    - expired
+                    - pending
+                    - declined
+                  service_type:
+                    type: string
+                    description: Which service the campaign supports.
+                    example: zoomPhone
+                    enum:
+                    - zoomPhone
+                    - contactCenter
+                  brand:
+                    type: object
+                    properties:
+                      brand_id:
+                        type: string
+                        description: The brand's ID.
+                        example: B-c3AN66d_Q4mrQFNUaW-G2w
+                      name:
+                        type: string
+                        description: The brand's name.
+                        example: Test Campaign
+                    description: The business information from Zoom account.
+                  phone_numbers:
+                    type: array
+                    description: The assigned phone numbers.
+                    items:
+                      type: object
+                      properties:
+                        phone_number_id:
+                          type: string
+                          description: The phone number's ID.
+                          example: iHE1MQAET2iV85MbfaQmwg
+                        number:
+                          type: string
+                          description: The phone number that is assigned to the SMS campaign.
+                          example: '+18887193005'
+                  response_to_opt_in:
+                    type: string
+                    description: Automatic reply text message after receiving opt in message.
+                    example: 'ZOOM: Thank you for opting in for our texting notifications. Message frequency may vary. Message and Data Rates may apply. To end messaging from us, Reply with STOP. Reply with HELP for more information.'
+                  response_to_opt_out:
+                    type: string
+                    description: Automatic reply text message after receiving opt out message.
+                    example: You are unsubscribed to texts from ZOOM. No more messages will be sent.
+                  response_to_help:
+                    type: string
+                    description: Automatic reply text message after receiving help message.
+                    example: 'ZOOM: You can get more assistance by visiting https://zoom.us/. Text STOP to stop receiving messages from us. You can also text START to start receiving messages from us again. You can also refer to our privacy policy on our website.'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  Invalid campaign ID. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:sms_campaign:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Read
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:sms_campaign:admin
+  /number_management/sms_campaigns/{smsCampaignId}/phone_numbers:
+    post:
+      tags:
+      - SMS Campaigns
+      summary: Assign a phone number to SMS campaign
+      description: "[Assigns a phone number to the SMS campaign](https://support.zoom.us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVQM1WMW5JD48YNY3J581B).\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: assignCampaignPhoneNumbers
+      parameters:
+      - name: smsCampaignId
+        in: path
+        description: The unique identifier of the campaign to which the phone number will be assigned.
+        required: true
+        schema:
+          type: string
+          example: C-BlVwSdjvS3WXk5gzfIQFfQ
+      requestBody:
+        description: The phone number ID in the request body.
+        content:
+          application/json:
+            schema:
+              required:
+              - contact_number
+              - loa_authorizing_person
+              - phone_number_ids
+              - title
+              type: object
+              properties:
+                phone_number_ids:
+                  maxItems: 200
+                  type: array
+                  description: The maximum value is 200.
+                  items:
+                    type: string
+                    example: 0kB2qDoSRMqzJti7VmNTIA
+                loa_authorizing_person:
+                  type: string
+                  description: The name of the employee issuing the letter of authorization required to port in SMS capabilities on the numbers.
+                  example: Alex Carter
+                contact_number:
+                  type: string
+                  description: The contact phone number of the employee issuing the letter of authorization required to port in SMS capabilities on the numbers.
+                  example: '+12090000000'
+                title:
+                  type: string
+                  description: The job title of the person authorizing and signing the leave of absence.
+                  example: Zoom Engineer
+                contact_emails:
+                  type: string
+                  description: The contact email of the employee issuing the letter of authorization required to port in SMS capabilities on the numbers.
+                  example: alex.carter@zoom.us
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `201`   \n \nPhone numbers assigned successfully. \n"
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1003004` <br>\n Insufficient campaign capacity. <br>\n**Error Code:** `1003` <br>\n Too many numbers, should less than 200 <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  Invalid campaign ID. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:update:numbers:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Edit
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:update:numbers:admin
+    delete:
+      tags:
+      - SMS Campaigns
+      summary: Unassign phone number from SMS campaign
+      description: "[Unassigns a phone number from an SMS campaign](https://support.zoom.us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVSPVM8MZN4Y9EW5690QHH).\n\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license \n* The campaign must have been previously assigned a Zoom Phone number\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: unassignCampaignPhoneNumber
+      parameters:
+      - name: smsCampaignId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: phone_number_ids
+        in: query
+        description: A list of phone numbers to unassign from the SMS campaign.
+        required: true
+        schema:
+          maxItems: 200
+          type: array
+          example:
+          - iHE1MQAET2iV85MbfaQmwg
+          - vZWksdNbRkKTdzOth09skw
+          items:
+            type: string
+      responses:
+        '204':
+          description: '**HTTP Status Code:** `204`
+
+            The phone number has been unassigned successfully.'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1003` <br>\n Too many numbers, should less than 200 <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  Invalid campaign ID. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:update:numbers:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Edit
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:update:numbers:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            number_management_numbers:read:admin: number_management_numbers:read:admin
+            number_management:read:list_carrier_peering_numbers:admin: number_management:read:list_carrier_peering_numbers:admin
+            number_management:read:list_peering_numbers:admin: number_management:read:list_peering_numbers:admin
+            number_management_numbers:write:admin: number_management_numbers:write:admin
+            number_management:delete:peering_number:admin: number_management:delete:peering_number:admin
+            number_management:write:peering_number:admin: number_management:write:peering_number:admin
+            number_management:update:peering_number:admin: number_management:update:peering_number:admin
+            number_management:write:numbers:admin: number_management:write:numbers:admin
+            number_management:write:byoc_numbers:admin: number_management:write:byoc_numbers:admin
+            number_management:read:list_numbers:admin: number_management:read:list_numbers:admin
+            number_management_numbers:write:master: number_management_numbers:write:master
+            number_management:delete:numbers:admin: number_management:delete:numbers:admin
+            number_management:read:numbers:admin: number_management:read:numbers:admin
+            number_management:update:numbers:admin: number_management:update:numbers:admin
+            number_management:read:numbers_plan:admin: number_management:read:numbers_plan:admin
+            number_management:read:list_sms_campaigns:admin: number_management:read:list_sms_campaigns:admin
+            number_management:read:sms_campaign:admin: number_management:read:sms_campaign:admin
+            number_management:delete:sms_consent:admin: number_management:delete:sms_consent:admin
+            number_management:read:sms_consent:admin: number_management:read:sms_consent:admin
+            number_management:write:sms_consent:admin: number_management:write:sms_consent:admin
+            number_management:update:sms_consent:admin: number_management:update:sms_consent:admin
+            number_management:read:list_ported_numbers:admin: number_management:read:list_ported_numbers:admin
+            number_management:read:ported_number:admin: number_management:read:ported_number:admin
+            number_management:read:list_sip_groups:admin: number_management:read:list_sip_groups:admin
+            number_management:read:list_sip_trunks:admin: number_management:read:list_sip_trunks:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

@@ -1,0 +1,575 @@
+openapi: 3.2.0
+info:
+  title: Number Management Setting API
+  description: Number Management APIs are part of Zoom's API suite. They let developers manage and provision phone numbers in a Zoom Phone, Contact Center, or Meetings account programmatically. They also help businesses and service providers automate phone number operations at scale.
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Setting
+paths:
+  /number_management/ported_numbers/orders:
+    get:
+      tags:
+      - Setting
+      summary: List ported numbers
+      description: 'Returns a list of ported numbers in a Zoom account.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_ported_numbers:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: Listportednumbers
+      parameters:
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through large result sets. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          type: integer
+          example: 30
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200` **OK**
+
+
+            Ported Phone numbers listed successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through large result sets. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: R4aF9Oj0fVM2hhezJTEmSKaBSkfesDwGy42
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single API call.
+                    example: 30
+                  ported_numbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        numbers:
+                          type: array
+                          description: The ported numbers.
+                          items:
+                            type: string
+                            example: '+12058945752'
+                        order_id:
+                          type: string
+                          description: The ported numbers' order ID.
+                          example: '2021080307332974349'
+                        replacing_numbers:
+                          type: array
+                          description: The ported numbers' replacement numbers.
+                          items:
+                            type: object
+                            properties:
+                              source_number:
+                                type: string
+                                description: The source number.
+                                example: '+12058945752'
+                              target_number:
+                                type: string
+                                description: The replaced number.
+                                example: '+12058945755'
+                        status:
+                          type: string
+                          description: The ported numbers' status.
+                          example: Canceled
+                          enum:
+                          - Not_Submitted
+                          - Waiting
+                          - Processing
+                          - Successfully
+                          - Rejected
+                          - Canceled
+                          - FOC
+                        submission_date_time:
+                          type: string
+                          description: 'The time ported numbers were submitted (format: ''yyyy-MM-ddThh:dd:ssZ'').'
+                          example: '2021-08-03T07:33:29Z'
+                  total_records:
+                    type: integer
+                    description: The total number of records returned.
+                    example: 2
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:list_ported_numbers:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Read
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:list_ported_numbers:admin
+  /number_management/ported_numbers/orders/{orderId}:
+    get:
+      tags:
+      - Setting
+      summary: Get ported numbers details
+      description: "Returns the details on the ported numbers by specifying `order_id`. \n\n **Prerequisites** \n * A Pro or higher account plan \n * A Zoom phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:ported_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: Getportednumbersdetails
+      parameters:
+      - name: orderId
+        in: path
+        description: The order ID of the ported numbers. This ID can be retrieved from the List Ported Numbers API.
+        required: true
+        schema:
+          type: string
+          example: '2021080307332974349'
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200` **OK**
+
+
+            Ported numbers details retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contact_emails:
+                    type: string
+                    description: The contact emails of transferring numbers.
+                    example: example@163.com
+                  contact_number:
+                    type: string
+                    description: The contact numbers for transferring numbers.
+                    example: '2058945753'
+                  isp:
+                    type: string
+                    description: The ported numbers' ISP.
+                    example: Twilio International
+                  numbers:
+                    type: array
+                    description: The ported numbers.
+                    items:
+                      type: string
+                      example: '+12058945752'
+                  order_id:
+                    type: string
+                    description: The ported numbers' order ID.
+                    example: '2021080307332974349'
+                  original_billing_info:
+                    type: object
+                    properties:
+                      account_number:
+                        type: string
+                        example: '111223'
+                      address:
+                        type: object
+                        properties:
+                          city:
+                            type: string
+                            example: San Jose
+                          country:
+                            type: string
+                            example: US
+                          house_number:
+                            type: string
+                            example: '55'
+                          state_code:
+                            type: string
+                            example: CA
+                          street_name:
+                            type: string
+                            example: ALMADEN BLVD
+                          zip:
+                            type: string
+                            example: '95113'
+                      authorizing_person:
+                        type: string
+                        example: zz
+                      billing_telephone_number:
+                        type: string
+                        example: '2058945751'
+                      company:
+                        type: string
+                        example: zm
+                      customer_requested_date:
+                        type: string
+                        example: '2021-08-06'
+                      pin:
+                        type: string
+                        example: '111223'
+                    description: The ported numbers' original billing info.
+                  printed_name:
+                    type: string
+                    description: The printed names on transferring numbers.
+                    example: Jiang
+                  replacing_numbers:
+                    type: array
+                    description: The ported numbers' replacement numbers.
+                    items:
+                      type: object
+                      properties:
+                        source_number:
+                          type: string
+                          description: The source number.
+                          example: '+12058945752'
+                        target_number:
+                          type: string
+                          description: The replaced number.
+                          example: '+12058945755'
+                  status:
+                    type: string
+                    description: The ported numbers' status.
+                    example: Canceled
+                    enum:
+                    - Not_Submitted
+                    - Waiting
+                    - Processing
+                    - Successfully
+                    - Rejected
+                    - Canceled
+                    - FOC
+                  submission_date_time:
+                    type: string
+                    description: 'The time ported numbers were submitted (format: ''yyyy-MM-ddThh:dd:ssZ'').'
+                    example: '2021-08-03T07:33:29Z'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Port in order does not exist <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:ported_number:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Read
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:ported_number:admin
+  /number_management/sip_groups:
+    get:
+      tags:
+      - Setting
+      summary: List SIP groups
+      description: "Returns a list of SIP (Session Initiation Protocol) groups.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_sip_groups:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: ListSIPgroups
+      parameters:
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          type: integer
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: Fh98ehf98wehf9wehwqk
+      - name: allocated_product
+        in: query
+        description: The phone number's allocated product.
+        required: true
+        schema:
+          type: string
+          example: ZOOM_PHONE
+          enum:
+          - ZOOM_PHONE
+          - ZOOM_CONTACT_CENTER
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200`
+
+
+            SIP groups successfully listed.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: IXIhcpJWscHfISSKTcdl2QpSMLyRE38zH92
+                  total_records:
+                    type: integer
+                    description: The number of records returned with a single API call.
+                    example: 88
+                  sip_groups:
+                    maxItems: 300
+                    type: array
+                    description: The SIP group information.
+                    items:
+                      required:
+                      - display_name
+                      - sip_group_id
+                      type: object
+                      properties:
+                        description:
+                          type: string
+                          description: The SIP group's description.
+                          example: test SIP group
+                        display_name:
+                          type: string
+                          description: The SIP group's display name.
+                          example: RRRR
+                        sip_group_id:
+                          type: string
+                          description: The SIP group's ID.
+                          example: 8MhK7ea4Q4ihIQ4TD_g0kw
+                        send_sip_group_name:
+                          type: boolean
+                          description: Whether the SIP group's name is sent in the SIP header.
+                          example: false
+                        sip_trunk:
+                          required:
+                          - name
+                          - sip_trunk_id
+                          type: object
+                          properties:
+                            sip_trunk_id:
+                              type: string
+                              description: The SIP trunk's  ID.
+                              example: VWQU-veBQnm08EtBkUGnbw
+                            name:
+                              type: string
+                              description: The SIP trunk group's name.
+                              example: TESTAPI01
+                            type:
+                              type: string
+                              description: The types of SIP trunks
+                              example: BYOC
+                              enum:
+                              - BYOC
+                              - BYOP
+                          description: The SIP trunk group.
+                        source_system:
+                          type: string
+                          description: The source of BYOC SIP group.
+                          example: ZOOM_PHONE
+                          enum:
+                          - ZOOM_PHONE
+                          - ZOOM_CONTACT_CENTER
+                          - COMMON
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1002_006` <br>\n product cannot be empty <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:list_sip_groups:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Read
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:list_sip_groups:admin
+  /number_management/sip_trunks:
+    get:
+      tags:
+      - Setting
+      summary: List BYOC SIP trunks
+      description: 'Returns a list of an account''s assigned BYOC (Bring Your Own Carrier) SIP (Session Initiation Protocol) trunks.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_sip_trunks:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: ListBYOCSIPtrunks
+      parameters:
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          type: integer
+          example: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: Fh98ehf98wehf9wehlgz
+      - name: allocated_product
+        in: query
+        description: 'The phone number''s allocated product
+
+          '
+        required: true
+        schema:
+          type: string
+          example: ZOOM_PHONE
+          enum:
+          - ZOOM_PHONE
+          - ZOOM_CONTACT_CENTER
+      responses:
+        '200':
+          description: '**HTTP Status Codes**: `200`
+
+
+            OK.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  byoc_sip_trunk:
+                    maxItems: 300
+                    type: array
+                    items:
+                      required:
+                      - name
+                      - sip_trunk_id
+                      type: object
+                      properties:
+                        carrier:
+                          type: string
+                          description: The name of the carrier.
+                          example: Bandwidth
+                        carrier_account:
+                          type: string
+                          description: The account associated to the carrier.
+                          example: '123123131313'
+                        sip_trunk_id:
+                          type: string
+                          description: The unique SIP Trunk ID.
+                          example: fVA-LsQhQAC2fTS7NiccFA
+                        name:
+                          type: string
+                          description: The display name of the SIP Trunk.
+                          example: TestSipTrunk
+                        region:
+                          type: string
+                          description: The region of the carrier.
+                          example: newqa01sipjp01
+                        sbc_label:
+                          type: string
+                          description: The Session Border Controller (SBC) routing label.
+                          example: Test
+                        source_system:
+                          type: string
+                          description: The source of BYOC SIP Trunk
+                          example: COMMON
+                          enum:
+                          - COMMON
+                          - ZOOM_PHONE
+                          - ZOOM_CONTACT_CENTER
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. It returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: Ds6anZEv59aLMmTSrfF4wmHYCMiYXMWhRQ2
+                  total_records:
+                    type: integer
+                    description: The number of records returned within a single API call. The default is **30**, and the maximum is **100**.
+                    example: 30
+                    default: 30
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1002_006` <br>\n product cannot be empty <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:list_sip_trunks:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Read
+        - ContactCenterMgt:Edit
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:list_sip_trunks:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            number_management_numbers:read:admin: number_management_numbers:read:admin
+            number_management:read:list_carrier_peering_numbers:admin: number_management:read:list_carrier_peering_numbers:admin
+            number_management:read:list_peering_numbers:admin: number_management:read:list_peering_numbers:admin
+            number_management_numbers:write:admin: number_management_numbers:write:admin
+            number_management:delete:peering_number:admin: number_management:delete:peering_number:admin
+            number_management:write:peering_number:admin: number_management:write:peering_number:admin
+            number_management:update:peering_number:admin: number_management:update:peering_number:admin
+            number_management:write:numbers:admin: number_management:write:numbers:admin
+            number_management:write:byoc_numbers:admin: number_management:write:byoc_numbers:admin
+            number_management:read:list_numbers:admin: number_management:read:list_numbers:admin
+            number_management_numbers:write:master: number_management_numbers:write:master
+            number_management:delete:numbers:admin: number_management:delete:numbers:admin
+            number_management:read:numbers:admin: number_management:read:numbers:admin
+            number_management:update:numbers:admin: number_management:update:numbers:admin
+            number_management:read:numbers_plan:admin: number_management:read:numbers_plan:admin
+            number_management:read:list_sms_campaigns:admin: number_management:read:list_sms_campaigns:admin
+            number_management:read:sms_campaign:admin: number_management:read:sms_campaign:admin
+            number_management:delete:sms_consent:admin: number_management:delete:sms_consent:admin
+            number_management:read:sms_consent:admin: number_management:read:sms_consent:admin
+            number_management:write:sms_consent:admin: number_management:write:sms_consent:admin
+            number_management:update:sms_consent:admin: number_management:update:sms_consent:admin
+            number_management:read:list_ported_numbers:admin: number_management:read:list_ported_numbers:admin
+            number_management:read:ported_number:admin: number_management:read:ported_number:admin
+            number_management:read:list_sip_groups:admin: number_management:read:list_sip_groups:admin
+            number_management:read:list_sip_trunks:admin: number_management:read:list_sip_trunks:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

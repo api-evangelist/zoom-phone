@@ -1,0 +1,1601 @@
+openapi: 3.2.0
+info:
+  title: Zoom Phone SMS Consent API
+  version: '2'
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  description: 'Operations tagged SMS Consent across 2 of this provider''s published API definitions: zoom-phone-api-openapi.json, zoom-phone-number-management-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: SMS Consent
+paths:
+  /phone/sms_consent/{consentId}/phone_numbers/opt_status:
+    get:
+      tags:
+      - SMS Consent
+      summary: List opt statuses of phone numbers assigned to SMS consent
+      description: 'Returns the opt statuses of phone numbers that are assigned to SMS consent.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_consent_number_opt_status:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: getNumberConsentOptStatus
+      parameters:
+      - name: consentId
+        in: path
+        description: The SMS consent ID.
+        required: true
+        schema:
+          type: string
+          example: C-_2Vkm3BsRoqxybJbP9HqFA
+      - name: consumer_phone_number
+        in: query
+        description: The end user's phone number that sends the Opt-in or Opt-out keyword to the Zoom Phone number.
+        required: true
+        schema:
+          type: string
+          example: '15043449240'
+      - name: zoom_phone_user_numbers
+        in: query
+        description: The Zoom users' phone numbers that receive the Opt-in or Opt-out keyword from the end user.
+        required: true
+        schema:
+          maxItems: 10
+          uniqueItems: true
+          type: array
+          example:
+          - '12094436304'
+          items:
+            type: string
+            example: '12094436304'
+      responses:
+        '200':
+          description: The list of opt statuses for each pair of sender's phone number and receiver's phone number.
+          content:
+            application/json:
+              schema:
+                required:
+                - phone_number_consent_opt_statuses
+                type: object
+                properties:
+                  phone_number_consent_opt_statuses:
+                    maxItems: 10
+                    uniqueItems: true
+                    type: array
+                    description: The list of opt statuses for each number pair.
+                    items:
+                      required:
+                      - consumer_phone_number
+                      - opt_status
+                      - zoom_phone_user_number
+                      type: object
+                      properties:
+                        consumer_phone_number:
+                          type: string
+                          description: The end user's phone number in E164 format that sends the Opt-in or Opt-out keyword to the Zoom Phone number.
+                          example: '+15043449240'
+                        zoom_phone_user_number:
+                          type: string
+                          description: The Zoom user's phone number in E164 format that receives the Opt-in or Opt-out keyword from the end user.
+                          example: '+12094436304'
+                        opt_status:
+                          type: string
+                          description: The opt status.
+                          example: opt_out
+                          enum:
+                          - pending
+                          - opt_out
+                          - opt_in
+                      description: The opt status per a number pair.
+                description: The list of opt statuses.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Size of unique receiver phone numbers cannot exceed the predefined limit. <br>\n**Error Code:** `300` <br>\n Validation Failed.\n{\n      \"field\": \"zoom_phone_user_numbers\",\n      \"message\": \"Missing field.\"\n} <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n The consent does not exist <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:sms_consent_number_opt_status:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:sms_consent_number_opt_status:admin
+    servers:
+    - url: https://api.zoom.us/v2
+  /number_management/sms_consent:
+    get:
+      tags:
+      - SMS Consent
+      summary: List SMS consent policies
+      description: 'Returns a paginated list of SMS consent policies for the account.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_consent:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+      operationId: ListSMSConsents
+      parameters:
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          minimum: 1
+          type: integer
+          example: 30
+        example: 30
+      - name: next_page_token
+        in: query
+        description: The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n \nSMS consent policies retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single API call.
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records found.
+                    format: int64
+                    example: 33
+                  next_page_token:
+                    type: string
+                    description: The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: bkOcmnm6mn6ioYAi10BcgRiEL38WzAo6jP2
+                  sms_consent:
+                    type: array
+                    description: List of SMS consent policies.
+                    items:
+                      type: object
+                      properties:
+                        consent_id:
+                          type: string
+                          description: The consent policy's ID.
+                          example: C-91H30r6xTCCpt8nNFSuhWA
+                        consent_name:
+                          type: string
+                          description: The name of the SMS consent policy.
+                          example: ZPconsent
+                        description:
+                          type: string
+                          description: The description of the SMS consent policy.
+                          example: This consent will be used by our employees to schedule events, provide reminders and support to our customers.
+                        account_id:
+                          type: string
+                          description: The account ID that owns the consent policy.
+                          example: KGzOF3hCTamb_Xx-bXbgqA
+                        in_out_bound:
+                          type: object
+                          properties:
+                            opt_in_message:
+                              type: object
+                              properties:
+                                prompt:
+                                  type: string
+                                  description: The prompt message sent to users to opt-in for SMS messages.
+                                  example: Text START to receive text messages from ZOOM. Message frequency may vary. Message and Data Rates may apply. To end messaging from us, reply with STOP. Reply with HELP for more information.
+                                keywords:
+                                  type: array
+                                  description: The keywords that trigger the opt-in action.
+                                  example:
+                                  - START
+                                  - keyword
+                                  items:
+                                    type: string
+                                confirmation_message:
+                                  type: string
+                                  description: The confirmation message sent after a successful opt-in.
+                                  example: You're subscribed!
+                              description: The message configuration for opt-in
+                            opt_out_message:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                  description: The message sent to users when they opt-out.
+                                  example: You are unsubscribed to texts from ZOOM. No more messages will be sent.
+                                keywords:
+                                  type: array
+                                  description: The keywords that trigger the opt-out action.
+                                  example:
+                                  - Stop
+                                  - keyword
+                                  items:
+                                    type: string
+                              description: The message configuration for opt-out
+                            help_message:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                  description: The help message sent to users when they request help.
+                                  example: 'ZOOM: You can get more assistance by visiting https://zoom.us. Text STOP to stop receiving messages from us. You can also text START to start receiving messages from us again. You can also refer to our privacy policy on our website.'
+                                keywords:
+                                  type: array
+                                  description: The keywords that trigger the help message.
+                                  example:
+                                  - HELP
+                                  - keyword
+                                  items:
+                                    type: string
+                              description: The message configuration for help
+                            disclaimer:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                  description: The disclaimer message text.
+                                  example: disclaimer
+                                enable:
+                                  type: boolean
+                                  description: Whether the disclaimer is enabled.
+                                  example: true
+                              description: The message configuration for disclaimer
+                          description: The message configuration for opt-in, opt-out, help, and disclaimer messages.
+                        status:
+                          type: boolean
+                          description: The status of the consent policy. `true` indicates active, `false` indicates inactive.
+                          example: true
+                        create_time:
+                          type: string
+                          description: The time when the consent policy was created.
+                          format: date-time
+                          example: '2024-06-01T08:55:38Z'
+                        modify_time:
+                          type: string
+                          description: The time when the consent policy was last modified.
+                          format: date-time
+                          example: '2025-09-19T11:20:59Z'
+                        used_number:
+                          type: integer
+                          description: The number of phone numbers currently assigned to this consent policy.
+                          format: int64
+                          example: 48
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:sms_consent:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Read
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:sms_consent:admin
+    post:
+      tags:
+      - SMS Consent
+      summary: Create an SMS consent policy
+      description: 'Creates a new SMS consent management policy to define opt-in, opt-out, and help message configurations for SMS communications.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:sms_consent:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: CreateSMSConsent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - consent_name
+              - in_out_bound
+              - status
+              type: object
+              properties:
+                consent_name:
+                  maxLength: 255
+                  type: string
+                  description: The SMS consent policy's name.
+                  example: ZPconsent
+                description:
+                  maxLength: 4096
+                  type: string
+                  description: The SMS consent policy's description.
+                  example: This consent will be used by our employees to schedule events, and provide reminders and support to our customers.
+                in_out_bound:
+                  required:
+                  - disclaimer
+                  - help_message
+                  - opt_in_message
+                  - opt_out_message
+                  type: object
+                  properties:
+                    opt_in_message:
+                      required:
+                      - confirmation_message
+                      - keywords
+                      - prompt
+                      type: object
+                      properties:
+                        prompt:
+                          maxLength: 500
+                          type: string
+                          description: The prompt message sent to users to opt-in for SMS messages.
+                          example: Text START to receive text messages from ZOOM. Message frequency may vary. Message and Data Rates may apply. To end messaging from us, reply with STOP. Reply with HELP for more information.
+                        keywords:
+                          maxItems: 5
+                          type: array
+                          description: The keywords that trigger the opt-in action.
+                          example:
+                          - START
+                          - keyword
+                          items:
+                            type: string
+                        confirmation_message:
+                          maxLength: 500
+                          type: string
+                          description: The confirmation message sent after a successful opt-in.
+                          example: You're subscribed!
+                      description: The opt-in message configuration.
+                    opt_out_message:
+                      required:
+                      - keywords
+                      - message
+                      type: object
+                      properties:
+                        message:
+                          maxLength: 500
+                          type: string
+                          description: The message sent to users when they opt out.
+                          example: You are unsubscribed to texts from ZOOM. No more messages will be sent.
+                        keywords:
+                          maxItems: 5
+                          type: array
+                          description: The keywords that trigger the opt out action.
+                          example:
+                          - Stop
+                          - keyword
+                          items:
+                            type: string
+                      description: The opt out message configuration.
+                    help_message:
+                      required:
+                      - keywords
+                      - message
+                      type: object
+                      properties:
+                        message:
+                          maxLength: 500
+                          type: string
+                          description: The help message sent to users when they request help.
+                          example: 'ZOOM: You can get more assistance by visiting https://zoom.us. Text STOP to stop receiving messages from us. You can also text START to start receiving messages from us again. You can also refer to our privacy policy on our website.'
+                        keywords:
+                          maxItems: 5
+                          type: array
+                          description: The keywords that trigger the help message.
+                          example:
+                          - HELP
+                          - keyword
+                          items:
+                            type: string
+                      description: The help message configuration.
+                    disclaimer:
+                      required:
+                      - enable
+                      - message
+                      type: object
+                      properties:
+                        message:
+                          maxLength: 500
+                          type: string
+                          description: The disclaimer message text.
+                          example: disclaimer
+                        enable:
+                          type: boolean
+                          description: Whether the disclaimer is enabled.
+                          example: true
+                      description: The disclaimer message configuration.
+                  description: The message configuration for opt-in, opt-out, help, and disclaimer messages.
+                status:
+                  type: boolean
+                  description: The status of the consent policy. `true` indicates active, `false` indicates inactive.
+                  example: true
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201` **Created**  \n \nSMS consent policy created successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  consent_id:
+                    type: string
+                    description: The consent policy's ID.
+                    example: C-91H30r6xTCCpt8nNFSuhWA
+                  consent_name:
+                    type: string
+                    description: The SMS consent policy's name.
+                    example: ZPconsent
+                  description:
+                    type: string
+                    description: The SMS consent policy's description.
+                    example: This consent will be used by our employees to schedule events, provide reminders and support to our customers.
+                  user_id:
+                    type: string
+                    description: The ID of the user who created the consent policy.
+                    example: 0GVPDRXiSAaDb73-e2tW0A
+                  account_id:
+                    type: string
+                    description: The account ID that owns the consent policy.
+                    example: KGzOF3hCTamb_Xx-bXbgqA
+                  in_out_bound:
+                    type: object
+                    properties:
+                      opt_in_message:
+                        type: object
+                        properties:
+                          prompt:
+                            type: string
+                            description: The prompt message sent to users to opt in for SMS messages.
+                            example: Text START to receive text messages from ZOOM. Message frequency may vary. Message and Data Rates may apply. To end messaging from us, reply with STOP. Reply with HELP for more information.
+                          keywords:
+                            maxItems: 5
+                            type: array
+                            description: The keywords that trigger the opt in action.
+                            example:
+                            - START
+                            - keyword
+                            items:
+                              type: string
+                          confirmation_message:
+                            type: string
+                            description: The confirmation message sent after a successful opt in.
+                            example: You're subscribed!
+                      opt_out_message:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            description: The message sent to users when they opt out.
+                            example: You are unsubscribed to texts from ZOOM. No more messages will be sent.
+                          keywords:
+                            maxItems: 5
+                            type: array
+                            description: The keywords that trigger the opt-out action.
+                            example:
+                            - Stop
+                            - keyword
+                            items:
+                              type: string
+                      help_message:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            description: The help message sent to users when they request help.
+                            example: 'ZOOM: You can get more assistance by visiting https://zoom.us. Text STOP to stop receiving messages from us. You can also text START to start receiving messages from us again. You can also refer to our privacy policy on our website.'
+                          keywords:
+                            maxItems: 5
+                            type: array
+                            description: The keywords that trigger the help message.
+                            example:
+                            - HELP
+                            - keyword
+                            items:
+                              type: string
+                      disclaimer:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            description: The disclaimer message text.
+                            example: disclaimer
+                          enable:
+                            type: boolean
+                            description: Whether the disclaimer is enabled.
+                            example: true
+                    description: The message configuration for opt-in, opt-out, help, and disclaimer messages.
+                  status:
+                    type: boolean
+                    description: The consent policy's status. `true` indicates active, `false` indicates inactive.
+                    example: true
+                  capacity:
+                    type: integer
+                    description: The maximum number of phone numbers that can be assigned to this consent policy.
+                    format: int64
+                    example: 999
+                  create_time:
+                    type: string
+                    description: The time when the consent policy was created.
+                    format: date-time
+                    example: '2024-06-01T08:55:38Z'
+                  modify_time:
+                    type: string
+                    description: The time when the consent policy was last modified.
+                    format: date-time
+                    example: '2025-09-19T11:20:59Z'
+                  used_number:
+                    type: integer
+                    description: The number of phone numbers currently assigned to this consent policy.
+                    format: int64
+                    example: 0
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `999` <br>\n Invalid field. <br>\n**Error Code:** `1002` <br>\n The request body format does not match, please refer to the document <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:write:sms_consent:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:write:sms_consent:admin
+    delete:
+      tags:
+      - SMS Consent
+      summary: Delete SMS consent policies
+      description: 'Deletes one or more SMS consent policies.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:delete:sms_consent:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+      operationId: DeleteSMSConsents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - consent_ids
+              type: object
+              properties:
+                consent_ids:
+                  maxItems: 500
+                  minItems: 1
+                  type: array
+                  description: The list of consent policy IDs to delete.
+                  example:
+                  - -6QPOIFtSU-wjt2Kl2TUng
+                  - -72t1AufQ5mqjg44xzfcCQ
+                  items:
+                    type: string
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nSMS consent policies deleted successfully."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `999` <br>\n Invalid field. <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:delete:sms_consent:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:delete:sms_consent:admin
+    servers:
+    - url: https://api.zoom.us/v2
+  /number_management/sms_consent/{consentId}:
+    get:
+      tags:
+      - SMS Consent
+      summary: Get an SMS consent policy
+      description: 'Returns a specific SMS consent policy by ID.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_consent:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: GetSMSConsent
+      parameters:
+      - name: consentId
+        in: path
+        description: The consent policy's ID.
+        required: true
+        schema:
+          type: string
+          example: fnzfuEgUT0OrmZeJBUyWrQ
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n \nSMS consent policy details retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  consent_id:
+                    type: string
+                    description: The consent policy's ID.
+                    example: C-91H30r6xTCCpt8nNFSuhWA
+                  consent_name:
+                    type: string
+                    description: The name of the SMS consent policy.
+                    example: ZPconsent
+                  description:
+                    type: string
+                    description: The description of the SMS consent policy.
+                    example: This consent will be used by our employees to schedule events, provide reminders and support to our customers.
+                  user_id:
+                    type: string
+                    description: The ID of the user who created the consent policy.
+                    example: 0GVPDRXiSAaDb73-e2tW0A
+                  account_id:
+                    type: string
+                    description: The account ID that owns the consent policy.
+                    example: KGzOF3hCTamb_Xx-bXbgqA
+                  in_out_bound:
+                    type: object
+                    properties:
+                      opt_in_message:
+                        type: object
+                        properties:
+                          prompt:
+                            type: string
+                            description: The prompt message sent to users to opt-in for SMS messages.
+                            example: Text START to receive text messages from ZOOM. Message frequency may vary. Message and Data Rates may apply. To end messaging from us, reply with STOP. Reply with HELP for more information.
+                          keywords:
+                            type: array
+                            description: The keywords that trigger the opt-in action.
+                            example:
+                            - START
+                            - keyword
+                            items:
+                              type: string
+                          confirmation_message:
+                            type: string
+                            description: The confirmation message sent after a successful opt-in.
+                            example: You're subscribed!
+                        description: The message configuration for opt-in
+                      opt_out_message:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            description: The message sent to users when they opt-out.
+                            example: You are unsubscribed to texts from ZOOM. No more messages will be sent.
+                          keywords:
+                            type: array
+                            description: The keywords that trigger the opt-out action.
+                            example:
+                            - Stop
+                            - keyword
+                            items:
+                              type: string
+                        description: The message configuration for opt-out
+                      help_message:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            description: The help message sent to users when they request help.
+                            example: 'ZOOM: You can get more assistance by visiting https://zoom.us. Text STOP to stop receiving messages from us. You can also text START to start receiving messages from us again. You can also refer to our privacy policy on our website.'
+                          keywords:
+                            type: array
+                            description: The keywords that trigger the help message.
+                            example:
+                            - HELP
+                            - keyword
+                            items:
+                              type: string
+                        description: The message configuration for help
+                      disclaimer:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            description: The disclaimer message text.
+                            example: disclaimer
+                          enable:
+                            type: boolean
+                            description: Whether the disclaimer is enabled.
+                            example: true
+                        description: The message configuration for disclaimer
+                    description: The message configuration for opt-in, opt-out, help, and disclaimer messages.
+                  status:
+                    type: boolean
+                    description: The status of the consent policy. `true` indicates active, `false` indicates inactive.
+                    example: true
+                  capacity:
+                    type: integer
+                    description: The maximum number of phone numbers that can be assigned to this consent policy.
+                    format: int64
+                    example: 999
+                  create_time:
+                    type: string
+                    description: The time when the consent policy was created.
+                    format: date-time
+                    example: '2024-06-01T08:55:38Z'
+                  modify_time:
+                    type: string
+                    description: The time when the consent policy was last modified.
+                    format: date-time
+                    example: '2025-09-19T11:20:59Z'
+                  used_number:
+                    type: integer
+                    description: The number of phone numbers currently assigned to this consent policy.
+                    format: int64
+                    example: 0
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1002013` <br>\n The consent does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:sms_consent:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Read
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:sms_consent:admin
+    patch:
+      tags:
+      - SMS Consent
+      summary: Update an SMS consent policy
+      description: 'Updates an existing SMS consent policy. Only provided fields will be updated.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:sms_consent:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+      operationId: UpdateSMSConsent
+      parameters:
+      - name: consentId
+        in: path
+        description: The consent policy's ID.
+        required: true
+        schema:
+          type: string
+          example: fnzfuEgUT0OrmZeJBUyWrQ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consent_name:
+                  maxLength: 255
+                  type: string
+                  description: The SMS consent policy's name.
+                  example: ZPconsent Updated
+                description:
+                  maxLength: 4096
+                  type: string
+                  description: The SMS consent policy's description.
+                  example: Updated description for the consent policy.
+                in_out_bound:
+                  type: object
+                  properties:
+                    opt_in_message:
+                      type: object
+                      properties:
+                        prompt:
+                          maxLength: 500
+                          type: string
+                          description: The prompt message sent to users to opt-in for SMS messages.
+                          example: Text START to receive text messages from ZOOM. Message frequency may vary. Message and Data Rates may apply. To end messaging from us, reply with STOP. Reply with HELP for more information.
+                        keywords:
+                          maxItems: 5
+                          type: array
+                          description: The keywords that trigger the opt-in action.
+                          example:
+                          - START
+                          - keyword
+                          items:
+                            type: string
+                        confirmation_message:
+                          maxLength: 500
+                          type: string
+                          description: The confirmation message sent after a successful opt-in.
+                          example: You're subscribed!
+                      description: The opt-in message configuration.
+                    opt_out_message:
+                      type: object
+                      properties:
+                        message:
+                          maxLength: 500
+                          type: string
+                          description: The message sent to users when they opt out.
+                          example: You are unsubscribed to texts from ZOOM. No more messages will be sent.
+                        keywords:
+                          maxItems: 5
+                          type: array
+                          description: The keywords that trigger the opt out action.
+                          example:
+                          - Stop
+                          - keyword
+                          items:
+                            type: string
+                      description: The opt out message configuration.
+                    help_message:
+                      type: object
+                      properties:
+                        message:
+                          maxLength: 500
+                          type: string
+                          description: The help message sent to users when they request help.
+                          example: 'ZOOM: You can get more assistance by visiting https://zoom.us. Text STOP to stop receiving messages from us. You can also text START to start receiving messages from us again. You can also refer to our privacy policy on our website.'
+                        keywords:
+                          maxItems: 5
+                          type: array
+                          description: The keywords that trigger the help message.
+                          example:
+                          - HELP
+                          - keyword
+                          items:
+                            type: string
+                      description: The help message configuration.
+                    disclaimer:
+                      type: object
+                      properties:
+                        message:
+                          maxLength: 500
+                          type: string
+                          description: The disclaimer message text.
+                          example: disclaimer
+                        enable:
+                          type: boolean
+                          description: Whether the disclaimer is enabled.
+                          example: true
+                      description: The disclaimer message configuration.
+                  description: The message configuration for opt-in, opt-out, help, and disclaimer messages.
+                status:
+                  type: boolean
+                  description: The consent policy's status. `true` indicates active, `false` indicates inactive.
+                  example: true
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nSMS consent policy updated successfully."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `999` <br>\n Invalid field. <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1002013` <br>\n The consent does not exist. <br>\n"
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:update:sms_consent:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:update:sms_consent:admin
+    servers:
+    - url: https://api.zoom.us/v2
+  /number_management/sms_consent/{consentId}/phone_numbers:
+    get:
+      tags:
+      - SMS Consent
+      summary: List phone numbers assigned to SMS consent policy
+      description: 'Returns a paginated list of phone numbers assigned to a specific SMS consent policy.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_consent:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+      operationId: ListConsentPhoneNumbers
+      parameters:
+      - name: consentId
+        in: path
+        description: The consent policy's ID.
+        required: true
+        schema:
+          type: string
+          example: fnzfuEgUT0OrmZeJBUyWrQ
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          minimum: 1
+          type: integer
+          example: 30
+        example: 30
+      - name: next_page_token
+        in: query
+        description: Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200` **OK**  \n \nPhone numbers retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single API call.
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records found.
+                    format: int64
+                    example: 33
+                  next_page_token:
+                    type: string
+                    description: Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+                    example: bkOcmnm6mn6ioYAi10BcgRiEL38WzAo6jP2
+                  sms_consent_number:
+                    type: array
+                    description: List of phone numbers assigned to the consent policy.
+                    items:
+                      type: object
+                      properties:
+                        phone_number_id:
+                          type: string
+                          description: The phone number's ID.
+                          example: -6QPOIFtSU-wjt2Kl2TUng
+                        phone_number:
+                          type: string
+                          description: The phone number assigned to the consent policy.
+                          example: '+12095805275'
+                        account_id:
+                          type: string
+                          description: The account ID that owns the phone number.
+                          example: KGzOF3hCTamb_Xx-bXbgqA
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1002013` <br>\n The consent does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:read:admin
+        - number_management:read:sms_consent:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - SmsCampaigns:Read
+        x-macro-scopes:
+        - number_management_numbers:read:admin
+        x-granular-scopes:
+        - number_management:read:sms_consent:admin
+    post:
+      tags:
+      - SMS Consent
+      summary: Assign phone numbers to SMS consent policy
+      description: 'Assigns one or more phone numbers to an SMS consent policy.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:numbers:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+      operationId: AssignPhoneNumbersToConsent
+      parameters:
+      - name: consentId
+        in: path
+        description: The consent policy's ID.
+        required: true
+        schema:
+          type: string
+          example: fnzfuEgUT0OrmZeJBUyWrQ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - phone_number_ids
+              type: object
+              properties:
+                phone_number_ids:
+                  maxItems: 200
+                  minItems: 1
+                  type: array
+                  description: The list of phone number IDs to assign to the consent policy.
+                  example:
+                  - -6QPOIFtSU-wjt2Kl2TUng
+                  - -72t1AufQ5mqjg44xzfcCQ
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201` **Created**  \n \nPhone numbers assigned successfully."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1003` <br>\n Too many numbers, should less than 200 <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1002013` <br>\n The consent does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:write:numbers:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:write:numbers:admin
+    delete:
+      tags:
+      - SMS Consent
+      summary: Unassign phone numbers from SMS consent policy
+      description: 'Unassigns one or more phone numbers from an SMS consent policy.
+
+
+        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+
+
+        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:delete:numbers:admin`
+
+
+        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+      operationId: UnassignPhoneNumbersFromConsent
+      parameters:
+      - name: consentId
+        in: path
+        description: The consent policy's ID.
+        required: true
+        schema:
+          type: string
+          example: fnzfuEgUT0OrmZeJBUyWrQ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - phone_number_ids
+              type: object
+              properties:
+                phone_number_ids:
+                  maxItems: 200
+                  minItems: 1
+                  type: array
+                  description: The list of phone number IDs to unassign from the consent policy.
+                  example:
+                  - -6QPOIFtSU-wjt2Kl2TUng
+                  - -72t1AufQ5mqjg44xzfcCQ
+                  items:
+                    type: string
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nPhone numbers unassigned successfully."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `1003` <br>\n Too many numbers, should less than 200 <br>\n"
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n "
+        '403':
+          description: "**HTTP Status Code:** `403` <br>\n Forbidden  You do not have permission. \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1002013` <br>\n The consent does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - number_management_numbers:write:admin
+        - number_management:delete:numbers:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions:
+        - PbxAdmin:Edit
+        x-macro-scopes:
+        - number_management_numbers:write:admin
+        x-granular-scopes:
+        - number_management:delete:numbers:admin
+    servers:
+    - url: https://api.zoom.us/v2
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+x-refined-from:
+- zoom-phone-api-openapi.json
+- zoom-phone-number-management-openapi.json

@@ -1,0 +1,927 @@
+openapi: 3.2.0
+info:
+  title: Phone IVR API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: IVR
+paths:
+  /phone/auto_receptionists/{autoReceptionistId}/ivr:
+    get:
+      tags:
+      - IVR
+      summary: Get auto receptionist IVR
+      description: "Returns an [interactive voice response (IVR) system](https://support.zoom.us/hc/en-us/articles/360038601971) of the specified auto receptionist.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:auto_receptionist_ivr:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: getAutoReceptionistIVR
+      parameters:
+      - name: autoReceptionistId
+        in: path
+        description: The unique identifier of the auto receptionist. You can retrieve it from the [List Phone Sites](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/listPhoneSites) API.
+        required: true
+        schema:
+          type: string
+          example: HpgmeAcmSVK-UY-0RxDcfg
+      - name: hours_type
+        in: query
+        description: The type of query hours.
+        required: false
+        schema:
+          type: string
+          example: business_hours
+          default: business_hours
+          enum:
+          - business_hours
+          - closed_hours
+          - holiday_hours
+          - break_hours
+      - name: holiday_id
+        in: query
+        description: The auto receptionist holiday hours ID. If both `holiday_id` and `hours_type` are passed, `holiday_id` has the highest priority and `hours_type` is ignored.
+        required: false
+        schema:
+          type: string
+          example: YpLBylKbQKe1vEB1iSGatQ
+      - name: break_id
+        in: query
+        description: The  auto receptionist break hours ID. Required when `hours_type` is `break_hours`. If `holiday_id` is also passed, `holiday_id` takes precedence.
+        required: false
+        schema:
+          type: string
+          example: ULfeE4mgSImyelNmTekUfg
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`   \n Get an interactive voice response (IVR) system of an auto receptionist."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  audio_prompt:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: The audio prompt file ID. If the audio was removed from the user's audio library, it will be marked with a prefix, `removed_vWby3OZaQlS1nAdmEAqgwA` for example. You can still use this audio ID to get the audio information in the [Get an audio item](https://marketplace.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+                        example: yCT14TwySDGVUypVlKNEyA
+                      name:
+                        type: string
+                        description: The audio prompt's file name.
+                        example: example.mp3
+                    description: The audio prompt played to the caller when the IVR is reached.
+                  caller_enters_no_action:
+                    type: object
+                    properties:
+                      action:
+                        type: integer
+                        description: "The action when a caller enters no action after the prompt played.  \n \n`-1` Disconnect the call  \n \n`2` Forward to the user\n  \n `4` Forward to the common area\n  \n `5` Forward to Cisco/Polycom Room\n  \n `6` Forward to the auto receptionist\n  \n `7` Forward to the call queue\n  \n `8` Forward to the shared line group\n\n `9` Forward to external contacts  \n\n `10` Forward to a phone number\n\n `12` Play a message, then disconnect\n  \n `15` Forward to the partner contact center\n\n `18` Forward to Microsoft Teams Resource Account. Required the license of Zoom Phone for Microsoft Teams. \n\n `19` Forward to the Zoom Contact Center voice flow. Required Zoom Contact Center license.\n\n `24` Forward to the ZVA(Zoom Virtual Agent) Receptionist\n\n `25` Forward to the Third-party agent\n"
+                        example: 15
+                      caller_no_input_timeout:
+                        type: integer
+                        description: The number of seconds to wait for the caller's input (DTMF keypad or voice) after the prompt plays before the IVR takes the no-action `action`. Applies only when `allow_callers_to_navigate_ivr.enable` is `true`; otherwise this value is ignored.
+                        example: 3
+                        default: 3
+                        enum:
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
+                        - 8
+                        - 9
+                        - 10
+                        - 11
+                        - 12
+                        - 13
+                        - 14
+                        - 15
+                      audio_prompt_repeat:
+                        type: integer
+                        description: The number of times to repeat the audio prompt.
+                        example: 3
+                        enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                      voicemail_greeting:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: The voicemail greeting file ID. If the audio was removed from the user's audio library, it will be marked with a prefix, `removed_vWby3OZaQlS1nAdmEAqgwA` for example. You can still use this audio ID to get the audio information in the [Get an audio item](https://marketplace.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+                            example: j2IsurWLRR-yWcbNGqPnaA
+                          name:
+                            type: string
+                            description: The voicemail greeting's file name.
+                            example: custom.wav
+                        description: The voicemail greeting.
+                      forward_to:
+                        type: object
+                        properties:
+                          display_name:
+                            type: string
+                            description: The name of the display.
+                            example: ZOOM_API Test
+                          extension_id:
+                            type: string
+                            description: The extension ID or partner contact center setting ID.
+                            example: z97zV9NsSoa846i-ag3uEw
+                          extension_number:
+                            type: string
+                            description: The extension number.
+                            example: '101021'
+                          id:
+                            type: string
+                            description: The user, common area, Zoom Room, Cisco/Polycom room, auto receptionist, call queue, or shared line group ID.
+                            example: EVqEKnrMRWyPr705Fk5h2w
+                          phone_number:
+                            type: string
+                            description: "The phone number or forward to an external number, in [E.164 format](https://en.wikipedia.org/wiki/E.164) format. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `10` (Forward to Phone number/External number), this field is used to display the specific Phone number/External number to which the call will be forwarded. \n* When `action` is set to `19` (Forward to the Zoom Contact Center voice flow), this field is used to display the specific Zoom Contact Center number to which the call will be forwarded. \n"
+                            example: '+18889843519'
+                          teams_app_id:
+                            type: string
+                            description: "The ID of the Microsoft Teams Voice App to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `18` (Forward to Microsoft Teams Resource Account), this field is used to display the specific Microsoft Teams Voice App to which the call will be forwarded. "
+                            example: oB18huSERjqbzrsyL2bD5w
+                          partner_contact_center_id:
+                            type: string
+                            description: "The ID of the Partner Contact Center to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `15` (Forward to a Partner Contact Center), this field is used to display the specific Partner Contact Center to which the call will be forwarded."
+                            example: 0za4SO7OQ5mxeHEP8nHvGg
+                          zva_receptionist_id:
+                            type: string
+                            description: "The ID of the ZVA(Zoom Virtual Agent) Receptionist to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `24` (Forward to the ZVA Receptionist), this field is used to display the specific ZVA Receptionist to which the call will be forwarded. "
+                            example: 6uv8qMMDShm6OGgFTrQPbA
+                          third_party_agent_id:
+                            type: string
+                            description: "The ID of the Third-party agent to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `25` (Forward to the Third-party agent), this field is used to display the specific Third-party agent to which the call will be forwarded. \n"
+                            example: T0x6LuR4TBKWFY6_ulxaOQ
+                          external_contact_id:
+                            type: string
+                            description: "The ID of the external contact to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `9` (Forward to external contacts), this field is used to display the specific external contact to which the call will be forwarded. \n"
+                            example: OJGi5xOFQPmrJbKg68-iWg
+                        description: The forward target for the no-action `action`.
+                    description: The action if the caller enters no action after the prompt plays.
+                  key_actions:
+                    maxItems: 50
+                    type: array
+                    description: The IVR routing options.
+                    items:
+                      type: object
+                      properties:
+                        action:
+                          type: integer
+                          description: "The action after clicking the key.  \n\nFor all keys (`0`-`9`, * or #)\n \n`100` Leave voicemail to the current extension  \n \n`200` Leave voicemail to the user  \n \n`300` Leave voicemail to the auto receptionist  \n \n`400` Leave voicemail to the  call queue  \n \n`500` Leave voicemail to the shared line group  \n \n`2` Forward to the user  \n \n`3` Forward to Zoom Room  \n \n`4` Forward to the common area  \n \n`5` Forward to Cisco/Polycom Room  \n \n`6` Forward to the auto receptionist  \n \n`7` Forward to the call queue  \n \n`8` Forward to the shared line group  \n \n`9` Forward to external contacts  \n \n`10` Forward to a phone number  \n\n`12` Play a message, then disconnect\n \n`15` Forward to the partner contact center  \n \n`16` Forward to the meeting service  \n \n`17` Forward to the meeting service number  \n\n`18` Forward to Microsoft Teams Resource Account. Required the license of Zoom Phone for Microsoft Teams. \n\n`19` Forward to the zoom contact center voice flow. Required Zoom Contact Center license.\n\n`24` Forward to the ZVA(Zoom Virtual Agent) Receptionist\n\n`25` Forward to the Third-party agent\n\n`27` Play a message, then repeat menu greeting\n\n`28` Play a message, then return to root menu\n\n`29` Play a message, then return to previous menu\n\n \n`-1` Disabled\n\nFor key `0`-`9` only:\n\n`26` Dial by Name. \n**Note**: The value of `action = 26` (`Dial by Name`) is available only when **Dial by Name Directory** is enabled. For multi-site accounts, this is checked at the site level via [Get a phone site setting](https://developers.zoom.us/docs/api/phone/#tag/sites/get/phone/sites/{siteId}/settings/{settingType}) with `settingType=dial_by_name`; otherwise, it follows the account-level setting.\n\nFor key * or # only:\n \n`21` Repeat menu greeting  \n \n`22` Return to the root menu  \n \n`23` Return to the previous menu  "
+                          example: 200
+                        key:
+                          type: string
+                          description: 'The key. The following values are supported: numeric(''0''-''9''), *, #.'
+                          example: '0'
+                        target:
+                          type: object
+                          properties:
+                            display_name:
+                              type: string
+                              description: The name of the display.
+                              example: ZOOM_API Test
+                            extension_id:
+                              type: string
+                              description: The extension ID or partner contact center setting ID.
+                              example: TO586CYlQFC_WCUvPRXytA
+                            extension_number:
+                              type: string
+                              description: The extension number.
+                              example: '101002'
+                            id:
+                              type: string
+                              description: The user, common area, Zoom Room, Cisco/Polycom room, auto receptionist, call queue, or shared line group ID.
+                              example: oG_nYRFuTJiY1tu0Fur_4Q
+                            phone_number:
+                              type: string
+                              description: "The phone number or forward to an external number, in [E.164 format](https://en.wikipedia.org/wiki/E.164) format. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `10` (Forward to Phone number/External number), this field is used to display the specific Phone number/External number to which the call will be forwarded. \n* When `action` is set to `19` (Forward to the Zoom Contact Center voice flow), this field is used to display the specific Zoom Contact Center number to which the call will be forwarded. \n"
+                              example: '+12055437350'
+                            teams_app_id:
+                              type: string
+                              description: "The ID of the Microsoft Teams Voice App to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `18` (Forward to Microsoft Teams Resource Account), this field is used to display the specific Microsoft Teams Voice App to which the call will be forwarded. "
+                              example: oB18huSERjqbzrsyL2bD5w
+                            partner_contact_center_id:
+                              type: string
+                              description: "The ID of the Partner Contact Center to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `15` (Forward to a Partner Contact Center), this field is used to display the specific Partner Contact Center to which the call will be forwarded."
+                              example: 0za4SO7OQ5mxeHEP8nHvGg
+                            zva_receptionist_id:
+                              type: string
+                              description: "The ID of the ZVA(Zoom Virtual Agent) Receptionist to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `24` (Forward to the ZVA Receptionist), this field is used to display the specific ZVA Receptionist to which the call will be forwarded. "
+                              example: 6uv8qMMDShm6OGgFTrQPbA
+                            third_party_agent_id:
+                              type: string
+                              description: "The ID of the Third-party agent to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `25` (Forward to the Third-party agent), this field is used to display the specific Third-party agent to which the call will be forwarded. \n"
+                              example: T0x6LuR4TBKWFY6_ulxaOQ
+                            external_contact_id:
+                              type: string
+                              description: "The ID of the external contact to which the call is forwarded. \n\nThis field is only available in the following scenarios: \n* When `action` is set to `9` (Forward to external contacts), this field is used to display the specific external contact to which the call will be forwarded. \n"
+                              example: OJGi5xOFQPmrJbKg68-iWg
+                          description: Routes to an extension, phone number, or a contact center. The relevant ID field is required based on the selected `action`.
+                        voicemail_greeting:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The voicemail greeting file ID. If the audio was removed from the user's audio library, it will be marked with a prefix, `removed_vWby3OZaQlS1nAdmEAqgwA` for example. You can still use this audio ID to get the audio information in the [Get an audio item](https://marketplace.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+                              example: j2IsurWLRR-yWcbNGqPnaA
+                            name:
+                              type: string
+                              description: The voicemail greeting's file name.
+                              example: custom.wav
+                          description: The voicemail greeting.
+                  allow_callers_to_navigate_ivr:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether callers are allowed to navigate the IVR menu by voice in addition to DTMF keypad input. When `true`, the Zoom Phone IVR engine performs speech-to-intent matching against the configured `key_actions` and routes the call accordingly.
+                        example: true
+                        default: false
+                      voice_input_confidence_score:
+                        type: string
+                        description: The minimum speech-recognition confidence threshold required to accept a voice input as a valid IVR selection.
+                        example: low
+                        default: high
+                        enum:
+                        - low
+                        - medium
+                        - high
+                    description: Configures whether callers can navigate the IVR menu by voice in addition to DTMF keypad input.
+                  allow_dialing_by_extension:
+                    type: boolean
+                    description: Whether to allow callers to dial an extension to reach users, common areas, call queues, auto receptionists, and shared line groups on this account.
+                    example: true
+                    default: true
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Auto Receptionist does not exist: {0}.\nHoliday hours handling does not exist: {0}.\nBreak hours handling does not exist: {0}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:auto_receptionist_ivr:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:auto_receptionist_ivr:admin
+    patch:
+      tags:
+      - IVR
+      summary: Update auto receptionist IVR
+      description: "Updates the [interactive voice response (IVR) system](https://support.zoom.us/hc/en-us/articles/360038601971) of the specified auto receptionist.\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:auto_receptionist_ivr:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: updateAutoReceptionistIVR
+      parameters:
+      - name: autoReceptionistId
+        in: path
+        description: The auto receptionist ID.
+        required: true
+        schema:
+          type: string
+          example: HpgmeAcmSVK-UY-0RxDcfg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                audio_prompt_id:
+                  type: string
+                  description: The audio prompt's file ID.
+                  example: j2IsurWLRR-yWcbNGqPnaA
+                caller_enters_no_action:
+                  type: object
+                  properties:
+                    action:
+                      type: integer
+                      description: "The action when a caller enters no action after the prompt played.  \n \n`-1` Disconnect the call  \n \n`2` Forward to the user\n  \n `4` Forward to the common area\n  \n `5` Forward to Cisco/Polycom Room\n  \n `6` Forward to the auto receptionist\n  \n `7` Forward to the call queue\n  \n `8` Forward to the shared line group\n\n `9` Forward to external contacts  \n\n `10` Forward to a phone number\n\n `12` Play a message, then disconnect\n  \n `15` Forward to the partner contact center\n\n `18` Forward to Microsoft Teams Resource Account. Required the license of Zoom Phone for Microsoft Teams. \n\n `19` Forward to the Zoom Contact Center voice flow. Required Zoom Contact Center license.\n\n `24` Forward to the ZVA(Zoom Virtual Agent) Receptionist\n\n `25` Forward to the Third-party agent\n"
+                      example: 200
+                    caller_no_input_timeout:
+                      type: integer
+                      description: The number of seconds to wait for the caller's input (DTMF keypad or voice) after the prompt plays before the IVR takes the no-action `action`. Applies only when `allow_callers_to_navigate_ivr.enable` is `true`; otherwise this value is ignored.
+                      example: 3
+                      default: 3
+                      enum:
+                      - 3
+                      - 4
+                      - 5
+                      - 6
+                      - 7
+                      - 8
+                      - 9
+                      - 10
+                      - 11
+                      - 12
+                      - 13
+                      - 14
+                      - 15
+                    audio_prompt_repeat:
+                      type: integer
+                      description: The number of times to repeat the audio prompt.
+                      example: 2
+                      enum:
+                      - 1
+                      - 2
+                      - 3
+                      - 4
+                      - 5
+                    forward_to_extension_id:
+                      type: string
+                      description: The extension ID or partner contact center setting ID.
+                      example: z97zV9NsSoa846i-ag3uEw
+                    voicemail_greeting_id:
+                      type: string
+                      description: The voicemail greeting's file ID. Only takes effect when `action` is `12` (Play a message, then disconnect).
+                      example: z97zV9NsSoa846i-ag3uEw
+                    forward_to:
+                      type: object
+                      properties:
+                        phone_number:
+                          type: string
+                          description: "The phone number or external number, in [E.164 format](https://en.wikipedia.org/wiki/E.164). \n\n* When `action` is `10` (Forward to Phone number/External number), this is the destination number. \n* When `action` is `19` (Forward to the Zoom Contact Center voice flow), this is the Zoom Contact Center number."
+                          example: '+18889843519'
+                        teams_app_id:
+                          type: string
+                          description: The ID of the Microsoft Teams Voice App to forward to. Required when `action` is `18` (Forward to Microsoft Teams Resource Account).
+                          example: oB18huSERjqbzrsyL2bD5w
+                        partner_contact_center_id:
+                          type: string
+                          description: The ID of the Partner Contact Center to forward to. Required when `action` is `15` (Forward to a Partner Contact Center).
+                          example: 0za4SO7OQ5mxeHEP8nHvGg
+                        zva_receptionist_id:
+                          type: string
+                          description: The ID of the ZVA(Zoom Virtual Agent) Receptionist to forward to. Required when `action` is `24` (Forward to the ZVA Receptionist).
+                          example: 6uv8qMMDShm6OGgFTrQPbA
+                        third_party_agent_id:
+                          type: string
+                          description: The ID of the Third-party agent to forward to. Required when `action` is `25` (Forward to the Third-party agent).
+                          example: T0x6LuR4TBKWFY6_ulxaOQ
+                        external_contact_id:
+                          type: string
+                          description: The ID of the external contact to forward to. Required when `action` is `9` (Forward to external contacts).
+                          example: OJGi5xOFQPmrJbKg68-iWg
+                      description: The forward target for the no-action `action`. The relevant ID field is required based on the selected `action`.
+                  description: The action if caller enters no action after the prompt played.
+                holiday_id:
+                  type: string
+                  description: The auto receptionist holiday hours ID. If both `holiday_id` and `hours_type` are passed, `holiday_id` has the highest priority and `hours_type` is ignored.
+                  example: YpLBylKbQKe1vEB1iSGatQ
+                break_id:
+                  type: string
+                  description: The  auto receptionist break hours ID. Required when `hours_type` is `break_hours`. If `holiday_id` is also passed, `holiday_id` takes precedence
+                  example: ULfeE4mgSImyelNmTekUfg
+                hours_type:
+                  type: string
+                  description: The type of hours.
+                  example: closed_hours
+                  default: business_hours
+                  enum:
+                  - business_hours
+                  - closed_hours
+                  - holiday_hours
+                  - break_hours
+                key_action:
+                  type: object
+                  properties:
+                    action:
+                      type: integer
+                      description: "The action after clicking the key.  \n\nFor all keys (`0`-`9`, * or #)\n \n`100` Leave voicemail to the current extension  \n \n`200` Leave voicemail to the user  \n \n`300` Leave voicemail to the auto receptionist  \n \n`400` Leave voicemail to the  call queue  \n \n`500` Leave voicemail to the shared line group  \n \n`2` Forward to the user  \n \n`3` Forward to Zoom Room  \n \n`4` Forward to the common area  \n \n`5` Forward to Cisco/Polycom Room  \n \n`6` Forward to the auto receptionist  \n \n`7` Forward to the call queue  \n \n`8` Forward to the shared line group  \n \n`9` Forward to external contacts  \n \n`10` Forward to a phone number  \n\n`12` Play a message, then disconnect\n \n`15` Forward to the partner contact center  \n \n`16` Forward to the meeting service  \n \n`17` Forward to the meeting service number  \n\n`18` Forward to Microsoft Teams Resource Account. Required the license of Zoom Phone for Microsoft Teams. \n\n`19` Forward to the zoom contact center voice flow. Required Zoom Contact Center license.\n\n`24` Forward to the ZVA(Zoom Virtual Agent) Receptionist\n\n`25` Forward to the Third-party agent\n\n`27` Play a message, then repeat menu greeting\n\n`28` Play a message, then return to root menu\n\n`29` Play a message, then return to previous menu\n\n \n`-1` Disabled\n\nFor key `0`-`9` only:\n\n`26` Dial by Name\n**Note**: The value of `action = 26` (`Dial by Name`) is available only when **Dial by Name Directory** is enabled. For multi-site accounts, this is checked at the site level via [Get a phone site setting](https://developers.zoom.us/docs/api/phone/#tag/sites/get/phone/sites/{siteId}/settings/{settingType}) with `settingType=dial_by_name`; otherwise, it follows the account-level setting.\n\nFor key * or # only:\n \n`21` Repeat menu greeting  \n \n`22` Return to the root menu  \n \n`23` Return to the previous menu  "
+                      example: 200
+                    key:
+                      type: string
+                      description: 'The key. It supports the following values: numeric(''0''-''9''), *, #.'
+                      example: '0'
+                    target:
+                      type: object
+                      properties:
+                        extension_id:
+                          type: string
+                          description: The extension ID or partner contact center setting ID.
+                          example: CQLPaj0oSCC0olJLmAfgwQ
+                        phone_number:
+                          type: string
+                          description: "The phone number or external number, in [E.164 format](https://en.wikipedia.org/wiki/E.164). \n\n* When `action` is `10` (Forward to Phone number/External number), this is the destination number. \n* When `action` is `19` (Forward to the Zoom Contact Center voice flow), this is the Zoom Contact Center number."
+                          example: '+12055437350'
+                        teams_app_id:
+                          type: string
+                          description: The ID of the Microsoft Teams Voice App to forward to. Required when `action` is `18` (Forward to Microsoft Teams Resource Account).
+                          example: oB18huSERjqbzrsyL2bD5w
+                        partner_contact_center_id:
+                          type: string
+                          description: The ID of the Partner Contact Center to forward to. Required when `action` is `15` (Forward to a Partner Contact Center).
+                          example: 0za4SO7OQ5mxeHEP8nHvGg
+                        zva_receptionist_id:
+                          type: string
+                          description: The ID of the ZVA(Zoom Virtual Agent) Receptionist to forward to. Required when `action` is `24` (Forward to the ZVA Receptionist).
+                          example: 6uv8qMMDShm6OGgFTrQPbA
+                        third_party_agent_id:
+                          type: string
+                          description: The ID of the Third-party agent to forward to. Required when `action` is `25` (Forward to the Third-party agent).
+                          example: T0x6LuR4TBKWFY6_ulxaOQ
+                        external_contact_id:
+                          type: string
+                          description: The ID of the external contact to forward to. Required when `action` is `9` (Forward to external contacts).
+                          example: OJGi5xOFQPmrJbKg68-iWg
+                      description: Routes to an extension, phone number, or a contact center.  The relevant ID field is required based on the selected `action`.
+                    voicemail_greeting_id:
+                      type: string
+                      description: 'The voicemail greeting''s file ID. Only takes effect when `action` is one of the following:
+
+                        `100` Leave voicemail to the current extension
+
+                        `200` Leave voicemail to the user
+
+                        `300` Leave voicemail to the auto receptionist
+
+                        `400` Leave voicemail to the call queue
+
+                        `500` Leave voicemail to the shared line group
+
+                        `12` Play a message, then disconnect
+
+                        `27` Play a message, then repeat menu greeting
+
+                        `28` Play a message, then return to root menu
+
+                        `29` Play a message, then return to previous menu '
+                      example: z97zV9NsSoa846i-ag3uEw
+                  description: A single IVR menu key routing option to update, identified by `key`.
+                allow_callers_to_navigate_ivr:
+                  type: object
+                  properties:
+                    enable:
+                      type: boolean
+                      description: Whether callers are allowed to navigate the IVR menu by voice in addition to DTMF keypad input. When `true`, the Zoom Phone IVR engine performs speech-to-intent matching against the configured key actions and routes the call accordingly.
+                      example: true
+                      default: false
+                    voice_input_confidence_score:
+                      type: string
+                      description: The minimum speech-recognition confidence threshold required to accept a voice input as a valid IVR selection.
+                      example: low
+                      default: high
+                      enum:
+                      - low
+                      - medium
+                      - high
+                  description: Configures whether callers can navigate the IVR menu by voice in addition to DTMF keypad input.
+                allow_dialing_by_extension:
+                  type: boolean
+                  description: Whether to allow callers to dial an extension to reach users, common areas, call queues, auto receptionists, and shared line groups on this account.
+                  example: true
+                  default: true
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nAuto Receptionist IVR updated."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Auto Receptionist does not exist: {0}.\nHoliday hours handling does not exist: {0}. <br>\n**Error Code:** `300` <br>\n The number of times to repeat the audio prompt is required and can not be greater than 5.\nThe action value set for if caller enters no action after the prompt played is not correct.\nThe action value is not correct.\nThe id for noAction to forward to is not correct.\nVoicemail greeting file id is required.\nThe phone number to forward to is required. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:update:auto_receptionist_ivr:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:update:auto_receptionist_ivr:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

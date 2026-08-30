@@ -1,0 +1,1300 @@
+openapi: 3.2.0
+info:
+  title: Phone Emergency Service Locations API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Emergency Service Locations
+paths:
+  /phone/batch_locations:
+    post:
+      tags:
+      - Emergency Service Locations
+      summary: Batch add emergency service locations
+      description: "Adds emergency service locations in batch. \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:batch_emergency_locations:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: batchAddLocations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - locations
+              type: object
+              properties:
+                locations:
+                  maxItems: 10
+                  type: array
+                  items:
+                    required:
+                    - company_address
+                    - display_name
+                    - identifier
+                    type: object
+                    properties:
+                      bssid:
+                        type: string
+                        description: The location's BSSID (Basic Service Set Identifier).
+                        example: SA43YjfBTS6gJbUpfvIziQ
+                      company_address:
+                        required:
+                        - address_line1
+                        - country
+                        type: object
+                        properties:
+                          address_line1:
+                            type: string
+                            description: The location's physical address.
+                            example: 55 Almaden Boulevard
+                          address_line2:
+                            type: string
+                            description: The location's optional physical address information. For example, a suite number.
+                            example: 6th floor
+                          city:
+                            type: string
+                            description: The location's city.
+                            example: SAN JOSE
+                          country:
+                            type: string
+                            description: The location's country.
+                            example: United States
+                          state_code:
+                            type: string
+                            description: The location's state, province, or territory.
+                            example: CA
+                          vat_number:
+                            type: string
+                            description: 'The location''s VAT/NIF/CIF number. This number gets a new phone number online.
+
+
+                              **Note:** For Belgium, Netherlands, Portugal, Spain, and Switzerland, this field is required.'
+                            example: 123456789B01
+                          zip:
+                            type: string
+                            description: The location's ZIP or postal code.
+                            example: '95113'
+                      display_name:
+                        type: string
+                        description: The location's display name.
+                        example: example location
+                      elin:
+                        type: string
+                        description: The location's ELIN (Emergency Location Identification Number). This value can be a BYOC number. If you use a BYOC number, you will need to manually update the BYOC address with your carrier.
+                        example: '+12058945656'
+                      identifier:
+                        type: string
+                        description: The location's ID.
+                        example: eRYjZlItQIqlFbCuRA__SQ
+                      network_switches:
+                        maxItems: 1000
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            mac_address:
+                              type: string
+                              description: The location's assigned MAC address. Required if the `network_switches` value is set.
+                              example: 0004f25eec3d
+                            port:
+                              type: string
+                              description: The location's port label. You **cannot** pass this parameter with the `port_prefix` and `port_range` parameter.
+                              example: '11'
+                            port_prefix:
+                              type: string
+                              description: 'The location''s port prefix. The prefix value **cannot** end with a digit.
+
+
+                                This parameter passes with the `port_range_from` and `port_range_to` parameters.'
+                              example: '1'
+                            port_range_from:
+                              type: string
+                              description: 'The location''s port starting range number. This can be a non-negative integer value.
+
+
+                                This value **must** be less than or equal to the `port_range_to` value.'
+                              example: '10'
+                            port_range_to:
+                              type: string
+                              description: 'The location''s port ending range number. This can be a non-negative integer value.
+
+
+                                This value **cannot** be less than the `port_range_from` value.'
+                              example: '20'
+                      parent_identifier:
+                        type: string
+                        description: The location's parent location ID. Leave this value empty if the current location is a top location.
+                        example: FksDtQDfR9qs3gWXNDsfIw
+                      private_ip:
+                        type: string
+                        description: The location's subnet or private IP address. This field is required if `minimum_match_criteria` is true.
+                        example: 192.1.1.2
+                      public_ip:
+                        type: string
+                        description: The location's public IP address. This field is required for top locations.
+                        example: 192.1.1.1
+                      sip_group_name:
+                        type: string
+                        description: 'The location''s assigned SIP routing group for outgoing calls. The system routes the call to the defined [SIP trunk](https://en.wikipedia.org/wiki/SIP_trunking) in the SIP groups when location-based routing is enabled.
+
+
+                          This only affects top locations and ignores all other locations.'
+                        example: band width
+                      minimum_match_criteria:
+                        type: boolean
+                        description: If true, it requires a user's location match on both public and private IP address, or BSSID, or network switch; detecting only a public IP address is not enough to detect the location.
+                        example: true
+                site_id:
+                  type: string
+                  description: The site ID.
+                  example: SQv52YtkRLC2dwrDdYtGsA
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201`   \n \nCreated."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locations:
+                    maxItems: 10
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        display_name:
+                          type: string
+                          description: The location's display name.
+                          example: example location
+                        location_id:
+                          type: string
+                          description: The location ID.
+                          example: FwOAeL4TRmqQrmF0jOfzkQ
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Validation Failed.\nLocation does not exist: {0}.\nToo many concurrent requests. A request to add locations batch has already been made.\nLocations size must be less than 10.\nYou can only access up to 5000 locations.\nCan not bind ELIN if location does not have an emergency address.\nA phone number can not be bound to multiple locations at the same time.\nPhone number format invalid.\nPhone number does not exist.\nThere is an error with the parent location of the sub location.\nNetwork switches size must be less than 100.\nSwitch MAC address is required.\nDuplicate Switch Info found.\nMac Address format invalid.\nNumber bssid per location limited to less than 100.\nBSSID format error.\nEmergency address Line 1 is required.\nEmergency address country is required.\nIP format error.\nPublic IP is required.\nSIP group does not exist.\nIdentifier can not be matched.\nYou can only access up to {0} level.\nThis location identifier already exists. You cannot have duplicate identifiers.\nThe parent_identifier can not be the value of the identifier of the same location.\nThis location display_name already exists. You cannot have duplicate location names.\nIdentifier is required.\nLocation name is required.\nEmergency address VAT is required in {0}.\nEmergency address state code is required in {0}.\nEmergency address zip is required in {0}.\nThe field can not exceed {0} characters. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write:batch_emergency_locations:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:write:batch_emergency_locations:admin
+  /phone/locations:
+    get:
+      tags:
+      - Emergency Service Locations
+      summary: List emergency service locations
+      description: "Returns emergency service locations. \n**Note**: When you enable [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites), the `site_id` parameter is required.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_emergency_locations:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: listLocations
+      parameters:
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through large result sets. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: site_id
+        in: query
+        description: "The unique identifier of the site. It can be retrieved from the [List Phone Sites](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/listPhoneSites) API. \n\n**Note:** When the account has been enabled Multiple Sites, this field is required."
+        required: false
+        schema:
+          type: string
+          example: SQv52YtkRLC2dwrDdYtGsA
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n\nEmergency service locations listed successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locations:
+                    type: array
+                    description: The information about emergency service locations.
+                    items:
+                      type: object
+                      properties:
+                        bssid:
+                          type: string
+                          description: The emergency service location's BSSID (Basic Service Set Identifier).
+                          example: SA43YjfBTS6gJbUpfvIziQ
+                        elin:
+                          type: object
+                          properties:
+                            phone_number:
+                              type: string
+                              description: The emergency service location's phone number.
+                              example: '+12058945656'
+                            phone_number_id:
+                              type: string
+                              description: The emergency service location's phone number ID.
+                              example: 9h5vTQJ0TmyKs0wItZ3JAw
+                          description: The emergency service location's ELIN (Emergency Location Identification Number).
+                        id:
+                          type: string
+                          description: The emergency service location's ID.
+                          example: eRYjZlItQIqlFbCuRA__SQ
+                        identifier:
+                          type: string
+                          description: The emergency service location's unique ID.
+                          example: FksDtQDfR9qs3gWXNDsfIw
+                        name:
+                          type: string
+                          description: The emergency service location's name.
+                          example: example location
+                        network_switches:
+                          type: array
+                          description: The network switch information.
+                          items:
+                            type: object
+                            properties:
+                              mac_address:
+                                type: string
+                                description: The MAC address.
+                                example: 0004f25eec3d
+                              port:
+                                type: string
+                                description: The port's label.
+                                example: '23'
+                              port_prefix:
+                                type: string
+                                description: The port's prefix.
+                                example: '01'
+                              port_range_from:
+                                type: string
+                                description: The port's range from value.
+                                example: '01'
+                              port_range_to:
+                                type: string
+                                description: The port's range to value.
+                                example: '02'
+                        parent_location_id:
+                          type: string
+                          description: The parent location's ID.
+                          example: RTGmTYafRU24RqJunfotSA
+                        private_ip:
+                          type: string
+                          description: The emergency service location's subnet or private IP address.
+                          example: 192.1.1.2
+                        public_ip:
+                          type: string
+                          description: The emergency service location's public IP address.
+                          example: 192.1.1.1
+                        sip_group:
+                          type: object
+                          properties:
+                            display_name:
+                              type: string
+                              description: The SIP group's display name.
+                              example: band width
+                            id:
+                              type: string
+                              description: The SIP group's ID.
+                              example: F_WKDH6FRdeddZBcNUlUeA
+                          description: The emergency service location's SIP group information.
+                        site:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The site ID.
+                              example: SQv52YtkRLC2dwrDdYtGsA
+                            name:
+                              type: string
+                              description: The site name.
+                              example: Main Site
+                          description: The emergency service location's site information.
+                        emergency_address:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The emergency address ID.
+                              example: Qza2T_KATwCeUfTkzGsOmQ
+                            address_line1:
+                              type: string
+                              description: The location's physical address.
+                              example: 55 ALMADEN BLVD
+                            address_line2:
+                              type: string
+                              description: The location's optional physical address information. For example, a suite number.
+                              example: 6th floor
+                            city:
+                              type: string
+                              description: The location's city.
+                              example: SAN JOSE
+                            state_code:
+                              type: string
+                              description: The location's State/Province/Territory.
+                              example: CA
+                            country:
+                              type: string
+                              description: The location's country.
+                              example: US
+                            zip:
+                              type: string
+                              description: The location's ZIP or postal code.
+                              example: '95113'
+                            vat_number:
+                              type: string
+                              description: 'The location''s VAT/NIF/CIF number. This number is used to get a new phone number online.
+
+
+                                **Note:** For Belgium, Netherlands, Portugal, Spain, and Switzerland, this field is required.'
+                              example: 123456789B01
+                          description: The specific emergency address for the location
+                        minimum_match_criteria:
+                          type: boolean
+                          description: If true, it requires a user's location match on both public and private IP address, or BSSID, or network switch; detecting only a public IP address is not enough to detect the location.
+                          example: true
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: T6WMY4fJBIAlxPUiqRtwvQS9dvsq8AoRam2
+                  page_size:
+                    type: integer
+                    description: The number of records returned with a single API call.
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records returned.
+                    example: 20
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_emergency_locations:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_emergency_locations:admin
+    post:
+      tags:
+      - Emergency Service Locations
+      summary: Add an emergency service location
+      description: "Adds an emergency service location.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: addLocation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - emergency_address_id
+              - name
+              type: object
+              properties:
+                bssid:
+                  type: string
+                  description: A comma-separated list of the emergency service location's BSSIDs (Basic Service Set Identifiers).
+                  example: SA43YjfBTS6gJbUpfvIziQ
+                elin_phone_number_id:
+                  type: string
+                  description: The ELIN (Emergency Location Identification Number). This value must be a phone number ID or phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+                  example: 9h5vTQJ0TmyKs0wItZ3JAw
+                emergency_address_id:
+                  type: string
+                  description: The emergency location address ID.
+                  example: Qza2T_KATwCeUfTkzGsOmQ
+                name:
+                  type: string
+                  description: The emergency service location's name.
+                  example: example location update
+                parent_location_id:
+                  type: string
+                  description: The parent location's ID to assign to the emergency service location.
+                  example: FwOAeL4TRmqQrmF0jOfzkQ
+                private_ip:
+                  type: string
+                  description: A comma-separated list of the emergency service location's subnet or private IP addresses. This field is required if `minimum_match_criteria` is true.
+                  example: 192.1.1.3
+                public_ip:
+                  type: string
+                  description: A comma-separated list of the emergency service location's public IP addresses. This parameter is required for top locations.
+                  example: 192.1.1.4
+                sip_group_id:
+                  type: string
+                  description: The SIP group ID to assign to the emergency service location. This value is not required for non-top locations.
+                  example: SA43YjfBTS6gJbUpfvIziQ
+                site_id:
+                  type: string
+                  description: The site ID.
+                  example: F_WKDH6FRdeddZBcNUlUeA
+                minimum_match_criteria:
+                  type: boolean
+                  description: If true, it requires a user's location match on both public and private IP address, or BSSID, or network switch; detecting only a public IP address is not enough to detect the location.
+                  example: true
+                network_switches:
+                  maxItems: 1000
+                  type: array
+                  description: 'The list of network switch bindings to locate phones at this emergency service location. When a Zoom device registers on a switch/port covered by one of these bindings, its physical location is reported as this location. For example, for E911 dispatch.
+
+
+                    This field is optional. Omit it, or pass an empty array, to create the location without any switch bindings. You can add bindings later via the switch management APIs.
+
+
+                    **Limits**
+
+                    - Up to **1000** bindings per request.
+
+                    - Up to **500** bindings may share the same `mac_address`.
+
+                    - The total number of bindings across all locations in your account is capped by your account-level quota.
+
+
+                    **Uniqueness**
+
+                    - Two entries with the same values on all five fields are rejected as duplicates.
+
+
+                    **Overlap across locations (same site)**
+
+                    - Bindings with different `mac_address` values never conflict.
+
+                    - Two bindings on the same `mac_address` conflict only when they both cover the same physical port. For example, `port: "11"` conflicts with `port_range_from: "10"`, `port_range_to: "20"`; two numeric ranges conflict when their intervals overlap; two prefixed ranges conflict when the prefixes are identical and the intervals overlap; a numeric range and a prefixed range never conflict because they describe different port-naming schemes.
+
+                    - An "all ports" binding (all port fields empty) conflicts only with another "all ports" binding on the same MAC — it does not conflict with specific single/range bindings on the same MAC.'
+                  items:
+                    required:
+                    - mac_address
+                    type: object
+                    properties:
+                      mac_address:
+                        pattern: ^(([0-9A-Fa-f]{2}:)|([0-9A-Fa-f]{2}-)){5}[0-9A-Fa-f]{2}$
+                        type: string
+                        description: 'MAC address of the switch this binding applies to. **Required**.
+
+
+                          Format: six 2-digit hexadecimal octets separated by `:` or `-` (case-insensitive). Separators may be mixed within the same value. Values without separators are rejected.
+
+
+                          Examples: `00:04:f2:5e:ec:3d`, `A1-B2-C3-D4-E5-F6`.
+
+                          Rejected: `0004f25eec3d`.'
+                        example: 00:04:f2:5e:ec:3d
+                      port:
+                        maxLength: 128
+                        type: string
+                        description: Exact switch-port identifier, used for "single port" matching. When `port` is set, `port_prefix`, `port_range_from`, and `port_range_to` must all be empty.
+                        example: '11'
+                      port_prefix:
+                        maxLength: 128
+                        type: string
+                        description: 'Non-numeric prefix shared by a range of ports, used for "prefixed port range" matching. The **last character must not be a digit** (e.g. `Gig0/` is valid; `Gig01` is not).
+
+
+                          When this field is set, both `port_range_from` and `port_range_to` must also be provided, and `port` must be empty.
+
+
+                          Example: `port_prefix: "Gig0/"` with `port_range_from: "1"` and `port_range_to: "24"` covers ports `Gig0/1` through `Gig0/24`.
+
+
+                          Maximum length: 128 characters.'
+                        example: Gig0/
+                      port_range_from:
+                        maxLength: 128
+                        pattern: ^(0|[1-9][0-9]*)$
+                        type: string
+                        description: 'Lower bound (inclusive) of the port range. A non-negative integer expressed as a string; leading zeros are not allowed (`"0"` is valid; `"01"` is not).
+
+
+                          Must be paired with `port_range_to`, and `port_range_from` must be less than or equal to `port_range_to` (numeric comparison).'
+                        example: '1'
+                      port_range_to:
+                        maxLength: 128
+                        pattern: ^(0|[1-9][0-9]*)$
+                        type: string
+                        description: Upper bound (inclusive) of the port range. Same format and pairing rules as `port_range_from`.
+                        example: '24'
+                    description: 'One switch-port binding. Each entry describes, for a given switch MAC address, which ports should be treated as belonging to this location. Choose **exactly one** of the four matching modes below — any other combination of the four port fields is rejected.
+
+
+                      1. **All ports of the switch** — leave `port`, `port_prefix`, `port_range_from`, and `port_range_to` all empty. Any phone attaching to any port of this switch reports this location.
+
+                      2. **A single port** — set only `port`.
+
+                      3. **A numeric port range** — set only `port_range_from` and `port_range_to` (both required).
+
+                      4. **A prefixed port range** (for switches that label ports like `Gig0/1` ... `Gig0/24`) — set `port_prefix`, `port_range_from`, and `port_range_to`; leave `port` empty.'
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201` \n\nCreated."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The phone's location ID.
+                    example: eRYjZlItQIqlFbCuRA__SQ
+                  name:
+                    type: string
+                    description: The phone's location name.
+                    example: example location
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Validation failed.\nA site ID is required.\nParent location does not exist.\nAn emergency address is required.\nAn emergency address is required.\nA location name is required.\nA public IP is required.\nYou can only access up to \"{0}\" level.\nYou can only access up to 5000 locations.\nThe maximum number of \"{0}\" is {1}.\nCannot bind an ELIN if the location does not have an emergency address.\nIP format error.\nDuplicate Switch Info found. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write:emergency_location:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:write:emergency_location:admin
+  /phone/locations/{locationId}:
+    get:
+      tags:
+      - Emergency Service Locations
+      summary: Get emergency service location details
+      description: "Returns an emergency service location's information.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: getLocation
+      parameters:
+      - name: locationId
+        in: path
+        description: The emergency service location's ID.
+        required: true
+        schema:
+          type: string
+          example: FwOAeL4TRmqQrmF0jOfzkQ
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200` **OK**
+
+
+            Emergency service location retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bssid:
+                    type: string
+                    description: The emergency service location's BSSIDs (Basic Service Set Identifiers).
+                    example: SA43YjfBTS6gJbUpfvIziQ
+                  elin:
+                    type: object
+                    properties:
+                      phone_number:
+                        type: string
+                        description: The emergency location's phone number.
+                        example: '+12058945656'
+                      phone_number_id:
+                        type: string
+                        description: The emergency location's phone number ID.
+                        example: 9h5vTQJ0TmyKs0wItZ3JAw
+                    description: The ELIN (Emergency Location Identification Number).
+                  emergency_address:
+                    type: object
+                    properties:
+                      address_line1:
+                        type: string
+                        description: The emergency location address line 1.
+                        example: 55 ALMADEN BLVD
+                      address_line2:
+                        type: string
+                        description: The emergency location address line 2.
+                        example: 6th floor
+                      city:
+                        type: string
+                        description: The emergency location address's city.
+                        example: SAN JOSE
+                      country:
+                        type: string
+                        description: The emergency location address's country.
+                        example: US
+                      id:
+                        type: string
+                        description: The emergency location address ID.
+                        example: Qza2T_KATwCeUfTkzGsOmQ
+                      state_code:
+                        type: string
+                        description: The emergency location address's state code.
+                        example: CA
+                      zip:
+                        type: string
+                        description: The emergency address's zip code.
+                        example: '95113'
+                    description: The emergency location's address information.
+                  id:
+                    type: string
+                    description: The emergency location's ID.
+                    example: eRYjZlItQIqlFbCuRA__SQ
+                  name:
+                    type: string
+                    description: The emergency location's name.
+                    example: example location
+                  network_switches:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        mac_address:
+                          type: string
+                          description: The emergency location's assigned MAC address.
+                          example: 64167f379097
+                        port:
+                          type: string
+                          description: The port label.
+                          example: '20'
+                        port_prefix:
+                          type: string
+                          description: The port prefix.
+                          example: '2'
+                        port_range_from:
+                          type: string
+                          description: The port starting range number.
+                          example: '01'
+                        port_range_to:
+                          type: string
+                          description: The port ending range number.
+                          example: '05'
+                  parent_location_id:
+                    type: string
+                    description: The emergency location's parent location ID.
+                    example: FksDtQDfR9qs3gWXNDsfIw
+                  private_ip:
+                    type: string
+                    description: The emergency location's subnet or private IP address.
+                    example: 192.1.1.2
+                  public_ip:
+                    type: string
+                    description: The emergency location's public IP address.
+                    example: 192.1.1.1
+                  sip_group:
+                    type: object
+                    properties:
+                      display_name:
+                        type: string
+                        description: The SIP group's display name.
+                        example: band width
+                      id:
+                        type: string
+                        description: The SIP group ID.
+                        example: F_WKDH6FRdeddZBcNUlUeA
+                    description: The emergency location's SIP group information.
+                  site:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: The site ID.
+                        example: SQv52YtkRLC2dwrDdYtGsA
+                      name:
+                        type: string
+                        description: The site name.
+                        example: Main site
+                    description: The emergency location's site information.
+                  minimum_match_criteria:
+                    type: boolean
+                    description: If true, it requires a user's location match on both public and private IP address, or BSSID, or network switch; detecting only a public IP address is not enough to detect the location.
+                    example: true
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `400` <br>\nLocation does not exist: {0}.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:emergency_location:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:emergency_location:admin
+    delete:
+      tags:
+      - Emergency Service Locations
+      summary: Delete an emergency location
+      description: "Removes an emergency location.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: deleteLocation
+      parameters:
+      - name: locationId
+        in: path
+        description: The emergency service location's ID.
+        required: true
+        schema:
+          type: string
+          example: FwOAeL4TRmqQrmF0jOfzkQ
+      responses:
+        '204':
+          description: '**HTTP Status Code:** `204` **No Content**
+
+
+            Location deleted successfully.'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:delete:emergency_location:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:delete:emergency_location:admin
+    patch:
+      tags:
+      - Emergency Service Locations
+      summary: Update emergency service location
+      description: "Updates an emergency location's information.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: updateLocation
+      parameters:
+      - name: locationId
+        in: path
+        description: The emergency service location's ID.
+        required: true
+        schema:
+          type: string
+          example: FwOAeL4TRmqQrmF0jOfzkQ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bssid:
+                  type: string
+                  description: A comma-separated list of the emergency service location's BSSIDs (Basic Service Set Identifiers).
+                  example: SA43YjfBTS6gJbUpfvIziQ
+                elin_phone_number_id:
+                  type: string
+                  description: The ELIN (Emergency Location Identification Number). This value must be a phone number ID or phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format.
+                  example: '+12058945656'
+                emergency_address_id:
+                  type: string
+                  description: The emergency location's address ID.
+                  example: Qza2T_KATwCeUfTkzGsOmQ
+                name:
+                  type: string
+                  description: The emergency location's name.
+                  example: example location
+                network_switches:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      mac_address:
+                        type: string
+                        description: The emergency location's assigned MAC address.
+                        example: 0004f25eec3d
+                      port:
+                        type: string
+                        description: The emergency location's port label. You **cannot** pass this parameter with the `port_prefix` and `port_range` parameter.
+                        example: '22'
+                      port_prefix:
+                        type: string
+                        description: 'The emergency location''s port prefix. The prefix value **cannot** end with a digit.
+
+
+                          This parameter passes with the `port_range_from` and `port_range_to` parameters.'
+                        example: '01'
+                      port_range_from:
+                        type: string
+                        description: 'The emergency location''s port starting range number. This can be a non-negative integer value.
+
+
+                          This value **must** be less than or equal to the `port_range_to` value.'
+                        example: '02'
+                      port_range_to:
+                        type: string
+                        description: 'The emergency location''s port ending range number. This can be a non-negative integer value.
+
+
+                          This value **cannot** be less than the `port_range_from` value.'
+                        example: '05'
+                private_ip:
+                  type: string
+                  description: A comma-separated list of the emergency service location's subnet or private IP addresses. This field is required if `minimum_match_criteria` is true.
+                  example: 192.1.1.2
+                public_ip:
+                  type: string
+                  description: A comma-separated list of the emergency service location's public IP addresses. This parameter is **required** for top locations.
+                  example: 192.1.1.1
+                sip_group_id:
+                  type: string
+                  description: The SIP group ID to assign to the emergency service location. This value is not required for non-top locations.
+                  example: SA43YjfBTS6gJbUpfvIziQ
+                minimum_match_criteria:
+                  type: boolean
+                  description: If true, it requires a user's location match on both public and private IP address, or BSSID, or network switch; detecting only a public IP address is not enough to detect the location.
+                  example: true
+      responses:
+        '204':
+          description: '**HTTP Status Code:** `204` **No Content**
+
+
+            Location updated successfully.'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\n\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:update:emergency_location:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:update:emergency_location:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

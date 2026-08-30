@@ -1,0 +1,1721 @@
+openapi: 3.2.0
+info:
+  title: Phone Voicemails API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Voicemails
+paths:
+  /phone/call_element/{callElementId}/voice_mail:
+    get:
+      tags:
+      - Voicemails
+      summary: Get a voicemail by call element ID
+      description: "Returns the detailed information on a voicemail by the call element's `callElementId`.\n**Prerequisites** \n* A Pro or higher account with Zoom Phone license \n* Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail`,`phone:read:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: getVoicemailDetailsByCallElementId
+      parameters:
+      - name: callElementId
+        in: path
+        description: The ID of the call element.
+        required: true
+        schema:
+          type: string
+          example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nOK."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_id:
+                    type: string
+                    description: The phone call ID.
+                    example: '876634343743'
+                  call_element_id:
+                    type: string
+                    description: The phone call element's unique ID.
+                    example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                  callee_name:
+                    type: string
+                    description: The name of the callee.
+                    example: Jane Doe
+                  callee_number:
+                    type: string
+                    description: The callee's phone number.
+                    example: '34567889'
+                  callee_number_type:
+                    type: integer
+                    description: "The callee's number type: \n* `1` — Internal number. \n* `2` — External number.\n* `3` — Customized emergency number."
+                    example: 2
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                  caller_name:
+                    type: string
+                    description: The name of the caller.
+                    example: John Doe
+                  caller_number:
+                    type: string
+                    description: The caller's phone number.
+                    example: '12345678'
+                  caller_number_type:
+                    type: integer
+                    description: "The caller's number type: \n* `1` — Internal number. \n* `2` — External number."
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                  date_time:
+                    type: string
+                    description: The date the voicemail was created.
+                    example: '2019-05-19T20:00:00Z'
+                  download_url:
+                    type: string
+                    description: "The URL to download the voicemail. For security purposes, you must provide an OAuth access token in the auth header to download the voicemail file using this url.\nExample request:\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                    example: exampleurl.io
+                  duration:
+                    type: integer
+                    description: The duration of voicemail in seconds.
+                    example: 18
+                  id:
+                    type: string
+                    description: The voicemail ID.
+                    example: d43520fc6b7e4b26bbeef58a8a80f235
+                  status:
+                    type: string
+                    description: 'The voicemail status: either ''read'' or ''unread''.'
+                    example: read
+                    enum:
+                    - read
+                    - unread
+                  soft_deleted:
+                    type: boolean
+                    description: whether this voicemail soft deletes and moves to trash.
+                    example: true
+                  soft_deleted_type:
+                    type: string
+                    description: This field indicates how the voicemail was deleted. It exists only when the voicemail is from trash.
+                    example: Manual
+                    enum:
+                    - Manual
+                    - Data Retention
+                  deleted_time:
+                    type: string
+                    description: The time and date the voicemail was deleted. It exists only when voicemail is from trash.
+                    format: date-time
+                    example: '2023-04-18T22:10:49.907Z'
+                  days_left_auto_permanently_delete:
+                    type: integer
+                    description: The number of days left until voicemail is permanently deleted. If the voicemail never auto deletes, the value is '-1'. It exists only when voicemail is from trash.
+                    example: 30
+                  transcription:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        description: The content of the voicemail transcript.
+                        example: some transcript content
+                      status:
+                        type: integer
+                        description: 'The status of the voicemail transcript:
+
+                          * `0` — Transcript is not available.
+
+                          * `1` — Transcript is processing.
+
+                          * `2` — Transcript processed successfully.
+
+                          * `4` — Transcript is disabled.
+
+                          * `5` — Transcript is enabled.
+
+                          * `9` — Transcript web error.
+
+                          * `11` — Transcript download error.
+
+                          * `12` — Transcript upload error.
+
+                          * `13` — Transcript web database error.
+
+                          * `14` — Transcript BYOS (Bring Your Own Storage) upload error.
+
+                          * `409` — Transcript duplicate processing request error.
+
+                          * `415` — Transcript unsupported media error.
+
+                          * `422` — Transcript cannot be processed.
+
+                          * `500` — Transcript server error.
+
+                          * `601` — Transcript AISense after retry error.
+
+                          * `602` — Transcript AISense upload file error.
+
+                          * `603` — Transcript AISense download file error.
+
+                          * `999` — Transcript AISense error.
+
+                          '
+                        example: 2
+                        enum:
+                        - 0
+                        - 1
+                        - 2
+                        - 4
+                        - 5
+                        - 9
+                        - 11
+                        - 12
+                        - 13
+                        - 14
+                        - 409
+                        - 415
+                        - 422
+                        - 500
+                        - 601
+                        - 602
+                        - 603
+                        - 999
+                    description: The voicemail transcript.
+                  caller_account_code:
+                    type: string
+                    description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '111'
+                  callee_account_code:
+                    type: string
+                    description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '222'
+                description: The voicemail information.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n "
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n Voicemail does not exist for {callElementId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        - phone:read:voicemail
+        - phone:read:voicemail:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        x-granular-scopes:
+        - phone:read:voicemail
+        - phone:read:voicemail:admin
+  /phone/users/{userId}/call_logs/{id}/voice_mail:
+    get:
+      tags:
+      - Voicemails
+      summary: Get user voicemail details from a call log
+      description: "Returns the detailed information on a voicemail associated with a call log ID. \n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* User must belong to a Business or Enterprise account \n* User must have a Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail`,`phone:read:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: getVoicemailDetailsByCallIdOrCallLogId
+      parameters:
+      - name: userId
+        in: path
+        description: The user ID or email address of the user.
+        required: true
+        schema:
+          type: string
+          example: IGTRVt3gQ2i-WjoUIjeZxw
+      - name: id
+        in: path
+        description: 'The unique ID of the call log. You can use `callLogId` or `callId` as path parameters.
+
+
+          You can find the value for this field with in **[Get account''s call logs](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/accountCallLogs)** API or **[Get user''s call logs](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/phoneUserCallLogs)** API.'
+        required: true
+        schema:
+          type: string
+          example: '46541323465'
+      responses:
+        '200':
+          description: The voicemail information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_id:
+                    type: string
+                    description: The phone call ID.
+                    example: '876634343743'
+                  call_log_id:
+                    type: string
+                    description: The call log ID.
+                    example: 55fd0af0-beb0-433a-be97-388de5e99ab4
+                    deprecated: true
+                  call_history_id:
+                    type: string
+                    example: 20190519-55fd0af0-beb0-433a-be97-388de5e99ab4
+                    deprecated: true
+                  call_element_id:
+                    type: string
+                    description: The phone call element's unique ID.
+                    example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                  callee_name:
+                    type: string
+                    description: The name of the callee.
+                    example: Jane Doe
+                  callee_number:
+                    type: string
+                    description: The callee's phone number.
+                    example: '34567889'
+                  callee_number_type:
+                    type: integer
+                    description: "The callee's number type: \n* `1` &mdash; Internal number. \n* `2` &mdash; External number.\n* `3` &mdash; Customized emergency number."
+                    example: 2
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                  caller_name:
+                    type: string
+                    description: The name of the caller.
+                    example: John Doe
+                  caller_number:
+                    type: string
+                    description: The caller's phone number.
+                    example: '12345678'
+                  caller_number_type:
+                    type: integer
+                    description: "The caller's number type: \n* `1` &mdash; Internal number. \n* `2` &mdash; External number."
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                  date_time:
+                    type: string
+                    description: The date the voicemail was created.
+                    example: '2019-05-19T20:00:00Z'
+                  download_url:
+                    type: string
+                    description: "The URL to download the voicemail. For security purposes, you must provide an OAuth access token in the auth header to download the voicemail file using this url.\nExample request:\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                    example: exampleurl.io
+                  duration:
+                    type: integer
+                    description: The duration of voicemail in seconds.
+                    example: 18
+                  id:
+                    type: string
+                    description: The voicemail ID.
+                    example: d43520fc6b7e4b26bbeef58a8a80f235
+                  status:
+                    type: string
+                    description: 'The voicemail status: either ''read'' or ''unread''.'
+                    example: read
+                    enum:
+                    - read
+                    - unread
+                  transcription:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        description: The content of the voicemail transcript.
+                        example: some transcript content
+                      status:
+                        type: integer
+                        description: 'The status of the voicemail transcript:
+
+                          * `0` &mdash; Transcript is not available.
+
+                          * `1` &mdash; Transcript is processing.
+
+                          * `2` &mdash; Transcript processed successfully.
+
+                          * `4` &mdash; Transcript is disabled.
+
+                          * `5` &mdash; Transcript is enabled.
+
+                          * `9` &mdash; Transcript web error.
+
+                          * `11` &mdash; Transcript download error.
+
+                          * `12` &mdash; Transcript upload error.
+
+                          * `13` &mdash; Transcript web database error.
+
+                          * `14` &mdash; Transcript BYOS (Bring Your Own Storage) upload error.
+
+                          * `409` &mdash; Transcript duplicate processing request error.
+
+                          * `415` &mdash; Transcript unsupported media error.
+
+                          * `422` &mdash; Transcript cannot be processed.
+
+                          * `500` &mdash; Transcript server error.
+
+                          * `601` &mdash; Transcript AISense after retry error.
+
+                          * `602` &mdash; Transcript AISense upload file error.
+
+                          * `603` &mdash; Transcript AISense download file error.
+
+                          * `999` &mdash; Transcript AISense error.
+
+                          '
+                        example: 2
+                        enum:
+                        - 0
+                        - 1
+                        - 2
+                        - 4
+                        - 5
+                        - 9
+                        - 11
+                        - 12
+                        - 13
+                        - 14
+                        - 409
+                        - 415
+                        - 422
+                        - 500
+                        - 601
+                        - 602
+                        - 603
+                        - 999
+                      engine:
+                        type: string
+                        description: This field indicates the company that provides the transcription engine technology.
+                        example: otter
+                    description: The voicemail transcript.
+                  caller_account_code:
+                    type: string
+                    description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '111'
+                  callee_account_code:
+                    type: string
+                    description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '222'
+                description: The voicemail information.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Invalid user id. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `404` <br>\n Voice mail does not exist: {0}. <br>\n**Error Code:** `1001` <br>\n User does not exist: {userId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      deprecated: true
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        - phone:read:voicemail
+        - phone:read:voicemail:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        x-granular-scopes:
+        - phone:read:voicemail
+        - phone:read:voicemail:admin
+  /phone/users/{userId}/voice_mails:
+    get:
+      tags:
+      - Voicemails
+      summary: Get user's voicemails
+      description: "Returns a user's Zoom Phone voicemails. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: phoneUserVoiceMails
+      parameters:
+      - name: userId
+        in: path
+        description: The user ID or email address of the user. For user-level apps, pass `me` as the value for userId.
+        required: true
+        schema:
+          type: string
+          example: DYHrdpjrS3uaOf7dPkkg8w
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: status
+        in: query
+        description: The status of the voice mail.
+        required: false
+        schema:
+          type: string
+          example: read
+          default: all
+          enum:
+          - all
+          - read
+          - unread
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through large result sets. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      - name: from
+        in: query
+        description: The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. The date range defined by the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. The month defined should fall within the last six months. If unspecified, returns data from the past 30 days.
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: '**Required** only when the `from` parameter is specified. End time and date in **yyyy-mm-dd** or **yyyy-MM-dd''T''HH:mm:ss''Z''** format, the same format as the `from` parameter.'
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: trash
+        in: query
+        description: Whether to query voicemails from trash.
+        required: false
+        schema:
+          type: boolean
+          example: true
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nUser object returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  from:
+                    type: string
+                    description: The start date of the query.
+                    format: date
+                    example: '2021-05-19'
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: VcXBknJ0MQ7kuXun5WKmSjHC1hOBGS2bbr2
+                  page_count:
+                    type: integer
+                    description: The total number of pages.
+                    example: 10
+                  page_size:
+                    type: integer
+                    description: The zize of each page.
+                    example: 15
+                  to:
+                    type: string
+                    description: The end date.
+                    format: date
+                    example: '2021-06-19'
+                  total_records:
+                    type: integer
+                    description: The total number of records.
+                    example: 150
+                  voice_mails:
+                    maxItems: 100
+                    type: array
+                    description: The voicemails.
+                    items:
+                      type: object
+                      properties:
+                        call_id:
+                          type: string
+                          description: The phone call's unique ID.
+                          example: '876634343743'
+                        call_log_id:
+                          type: string
+                          description: The phone call log's unique ID.
+                          example: 55fd0af0-beb0-433a-be97-388de5e99ab4
+                          deprecated: true
+                        call_history_id:
+                          type: string
+                          description: The phone call history's unique ID.
+                          example: 20190519-55fd0af0-beb0-433a-be97-388de5e99ab4
+                          deprecated: true
+                        call_element_id:
+                          type: string
+                          description: The phone call element's unique ID.
+                          example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                        callee_name:
+                          type: string
+                          description: The contact name of callee.
+                          example: Jane Doe
+                        callee_number:
+                          type: string
+                          description: The number of the callee.
+                          example: '34567889'
+                        callee_number_type:
+                          type: integer
+                          description: "The callee's number type: \n* `1` &mdash; Internal number. \n* `2` &mdash; External number.\n* `3` &mdash; Customized emergency number."
+                          example: 2
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                        caller_name:
+                          type: string
+                          description: The contact name of the caller.
+                          example: John Doe
+                        caller_number:
+                          type: string
+                          description: The number of the caller.
+                          example: '12345678'
+                        caller_number_type:
+                          type: integer
+                          description: "The caller's number type: \n* `1` &mdash; Internal number. \n* `2` &mdash; External number."
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                        date_time:
+                          type: string
+                          description: The time and date the voice mail started.
+                          example: '2019-05-19T20:00:00Z'
+                        download_url:
+                          type: string
+                          description: "The download URL of the attachment. For security purposes, you must provide an OAuth access token in the auth header to download the voicemail file using this URL.\nExample request:\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                          example: exampleurl.io
+                        duration:
+                          type: integer
+                          description: The duration of voicemail in seconds.
+                          example: 18
+                        id:
+                          type: string
+                          description: The voicemail ID.
+                          example: d43520fc6b7e4b26bbeef58a8a80f235
+                        status:
+                          type: string
+                          description: The status of the voice mail. It can be either 'read' or 'unread'
+                          example: read
+                          enum:
+                          - read
+                          - unread
+                        caller_account_code:
+                          type: string
+                          description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '111'
+                        callee_account_code:
+                          type: string
+                          description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '222'
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Invalid user id. <br>\n**Error Code:** `400` <br>\n The next page token is invalid or expired. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n **Error Code:** `1001` <br>\n User does not exist: {userId}. <br>\n**Error Code:** `2001` <br>\n Account does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        - phone:read:list_voicemails
+        - phone:read:list_voicemails:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        x-granular-scopes:
+        - phone:read:list_voicemails
+        - phone:read:list_voicemails:admin
+  /phone/voice_mails:
+    get:
+      tags:
+      - Voicemails
+      summary: Get account voicemails
+      description: "Gets a user's Zoom Phone voicemails. \n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_voicemails:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      operationId: accountVoiceMails
+      parameters:
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: status
+        in: query
+        description: The status of the voice mail.
+        required: false
+        schema:
+          type: string
+          example: read
+          default: all
+          enum:
+          - all
+          - read
+          - unread
+      - name: site_id
+        in: query
+        description: The site ID.
+        required: false
+        schema:
+          type: string
+          example: NjHmTu16Qfe8yOiNJuekXA
+      - name: owner_type
+        in: query
+        description: "The owner type. \n\nThe allowed values are `null`, `user`, `callQueue`, `sharedLineGroup`, `autoReceptionist`, or `sharedOffice`(deprecated and to be replaced by `commonArea` after the transition period). \n\nThe default value is `null`.  If the value is `null`, it returns all owner types."
+        required: false
+        schema:
+          type: string
+          example: user
+          enum:
+          - user
+          - callQueue
+          - sharedLineGroup
+          - autoReceptionist
+          - commonArea
+      - name: voicemail_type
+        in: query
+        description: The voicemail type.
+        required: false
+        schema:
+          type: string
+          example: spam
+          enum:
+          - normal
+          - spam
+          - maybeSpam
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes..
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      - name: from
+        in: query
+        description: "The start time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format. \n\nThe date range defined in the `from` and `to` parameters should be a month as the response only includes one month's worth of data at once. \n\nThe month defined should fall within the last six months. If unspecified, it returns data from the past 30 days."
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-01'
+      - name: to
+        in: query
+        description: "This field is **required** only when the `from` parameter is specified. \n\nThe end time and date in **yyyy-mm-dd** or **yyyy-MM-dd'T'HH:mm:ss'Z'** format, the same format as the `from` parameter."
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-12-31'
+      - name: trashed
+        in: query
+        description: Whether to query voicemails from trash. The default setting is false.
+        required: false
+        schema:
+          type: boolean
+          example: false
+          default: false
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nUser object returned."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  from:
+                    type: string
+                    description: The start time and date of the query.
+                    format: date
+                    example: '2021-05-19'
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: VcXBknJ0MQ7kuXun5WKmSjHC1hOBGS2bbr2
+                  page_count:
+                    type: integer
+                    description: The total number of pages.
+                    example: 10
+                  page_size:
+                    type: integer
+                    description: The size of each page.
+                    example: 15
+                  to:
+                    type: string
+                    description: The end time and date of the query.
+                    format: date
+                    example: '2021-06-19'
+                  total_records:
+                    type: integer
+                    description: The total number of records.
+                    example: 150
+                  voice_mails:
+                    type: array
+                    description: The voicemails.
+                    items:
+                      type: object
+                      properties:
+                        call_id:
+                          type: string
+                          description: The phone call's unique ID.
+                          example: '876634343743'
+                        call_log_id:
+                          type: string
+                          description: The phone call log's unique ID.
+                          example: '46541323465'
+                        call_element_id:
+                          type: string
+                          description: The phone call element's unique ID.
+                          example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                        callee_name:
+                          type: string
+                          description: The contact name of the callee
+                          example: Jane Doe
+                        callee_number:
+                          type: string
+                          description: The phone number of the callee (the one receiving the call)
+                          example: '34567889'
+                        callee_number_type:
+                          type: integer
+                          description: "The callee's number type: \n* `1` — Internal number. \n* `2` — External number. \n* `3` — Customized emergency number."
+                          example: 2
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                        caller_name:
+                          type: string
+                          description: The contact name of the caller.
+                          example: John Doe
+                        caller_number:
+                          type: string
+                          description: The phone number of the caller.
+                          example: '12345678'
+                        caller_number_type:
+                          type: integer
+                          description: "The caller's number type: \n* `1` — Internal number. \n* `2` — External number."
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                        date_time:
+                          type: string
+                          description: The start time and date of the voicemail.
+                          format: date-time
+                          example: '2021-05-19T20:00:00Z'
+                        download_url:
+                          type: string
+                          description: "The download URL of the attachment. For security purposes, you must provide an OAuth access token in the auth header to download the voicemail file using this URL.\nExample request:\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                          example: exampleurl.io
+                        duration:
+                          type: integer
+                          description: The duration of the voicemail. The unit of time is seconds.
+                          example: 18
+                        id:
+                          type: string
+                          description: The voicemail ID.
+                          example: d43520fc6b7e4b26bbeef58a8a80f235
+                        status:
+                          type: string
+                          description: 'The status of the voicemail: ''read'' or ''unread''.'
+                          example: read
+                          enum:
+                          - read
+                          - unread
+                        owner:
+                          type: object
+                          properties:
+                            extension_number:
+                              type: integer
+                              description: The extension number associated with the call number.
+                              format: int64
+                              example: 1000123476
+                            id:
+                              type: string
+                              description: The owner's ID.
+                              example: NL3cEpSdRc-c2t8aLoZqiw
+                            name:
+                              type: string
+                              description: The name of the owner.
+                              example: user@test.com
+                            type:
+                              type: string
+                              description: The owner's type, can be `user`, `callQueue`, `sharedLineGroup`, `autoReceptionist`, or `sharedOffice`(deprecated and to be replaced by `commonArea`. During the transition period, if `sharedOffice` is provided as the `owner_type` parameter, `sharedOffice` is returned as a response. Conversely, if `commonArea` is provided, `commonArea` will be returned. If `null` is provided, `sharedOffice` will be returned temporarily, but it will be replaced by `commonArea` after the transition period).
+                              example: user
+                              enum:
+                              - user
+                              - callQueue
+                              - sharedLineGroup
+                              - autoReceptionist
+                              - commonArea
+                            extension_status:
+                              type: string
+                              description: This field indicates the status of extension. * `inactive` * `deleted`.
+                              example: deleted
+                              enum:
+                              - inactive
+                              - deleted
+                            extension_deleted_time:
+                              type: string
+                              description: The date time the extension was deleted. It exists only when extension_status is `deleted`.
+                              example: '2022-10-14T22:10:54Z'
+                          description: The owner of the voicemail.
+                        deleted_time:
+                          type: string
+                          description: The time and date the voicemail was deleted. It exists only when voicemail is from trash.
+                          format: date-time
+                          example: '2023-04-18T22:10:49.907Z'
+                        days_left_auto_permantely_delete:
+                          type: integer
+                          description: The number of days left until voicemail is permanently deleted. If the voicemail never auto deletes, the value is '-1'. It exists only when voicemail is from trash.
+                          example: 30
+                        soft_deleted_type:
+                          type: string
+                          description: This field indicates how the voicemail was deleted. It exists only when voicemail is from trash.
+                          example: Manual
+                          enum:
+                          - Manual
+                          - Data Retention
+                        caller_account_code:
+                          type: string
+                          description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '111'
+                        callee_account_code:
+                          type: string
+                          description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                          example: '222'
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone_voicemail:read:admin
+        - phone:read:list_voicemails:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        - phone_voicemail:read:admin
+        x-granular-scopes:
+        - phone:read:list_voicemails:admin
+  /phone/voice_mails/download/{fileId}:
+    get:
+      tags:
+      - Voicemails
+      summary: Download a phone voicemail
+      description: "Downloads the Zoom phone voicemail. \n\n**Prerequisites:**\n\n* A Business or Enterprise account\n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail:admin`,`phone:read:voicemail`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      operationId: phoneDownloadVoicemailFile
+      parameters:
+      - name: fileId
+        in: path
+        description: The file ID of the phone voicemail.
+        required: true
+        schema:
+          type: string
+          example: SJD6tIJpQHeTU4RDde-NVA
+      responses:
+        '200':
+          description: '**HTTP Status Code:** `200` **OK**  '
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `404` <br>\n File does not exist. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        - phone:read:voicemail:admin
+        - phone:read:voicemail
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read
+        - phone_voicemail:read:admin
+        x-granular-scopes:
+        - phone:read:voicemail:admin
+        - phone:read:voicemail
+  /phone/voice_mails/{voicemailId}:
+    get:
+      tags:
+      - Voicemails
+      summary: Get voicemail details
+      description: "Returns the information about a [voicemail message](https://support.zoom.us/hc/en-us/articles/360021400211-Managing-voicemail-messages). \n\n**Prerequisites** \n* Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail`,`phone:read:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: getVoicemailDetails
+      parameters:
+      - name: voicemailId
+        in: path
+        description: The unique identifier of the voicemail. It retrieves the value for this field by calling the [Get voicemails](https://marketplace.zoom.us/docs/api-reference/phone/methods/#operation/phoneUserVoiceMails) API.
+        required: true
+        schema:
+          type: string
+          example: d43520fc6b7e4b26bbeef58a8a80f235
+      responses:
+        '200':
+          description: The voicemail information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_id:
+                    type: string
+                    description: The phone call's unique ID.
+                    example: '876634343743'
+                  call_log_id:
+                    type: string
+                    description: The phone call log's unique ID.
+                    example: 55fd0af0-beb0-433a-be97-388de5e99ab4
+                    deprecated: true
+                  call_history_id:
+                    type: string
+                    description: The phone call history's unique ID.
+                    example: 20210519-55fd0af0-beb0-433a-be97-388de5e99ab4
+                    deprecated: true
+                  call_element_id:
+                    type: string
+                    description: The phone call element's unique ID.
+                    example: 20210609-a297ae04-a875-4cfd-85ab-4adcead91edb
+                  callee_name:
+                    type: string
+                    description: The name of the callee.
+                    example: Jane Doe
+                  callee_number:
+                    type: string
+                    description: The callee's phone number.
+                    example: '34567889'
+                  callee_number_type:
+                    type: integer
+                    description: "The callee's number type: \n* `1` — Internal number \n* `2` — External number \n* `3` — Customized emergency number"
+                    example: 2
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                  caller_name:
+                    type: string
+                    description: The name of the caller.
+                    example: John Doe
+                  caller_number:
+                    type: string
+                    description: The caller's phone number.
+                    example: '12345678'
+                  caller_number_type:
+                    type: integer
+                    description: "The caller's number type: \n* `1` — Internal number \n* `2` — External number"
+                    example: 1
+                    enum:
+                    - 1
+                    - 2
+                  date_time:
+                    type: string
+                    description: The creation date of the voicemail.
+                    example: '2021-05-19T20:00:00Z'
+                  download_url:
+                    type: string
+                    description: "The URL to download the voicemail. For security purposes, you must provide an OAuth access token in the auth header to download the voicemail file using this url.\nExample request:\n```\ncurl --request GET \\\n  --url {download_url} \\\n  --header 'authorization: Bearer {access_token}' \\\n  --header 'content-type: application/json'\n```"
+                    example: exampleurl.io
+                  duration:
+                    type: integer
+                    description: The duration of voicemail in seconds.
+                    example: 18
+                  id:
+                    type: string
+                    description: The voicemail ID.
+                    example: d43520fc6b7e4b26bbeef58a8a80f235
+                  status:
+                    type: string
+                    description: The status of the voicemail. It can be either **read** or **unread**.
+                    example: read
+                    enum:
+                    - read
+                    - unread
+                  transcription:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        description: The content of the voicemail transcript.
+                        example: some transcript content
+                      status:
+                        type: integer
+                        description: "The status of the voicemail transcript: \n* `0` — Transcript is not available. \n* `1` — Transcript is processing. \n* `2` — Transcript processed successfully. \n* `4` — Transcript is disabled. \n* `5` — Transcript is enabled. \n* `9` — Transcript web error. \n* `11` — Transcript download error. \n* `12` — Transcript upload error. \n* `13` — Transcript web database error. \n* `14` — Transcript BYOS (Bring Your Own Storage) upload error. \n* `409` — Transcript duplicate processing request error. \n* `415` — Transcript unsupported media error. \n* `422` — Transcript cannot be processed. \n* `500` — Transcript server error. \n* `601` — Transcript AISense after retry error. \n* `602` — Transcript AISense upload file error. \n* `603` — Transcript AISense download file error. \n* `999` — Transcript AISense error."
+                        example: 2
+                        enum:
+                        - 0
+                        - 1
+                        - 2
+                        - 4
+                        - 5
+                        - 9
+                        - 11
+                        - 12
+                        - 13
+                        - 14
+                        - 409
+                        - 415
+                        - 422
+                        - 500
+                        - 601
+                        - 602
+                        - 603
+                        - 999
+                      engine:
+                        type: string
+                        description: This field indicates the company that provides the transcription engine technology.
+                        example: otter
+                    description: The voicemail transcript.
+                  deleted_time:
+                    type: string
+                    description: The deletion time and date of the voicemail. It exists only when voicemail is from trash.
+                    format: date-time
+                    example: '2023-04-18T22:10:49.907Z'
+                  days_left_auto_permantely_delete:
+                    type: integer
+                    description: The number of days left until voicemail is permanently deleted. If the voicemail never auto deletes, the value is `-1`. It exists only when voicemail is from trash.
+                    example: 30
+                  soft_deleted_type:
+                    type: string
+                    description: This field indicates how the voicemail was deleted. It exists only when voicemail is from trash.
+                    example: Manual
+                    enum:
+                    - Manual
+                    - Data Retention
+                  intent_detect_status:
+                    type: string
+                    description: "The current intent detection state of the voicemail: \n* `not_started` &mdash; AI detect was not started. \n* `processing` &mdash; processing. \n* `success` &mdash; success. \n* `ai_detection_failed` &mdash; failed, AI detection failed.\n* `unknown_reason_failed` &mdash; failed, unknown reason."
+                    example: success
+                    enum:
+                    - not_started
+                    - processing
+                    - success
+                    - ai_detection_failed
+                    - unknown_reason_failed
+                  intent_results:
+                    type: array
+                    description: The matched intents of the voicemail
+                    items:
+                      type: object
+                      properties:
+                        intent_id:
+                          type: string
+                          description: The intent ID.
+                          example: ''
+                        confidence_score:
+                          type: number
+                          description: The confidence score of the intent detected by the AI to this current voicemail
+                          example: 1
+                  voice_mail_task:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        description: 'This field indicates the processing status of extracting task from the voicemail transcription.
+
+
+                          * `processing`: Indicates that the task extraction process is still ongoing.
+
+                          * `success`: Indicates that the task is successfully extracted from the voicemail transcription.
+
+                          * `no_task`: Indicates that no recognizable task is found in the voicemail transcription.
+
+                          * `failure`: Indicates that an error occurred during the task extraction transcription.'
+                        example: success
+                        enum:
+                        - processing
+                        - success
+                        - no_task
+                        - failure
+                      content:
+                        type: string
+                        description: The voicemail task extracted from the voicemail transcription.
+                        example: Call back the caller at +12091112222 tomorrow.
+                      feedback:
+                        type: string
+                        description: This field provides feedback on the voicemail task.
+                        example: thumbs_up
+                        enum:
+                        - none
+                        - thumbs_up
+                        - thumbs_down
+                  caller_account_code:
+                    type: string
+                    description: 'The caller''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '111'
+                  callee_account_code:
+                    type: string
+                    description: 'The callee''s account code. To dial between accounts, use the format: [Account code] - [extension number].'
+                    example: '222'
+                description: The voicemail information.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `300` <br>\n Voice mail does not exist: {voicemailId}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read:admin
+        - phone_voicemail:read
+        - phone:read:voicemail
+        - phone:read:voicemail:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read
+        - phone:read:admin
+        - phone_voicemail:read:admin
+        - phone_voicemail:read
+        x-granular-scopes:
+        - phone:read:voicemail
+        - phone:read:voicemail:admin
+    delete:
+      tags:
+      - Voicemails
+      summary: Delete a voicemail
+      description: "Deletes an account's [voicemail message](https://support.zoom.us/hc/en-us/articles/360021400211-Managing-voicemail-messages).\n\n**Prerequisites:** \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:voicemail`,`phone:delete:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: deleteVoicemail
+      parameters:
+      - name: voicemailId
+        in: path
+        description: The unique identifier of the voicemail. It retrieves the value for this field by calling the [Get voicemails](https://marketplace.zoom.us/docs/api-reference/phone/methods#operation/phoneUserVoiceMails) API.
+        required: true
+        schema:
+          type: string
+          example: d43520fc6b7e4b26bbeef58a8a80f235
+      responses:
+        '204':
+          description: '**HTTP Status Code:** `204` **No Content**
+
+
+            Voicemail deleted.'
+        '401':
+          description: "**HTTP Status Code:** `401` <br>\n Unauthorized  \n\n **Error Code:** `124` <br>\n Account does not exist: {accountId}. <br>\n"
+        '404':
+          description: "**HTTP Status Code:** `404` <br>\n Not Found  \n\n "
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write
+        - phone_voicemail:write
+        - phone_voicemail:write:admin
+        - phone:delete:voicemail
+        - phone:delete:voicemail:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        - phone:write
+        - phone_voicemail:write
+        - phone_voicemail:write:admin
+        x-granular-scopes:
+        - phone:delete:voicemail
+        - phone:delete:voicemail:admin
+    patch:
+      tags:
+      - Voicemails
+      summary: Update Voicemail Read Status
+      description: "Updates the status of [voicemail message](https://support.zoom.us/hc/en-us/articles/360021400211-Managing-voicemail-messages).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:voicemail`,`phone:update:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: updateVoicemailReadStatus
+      parameters:
+      - name: voicemailId
+        in: path
+        description: The unique identifier of the voicemail. It retrieves the value for this field by calling the [Get voicemails](https://marketplace.zoom.us/docs/api-reference/phone/methods/#operation/phoneUserVoiceMails) API.
+        required: true
+        schema:
+          type: string
+          example: d43520fc6b7e4b26bbeef58a8a80f235
+      - name: read_status
+        in: query
+        description: The voicemail status. The `Unread` feature must enable **Mark Voicemail as Unread**.
+        required: true
+        schema:
+          type: string
+          example: Unread
+          enum:
+          - Read
+          - Unread
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **No Content**  \n \nVoicemail status updated."
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request \n\n **Error Code:** `400` <br>\n The read status is invalid.<br>Request failed because \"Mark Voicemail as Unread\" feature has not been enabled for this account.<br> <br>\n**Error Code:** `404` <br>\n Voice mail does not exist: {0}. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write
+        - phone_voicemail:write
+        - phone_voicemail:write:admin
+        - phone:update:voicemail
+        - phone:update:voicemail:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:write:admin
+        - phone:write
+        - phone_voicemail:write
+        - phone_voicemail:write:admin
+        x-granular-scopes:
+        - phone:update:voicemail
+        - phone:update:voicemail:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io

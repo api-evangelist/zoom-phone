@@ -1,0 +1,2847 @@
+openapi: 3.2.0
+info:
+  title: Phone Accounts API
+  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
+  contact:
+    name: Zoom Developers
+    url: https://developer.zoom.us/
+  version: '2'
+servers:
+- url: https://api.zoom.us/v2
+tags:
+- name: Accounts
+paths:
+  /phone/account_settings:
+    get:
+      tags:
+      - Accounts
+      summary: List an account's Zoom Phone settings
+      description: "Returns an account's Zoom Phone settings.\n\n**Prerequisites:**\n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_account_settings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      operationId: listZoomPhoneAccountSettings
+      parameters:
+      - name: setting_types
+        in: query
+        description: 'The comma separated list of the setting items you want to fetch. Allowed values: `call_live_transcription`,`local_survivability_mode`,`external_calling_on_zoom_room_common_area`, `select_outbound_caller_id`, `personal_audio_library`, `voicemail`, `voicemail_transcription`, `voicemail_notification_by_email`, `shared_voicemail_notification_by_email`, `restricted_call_hours`, `allowed_call_locations`, `check_voicemails_over_phone`, `auto_call_recording`, `ad_hoc_call_recording`, `international_calling`, `outbound_calling`, `outbound_sms`, `sms`, `sms_etiquette_tool`, `zoom_phone_on_mobile`, `zoom_phone_on_pwa`, `e2e_encryption`, `call_handling_forwarding_to_other_users`, `call_overflow`, `call_transferring`, `elevate_to_meeting`, `call_park`, `hand_off_to_room`, `mobile_switch_to_carrier`, `delegation`, `audio_intercom`, `block_calls_without_caller_id`, `block_external_calls`,`call_queue_opt_out_reason`,`auto_delete_data_after_retention_duration`,`auto_call_from_third_party_apps`, `override_default_port`,`peer_to_peer_media`,`advanced_encryption`,`display_call_feedback_survey`,`block_list_for_inbound_calls_and_messaging`,`block_calls_as_threat`,`manage_call_routing_for_unassigned_numbers`.'
+        required: false
+        schema:
+          type: string
+          example: call_live_transcription
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nAccount settings retrieved successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  call_live_transcription:
+                    type: object
+                    description: Whether to let users turn on live transcriptions for a call.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        transcription_start_prompt:
+                          type: object
+                          properties:
+                            enable:
+                              type: boolean
+                              example: true
+                            audio_id:
+                              type: string
+                              description: The audio prompt file ID. If the audio was removed from the user's audio library, it is marked with a prefix, `removed_vWby3OZaQlS1nAdmEAqgwA` for example. You can still use this audio ID to get the audio information in [Get an audio item](https://developers.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+                              example: yCT14TwySDGVUypVlKNEyA
+                            audio_name:
+                              type: string
+                              description: The audio prompt file name.
+                              example: example.mp3
+                          description: Whether to play a prompt to call participants when the transcription has started.
+                  local_survivability_mode:
+                    type: object
+                    description: Whether to allow user or extension to have core phone services in the event of an outage.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  external_calling_on_zoom_room_common_area:
+                    type: object
+                    description: Whether to allow Zoom Rooms to call external phone numbers based on the calling plans and other Zoom Phone policies.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  select_outbound_caller_id:
+                    type: object
+                    description: Whether to allow extensions to change outbound caller ID when placing calls.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        allow_hide_outbound_caller_id:
+                          type: boolean
+                          description: Whether to allow extensions to hide outbound caller ID.
+                          example: true
+                  personal_audio_library:
+                    type: object
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        allow_music_on_hold_customization:
+                          type: boolean
+                          description: Whether to allow music on hold customization.
+                          example: true
+                        allow_voicemail_and_message_greeting_customization:
+                          type: boolean
+                          description: Whether to allow voicemail and message greeting customization.
+                          example: true
+                  voicemail:
+                    type: object
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        allow_videomail:
+                          type: boolean
+                          description: This field allows videomail
+                          example: true
+                        allow_download:
+                          type: boolean
+                          description: This field allows users to download their own voicemail or videomail.
+                          example: false
+                        allow_delete:
+                          type: boolean
+                          description: This field allows users to delete their own voicemail or videomail.
+                          example: true
+                        allow_share:
+                          type: boolean
+                          description: This field allows users to share their own voicemail.
+                          example: true
+                        allow_virtual_background:
+                          type: boolean
+                          description: This field allows virtual background for voicemail or videomail greeting
+                          example: true
+                  voicemail_transcription:
+                    type: object
+                    description: Whether to enable voicemail/videomail transcription feature for User, Auto Receptionist, Call Queue, and Shared Line Groups.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  voicemail_notification_by_email:
+                    type: object
+                    description: Whether to enable voicemail or videomail transcription feature for User, Auto Receptionist, Call Queue, and Shared Line Groups.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        include_voicemail_file:
+                          type: boolean
+                          description: Whether to include the voicemail file.
+                          example: true
+                        include_voicemail_transcription:
+                          type: boolean
+                          description: Whether to include the voicemail transcription.
+                          example: false
+                        forward_voicemail_to_email:
+                          type: boolean
+                          description: Whether to forward the voicemail to email.
+                          example: true
+                  shared_voicemail_notification_by_email:
+                    type: object
+                    description: Once enabled, users receive email notification when there is a new shared voicemail or videomail. If the extension that shares the voicemail or videomail has disabled the voicemail or videomail notification by email policy, then users do not receive notifications. It only displays when the voicemail policy is using the new policy framework.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  restricted_call_hours:
+                    type: object
+                    description: Once enabled, define when the extension or user cannot make or accept calls and send SMS.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        time_zone:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The [time zone list](https://developer.zoom.us/docs/api-reference/other-references/abbreviation-lists/#timezones) for supported time zones and their formats.
+                              example: America/Adak
+                            name:
+                              type: string
+                              description: The time zone name. If time zone id is empty, it shows as `setByExtension`.
+                              example: (GMT-9:00) Adak
+                          description: This field sets either time zone `id` or `set_by_extension`.
+                        restricted_hours_applied:
+                          type: boolean
+                          description: Whether restricted hours have been applied.
+                          example: false
+                        restricted_holiday_hours_applied:
+                          type: boolean
+                          description: Whether restricted holiday hours have been applied.
+                          example: false
+                        allow_internal_calls:
+                          type: boolean
+                          description: Whether to allow internal calls or SMS during restricted hours.
+                          example: true
+                  allowed_call_locations:
+                    type: object
+                    description: Once enabled, it defines where the extension or user can make and accept calls and send SMS.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        locations_applied:
+                          type: boolean
+                          description: Whether locations have been applied.
+                          example: false
+                        allow_internal_calls:
+                          type: boolean
+                          description: Whether to allow internal calls when outside of the allowed locations
+                          example: true
+                  check_voicemails_over_phone:
+                    type: object
+                    description: Whether to allow extension owners or members of a shared line group to check voicemails for extension numbers over the phone using a PIN code.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  auto_call_recording:
+                    type: object
+                    description: Whether to allow automatic recording of all inbound and outbound calls.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        recording_calls:
+                          type: string
+                          description: "The type of calls automatically recorded: \n* `inbound` \n* `outbound` \n* `both`"
+                          example: inbound
+                          enum:
+                          - inbound
+                          - outbound
+                          - both
+                        recording_transcription:
+                          type: boolean
+                          description: Whether the call recording transcription is enabled.
+                          example: true
+                        recording_start_prompt:
+                          type: boolean
+                          description: "Whether a prompt plays to call participants when the recording has started.\n\n<b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.recording_start_prompt` to operate inbound and outbound prompt separately.\n\n<b>Note:</b> \n* If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt` and `inbound_audio_notification.recording_start_prompt` will remain consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt` will be also updated.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.recording_start_prompt` always remain consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.recording_start_prompt` will be also updated."
+                          example: true
+                          deprecated: true
+                        recording_start_prompt_audio_id:
+                          type: string
+                          description: "The audio that plays when the recording has started. You can use this audio ID to get the audio information using [Get an audio item](https://developer.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.\n\n<b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.recording_start_prompt_audio_id` to operate inbound and outbound prompt separately.\n\n<b>Note:</b> \n* If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt_audio_id` and `inbound_audio_notification.recording_start_prompt_audio_id` will remain consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt_audio_id` will be also updated.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`, and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent. When the field is updated, the `inbound_audio_notification.recording_start_prompt_audio_id`, and `outbound_audio_notification.recording_start_prompt_audio_id` will be also updated."
+                          example: ySMexBgBQsioV8KKCUybTA
+                          deprecated: true
+                        recording_explicit_consent:
+                          type: boolean
+                          description: "Whether the **Press 1** option that provides recording consent is enabled.\n\n<b>Deprecated:</b> This field will be deprecated in a future release. As an alternative, use the `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.recording_explicit_consent` to operate inbound and outbound prompt separately.\n\n<b>Note:</b> \n* If customers opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_explicit_consent` and `inbound_audio_notification.recording_explicit_consent` will remain consistent. When the field is updated, the `inbound_audio_notification.recording_explicit_consent` will be also updated.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and `outbound_audio_notification.recording_explicit_consent` always remain consistent. When the field is updated, the `inbound_audio_notification.recording_explicit_consent`, and `outbound_audio_notification.recording_explicit_consent` will be also updated."
+                          example: true
+                          deprecated: true
+                        allow_stop_resume_recording:
+                          type: boolean
+                          description: Whether the stop and resume of automatic call recording is enabled.
+                          example: true
+                        disconnect_on_recording_failure:
+                          type: boolean
+                          description: Whether a call disconnects when there is an issue with the automatic call recording, and the call cannot reconnect after five seconds. This does **not** include emergency calls.
+                          example: true
+                        play_recording_beep_tone:
+                          type: object
+                          properties:
+                            enable:
+                              type: boolean
+                              description: Whether to play a side tone beep for recorded users while recording.
+                              example: true
+                            play_beep_member:
+                              type: string
+                              description: Whether to  play the recording beep tone for all participants in the call or only the recording user. It displays only when `enable` is true.
+                              example: allMembers
+                              enum:
+                              - allMembers
+                              - recordingUser
+                            play_beep_volume:
+                              type: integer
+                              description: The volume of the side tone beep. It displays only when `enable` is set to `true`.
+                              example: 60
+                              enum:
+                              - 0
+                              - 20
+                              - 40
+                              - 60
+                              - 80
+                              - 100
+                            play_beep_time_interval:
+                              type: integer
+                              description: The beep time interval in seconds. It displays only when `enable` is true.
+                              example: 15
+                              enum:
+                              - 5
+                              - 10
+                              - 15
+                              - 20
+                              - 25
+                              - 30
+                              - 60
+                              - 120
+                        inbound_audio_notification:
+                          type: object
+                          properties:
+                            recording_start_prompt:
+                              type: boolean
+                              description: "Whether a prompt plays to call participants when the recording has started for inbound call is enabled.\n\n<b>Note:</b> \n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.recording_start_prompt` always remain consistent.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.recording_start_prompt` with the same value."
+                              example: true
+                            recording_start_prompt_audio_id:
+                              type: string
+                              description: "The audio that plays when the recording has started for inbound call. You can use this audio ID to get the audio information using [Get an audio item](https://developer.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.\n\n<b>Note:</b> \n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`, and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.recording_start_prompt_audio_id` with the same value."
+                              example: ySMexBgBQsioV8KKCUybTA
+                            recording_explicit_consent:
+                              type: boolean
+                              description: "Whether the **Press 1** option that provides recording consent for inbound call is enabled.\n\n<b>Note:</b> \n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and `outbound_audio_notification.recording_explicit_consent` always remain consistent.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.recording_explicit_consent` with the same value."
+                              example: true
+                        outbound_audio_notification:
+                          type: object
+                          properties:
+                            recording_start_prompt:
+                              type: boolean
+                              description: "Whether a prompt plays to call participants when the recording has started for outbound call is enabled.\n\n<b>Note:</b> \n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt`, `inbound_audio_notification.recording_start_prompt`, and `outbound_audio_notification.recording_start_prompt` always remain consistent.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both `inbound_audio_notification.recording_start_prompt` and `outbound_audio_notification.recording_start_prompt` with the same value."
+                              example: true
+                            recording_start_prompt_audio_id:
+                              type: string
+                              description: "The audio that plays when the recording has started for outbound call. You can use this audio ID to get the audio information using [Get an audio item](https://developer.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.\n\n<b>Note:</b> \n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_start_prompt_audio_id`, `inbound_audio_notification.recording_start_prompt_audio_id`, and `outbound_audio_notification.recording_start_prompt_audio_id` always remain consistent.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both `inbound_audio_notification.recording_start_prompt_audio_id` and `outbound_audio_notification.recording_start_prompt_audio_id` with the same value."
+                              example: ySMexBgBQsioV8KKCUybTA
+                            recording_explicit_consent:
+                              type: boolean
+                              description: "Whether the **Press 1** option that provides recording consent for outbound call is enabled.\n\n<b>Note:</b> \n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, the values of `recording_explicit_consent`, `inbound_audio_notification.recording_explicit_consent`, and `outbound_audio_notification.recording_explicit_consent` always remain consistent.\n* If customers do not opt for an OP flag named `Enable Caller Based Consent Options`, update both `inbound_audio_notification.recording_explicit_consent` and `outbound_audio_notification.recording_explicit_consent` with the same value."
+                              example: true
+                  ad_hoc_call_recording:
+                    type: object
+                    properties:
+                      recording_transcription:
+                        type: boolean
+                        description: Whether the call recording transcription is enabled.
+                        example: true
+                      allow_download:
+                        type: boolean
+                        description: Whether to allow the user to download their own ad-hoc recording.
+                        example: true
+                      allow_delete:
+                        type: boolean
+                        description: Whether to allow user to delete their own ad-hoc recording.
+                        example: true
+                      recording_start_prompt:
+                        type: boolean
+                        description: Whether a prompt plays to call participants when the recording has started.
+                        example: true
+                      recording_explicit_consent:
+                        type: boolean
+                        description: Whether the **Press 1** option that provides recording consent is enabled.
+                        example: true
+                      play_recording_beep_tone:
+                        type: object
+                        properties:
+                          enable:
+                            type: boolean
+                            description: Whether to play the side tone beep for recorded users while recording. It displays only when auto call recording policy uses the new framework.
+                            example: true
+                          play_beep_member:
+                            type: string
+                            description: Whether to  play the recording beep tone all participants in the call or only the recording user. It displays only when `enable` is true.
+                            example: allMembers
+                            enum:
+                            - allMembers
+                            - recordingUser
+                          play_beep_volume:
+                            type: integer
+                            description: The side tone beep volume. It displays only when `enable` is set to `true`.
+                            example: 60
+                            enum:
+                            - 0
+                            - 20
+                            - 40
+                            - 60
+                            - 80
+                            - 100
+                          play_beep_time_interval:
+                            type: integer
+                            description: The beep time interval in seconds. It displays only when the `enable` is set to true.
+                            example: 15
+                            enum:
+                            - 5
+                            - 10
+                            - 15
+                            - 20
+                            - 25
+                            - 30
+                            - 60
+                            - 120
+                    description: Whether to allow extensions to record and save calls in the cloud.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  international_calling:
+                    type: object
+                    description: Whether to allow extensions to place international calls outside of the calling plan.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  outbound_calling:
+                    type: object
+                    description: "Whether to define calling rules to restrict the user or extension from calling specific countries, cities, or numbers.   \n  Note: Only for use by customers who opted for OP flag `Enable New Version Outbound Blocked List`. "
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  outbound_sms:
+                    type: object
+                    description: "Whether to allow users to send and receive messages. You must assign a valid calling plan and phone number to each user for them to send and receive messages.   \n  Note: Only for use by customers who opted for OP flag `Enable New Version Outbound Blocked List`. "
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  sms:
+                    type: object
+                    description: Whether to allow users to send and receive messages. You must assign a valid calling plan and phone number to each user for them to send and receive messages.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        international_sms:
+                          type: boolean
+                          description: Whether the user can send and receive international messages. You can set this field only if `sms` is enabled.
+                          example: true
+                  sms_etiquette_tool:
+                    type: object
+                    properties:
+                      sms_etiquette_policy:
+                        type: array
+                        description: The SMS etiquette policy. The maximum size is 50.
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The SMS etiquette policy ID.
+                              example: PdPtFFDbQhKr05WepCHhWQ
+                            name:
+                              type: string
+                              description: The SMS etiquette policy name.
+                              example: invalid symbol
+                            description:
+                              type: string
+                              description: The SMS etiquette policy description.
+                              example: invalid symbol
+                            rule:
+                              type: integer
+                              description: The SMS etiquette policy rule, `1` - Keywords, `2` - Regular Expression.
+                              example: 1
+                              enum:
+                              - 1
+                              - 2
+                            content:
+                              type: string
+                              description: The SMS etiquette policy content. For rule `1`, add keywords separated by comma, the following characters are supported A-Z, a-z, 0-9. For rule `2`, add regular expressions. Back references and zero-width assertions area are not supported.
+                              example: test
+                            action:
+                              type: integer
+                              description: The actions taken when a policy is triggered, `1` - ask user to confirm sending of message, `2` - block the message.
+                              example: 1
+                              enum:
+                              - 1
+                              - 2
+                            active:
+                              type: boolean
+                              description: Whether active or not.
+                              example: true
+                    description: This field identifies defined keywords and text patterns over SMS and prevents users from sharing unwanted messages.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  zoom_phone_on_mobile:
+                    type: object
+                    description: Whether to allow user to use Zoom Phone on mobile clients (iOS, iPad OS and Android).
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        allow_calling_sms_mms:
+                          type: boolean
+                          description: This field allows calling and SMS or MMS functions on mobile.
+                          example: true
+                  zoom_phone_on_pwa:
+                    type: object
+                    description: Whether to allow users to use Zoom Phone on Zoom Progressive Web App.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  e2e_encryption:
+                    type: object
+                    description: Whether to allow users to switch their calls to End-to-End Encryption. If users have **Automatic Call Recording** turned on, they can't use End-to-End Encryption.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  call_handling_forwarding_to_other_users:
+                    type: object
+                    description: Whether to allow users to forward their calls to other numbers.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        call_forwarding_type:
+                          type: integer
+                          description: "`1` - Low restriction (external numbers not allowed)\n`2` - Medium restriction (external numbers and external contacts not allowed)\n `3` - High restriction (external numbers, external contacts and internal extensions without inbound automatic call recording not allowed)\n`4` - No restriction"
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                  call_overflow:
+                    type: object
+                    description: Whether to allow users to forward their calls to other numbers when a call is not answered
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        call_overflow_type:
+                          type: integer
+                          description: "`1` - Low restriction (external numbers not allowed)\n`2` - Medium restriction (external numbers and external contacts not allowed)\n `3` - High restriction (external numbers, external contacts and internal extensions without inbound automatic call recording not allowed)\n`4` - No restriction"
+                          example: 1
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                  call_transferring:
+                    type: object
+                    description: This field allows users to warm or blind transfer their calls. This does not apply to warm transfer on IP Phones except for Yealink. Voicemail is transferable only to internal extensions.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                    - type: object
+                      properties:
+                        call_transferring_type:
+                          type: integer
+                          description: '1-No restriction.
+
+                            2-Medium restriction (external numbers and external contacts not allowed).
+
+                            3-High restriction (external numbers, unrecorded external contacts, and internal extensions without inbound automatic recording not allowed).
+
+                            4-Low restriction (external numbers not allowed).'
+                          example: 2
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                  elevate_to_meeting:
+                    type: object
+                    description: Whether to allow users to elevate their phone calls to a meeting.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  call_park:
+                    type: object
+                    properties:
+                      expiration_period:
+                        type: integer
+                        description: A time limit for parked calls in minutes. After the expiration period ends, the retrieval code is no longer valid and a new code is generated.
+                        example: 3
+                        enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
+                        - 8
+                        - 9
+                        - 10
+                        - 15
+                        - 20
+                        - 25
+                        - 30
+                        - 35
+                        - 40
+                        - 45
+                        - 50
+                        - 55
+                        - 60
+                      call_not_picked_up_action:
+                        type: integer
+                        description: "The action when a parked call is not picked up. \n `100` - Ring back to parker \n`0` - Forward to voicemail of the parker \n`9` - Disconnect \n `50` - Forward to another extension"
+                        example: 50
+                      forward_to:
+                        type: object
+                        properties:
+                          display_name:
+                            type: string
+                            description: The extension's name.
+                            example: ZOOM_API Test
+                          extension_id:
+                            type: string
+                            description: The extension ID.
+                            example: TO586CYlQFC_WCUvPRXytA
+                          extension_number:
+                            type: integer
+                            description: The extension number.
+                            example: 100014
+                          extension_type:
+                            type: string
+                            description: "The type of extension: \n* `user` \n* `zoomRoom` \n* `commonArea`\n* `ciscoRoom/polycomRoom` \n* `autoReceptionist` \n* `sharedLineGroup` \n* `callQueue`"
+                            example: user
+                            enum:
+                            - user
+                            - zoomRoom
+                            - commonArea
+                            - ciscoRoom/polycomRoom
+                            - autoReceptionist
+                            - callQueue
+                            - sharedLineGroup
+                          id:
+                            type: string
+                            description: The ID of the extension `user`, `zoomRoom`, `commonArea`, `ciscoRoom/polycomRoom`, `autoReceptionist`, `callQueue` or `sharedLineGroup`.
+                            example: oG_nYRFuTJiY1tu0Fur_4Q
+                        description: The extension's forwarding information.
+                      sequence:
+                        type: integer
+                        description: "This field is only used in the new policy framework. You can choose how parked calls are assigned to a Busy Lamp Field (BLF) key. Sequential assignment parks the call at the next available BLF key. Random assignment parks the call at a randomly selected BLF key. \n`0` - Random \n`1` - Sequential"
+                        example: 1
+                        enum:
+                        - 0
+                        - 1
+                    description: Whether to allow calls placed on hold to resume from another location using a retrieval code.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  hand_off_to_room:
+                    type: object
+                    description: Whethet to allow users to send a call to a Zoom Room.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  mobile_switch_to_carrier:
+                    type: object
+                    description: Whether to allow the user to switch from a Zoom Phone to their native carrier.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  delegation:
+                    type: object
+                    description: Whether the user can use [call delegation](https://support.zoom.us/hc/en-us/articles/360032881731-Setting-up-call-delegation-shared-lines-appearance-).
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  audio_intercom:
+                    type: object
+                    description: Whether to allow hands-free peer-to-peer conversations. When an intercom call is received, the phone beeps to notify the user of the incoming intercom call, and the user's phone automatically answers the intercom call.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  block_calls_without_caller_id:
+                    type: object
+                    description: Whether calls without caller ID are blocked.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  block_external_calls:
+                    type: object
+                    properties:
+                      block_business_hours:
+                        type: boolean
+                        example: true
+                      block_closed_hours:
+                        type: boolean
+                        example: true
+                      block_holiday_hours:
+                        type: boolean
+                        example: true
+                      block_call_action:
+                        type: integer
+                        description: The action when a call is blocked. `9` - Disconnect, `0`- Forward to voicemail/videomail.
+                        example: 0
+                        enum:
+                        - 0
+                        - 9
+                    description: This field allows you to set rules for blocking external calls during business, closed, and holiday hours. This feature is only available for user, Zoom Room, and common areas.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  call_queue_opt_out_reason:
+                    type: object
+                    properties:
+                      call_queue_opt_out_reasons_list:
+                        maxItems: 30
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                              example: Break
+                            system:
+                              type: boolean
+                              description: The system default reason. It cannot be edited.
+                              example: true
+                            enable:
+                              type: boolean
+                              example: true
+                    description: This field sets the opt-out reasons for call queues. When enabled, call queue members should select an opt-out reason when they turn off the `receive queue call` feature.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  auto_delete_data_after_retention_duration:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Allows Zoom to automatically delete data after the retention duration has lapsed.
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              description: The data types.
+                              example: callLog
+                              enum:
+                              - callLog
+                              - callSummary
+                              - pushToTalkLog
+                              - onDemandRecording
+                              - automaticRecording
+                              - voicemail
+                              - videomail
+                              - sms
+                              - fax
+                            duration:
+                              type: integer
+                              description: The retention duration where -1 means unlimited. For units of time, see the `time_unit` below. For `year`, the duration:-1, 1-10; for `day`, the duration:-1, 1-60; for `month`, the duration:-1, 1-18.
+                              example: -1
+                            time_unit:
+                              type: string
+                              description: The unit of time.
+                              example: year
+                              enum:
+                              - year
+                              - month
+                              - day
+                      delete_type:
+                        type: integer
+                        description: "The deletion policy.   \n * 1 - soft delete   \n * 2 - permanent delete"
+                        example: 1
+                        enum:
+                        - 1
+                        - 2
+                      permanently_delete_after_days:
+                        type: integer
+                        description: The number of days after which the data will be permanently deleted automatically. Use -1 to retain data indefinitely.
+                        example: -1
+                    description: This field allows Zoom to automatically delete data after the retention duration has lapsed.
+                  auto_call_from_third_party_apps:
+                    type: object
+                    description: This field allows the user to perform call control actions from authorized Zoom Marketplace apps.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  override_default_port:
+                    type: object
+                    properties:
+                      min_port:
+                        type: integer
+                        example: 9000
+                      max_port:
+                        type: integer
+                        example: 9998
+                    description: This field sets a range for port assignment. Zoom desktop, mobile clients, Zoom Rooms, and Zoom Phone Appliances use ports during a call. The range should be between 9,000 and 9,999. At least 50 ports need to be configured to ensure the functionality is not affected.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  peer_to_peer_media:
+                    type: object
+                    description: Whether to allow Zoom clients to send media directly to each other. Users or devices that have certain features enabled, such as recording or monitoring, might not be able to use peer to peer media.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  advanced_encryption:
+                    type: object
+                    properties:
+                      disable_incoming_unencrypted_voicemail:
+                        type: boolean
+                        description: Whether to disable incoming unencrypted voicemail.
+                        example: true
+                    description: Whether to allow voicemail to be encrypted with keys that are not accessible to Zoom servers. These Voicemail can be decrypted only by the intended user recipient. Shared Line Appearance, Shared Line Group, Call Queue, or Auto Receptionist Voicemail is encrypted, but can still be played. Email to Voicemail, transcriptions, checking Voicemails by dialing into the Voicemail system, or web is not available when this feature is enabled. This policy requires a Power Pack license to be enabled. If the user does who inherits this policy does not have a Power Pack license, the policy is not applied. Settings is only available with client version 5.12 or later.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  display_call_feedback_survey:
+                    type: object
+                    properties:
+                      feedback_type:
+                        type: integer
+                        description: This field allows you to display feedback survey, `1` - display for every call, `2` - display when call quality issues are detected. Default `1`, if set with value `2`, need to set `feed_back_mos` or `feedback_duration`.
+                        example: 1
+                        enum:
+                        - 1
+                        - 2
+                      feedback_mos:
+                        type: object
+                        properties:
+                          enable:
+                            type: boolean
+                            example: true
+                          min:
+                            type: string
+                            example: '1.1'
+                          max:
+                            type: string
+                            example: '3.0'
+                        description: 'The MOS score. Min: 1.0, Max: 3.0, format one decimal point.'
+                      feedback_duration:
+                        type: object
+                        properties:
+                          enable:
+                            type: boolean
+                            example: true
+                          min:
+                            type: integer
+                            example: 0
+                          max:
+                            type: integer
+                            example: 60
+                        description: The call duration, in seconds, 0-60.
+                    description: Whether to display a thumbs up or down survey at the end of each call. If participants respond with thumbs down, they can provide additional information about what went wrong.
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: false
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  block_list_for_inbound_calls_and_messaging:
+                    description: 'Whether to allow users and administrators to block inbound calls and SMS/MMS from phone numbers or prefixes.
+
+
+                      Note: Only for use by customers who opted for OP flag `Enable New Version Inbound Blocked List`.'
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: true
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: account
+                          enum:
+                          - invalid
+                          - account
+                  block_calls_as_threat:
+                    description: "Whether to allow users to block and classify calls as threat. \n\nInbound calls from these phones numbers can be configured with custom handling options.\n\n**Note**: Only customers who opted for OP flag `Enable New Version Inbound Blocked List` can use this feature."
+                    allOf:
+                    - type: object
+                      properties:
+                        enable:
+                          type: boolean
+                          example: true
+                        locked:
+                          type: boolean
+                          description: Whether the senior administrator allows users to modify the current settings.
+                          example: true
+                        locked_by:
+                          type: string
+                          description: Which level of administrator prohibits the modification of the current settings.
+                          example: invalid
+                  online_fax:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      enable_new_fax_email_notifications:
+                        type: boolean
+                        description: This field enables email notifications when a new fax is received
+                        example: true
+                      include_fax_as_attachment:
+                        type: boolean
+                        description: The field includes fax as an attachment in the email notification
+                        example: false
+                    description: Allows user to send and receive faxes.
+                  private_call_park:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      expiration_period:
+                        type: integer
+                        description: A time limit for parked calls in minutes. After the expiration period ends, the retrieval code is no longer valid and a new code generates.
+                        example: 3
+                        enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
+                        - 8
+                        - 9
+                        - 10
+                        - 15
+                        - 20
+                        - 25
+                        - 30
+                        - 35
+                        - 40
+                        - 45
+                        - 50
+                        - 55
+                        - 60
+                      call_not_picked_up_action:
+                        type: integer
+                        description: "The action when a parked call is not picked up. \n `100` - Ring back to parker \n`0` - Forward to voicemail of the parker \n`9` - Disconnect \n `50` - Forward to another extension"
+                        example: 50
+                      forward_to:
+                        type: object
+                        properties:
+                          display_name:
+                            type: string
+                            description: The extension's name.
+                            example: ZOOM_API Test
+                          extension_id:
+                            type: string
+                            description: The extension ID.
+                            example: TO586CYlQFC_WCUvPRXytA
+                          extension_number:
+                            type: integer
+                            description: The extension number.
+                            format: int64
+                            example: 100014
+                          extension_type:
+                            type: string
+                            description: "The type of extension: \n* `user` \n* `zoomRoom` \n* `commonArea`\n* `ciscoRoom/polycomRoom` \n* `autoReceptionist` \n* `sharedLineGroup` \n* `callQueue`"
+                            example: user
+                            enum:
+                            - user
+                            - zoomRoom
+                            - commonArea
+                            - ciscoRoom/polycomRoom
+                            - autoReceptionist
+                            - callQueue
+                            - sharedLineGroup
+                          id:
+                            type: string
+                            description: The ID of the extension `user`, `zoomRoom`, `commonArea`, `ciscoRoom/polycomRoom`, `autoReceptionist`, `callQueue` or `sharedLineGroup`.
+                            example: oG_nYRFuTJiY1tu0Fur_4Q
+                        description: The extension's forwarding information.
+                      sequence:
+                        type: integer
+                        description: "This field chooses how parked calls are assigned to a BLF (Busy Lamp Field) key. Sequential assignment parks the call at the next available BLF key. Random assignment parks the call at a randomly selected BLF key. \n`0` - Random \n`1` - Sequential"
+                        example: 1
+                        enum:
+                        - 0
+                        - 1
+                      music_on_park:
+                        type: object
+                        properties:
+                          audio_id:
+                            type: string
+                            description: The audio prompt file ID. You can still use this audio ID to get the audio information in [Get an audio item](https://developers.zoom.us/docs/api-reference/phone/methods#tag/Audio-Library/operation/GetAudioItem) API.
+                            example: yCT14TwySDGVUypVlKNEyA
+                          audio_name:
+                            type: string
+                            description: The audio prompt file name.
+                            example: example.mp3
+                        description: Plays music when a call is parked.
+                    description: Allows calls placed on hold to be resumed by allowed users with the retrieval code.
+                  sms_template:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      sms_template_list:
+                        maxItems: 50
+                        type: array
+                        description: The SMS template list.
+                        items:
+                          type: object
+                          properties:
+                            sms_template_id:
+                              type: string
+                              description: The SMS template ID.
+                              example: 0qWIP8S8QXmo6KShUIyvZA
+                            name:
+                              type: string
+                              description: The SMS template name.
+                              example: name
+                            description:
+                              type: string
+                              description: The SMS template description.
+                              example: description
+                            content:
+                              type: string
+                              description: 'Text to Display. This text will be editable by users. Customer input fields may be added by using the buttons below. Customer information will be removed if not available. '
+                              example: content
+                            active:
+                              type: boolean
+                              description: Whether it is active.
+                              example: true
+                    description: Uses pre-defined templates to help users compose messages. Power Pack license is required for this feature to work.
+                  call_screening:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      exclude_user_company_contacts:
+                        type: boolean
+                        description: This field excludes user and company contacts from call screening, calls will reach users as normal
+                        example: true
+                    description: Prompts incoming direct external callers to respond to a button to reach users. Callers who don't respond will be disconnected. Devices will not be able to receive any third party faxes.
+                  sms_auto_reply:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Enables SMS Auto Reply feature for User, Auto Receptionist, and Call Queue. Power Pack license is required for this feature to work.
+                  allow_end_user_edit_call_handling:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Once disabled, users cannot to edit their call handling settings on the web portal or enable call forwarding on the client.
+                  connect_to_operator:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Once disabled, users cannot route their calls to an operator as part of the 'When a call is not answered' setting.
+                  no_hold_conference:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Users can set up a conference call without any interruption in the current call
+                  conference_dtmf:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Allows users to interact with automated systems, input access codes, or perform other functions without disrupting the call.
+                  end_conference_call_when_originator_drops:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Once enabled, a personal conference call will end when the originator, who first merges other participant(s) into the conference call, drops. This will not affect the conference barge feature of Shared Line Group.
+                  chat_channel:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Enables chat channel functionality for call queues
+                  desk_phone_smart_key_positions_layout:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Allows Zoom to move your frequently used line keys to your pre-programmed smart keys layout. Smart keys will be updated on a weekly basis.
+                  auto_opt_out_in_call_queue:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      prompt_before_opt_out_call_queue:
+                        type: boolean
+                        description: Always ask the user if they want to opt-out from the Call Queue when they sign out of Zoom
+                        example: true
+                    description: Once enabled, when Call Queue members log out of Zoom (Except for desk phones and Zoom Phone appliances), they will be automatically Opted-out from the Call Queue as well.
+                  allow_mobile_home_phone_callout:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Allows users to use mobile or home phone to place calls. Zoom app will call this device first before ringing the called number. Users' Call Me On phone number will be masked with Zoom Phone caller ID.
+                  use_callkit_for_incoming_call_notifications_in_ios:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: 'Uses CallKit always for Incoming call notifications on iOS/iPadOS devices. When this feature is enabled for a user or common area, their iOS/iPadOS device will always use CallKit for incoming call notifications no matter if the Zoom App is running in the foreground or background, preventing interruptions when receiving inbound calls on the device. This setting only applies to iOS/iPadOS devices with CallKit enabled. If a user modifies this setting on their client, the value will be updated on this policy. Locking this policy will prevent users from making changes to the setting. '
+                  hide_phone_call_history_in_ios:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: 'Hides Zoom Phone calls in iOS/iPadOS device call history. '
+                  obfuscate_sensitive_data_during_call:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Obfuscates sensitive data during a call
+                  prevent_users_upload_audio_files:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Prevents users from uploading audio files
+                  voicemail_tasks:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Voicemail tasks with AI Companion
+                  voicemail_intent_based_prioritization:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Voicemail prioritization with AI Companion
+                  team_sms_thread_summary:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                    description: Team SMS thread summary with AI Companion
+                  customize_line_name:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      user_line_name:
+                        type: string
+                        description: The user line name.
+                        example: phoneNumber
+                        enum:
+                        - phoneNumber
+                        - extensionNumber
+                        - displayName
+                        - displayName;extensionNumber
+                        - firstName;extensionNumber
+                        - firstName;lastName;extensionNumber
+                      common_area_line_name:
+                        type: string
+                        description: The common area line name.
+                        example: phoneNumber
+                        enum:
+                        - phoneNumber
+                        - extensionNumber
+                        - displayName
+                        - displayName;extensionNumber
+                    description: Customizes the  line name.
+                  show_custom_disclaimer_when_using_zoom_phone:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether this policy is enabled
+                        example: false
+                      locked:
+                        type: boolean
+                        description: Whether the senior administrator allows users to modify the current settings.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level of administrator prohibits the modification of the current settings.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      display_frequency:
+                        type: string
+                        description: The display frequency.
+                        example: first_time_only
+                        enum:
+                        - first_time_only
+                        - every_time
+                        - every_month
+                        - every_quarter
+                        - every_6_months
+                        - every_year
+                      custom_disclaimer_list:
+                        type: array
+                        description: The custom disclaimer list.
+                        items:
+                          type: object
+                          properties:
+                            language:
+                              type: string
+                              description: 'The audio prompt language code.
+
+
+                                English: `en`
+
+
+                                Deutsch: `de`
+
+
+                                Español: `es`
+
+
+                                Français: `fr`
+
+
+                                Italiano: `it`
+
+
+                                Nederlands: `nl`
+
+
+                                Português: `pt`
+
+
+                                Japanese: `ja`
+
+
+                                Korean: `ko`
+
+
+                                Chinese: `zh-cn`
+
+
+                                Taiwanese: `zh-tw`
+
+
+                                Norsk: `no`
+
+
+                                Русский: `ru`
+
+
+                                Bahasa Melayu: `ms`
+
+
+                                Tiếng Việt: `vi`
+
+
+                                Українська: `uk`
+
+
+                                Bahasa Indonesia: `id`
+
+
+                                Polski: `pl`
+
+
+                                Türkçe: `tr`'
+                              example: en
+                              enum:
+                              - en
+                              - de
+                              - es
+                              - fr
+                              - it
+                              - nl
+                              - pt
+                              - ja
+                              - ko
+                              - zh-cn
+                              - zh-tw
+                              - 'no'
+                              - ru
+                              - ms
+                              - vi
+                              - uk
+                              - id
+                              - pl
+                              - tr
+                            title:
+                              maxLength: 60
+                              type: string
+                              description: The custom disclaimer title.
+                              example: tilte
+                            body:
+                              maxLength: 500
+                              type: string
+                              description: The custom disclaimer body.
+                              example: body
+                            default:
+                              type: boolean
+                              description: Whether this language is the default disclaimer. Participants using languages not configured in this list will see the disclaimer marked as default. **Exactly one item in the list must have `default` set to `true`** when the list is non-empty.
+                              example: true
+                    description: Shows a custom disclaimer when starting to use Zoom Phone service
+                  manage_call_routing_for_unassigned_numbers:
+                    type: object
+                    properties:
+                      enable:
+                        type: boolean
+                        description: Whether to enable call routing for unassigned numbers.
+                        example: true
+                      locked:
+                        type: boolean
+                        description: Whether this setting is locked by the account administrator.
+                        example: false
+                      locked_by:
+                        type: string
+                        description: Which level has locked this setting.
+                        example: account
+                        enum:
+                        - invalid
+                        - account
+                      incoming_call_action:
+                        type: string
+                        description: The routing action for incoming calls to unassigned numbers. `disconnect` - Disconnect the call. `play_message_then_disconnect` - Play a message and then disconnect. `forward_to_another_extension` - Forward the call to another extension.
+                        example: disconnect
+                        enum:
+                        - disconnect
+                        - play_message_then_disconnect
+                        - forward_to_another_extension
+                      incoming_call_routing_setting:
+                        description: The routing setting. Only returns when `incoming_call_action` is not `disconnect`.
+                        oneOf:
+                        - title: Play a Message then Disconnect
+                          type: object
+                          properties:
+                            audio_id:
+                              type: string
+                              description: The audio prompt file ID.
+                              example: yCT14TwySDGVUypVlKNEyA
+                            audio_name:
+                              type: string
+                              description: The audio prompt file name.
+                              example: routing-message.mp3
+                          description: The routing setting. Only returns when `incoming_call_action` is `play_message_then_disconnect`.
+                        - title: Forward to Another Extension
+                          type: object
+                          properties:
+                            forward_extension_id:
+                              type: string
+                              description: The ID of the extension to forward calls to.
+                              example: jN9mb38lQTaMgxUq3Nd6ow
+                            forward_extension_type:
+                              type: string
+                              description: The type of the extension to forward calls to.
+                              example: user
+                              enum:
+                              - user
+                              - callQueue
+                              - autoReceptionist
+                              - commonArea
+                              - sharedLineGroup
+                              - zoomRoom
+                              - ciscoRoom/PolycomRoom
+                            forward_extension_name:
+                              type: string
+                              description: The display name of the extension to forward calls to.
+                              example: user A
+                            forward_extension_number:
+                              type: integer
+                              description: The extension number of the extension to forward calls to.
+                              format: int64
+                              example: 101014
+                          description: The routing setting. Only returns when `incoming_call_action` is `forward_to_another_extension`.
+                    description: Allows calls to numbers not assigned to an extension to be handled according to the configured settings. This applies to calls originating both inside and outside the account.
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request  \n\n **Error Code:** `400` <br>\n Setting type(s) supplied in query parameter setting_types is invalid. <br>\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_account_settings:admin
+        openapi_authorization: []
+      x-extensions:
+        x-permissions: []
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_account_settings:admin
+  /phone/outbound_caller_id/customized_numbers:
+    get:
+      tags:
+      - Accounts
+      summary: List an account's customized outbound caller ID phone numbers
+      description: "Retrieves phone numbers that can be used as the `account-level` customized outbound caller ID. Note that when multiple sites policy is enabled, users cannot manage the `account-level` configuration. The system will throw an exception. \n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license.\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_customized_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: listCustomizeOutboundCallerNumbers
+      parameters:
+      - name: selected
+        in: query
+        description: "The status of the phone numbers.  \n  `true`- Numbers already added to the custom list.   \n  `false`- Numbers not yet added to the custom list"
+        required: false
+        schema:
+          type: boolean
+          example: true
+      - name: site_id
+        in: query
+        description: This field filters phone numbers that belong to the site.
+        required: false
+        schema:
+          type: string
+          example: SQv52YtkRLC2dwrDdYtGsA
+      - name: extension_type
+        in: query
+        description: The type of extension to which the phone number belongs.
+        required: false
+        schema:
+          type: string
+          example: callQueue
+          enum:
+          - autoReceptionist
+          - callQueue
+          - sharedLineGroup
+      - name: keyword
+        in: query
+        description: A search keyword for phone or extension numbers.
+        required: false
+        schema:
+          type: string
+          example: '408'
+      - name: page_size
+        in: query
+        description: The number of records returned within a single API call.
+        required: false
+        schema:
+          maximum: 300
+          type: integer
+          example: 30
+          default: 30
+      - name: next_page_token
+        in: query
+        description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+        required: false
+        schema:
+          type: string
+          example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+      responses:
+        '200':
+          description: "**HTTP Status Code:** `200`  \n \nCustomized numbers for outbound caller ID listed successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customize_numbers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        customize_id:
+                          type: string
+                          description: The customization ID.
+                          example: 8_RkKw9OQ42oYsXqJJjs4A
+                        phone_number_id:
+                          type: string
+                          description: The ID of the phone number.
+                          example: 55JUZPwERHuGttd_j4qBsQ
+                        phone_number:
+                          type: string
+                          description: The phone number in E164 format.
+                          example: '+12055437350'
+                        display_name:
+                          type: string
+                          description: Name of the phone number.
+                          example: test abc
+                        incoming:
+                          type: boolean
+                          description: Whether the incoming policy is enabled for the phone number.
+                          example: true
+                        outgoing:
+                          type: boolean
+                          description: Whether the outgoing policy is enabled for the phone number.
+                          example: true
+                        extension_id:
+                          type: string
+                          description: The extension ID.
+                          example: HaSokHMCSeK8taMdv2vnXQ
+                        extension_type:
+                          type: string
+                          description: The extension type.
+                          example: callQueue
+                        extension_number:
+                          type: string
+                          description: The extension number.
+                          example: '10001'
+                        extension_name:
+                          type: string
+                          description: The extension name.
+                          example: SJ CQ
+                        site:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: The unique identifier of the [site](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-Multiple-Sites).
+                              example: 8f71O6rWT8KFUGQmJIFAdQ
+                            name:
+                              type: string
+                              description: The name of the site.
+                              example: testSite
+                  next_page_token:
+                    type: string
+                    description: The next page token paginates through a large set of results. A next page token is returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+                    example: BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2
+                  page_size:
+                    type: integer
+                    description: The number of records returned within a single API call for each page.
+                    example: 30
+                  total_records:
+                    type: integer
+                    description: The total number of records returned.
+                    example: 10
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:read:admin
+        - phone:read:list_customized_number:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:read:admin
+        x-granular-scopes:
+        - phone:read:list_customized_number:admin
+    post:
+      tags:
+      - Accounts
+      summary: Add phone numbers for an account's customized outbound caller ID
+      description: "Adds the `account-level` customized outbound caller ID phone numbers. Note that when multiple sites policy is enabled, users cannot manage the `account-level` configuration. The system will throw an exception.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license.\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:customized_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: addOutboundCallerNumbers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number_ids:
+                  maximum: 30
+                  type: array
+                  description: The phone number IDs.
+                  items:
+                    type: string
+                    example: 55JUZPwERHuGttd_j4qBsQ
+      responses:
+        '201':
+          description: "**HTTP Status Code:** `201` **Created**  \n \nCustomized caller ID numbers added successfully."
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:write:customized_number:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:write:customized_number:admin
+    delete:
+      tags:
+      - Accounts
+      summary: Delete phone numbers for an account's customized outbound caller ID
+      description: "Deletes the `account-level` customized outbound caller ID phone numbers. Note that when multiple sites policy is enabled, users cannot manage the `account-level` configuration. The system will throw an exception.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license.\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:customized_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      operationId: deleteOutboundCallerNumbers
+      parameters:
+      - name: customize_ids
+        in: query
+        description: The customization IDs.
+        required: false
+        schema:
+          maxItems: 30
+          type: array
+          items:
+            type: string
+            example: 8_RkKw9OQ42oYsXqJJjs4A
+      responses:
+        '204':
+          description: "**HTTP Status Code:** `204` **Created**  \n \nCustomized numbers have been deleted successfully.  "
+        '400':
+          description: "**HTTP Status Code:** `400` <br>\n Bad Request\n\n**Error Code:** `300` <br>\nValidation Failed. Site does not exist.<br>\n\n"
+        '429':
+          description: "**HTTP Status Code:** `429` <br>\n Too Many Requests. For more information, see [rate limits](https://developers.zoom.us/docs/api/rest/rate-limits/). \n\n "
+      security:
+      - openapi_oauth:
+        - phone:write:admin
+        - phone:delete:customized_number:admin
+        openapi_authorization: []
+      x-extensions:
+        x-macro-scopes:
+        - phone:write:admin
+        x-granular-scopes:
+        - phone:delete:customized_number:admin
+components:
+  securitySchemes:
+    openapi_authorization:
+      type: apiKey
+      name: Authorization
+      in: header
+    openapi_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes:
+            phone:read:admin: phone:read:admin
+            phone:read:list_account_settings:admin: phone:read:list_account_settings:admin
+            phone:write:admin: phone:write:admin
+            phone:write:customized_number:admin: phone:write:customized_number:admin
+            phone:read:list_customized_number:admin: phone:read:list_customized_number:admin
+            phone:delete:customized_number:admin: phone:delete:customized_number:admin
+            phone:write:alert_setting:admin: phone:write:alert_setting:admin
+            phone:read:list_alert_settings:admin: phone:read:list_alert_settings:admin
+            phone:read:alert_setting:admin: phone:read:alert_setting:admin
+            phone:patch:alert_setting:admin: phone:patch:alert_setting:admin
+            phone:delete:alert_setting:admin: phone:delete:alert_setting:admin
+            phone:read: phone:read
+            phone:read:audio: phone:read:audio
+            phone:read:audio:admin: phone:read:audio:admin
+            phone:write: phone:write
+            phone:delete:audio: phone:delete:audio
+            phone:delete:audio:admin: phone:delete:audio:admin
+            phone:update:audio: phone:update:audio
+            phone:update:audio:admin: phone:update:audio:admin
+            phone:read:list_audios: phone:read:list_audios
+            phone:read:list_audios:admin: phone:read:list_audios:admin
+            phone:write:audio: phone:write:audio
+            phone:write:audio:admin: phone:write:audio:admin
+            phone:write:batch_audios: phone:write:batch_audios
+            phone:write:batch_audios:admin: phone:write:batch_audios:admin
+            phone:read:list_auto_receptionists:admin: phone:read:list_auto_receptionists:admin
+            phone:write:auto_receptionist:admin: phone:write:auto_receptionist:admin
+            phone:delete:auto_receptionist:admin: phone:delete:auto_receptionist:admin
+            phone:update:auto_receptionist:admin: phone:update:auto_receptionist:admin
+            phone:read:auto_receptionist:admin: phone:read:auto_receptionist:admin
+            phone:read:auto_receptionist_call_handling_setting:admin: phone:read:auto_receptionist_call_handling_setting:admin
+            phone:update:auto_receptionist_call_handling_setting:admin: phone:update:auto_receptionist_call_handling_setting:admin
+            phone:delete:auto_receptionist_number:admin: phone:delete:auto_receptionist_number:admin
+            phone:write:auto_receptionist_number:admin: phone:write:auto_receptionist_number:admin
+            phone:update:auto_receptionist_policy:admin: phone:update:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_policy:admin: phone:read:auto_receptionist_policy:admin
+            phone:delete:auto_receptionist_policy:admin: phone:delete:auto_receptionist_policy:admin
+            phone:write:auto_receptionist_policy:admin: phone:write:auto_receptionist_policy:admin
+            phone:read:auto_receptionist_setting:admin: phone:read:auto_receptionist_setting:admin
+            phone:write:auto_receptionist_setting:admin: phone:write:auto_receptionist_setting:admin
+            phone:update:auto_receptionist_setting:admin: phone:update:auto_receptionist_setting:admin
+            phone:delete:auto_receptionist_setting:admin: phone:delete:auto_receptionist_setting:admin
+            phone:read:list_billing_accounts:admin: phone:read:list_billing_accounts:admin
+            phone:read:billing_account:admin: phone:read:billing_account:admin
+            phone:write:blocked_list:admin: phone:write:blocked_list:admin
+            phone:read:list_blocked_lists:admin: phone:read:list_blocked_lists:admin
+            phone:delete:blocked_list:admin: phone:delete:blocked_list:admin
+            phone:read:blocked_list:admin: phone:read:blocked_list:admin
+            phone:update:blocked_list:admin: phone:update:blocked_list:admin
+            phone:read:list_call_handling_settings:admin: phone:read:list_call_handling_settings:admin
+            phone:update:call_handling_setting:admin: phone:update:call_handling_setting:admin
+            phone:delete:call_handling_setting:admin: phone:delete:call_handling_setting:admin
+            phone:write:call_handling_setting:admin: phone:write:call_handling_setting:admin
+            phone_call_log:read: phone_call_log:read
+            phone_call_log:read:admin: phone_call_log:read:admin
+            phone:read:call_log:admin: phone:read:call_log:admin
+            phone:read:list_call_logs:admin: phone:read:list_call_logs:admin
+            phone:update:call_log:admin: phone:update:call_log:admin
+            phone:read:ai_call_summary: phone:read:ai_call_summary
+            phone:read:ai_call_summary:admin: phone:read:ai_call_summary:admin
+            phone:read:list_call_logs: phone:read:list_call_logs
+            phone_call_log:write: phone_call_log:write
+            phone_call_log:write:admin: phone_call_log:write:admin
+            phone:delete:call_log: phone:delete:call_log
+            phone:delete:call_log:admin: phone:delete:call_log:admin
+            phone:read:list_call_queues:admin: phone:read:list_call_queues:admin
+            phone:write:call_queue:admin: phone:write:call_queue:admin
+            phone:delete:call_queue:admin: phone:delete:call_queue:admin
+            phone:update:call_queue:admin: phone:update:call_queue:admin
+            phone:read:call_queue:admin: phone:read:call_queue:admin
+            phone:read:call_queue_call_handling_setting:admin: phone:read:call_queue_call_handling_setting:admin
+            phone:update:call_queue_call_handling_setting:admin: phone:update:call_queue_call_handling_setting:admin
+            phone:read:call_queue_custom_group:admin: phone:read:call_queue_custom_group:admin
+            phone:write:call_queue_custom_group:admin: phone:write:call_queue_custom_group:admin
+            phone:update:call_queue_custom_group:admin: phone:update:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:admin: phone:delete:call_queue_custom_group:admin
+            phone:delete:call_queue_custom_group:master: phone:delete:call_queue_custom_group:master
+            phone:master: phone:master
+            phone:read:call_queue_custom_group:master: phone:read:call_queue_custom_group:master
+            phone:write:call_queue_custom_group_member:admin: phone:write:call_queue_custom_group_member:admin
+            phone:delete:call_queue_custom_group_member:admin: phone:delete:call_queue_custom_group_member:admin
+            phone:write:call_queue_member:admin: phone:write:call_queue_member:admin
+            phone:delete:call_queue_member:admin: phone:delete:call_queue_member:admin
+            phone:read:list_call_queue_members:admin: phone:read:list_call_queue_members:admin
+            phone:write:call_queue_number:admin: phone:write:call_queue_number:admin
+            phone:delete:call_queue_number:admin: phone:delete:call_queue_number:admin
+            phone:read:call_queue_policy:admin: phone:read:call_queue_policy:admin
+            phone:update:call_queue_policy:admin: phone:update:call_queue_policy:admin
+            phone:write:call_queue_policy:admin: phone:write:call_queue_policy:admin
+            phone:delete:call_queue_policy:admin: phone:delete:call_queue_policy:admin
+            phone:read:list_call_queue_recordings:admin: phone:read:list_call_queue_recordings:admin
+            phone:read:call_queue_setting:admin: phone:read:call_queue_setting:admin
+            phone:write:call_queue_setting:admin: phone:write:call_queue_setting:admin
+            phone:delete:call_queue_setting:admin: phone:delete:call_queue_setting:admin
+            phone:update:call_queue_setting:admin: phone:update:call_queue_setting:admin
+            phone:update:carrier_number:admin: phone:update:carrier_number:admin
+            phone:write:carrier_number:admin: phone:write:carrier_number:admin
+            phone:read:list_carrier_numbers:admin: phone:read:list_carrier_numbers:admin
+            phone:delete:carrier_number:admin: phone:delete:carrier_number:admin
+            phone:write:common_area:admin: phone:write:common_area:admin
+            phone:read:common_area:admin: phone:read:common_area:admin
+            phone:read:list_common_area_activation_codes:admin: phone:read:list_common_area_activation_codes:admin
+            phone:write:apply_template_to_common_areas:admin: phone:write:apply_template_to_common_areas:admin
+            phone:delete:common_area:admin: phone:delete:common_area:admin
+            phone:update:common_area:admin: phone:update:common_area:admin
+            phone:read:common_area_call_handling_setting:admin: phone:read:common_area_call_handling_setting:admin
+            phone:update:common_area_call_handling_setting:admin: phone:update:common_area_call_handling_setting:admin
+            phone:write:common_area_calling_plan:admin: phone:write:common_area_calling_plan:admin
+            phone:delete:common_area_calling_plan:admin: phone:delete:common_area_calling_plan:admin
+            phone:write:common_area_number:admin: phone:write:common_area_number:admin
+            phone:delete:common_area_number:admin: phone:delete:common_area_number:admin
+            phone:read:list_common_area_settings:admin: phone:read:list_common_area_settings:admin
+            phone:update:common_area_setting:admin: phone:update:common_area_setting:admin
+            phone:delete:common_area_setting:admin: phone:delete:common_area_setting:admin
+            phone:write:common_area_setting:admin: phone:write:common_area_setting:admin
+            phone:read:call_qos:admin: phone:read:call_qos:admin
+            phone:read:default_emergency_address:admin: phone:read:default_emergency_address:admin
+            phone:read:detectable_personal_location:admin: phone:read:detectable_personal_location:admin
+            phone:read:location_sharing_permission:admin: phone:read:location_sharing_permission:admin
+            phone:read:nomadic_emergency_services:admin: phone:read:nomadic_emergency_services:admin
+            phone:read:realtime_location_devices:admin: phone:read:realtime_location_devices:admin
+            phone:read:realtime_location_users:admin: phone:read:realtime_location_users:admin
+            phone:read:list_tracked_locations:admin: phone:read:list_tracked_locations:admin
+            phone:update:device_line_keys: phone:update:device_line_keys
+            phone:update:device_line_keys:admin: phone:update:device_line_keys:admin
+            phone:read:device_line_keys: phone:read:device_line_keys
+            phone:read:device_line_keys:admin: phone:read:device_line_keys:admin
+            phone:delete:directory:admin: phone:delete:directory:admin
+            phone:read:directory:admin: phone:read:directory:admin
+            phone:write:directory:admin: phone:write:directory:admin
+            phone:write:emergency_address:admin: phone:write:emergency_address:admin
+            phone:read:list_emergency_addresses:admin: phone:read:list_emergency_addresses:admin
+            phone:read:emergency_address:admin: phone:read:emergency_address:admin
+            phone:delete:emergency_address:admin: phone:delete:emergency_address:admin
+            phone:update:emergency_address:admin: phone:update:emergency_address:admin
+            phone:write:batch_emergency_locations:admin: phone:write:batch_emergency_locations:admin
+            phone:read:list_emergency_locations:admin: phone:read:list_emergency_locations:admin
+            phone:write:emergency_location:admin: phone:write:emergency_location:admin
+            phone:read:emergency_location:admin: phone:read:emergency_location:admin
+            phone:update:emergency_location:admin: phone:update:emergency_location:admin
+            phone:delete:emergency_location:admin: phone:delete:emergency_location:admin
+            phone:write:external_contact:admin: phone:write:external_contact:admin
+            phone:read:list_external_contacts:admin: phone:read:list_external_contacts:admin
+            phone:delete:external_contact:admin: phone:delete:external_contact:admin
+            phone:read:external_contact:admin: phone:read:external_contact:admin
+            phone:update:external_contact:admin: phone:update:external_contact:admin
+            phone:write:send_fax: phone:write:send_fax
+            phone:write:send_fax:admin: phone:write:send_fax:admin
+            phone:read:list_fax_log: phone:read:list_fax_log
+            phone:read:list_fax_log:admin: phone:read:list_fax_log:admin
+            phone:read:fax_log:admin: phone:read:fax_log:admin
+            phone:read:fax_log: phone:read:fax_log
+            phone:delete:fax_log: phone:delete:fax_log
+            phone:delete:fax_log:admin: phone:delete:fax_log:admin
+            phone:read:list_firmware_update_rules:admin: phone:read:list_firmware_update_rules:admin
+            phone:write:firmware_update_rule:admin: phone:write:firmware_update_rule:admin
+            phone:delete:firmware_update_rule:admin: phone:delete:firmware_update_rule:admin
+            phone:update:firmware_update_rule:admin: phone:update:firmware_update_rule:admin
+            phone:read:firmware_update_rule:admin: phone:read:firmware_update_rule:admin
+            phone:read:list_firmwares:admin: phone:read:list_firmwares:admin
+            phone:read:list_call_pickup_groups:admin: phone:read:list_call_pickup_groups:admin
+            phone:write:call_pickup_group:admin: phone:write:call_pickup_group:admin
+            phone:read:call_pickup_group:admin: phone:read:call_pickup_group:admin
+            phone:update:call_pickup_group:admin: phone:update:call_pickup_group:admin
+            phone:delete:call_pickup_group:admin: phone:delete:call_pickup_group:admin
+            phone:write:call_pickup_group_member:admin: phone:write:call_pickup_group_member:admin
+            phone:read:call_pickup_group_member:admin: phone:read:call_pickup_group_member:admin
+            phone:delete:call_pickup_group_member:admin: phone:delete:call_pickup_group_member:admin
+            phone:update:group_policy:admin: phone:update:group_policy:admin
+            phone:read:group_policy:admin: phone:read:group_policy:admin
+            phone:read:group_setting:admin: phone:read:group_setting:admin
+            phone:read:auto_receptionist_ivr:admin: phone:read:auto_receptionist_ivr:admin
+            phone:update:auto_receptionist_ivr:admin: phone:update:auto_receptionist_ivr:admin
+            phone:read:list_extension_inbound_block_rules:admin: phone:read:list_extension_inbound_block_rules:admin
+            phone:read:list_extension_inbound_block_rules: phone:read:list_extension_inbound_block_rules
+            phone:delete:extension_inbound_block_rule:admin: phone:delete:extension_inbound_block_rule:admin
+            phone:delete:extension_inbound_block_rule: phone:delete:extension_inbound_block_rule
+            phone:write:extension_inbound_block_rule:admin: phone:write:extension_inbound_block_rule:admin
+            phone:write:extension_inbound_block_rule: phone:write:extension_inbound_block_rule
+            phone:delete:extension_inbound_block_rule_stat:admin: phone:delete:extension_inbound_block_rule_stat:admin
+            phone:read:list_extension_inbound_block_rules_stat:admin: phone:read:list_extension_inbound_block_rules_stat:admin
+            phone:update:inbound_blocked_for_all:admin: phone:update:inbound_blocked_for_all:admin
+            phone:delete:inbound_block_rule:admin: phone:delete:inbound_block_rule:admin
+            phone:read:list_inbound_block_rules:admin: phone:read:list_inbound_block_rules:admin
+            phone:write:inbound_block_rule:admin: phone:write:inbound_block_rule:admin
+            phone:update:inbound_block_rule:admin: phone:update:inbound_block_rule:admin
+            phone:update:line_keys: phone:update:line_keys
+            phone:update:line_keys:admin: phone:update:line_keys:admin
+            phone:read:line_keys: phone:read:line_keys
+            phone:read:line_keys:admin: phone:read:line_keys:admin
+            phone:delete:line_keys: phone:delete:line_keys
+            phone:delete:line_keys:admin: phone:delete:line_keys:admin
+            phone:read:list_monitoring_groups:admin: phone:read:list_monitoring_groups:admin
+            phone:write:monitoring_group:admin: phone:write:monitoring_group:admin
+            phone:delete:monitoring_group:admin: phone:delete:monitoring_group:admin
+            phone:update:monitoring_group:admin: phone:update:monitoring_group:admin
+            phone:read:monitoring_group:admin: phone:read:monitoring_group:admin
+            phone:read:list_monitoring_group_members:admin: phone:read:list_monitoring_group_members:admin
+            phone:write:monitoring_group_member:admin: phone:write:monitoring_group_member:admin
+            phone:delete:monitoring_group_member:admin: phone:delete:monitoring_group_member:admin
+            phone:read:common_area_outbound_calling_rule:admin: phone:read:common_area_outbound_calling_rule:admin
+            phone:update:common_area_outbound_calling_rule:admin: phone:update:common_area_outbound_calling_rule:admin
+            phone:write:common_area_outbound_calling_rule:admin: phone:write:common_area_outbound_calling_rule:admin
+            phone:delete:common_area_outbound_calling_rule:admin: phone:delete:common_area_outbound_calling_rule:admin
+            phone:read:list_outbound_calling_rules:admin: phone:read:list_outbound_calling_rules:admin
+            phone:update:outbound_calling_rule:admin: phone:update:outbound_calling_rule:admin
+            phone:write:outbound_calling_rule:admin: phone:write:outbound_calling_rule:admin
+            phone:delete:outbound_calling_rule:admin: phone:delete:outbound_calling_rule:admin
+            phone:update:site_outbound_calling_rule:admin: phone:update:site_outbound_calling_rule:admin
+            phone:read:site_outbound_calling_rule:admin: phone:read:site_outbound_calling_rule:admin
+            phone:write:site_outbound_calling_rule:admin: phone:write:site_outbound_calling_rule:admin
+            phone:delete:site_outbound_calling_rule:admin: phone:delete:site_outbound_calling_rule:admin
+            phone:update:user_outbound_calling_rule:admin: phone:update:user_outbound_calling_rule:admin
+            phone:read:user_outbound_calling_rule:admin: phone:read:user_outbound_calling_rule:admin
+            phone:write:user_outbound_calling_rule:admin: phone:write:user_outbound_calling_rule:admin
+            phone:delete:user_outbound_calling_rule:admin: phone:delete:user_outbound_calling_rule:admin
+            phone:read:list_devices:admin: phone:read:list_devices:admin
+            phone:write:device:admin: phone:write:device:admin
+            phone:write:sync_device:admin: phone:write:sync_device:admin
+            phone:update:device:admin: phone:update:device:admin
+            phone:delete:device:admin: phone:delete:device:admin
+            phone:read:device:admin: phone:read:device:admin
+            phone:write:device_extension:admin: phone:write:device_extension:admin
+            phone:delete:device_extension:admin: phone:delete:device_extension:admin
+            phone:update:device_provision_template:admin: phone:update:device_provision_template:admin
+            phone:write:reboot_device:admin: phone:write:reboot_device:admin
+            phone:write:byo_carrier_number:admin: phone:write:byo_carrier_number:admin
+            phone:delete:number:admin: phone:delete:number:admin
+            phone:read:list_numbers:admin: phone:read:list_numbers:admin
+            phone:update:site_number:admin: phone:update:site_number:admin
+            phone:read:numbers:admin: phone:read:numbers:admin
+            phone:update:number:admin: phone:update:number:admin
+            phone:write:user_number: phone:write:user_number
+            phone:write:user_number:admin: phone:write:user_number:admin
+            phone:delete:user_number: phone:delete:user_number
+            phone:delete:user_number:admin: phone:delete:user_number:admin
+            phone:read:list_calling_plans:admin: phone:read:list_calling_plans:admin
+            phone:read:list_roles:admin: phone:read:list_roles:admin
+            phone:write:role:admin: phone:write:role:admin
+            phone:update:role:admin: phone:update:role:admin
+            phone:read:role:admin: phone:read:role:admin
+            phone:delete:role:admin: phone:delete:role:admin
+            phone:read:role_member:admin: phone:read:role_member:admin
+            phone:write:role_member:admin: phone:write:role_member:admin
+            phone:delete:role_member:admin: phone:delete:role_member:admin
+            phone:write:private_directory_member:admin: phone:write:private_directory_member:admin
+            phone:read:list_private_directory_members:admin: phone:read:list_private_directory_members:admin
+            phone:update:private_directory_member:admin: phone:update:private_directory_member:admin
+            phone:delete:private_directory_member:admin: phone:delete:private_directory_member:admin
+            phone_peering:read:admin: phone_peering:read:admin
+            phone:read:list_peering_numbers:admin: phone:read:list_peering_numbers:admin
+            phone_peering:write:admin: phone_peering:write:admin
+            phone:write:peering_number:admin: phone:write:peering_number:admin
+            phone:delete:peering_number:admin: phone:delete:peering_number:admin
+            phone:update:peering_number:admin: phone:update:peering_number:admin
+            phone:write:provision_template:admin: phone:write:provision_template:admin
+            phone:read:list_provision_templates:admin: phone:read:list_provision_templates:admin
+            phone:update:provision_template:admin: phone:update:provision_template:admin
+            phone:read:provision_template:admin: phone:read:provision_template:admin
+            phone:delete:provision_template:admin: phone:delete:provision_template:admin
+            phone_recording:read: phone_recording:read
+            phone_recording:read:admin: phone_recording:read:admin
+            phone:read:call_recording: phone:read:call_recording
+            phone:read:call_recording:admin: phone:read:call_recording:admin
+            phone:read:recording_transcript: phone:read:recording_transcript
+            phone:read:recording_transcript:admin: phone:read:recording_transcript:admin
+            phone:read:list_call_recordings:admin: phone:read:list_call_recordings:admin
+            phone_recording:write: phone_recording:write
+            phone_recording:write:admin: phone_recording:write:admin
+            phone:update:call_recording: phone:update:call_recording
+            phone:update:call_recording:admin: phone:update:call_recording:admin
+            phone:delete:call_recording: phone:delete:call_recording
+            phone:delete:call_recording:admin: phone:delete:call_recording:admin
+            phone:read:list_recordings: phone:read:list_recordings
+            phone:read:list_recordings:admin: phone:read:list_recordings:admin
+            phone:read:call_charges:admin: phone:read:call_charges:admin
+            phone:read:fax_charges:admin: phone:read:fax_charges:admin
+            phone:read:operation_logs:admin: phone:read:operation_logs:admin
+            phone:read:sms_charges:admin: phone:read:sms_charges:admin
+            phone:read:list_routing_rules:admin: phone:read:list_routing_rules:admin
+            phone:write:routing_rule:admin: phone:write:routing_rule:admin
+            phone:update:routing_rule:admin: phone:update:routing_rule:admin
+            phone:read:routing_rule:admin: phone:read:routing_rule:admin
+            phone:delete:routing_rule:admin: phone:delete:routing_rule:admin
+            phone_sms:write: phone_sms:write
+            phone_sms:write:admin: phone_sms:write:admin
+            phone:read:sms_message: phone:read:sms_message
+            phone:read:sms_message:admin: phone:read:sms_message:admin
+            phone_sms:read: phone_sms:read
+            phone_sms:read:admin: phone_sms:read:admin
+            phone:read:list_sms_sessions: phone:read:list_sms_sessions
+            phone:read:list_sms_sessions:admin: phone:read:list_sms_sessions:admin
+            phone:read:sms_session: phone:read:sms_session
+            phone:read:sms_session:admin: phone:read:sms_session:admin
+            phone:read:list_sms_campaigns:admin: phone:read:list_sms_campaigns:admin
+            phone:read:sms_campaign:admin: phone:read:sms_campaign:admin
+            phone:write:sms_campaign_number:admin: phone:write:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status:admin: phone:read:sms_campaign_number_opt_status:admin
+            phone:update:sms_campaign_number_opt_status:admin: phone:update:sms_campaign_number_opt_status:admin
+            phone:delete:sms_campaign_number:admin: phone:delete:sms_campaign_number:admin
+            phone:read:sms_campaign_number_opt_status: phone:read:sms_campaign_number_opt_status
+            phone:read:sms_consent_number_opt_status:admin: phone:read:sms_consent_number_opt_status:admin
+            phone:write:setting_template:admin: phone:write:setting_template:admin
+            phone:read:list_setting_templates:admin: phone:read:list_setting_templates:admin
+            phone:update:setting_template:admin: phone:update:setting_template:admin
+            phone:read:setting_template:admin: phone:read:setting_template:admin
+            phone:update:policy:admin: phone:update:policy:admin
+            phone:read:policy:admin: phone:read:policy:admin
+            phone:read:list_ported_numbers:admin: phone:read:list_ported_numbers:admin
+            phone:read:ported_number:admin: phone:read:ported_number:admin
+            phone:update:settings:admin: phone:update:settings:admin
+            phone:read:settings:admin: phone:read:settings:admin
+            phone:read:list_sip_groups:admin: phone:read:list_sip_groups:admin
+            phone:read:list_sip_trunks:admin: phone:read:list_sip_trunks:admin
+            phone:read:list_shared_line_appearances:admin: phone:read:list_shared_line_appearances:admin
+            phone:read:list_shared_line_groups:admin: phone:read:list_shared_line_groups:admin
+            phone:write:shared_line_group:admin: phone:write:shared_line_group:admin
+            phone:read:shared_line_group:admin: phone:read:shared_line_group:admin
+            phone:read:shared_line_group_call_handling_setting:admin: phone:read:shared_line_group_call_handling_setting:admin
+            phone:update:shared_line_group_call_handling_setting:admin: phone:update:shared_line_group_call_handling_setting:admin
+            phone:read:shared_line_group_policy:admin: phone:read:shared_line_group_policy:admin
+            phone:update:shared_line_group_policy:admin: phone:update:shared_line_group_policy:admin
+            phone:read:shared_line_group_setting:admin: phone:read:shared_line_group_setting:admin
+            phone:update:shared_line_group_setting:admin: phone:update:shared_line_group_setting:admin
+            phone:delete:shared_line_group_setting:admin: phone:delete:shared_line_group_setting:admin
+            phone:write:shared_line_group_setting:admin: phone:write:shared_line_group_setting:admin
+            phone:update:shared_line_group:admin: phone:update:shared_line_group:admin
+            phone:delete:shared_line_group:admin: phone:delete:shared_line_group:admin
+            phone:delete:shared_line_member:admin: phone:delete:shared_line_member:admin
+            phone:write:shared_line_member:admin: phone:write:shared_line_member:admin
+            phone:delete:shared_line_group_number:admin: phone:delete:shared_line_group_number:admin
+            phone:write:shared_line_group_number:admin: phone:write:shared_line_group_number:admin
+            phone:delete:shared_line_group_policy:admin: phone:delete:shared_line_group_policy:admin
+            phone:write:shared_line_group_policy:admin: phone:write:shared_line_group_policy:admin
+            phone:read:list_sites:admin: phone:read:list_sites:admin
+            phone:write:site:admin: phone:write:site:admin
+            phone:read:site:admin: phone:read:site:admin
+            phone:delete:site:admin: phone:delete:site:admin
+            phone:update:site:admin: phone:update:site:admin
+            phone:read:list_site_customized_number:admin: phone:read:list_site_customized_number:admin
+            phone:delete:site_customized_number:admin: phone:delete:site_customized_number:admin
+            phone:write:site_customized_number:admin: phone:write:site_customized_number:admin
+            phone:read:site_setting:admin: phone:read:site_setting:admin
+            phone:write:site_setting:admin: phone:write:site_setting:admin
+            phone:delete:site_setting:admin: phone:delete:site_setting:admin
+            phone:update:site_setting:admin: phone:update:site_setting:admin
+            phone:read:list_users:admin: phone:read:list_users:admin
+            phone:write:batch_users:admin: phone:write:batch_users:admin
+            phone:update:batch_users:admin: phone:update:batch_users:admin
+            phone:read:user: phone:read:user
+            phone:read:user:admin: phone:read:user:admin
+            phone:update:user: phone:update:user
+            phone:update:user:admin: phone:update:user:admin
+            phone:delete:user_call_handling_setting: phone:delete:user_call_handling_setting
+            phone:delete:user_call_handling_setting:admin: phone:delete:user_call_handling_setting:admin
+            phone:write:user_call_handling_setting: phone:write:user_call_handling_setting
+            phone:write:user_call_handling_setting:admin: phone:write:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting:admin: phone:read:user_call_handling_setting:admin
+            phone:read:user_call_handling_setting: phone:read:user_call_handling_setting
+            phone:update:user_call_handling_setting:admin: phone:update:user_call_handling_setting:admin
+            phone:update:user_call_handling_setting: phone:update:user_call_handling_setting
+            phone:write:calling_plan: phone:write:calling_plan
+            phone:write:calling_plan:admin: phone:write:calling_plan:admin
+            phone:update:calling_plan: phone:update:calling_plan
+            phone:update:calling_plan:admin: phone:update:calling_plan:admin
+            phone:delete:users_calling_plan: phone:delete:users_calling_plan
+            phone:delete:users_calling_plan:admin: phone:delete:users_calling_plan:admin
+            phone:read:list_user_customized_number: phone:read:list_user_customized_number
+            phone:read:list_user_customized_number:admin: phone:read:list_user_customized_number:admin
+            phone:write:user_customized_number: phone:write:user_customized_number
+            phone:write:user_customized_number:admin: phone:write:user_customized_number:admin
+            phone:delete:user_customized_number: phone:delete:user_customized_number
+            phone:delete:user_customized_number:admin: phone:delete:user_customized_number:admin
+            phone:update:user_policy:admin: phone:update:user_policy:admin
+            phone:read:user_policy:admin: phone:read:user_policy:admin
+            phone:delete:user_setting: phone:delete:user_setting
+            phone:delete:user_setting:admin: phone:delete:user_setting:admin
+            phone:write:user_setting:admin: phone:write:user_setting:admin
+            phone:write:user_setting: phone:write:user_setting
+            phone:read:user_setting:admin: phone:read:user_setting:admin
+            phone:read:user_setting: phone:read:user_setting
+            phone:update:user_setting: phone:update:user_setting
+            phone:update:user_setting:admin: phone:update:user_setting:admin
+            phone:update:shared_setting: phone:update:shared_setting
+            phone:update:shared_setting:admin: phone:update:shared_setting:admin
+            phone:write:shared_setting: phone:write:shared_setting
+            phone:write:shared_setting:admin: phone:write:shared_setting:admin
+            phone:delete:shared_setting: phone:delete:shared_setting
+            phone:delete:shared_setting:admin: phone:delete:shared_setting:admin
+            phone_voicemail:read: phone_voicemail:read
+            phone_voicemail:read:admin: phone_voicemail:read:admin
+            phone:read:voicemail: phone:read:voicemail
+            phone:read:voicemail:admin: phone:read:voicemail:admin
+            phone:read:list_voicemails: phone:read:list_voicemails
+            phone:read:list_voicemails:admin: phone:read:list_voicemails:admin
+            phone_voicemail:write: phone_voicemail:write
+            phone_voicemail:write:admin: phone_voicemail:write:admin
+            phone:update:voicemail: phone:update:voicemail
+            phone:update:voicemail:admin: phone:update:voicemail:admin
+            phone:delete:voicemail: phone:delete:voicemail
+            phone:delete:voicemail:admin: phone:delete:voicemail:admin
+            phone:read:list_rooms:admin: phone:read:list_rooms:admin
+            phone:write:room:admin: phone:write:room:admin
+            phone:read:room:admin: phone:read:room:admin
+            phone:delete:room:admin: phone:delete:room:admin
+            phone:update:room:admin: phone:update:room:admin
+            phone:write:room_calling_plan:admin: phone:write:room_calling_plan:admin
+            phone:delete:room_calling_plan:admin: phone:delete:room_calling_plan:admin
+            phone:write:room_phone_number:admin: phone:write:room_phone_number:admin
+            phone:delete:room_phone_number:admin: phone:delete:room_phone_number:admin
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
