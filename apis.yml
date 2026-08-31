@@ -55,6 +55,8 @@ apis:
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -606,6 +608,8 @@ apis:
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -1022,6 +1026,8 @@ apis:
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
+  - Routing rules
+  tags_raw:
   - Routing Rules
   properties:
   - type: OpenAPI
@@ -1309,6 +1315,8 @@ apis:
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
