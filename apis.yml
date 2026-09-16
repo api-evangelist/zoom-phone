@@ -4,19 +4,18 @@ name: Zoom Phone
 kind: company
 description: 'Zoom Phone is the cloud PBX / UCaaS voice product of Zoom Communications, headquartered
   in San Jose, California, and sold worldwide from its United States home market. It replaces on-premise
-  telephony with a cloud calling service — extensions, auto receptionists, IVR, call queues, shared
-  line groups, voicemail, call recording, fax, emergency (E911) addressing, and SMS/MMS — delivered
-  either on Zoom-provided PSTN service, on a customer''s own carrier through BYOC and Cloud Peering
-  (Provider Exchange), or resold through carrier partners. In the telecom value chain Zoom Phone
-  sits above the network as a UCaaS application layer that buys wholesale connectivity and number
-  inventory from carriers rather than operating a mobile network, and its API posture reflects the
-  software half of that split rather than the carrier half: the Zoom Phone API is fully self-serve,
-  published as downloadable OpenAPI 3.0 with 391 documented operations across 46 resource groups,
-  a 71-event webhook catalog, a separate Number Management API covering number allocation, BYOC numbers,
-  ported number orders, SIP trunks and 10DLC SMS campaigns, OAuth 2.0 with fine-grained phone:* scopes,
-  a public Postman workspace, and an official Node/TypeScript SDK. It is not a mobile network operator,
-  is not a GSMA Open Gateway signatory, and exposes no CAMARA network APIs — no CAMARA reference
-  was found anywhere in its developer surface.'
+  telephony with a cloud calling service — extensions, auto receptionists, IVR, call queues, shared line
+  groups, voicemail, call recording, fax, emergency (E911) addressing, and SMS/MMS — delivered either
+  on Zoom-provided PSTN service, on a customer''s own carrier through BYOC and Cloud Peering (Provider
+  Exchange), or resold through carrier partners. In the telecom value chain Zoom Phone sits above the
+  network as a UCaaS application layer that buys wholesale connectivity and number inventory from carriers
+  rather than operating a mobile network, and its API posture reflects the software half of that split
+  rather than the carrier half: the Zoom Phone API is fully self-serve, published as downloadable OpenAPI
+  3.0 with 391 documented operations across 46 resource groups, a 71-event webhook catalog, a separate
+  Number Management API covering number allocation, BYOC numbers, ported number orders, SIP trunks and
+  10DLC SMS campaigns, OAuth 2.0 with fine-grained phone:* scopes, a public Postman workspace, and an
+  official Node/TypeScript SDK. It is not a mobile network operator, is not a GSMA Open Gateway signatory,
+  and exposes no CAMARA network APIs — no CAMARA reference was found anywhere in its developer surface.'
 deliveryModel:
   model: saas
   open_source: false
@@ -61,7 +60,7 @@ tags:
 - Contact Center
 - Communications
 created: '2026-07-25'
-modified: '2026-07-25'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: zoom-phone:zoom-phone-accounts-api
@@ -328,9 +327,8 @@ apis:
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-cloud-peering-provider-exchange-api
   name: Zoom Phone Cloud Peering Provider Exchange API
-  description: >-
-    The Cloud Peering Provider Exchange API from Zoom Phone — 2 operation(s) for cloud peering provider
-    exchange.
+  description: The Cloud Peering Provider Exchange API from Zoom Phone — 2 operation(s) for cloud peering
+    provider exchange.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
@@ -434,8 +432,7 @@ apis:
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-dial-by-name-directory-api
   name: Zoom Phone Dial by Name Directory API
-  description: >-
-    The Dial by Name Directory API from Zoom Phone — 2 operation(s) for dial by name directory.
+  description: The Dial by Name Directory API from Zoom Phone — 2 operation(s) for dial by name directory.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
@@ -487,8 +484,8 @@ apis:
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-emergency-service-locations-api
   name: Zoom Phone Emergency Service Locations API
-  description: >-
-    The Emergency Service Locations API from Zoom Phone — 3 operation(s) for emergency service locations.
+  description: The Emergency Service Locations API from Zoom Phone — 3 operation(s) for emergency service
+    locations.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
@@ -566,8 +563,7 @@ apis:
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-firmware-update-rules-api
   name: Zoom Phone Firmware Update Rules API
-  description: >-
-    The Firmware Update Rules API from Zoom Phone — 3 operation(s) for firmware update rules.
+  description: The Firmware Update Rules API from Zoom Phone — 3 operation(s) for firmware update rules.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
@@ -776,7 +772,7 @@ apis:
   - type: APIReference
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-phone-devices-api
-  name: Zoom Phone Phone Devices API
+  name: Zoom Phone Devices API
   description: The Phone Devices API from Zoom Phone — 8 operation(s) for phone devices.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
@@ -802,7 +798,7 @@ apis:
   - type: APIReference
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-phone-numbers-api
-  name: Zoom Phone Phone Numbers API
+  name: Zoom Phone Numbers API
   description: The Phone Numbers API from Zoom Phone — 10 operation(s) for phone numbers.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
@@ -828,7 +824,7 @@ apis:
   - type: APIReference
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-phone-plan-api
-  name: Zoom Phone Phone Plan API
+  name: Zoom Phone Plan API
   description: The Phone Plan API from Zoom Phone — 1 operation(s) for phone plan.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
@@ -854,7 +850,7 @@ apis:
   - type: APIReference
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-phone-plans-api
-  name: Zoom Phone Phone Plans API
+  name: Zoom Phone Plans API
   description: The Phone Plans API from Zoom Phone — 2 operation(s) for phone plans.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
@@ -880,7 +876,7 @@ apis:
   - type: APIReference
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-phone-roles-api
-  name: Zoom Phone Phone Roles API
+  name: Zoom Phone Roles API
   description: The Phone Roles API from Zoom Phone — 4 operation(s) for phone roles.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
@@ -1143,8 +1139,7 @@ apis:
     url: https://developers.zoom.us/docs/api/number-management/
 - aid: zoom-phone:zoom-phone-shared-line-appearance-api
   name: Zoom Phone Shared Line Appearance API
-  description: >-
-    The Shared Line Appearance API from Zoom Phone — 1 operation(s) for shared line appearance.
+  description: The Shared Line Appearance API from Zoom Phone — 1 operation(s) for shared line appearance.
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
