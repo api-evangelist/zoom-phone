@@ -384,6 +384,8 @@ apis:
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
+  - Dashboards
+  tags_raw:
   - Dashboard
   properties:
   - type: OpenAPI
@@ -985,6 +987,8 @@ apis:
   humanURL: https://developers.zoom.us/docs/api/phone/
   baseURL: https://api.zoom.us/v2
   tags:
+  - Recording
+  tags_raw:
   - Recordings
   properties:
   - type: OpenAPI
