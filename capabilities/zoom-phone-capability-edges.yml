@@ -1,0 +1,44 @@
+slug: zoom-phone
+provider: Zoom Phone
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Emergency Addresses
+  spec_file: zoom-phone-emergency-addresses-api-openapi.yml
+  capability_id: BC-2700.40
+  capability_id_l1: BC-2700
+  capability_name: Emergency Services Management
+  confidence: 0.85
+  evidence: POST /phone/emergency_addresses  addEmergencyAddress  Add an emergency address
+  reason: CRUD over emergency (E911) addresses used for emergency-call location delivery, which is the
+    regulator-mandated emergency services capability for a voice provider.
+- tag: Emergency Service Locations
+  spec_file: zoom-phone-emergency-service-locations-api-openapi.yml
+  capability_id: BC-2700.40
+  capability_id_l1: BC-2700
+  capability_name: Emergency Services Management
+  confidence: 0.85
+  evidence: POST /phone/locations  addLocation  Add an emergency service location
+  reason: Operations create, update and delete emergency service locations used for emergency call routing/location
+    delivery — squarely telecom emergency services management.
+- tag: Phone Roles
+  spec_file: zoom-phone-phone-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: GET /phone/roles 'List phone roles'; POST /phone/roles/{roleId}/members 'Add members to roles';
+    'Add phone role targets'
+  reason: Role definitions, role membership and role targets define administrative privileges over the
+    phone system — role-based access administration, i.e. identity and access management, not a telecom-specific
+    capability.
