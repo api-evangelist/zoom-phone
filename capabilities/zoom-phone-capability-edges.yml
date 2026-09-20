@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 3
+edge_count: 4
 edges:
 - tag: Emergency Addresses
   spec_file: zoom-phone-emergency-addresses-api-openapi.yml
@@ -42,3 +42,14 @@ edges:
   reason: Role definitions, role membership and role targets define administrative privileges over the
     phone system — role-based access administration, i.e. identity and access management, not a telecom-specific
     capability.
+- tag: Phone Devices
+  spec_file: zoom-phone-phone-devices-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /phone/devices  addPhoneDevice  Add a device; POST /phone/devices/{deviceId}/reboot  rebootPhoneDevice  Reboot
+    a desk phone; PUT /phone/devices/{deviceId}/provision_templates  updateProvisionTemplateToDevice
+  reason: Inventory, provisioning, assignment and reboot of desk phones and smartphones — management of
+    communications endpoint infrastructure, an IT Infrastructure Management activity.
+  recovered_from: sweep-20260829T005356Z-edges.json
