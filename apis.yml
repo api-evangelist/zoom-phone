@@ -1404,6 +1404,8 @@ apis:
   - type: APIReference
     url: https://developers.zoom.us/docs/api/number-management/
 common:
+- type: Plans
+  url: plans/zoom-phone-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/zoom-phone-capability-edges.yml
   name: Zoom Phone Business Capability Map
