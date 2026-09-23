@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Recordings API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,22 @@ paths:
       tags:
       - Recordings
       summary: Get a recording by call element ID
-      description: "Returns an account's [call recording](https://support.zoom.us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the call element's `callElementId`.\n**Prerequisites** \n* A Pro or higher account with Zoom Phone license \n* Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`,`phone:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_recording`,`phone:read:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns an account''s call recording by the call element''s `callElementId`.
+
+        **Prerequisites**
+
+        * A Pro or higher account with Zoom Phone license
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`,`phone:read`
+
+
+        **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getPhoneRecordingByCallElementId
       parameters:
       - name: callElementId
@@ -249,7 +270,26 @@ paths:
       tags:
       - Recordings
       summary: Get recording by call ID
-      description: "Returns an account's [call recording](https://support.zoom.us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings) by the recording's `callId` or `callLogId`. \n\n**Note**: Returns the `file_url` in the JSON query results.\n\n**Prerequisites** \n* A Pro or higher account with Zoom Phone license \n* Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_recording`,`phone:read:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns an account''s call recording by the recording''s `callId` or `callLogId`.
+
+
+        **Note**: Returns the `file_url` in the JSON query results.
+
+
+        **Prerequisites**
+
+        * A Pro or higher account with Zoom Phone license
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getPhoneRecordingsByCallIdOrCallLogId
       parameters:
       - name: id
@@ -485,7 +525,24 @@ paths:
       tags:
       - Recordings
       summary: Download a phone recording
-      description: "Downloads the phone recording. \n\n**Prerequisites:**\n\n* A Business or Enterprise account\n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_recording`,`phone:read:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Downloads the phone recording.
+
+
+        **Prerequisites:**
+
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_recording`,`phone:read:call_recording:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: phoneDownloadRecordingFile
       parameters:
       - name: fileId
@@ -526,7 +583,24 @@ paths:
       tags:
       - Recordings
       summary: Download a phone recording transcript
-      description: "Downloads the phone recording transcript. \n\n**Prerequisites**\n\n* A Business or Enterprise account\n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:recording_transcript`,`phone:read:recording_transcript:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Downloads the phone recording transcript.
+
+
+        **Prerequisites**
+
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+
+
+        **Granular Scopes:** `phone:read:recording_transcript`,`phone:read:recording_transcript:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: phoneDownloadRecordingTranscript
       parameters:
       - name: recordingId
@@ -567,7 +641,25 @@ paths:
       tags:
       - Recordings
       summary: Get call recordings
-      description: "Returns an account's [call recordings](https://support.zoom.us/hc/en-us/articles/360038521091-Accessing-and-sharing-call-recordings). \n\n**Prerequisites:** \n* A Pro or higher account plan \n * A Zoom Phone license \n * Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_recordings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns an account''s call recordings.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account plan
+
+        * A Zoom Phone license
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:read:admin`,`phone_recording:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_recordings:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: getPhoneRecordings
       parameters:
       - name: page_size
@@ -867,7 +959,23 @@ paths:
       tags:
       - Recordings
       summary: Delete a call recording
-      description: "Deletes a call recording.\n\n**Prerequisites:** \n* User must belong to a Business or Enterprise account \n* User must have a Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_recording`,`phone:delete:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Deletes a call recording.
+
+
+        **Prerequisites:**
+
+        * User must belong to a Business or Enterprise account
+
+        * User must have a Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_recording`,`phone:delete:call_recording:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: deleteCallRecording
       parameters:
       - name: recordingId
@@ -909,7 +1017,23 @@ paths:
       tags:
       - Recordings
       summary: Update auto delete field
-      description: "Updates the auto delete field for recording. It only updates if you enable the **Auto Delete Data After Retention Duration** setting in the account settings for recordings. \n\n**Prerequisites:** \n* User must belong to a Business or Enterprise account \n* User must have a Zoom Phone license.\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_recording`,`phone:update:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the auto delete field for recording. It only updates if you enable the **Auto Delete Data After Retention Duration** setting in the account settings for recordings.
+
+
+        **Prerequisites:**
+
+        * User must belong to a Business or Enterprise account
+
+        * User must have a Zoom Phone license.
+
+
+        **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+
+
+        **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateAutoDeleteField
       parameters:
       - name: recordingId
@@ -962,7 +1086,23 @@ paths:
       tags:
       - Recordings
       summary: Update Recording Status
-      description: "Updates the status of a single recording in account. \n\n**Prerequisites:** \n* User must belong to a Business or Enterprise account. \n* User must have a Zoom Phone license.\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_recording`,`phone:update:call_recording:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the status of a single recording in account.
+
+
+        **Prerequisites:**
+
+        * User must belong to a Business or Enterprise account.
+
+        * User must have a Zoom Phone license.
+
+
+        **Scopes:** `phone:write:admin`,`phone:write`,`phone_recording:write`,`phone_recording:write:admin`
+
+
+        **Granular Scopes:** `phone:update:call_recording`,`phone:update:call_recording:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateRecordingStatus
       parameters:
       - name: recordingId
@@ -1017,7 +1157,23 @@ paths:
       tags:
       - Recordings
       summary: Get user's recordings
-      description: "Gets a user's [Zoom Phone recordings](https://support.zoom.us/hc/en-us/articles/360021336671-Viewing-Call-History-and-Recordings). For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_recordings`,`phone:read:list_recordings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Gets a user''s Zoom Phone recordings. For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_recording:read`,`phone_recording:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_recordings`,`phone:read:list_recordings:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: phoneUserRecordings
       parameters:
       - name: userId

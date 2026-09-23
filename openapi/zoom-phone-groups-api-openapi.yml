@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Groups API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -25,13 +31,13 @@ paths:
         Pro or higher account plan with Zoom phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:group_policy:admin`
+        **Granular Scopes:** `phone:read:group_policy:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: GetGroupPolicyDetails
       parameters:
       - name: groupId
@@ -122,7 +128,23 @@ paths:
       tags:
       - Groups
       summary: Update group policy
-      description: "Updates the group policy.\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:group_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Updates the group policy.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:group_policy:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: updateGroupPolicy
       parameters:
       - name: groupId
@@ -204,7 +226,21 @@ paths:
       tags:
       - Groups
       summary: Get group phone settings
-      description: "Returns group phone settings.\n\n**Prerequisites**\n Account must have a Pro or a higher plan with Zoom Phone license.\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:group_setting:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns group phone settings.
+
+
+        **Prerequisites**
+
+        Account must have a Pro or a higher plan with Zoom Phone license.
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:group_setting:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getGroupPhoneSettings
       parameters:
       - name: groupId

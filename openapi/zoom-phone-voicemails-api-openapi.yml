@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Voicemails API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,22 @@ paths:
       tags:
       - Voicemails
       summary: Get a voicemail by call element ID
-      description: "Returns the detailed information on a voicemail by the call element's `callElementId`.\n**Prerequisites** \n* A Pro or higher account with Zoom Phone license \n* Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail`,`phone:read:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the detailed information on a voicemail by the call element''s `callElementId`.
+
+        **Prerequisites**
+
+        * A Pro or higher account with Zoom Phone license
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+
+
+        **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getVoicemailDetailsByCallElementId
       parameters:
       - name: callElementId
@@ -225,7 +246,26 @@ paths:
       tags:
       - Voicemails
       summary: Get user voicemail details from a call log
-      description: "Returns the detailed information on a voicemail associated with a call log ID. \n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* User must belong to a Business or Enterprise account \n* User must have a Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail`,`phone:read:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the detailed information on a voicemail associated with a call log ID.
+
+
+        For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites**
+
+        * User must belong to a Business or Enterprise account
+
+        * User must have a Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+
+
+        **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getVoicemailDetailsByCallIdOrCallLogId
       parameters:
       - name: userId
@@ -437,7 +477,23 @@ paths:
       tags:
       - Voicemails
       summary: Get user's voicemails
-      description: "Returns a user's Zoom Phone voicemails. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns a user''s Zoom Phone voicemails. For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_voicemails`,`phone:read:list_voicemails:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: phoneUserVoiceMails
       parameters:
       - name: userId
@@ -649,7 +705,23 @@ paths:
       tags:
       - Voicemails
       summary: Get account voicemails
-      description: "Gets a user's Zoom Phone voicemails. \n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_voicemails:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Gets a user''s Zoom Phone voicemails.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone_voicemail:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_voicemails:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: accountVoiceMails
       parameters:
       - name: page_size
@@ -926,7 +998,24 @@ paths:
       tags:
       - Voicemails
       summary: Download a phone voicemail
-      description: "Downloads the Zoom phone voicemail. \n\n**Prerequisites:**\n\n* A Business or Enterprise account\n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail:admin`,`phone:read:voicemail`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Downloads the Zoom phone voicemail.
+
+
+        **Prerequisites:**
+
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read`,`phone_voicemail:read:admin`
+
+
+        **Granular Scopes:** `phone:read:voicemail:admin`,`phone:read:voicemail`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: phoneDownloadVoicemailFile
       parameters:
       - name: fileId
@@ -967,7 +1056,21 @@ paths:
       tags:
       - Voicemails
       summary: Get voicemail details
-      description: "Returns the information about a [voicemail message](https://support.zoom.us/hc/en-us/articles/360021400211-Managing-voicemail-messages). \n\n**Prerequisites** \n* Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:voicemail`,`phone:read:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the information about a voicemail message.
+
+
+        **Prerequisites**
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_voicemail:read:admin`,`phone_voicemail:read`
+
+
+        **Granular Scopes:** `phone:read:voicemail`,`phone:read:voicemail:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getVoicemailDetails
       parameters:
       - name: voicemailId
@@ -1201,7 +1304,21 @@ paths:
       tags:
       - Voicemails
       summary: Delete a voicemail
-      description: "Deletes an account's [voicemail message](https://support.zoom.us/hc/en-us/articles/360021400211-Managing-voicemail-messages).\n\n**Prerequisites:** \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:voicemail`,`phone:delete:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Deletes an account''s voicemail message.
+
+
+        **Prerequisites:**
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:voicemail`,`phone:delete:voicemail:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteVoicemail
       parameters:
       - name: voicemailId
@@ -1246,7 +1363,23 @@ paths:
       tags:
       - Voicemails
       summary: Update Voicemail Read Status
-      description: "Updates the status of [voicemail message](https://support.zoom.us/hc/en-us/articles/360021400211-Managing-voicemail-messages).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:voicemail`,`phone:update:voicemail:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the status of voicemail message.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`,`phone:write`,`phone_voicemail:write`,`phone_voicemail:write:admin`
+
+
+        **Granular Scopes:** `phone:update:voicemail`,`phone:update:voicemail:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateVoicemailReadStatus
       parameters:
       - name: voicemailId

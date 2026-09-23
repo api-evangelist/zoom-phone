@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Blocked List API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,21 @@ paths:
       tags:
       - Blocked List
       summary: List blocked lists
-      description: "Returns all the blocked lists in an acccount. A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available. \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_blocked_lists:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns all the blocked lists in an acccount. A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won''t be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_blocked_lists:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listBlockedList
       parameters:
       - name: next_page_token
@@ -129,7 +149,30 @@ paths:
       tags:
       - Blocked List
       summary: Create a blocked list
-      description: "Creates a block list and add a number to the list. \n\nA Zoom account owner or a user with the admin privilege can block phone numbers for phone users in an account. \n\nBlocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). \n\nBlocked callers will hear a generic message stating that the person they are calling is not available. \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Creates a block list and add a number to the list.
+
+
+        A Zoom account owner or a user with the admin privilege can block phone numbers for phone users in an account.
+
+
+        Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won''t be able to dial those numbers).
+
+
+        Blocked callers will hear a generic message stating that the person they are calling is not available.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:blocked_list:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addAnumberToBlockedList
       requestBody:
         content:
@@ -229,7 +272,24 @@ paths:
       tags:
       - Blocked List
       summary: Get blocked list details
-      description: "Returns the information about a specific blocked list. \n\nA Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the information about a specific blocked list.
+
+
+        A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won''t be able to dial those numbers). Blocked callers will hear a generic message stating that the person they are calling is not available.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:blocked_list:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getABlockedList
       parameters:
       - name: blockedListId
@@ -323,7 +383,24 @@ paths:
       tags:
       - Blocked List
       summary: Delete a blocked list
-      description: "Deletes a blocked list, which removes the associated number from the blocked list. \n\nThe number will be unblocked after the deletion. A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won't be able to dial those numbers).\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:blocked_list:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Deletes a blocked list, which removes the associated number from the blocked list.
+
+
+        The number will be unblocked after the deletion. A Zoom account owner or a user with admin privilege can block phone numbers for phone users in an account. Blocked numbers can be inbound (numbers will be blocked from calling in) and outbound (phone users in your account won''t be able to dial those numbers).
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:blocked_list:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteABlockedList
       parameters:
       - name: blockedListId
@@ -369,15 +446,13 @@ paths:
         * Pro or higher account plan with Zoom phone license
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:blocked_list:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:blocked_list:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateBlockedList
       parameters:
       - name: blockedListId

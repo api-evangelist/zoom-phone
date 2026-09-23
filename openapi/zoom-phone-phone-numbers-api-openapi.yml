@@ -17,7 +17,23 @@ paths:
       tags:
       - Phone Numbers
       summary: Add BYOC phone numbers
-      description: "Adds BYOC (Bring Your Own Carrier) phone numbers to Zoom Phone.\n\n**Prerequisites** \n* A Business or Enterprise plan \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:byo_carrier_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds BYOC (Bring Your Own Carrier) phone numbers to Zoom Phone.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:byo_carrier_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addBYOCNumber
       requestBody:
         content:
@@ -96,7 +112,23 @@ paths:
       tags:
       - Phone Numbers
       summary: List phone numbers
-      description: "Returns a list all Zoom Phone numbers in a Zoom account.\n\n**Prerequisites:** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns a list all Zoom Phone numbers in a Zoom account.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_numbers:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listAccountPhoneNumbers
       parameters:
       - name: next_page_token
@@ -364,7 +396,25 @@ paths:
       tags:
       - Phone Numbers
       summary: Delete unassigned phone numbers
-      description: "Deletes unassigned [phone numbers](https://support.zoom.us/hc/en-us/articles/360020808292-Managing-Phone-Numbers#h_38ba8b01-26e3-4b1b-a9b5-0717c00a7ca6). Up to 20 phone numbers can be removed in a single request.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license \n* The user must have been previously assigned a Zoom Phone number\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Deletes unassigned phone numbers. Up to 20 phone numbers can be removed in a single request.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+        * The user must have been previously assigned a Zoom Phone number
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:number:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: deleteUnassignedPhoneNumbers
       parameters:
       - name: phone_numbers
@@ -406,7 +456,23 @@ paths:
       tags:
       - Phone Numbers
       summary: Update a site's unassigned phone numbers
-      description: "Updates a site's unassigned [phone numbers](https://support.zoom.us/hc/en-us/articles/360020808292-Managing-Phone-Numbers#h_38ba8b01-26e3-4b1b-a9b5-0717c00a7ca6). Up to 20 phone numbers can be updated in a single request. \n\n**Prerequisites:** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:site_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Updates a site''s unassigned phone numbers. Up to 20 phone numbers can be updated in a single request.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:site_number:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: updateSiteForUnassignedPhoneNumbers
       parameters:
       - name: siteId
@@ -457,7 +523,23 @@ paths:
       tags:
       - Phone Numbers
       summary: Get a phone number
-      description: "Returns information about an account's Zoom Phone number.\n\n**Prerequisites:** \n* A Pro or higher account plan \n* A Zoom phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns information about an account''s Zoom Phone number.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account plan
+
+        * A Zoom phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:numbers:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getPhoneNumberDetails
       parameters:
       - name: phoneNumberId
@@ -685,7 +767,21 @@ paths:
       tags:
       - Phone Numbers
       summary: Update a phone number
-      description: "Updates a Zoom Phone number's information.\n\n**Prerequisites:** \n* A Paid account\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates a Zoom Phone number''s information.
+
+
+        **Prerequisites:**
+
+        * A Paid account
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updatePhoneNumberDetails
       parameters:
       - name: phoneNumberId
@@ -748,16 +844,16 @@ paths:
       tags:
       - Phone Numbers
       summary: Assign a phone number to a user
-      description: 'Assigns a [phone number](https://support.zoom.us/hc/en-us/articles/360020808292-Managing-Phone-Numbers) to a user who has already enabled Zoom Phone.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
+      description: 'Assigns a phone number to a user who has already enabled Zoom Phone.**Prerequisites:** * A Business or Enterprise account * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`
+        **Scopes:** `phone:write`,`phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:user_number`,`phone:write:user_number:admin`
+        **Granular Scopes:** `phone:write:user_number`,`phone:write:user_number:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: assignPhoneNumber
       parameters:
       - name: userId
@@ -838,7 +934,28 @@ paths:
       tags:
       - Phone Numbers
       summary: Unassign a phone number
-      description: "Unassigns Zoom Phone user's [phone number](https://support.zoom.us/hc/en-us/articles/360020808292-Managing-Phone-Numbers#h_38ba8b01-26e3-4b1b-a9b5-0717c00a7ca6).\n\nAfter assigning a phone number, you can remove it if you do not want it to be assigned to anyone.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license \n* The user must have been previously assigned a Zoom Phone number\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:user_number`,`phone:delete:user_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns Zoom Phone user''s phone number.
+
+
+        After assigning a phone number, you can remove it if you do not want it to be assigned to anyone.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+        * The user must have been previously assigned a Zoom Phone number
+
+
+        **Scopes:** `phone:write`,`phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:user_number`,`phone:delete:user_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: UnassignPhoneNumber
       parameters:
       - name: userId
@@ -891,16 +1008,16 @@ paths:
       description: 'Allocates or unallocates phone numbers for those with CPL routing.
 
 
-        <p>Note: When allocating phone numbers, if there are any native numbers, they must belong to the same country or region, and have the same number plan.</p>
+        Note: When allocating phone numbers, if there are any native numbers, they must belong to the same country or region, and have the same number plan.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:numbers:admin`
+        **Granular Scopes:** `number_management:write:numbers:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`'
+        **Rate Limit Label:** `HEAVY`'
       operationId: AllocateNumber
       requestBody:
         content:
@@ -960,7 +1077,23 @@ paths:
       tags:
       - Phone Numbers
       summary: Add BYOC phone numbers
-      description: "Adds BYOC (Bring Your Own Carrier) phone numbers to Zoom Phone.\n\n**Prerequisites:** \n* A Business or Enterprise plan \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:byoc_numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Adds BYOC (Bring Your Own Carrier) phone numbers to Zoom Phone.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `number_management_numbers:write:admin`
+
+
+        **Granular Scopes:** `number_management:write:byoc_numbers:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: AddBYOCPhoneNumber
       requestBody:
         content:
@@ -1038,16 +1171,16 @@ paths:
       tags:
       - Phone Numbers
       summary: List phone numbers
-      description: 'Returns a list of phone numbers in an account. See section <b>Information in the phone number table</b> of [Using Number Management for managing phone numbers](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0074457#h_60222313850311712763891581) for more details.
+      description: 'Returns a list of phone numbers in an account. See section Information in the phone number table of Using Number Management for managing phone numbers for more details.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_numbers:admin`
+        **Granular Scopes:** `number_management:read:list_numbers:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: listPhoneNumbers
       parameters:
       - name: page_size
@@ -1409,13 +1542,13 @@ paths:
       description: 'Deletes phone numbers.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:master`
+        **Scopes:** `number_management_numbers:write:master`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:delete:numbers:admin`
+        **Granular Scopes:** `number_management:delete:numbers:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: DeleteNumbers
       parameters:
       - name: numbers
@@ -1459,7 +1592,19 @@ paths:
       tags:
       - Phone Numbers
       summary: Get a phone number
-      description: "Returns information about an account's phone number. \n\nFor more details, see the section <b>Information in the phone number table</b> in [Using Number Management for managing phone numbers](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0074457#h_60222313850311712763891581).\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns information about an account''s phone number.
+
+
+        For more details, see the section Information in the phone number table in Using Number Management for managing phone numbers.
+
+
+        **Scopes:** `number_management_numbers:read:admin`
+
+
+        **Granular Scopes:** `number_management:read:numbers:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getPhoneNumber
       parameters:
       - name: phoneNumberId
@@ -1741,13 +1886,13 @@ paths:
       description: 'Updates a phone number''s information.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:numbers:admin`
+        **Granular Scopes:** `number_management:update:numbers:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updatePhoneNumberDetail
       parameters:
       - name: phoneNumberId

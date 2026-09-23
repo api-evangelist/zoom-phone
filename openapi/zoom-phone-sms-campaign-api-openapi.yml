@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone SMS Campaign API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - SMS Campaign
       summary: List SMS campaigns
-      description: "Returns a list of all SMS campaigns in a Zoom account.\n\n**Prerequisites** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_sms_campaigns:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns a list of all SMS campaigns in a Zoom account.
+
+
+        **Prerequisites**
+
+        * A Pro or higher account plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_sms_campaigns:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listAccountSMSCampaigns
       parameters:
       - name: page_size
@@ -116,7 +138,23 @@ paths:
       tags:
       - SMS Campaign
       summary: Get an SMS campaign
-      description: "Returns a specific SMS campaign.\n\n**Prerequisites:** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_campaign:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns a specific SMS campaign.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:sms_campaign:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetSMSCampaign
       parameters:
       - name: smsCampaignId
@@ -253,7 +291,23 @@ paths:
       tags:
       - SMS Campaign
       summary: Assign a phone number to SMS campaign
-      description: "[Assigns a phone number to the SMS campaign](https://support.zoom.us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVQM1WMW5JD48YNY3J581B).\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:sms_campaign_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Assigns a phone number to the SMS campaign.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:sms_campaign_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: assignCampaignPhoneNumbers
       parameters:
       - name: smsCampaignId
@@ -352,13 +406,13 @@ paths:
       description: 'Returns the opt statuses of phone numbers that are assigned to SMS the campaign.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_campaign_number_opt_status:admin`
+        **Granular Scopes:** `phone:read:sms_campaign_number_opt_status:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getNumberCampaignOptStatus
       parameters:
       - name: smsCampaignId
@@ -450,13 +504,13 @@ paths:
       description: 'Updates opt statuses of phone numbers that are assigned to the SMS campaign.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:sms_campaign_number_opt_status:admin`
+        **Granular Scopes:** `phone:update:sms_campaign_number_opt_status:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateNumberCampaignOptStatus
       parameters:
       - name: smsCampaignId
@@ -522,7 +576,27 @@ paths:
       tags:
       - SMS Campaign
       summary: Unassign a phone number
-      description: "[Unassigns a phone number from the SMS campaign](https://support.zoom.us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVSPVM8MZN4Y9EW5690QHH).\nRemove the assigned phone number from the campaign.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license \n* The campaign must have been previously assigned a Zoom Phone number\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:sms_campaign_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns a phone number from the SMS campaign.
+
+        Remove the assigned phone number from the campaign.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+        * The campaign must have been previously assigned a Zoom Phone number
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:sms_campaign_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: unassignCampaignPhoneNumber
       parameters:
       - name: smsCampaignId
@@ -564,16 +638,16 @@ paths:
       tags:
       - SMS Campaign
       summary: List user's opt statuses of phone numbers
-      description: 'Returns the opt statuses of a user’s phone numbers. For user-level apps, pass the <a href="https://developers.zoom.us/docs/api/using-zoom-apis/#the-me-keyword" target="_blank">me</a> value instead of the userId parameter.
+      description: 'Returns the opt statuses of a user’s phone numbers. For user-level apps, pass the me value instead of the userId parameter.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`
+        **Scopes:** `phone:read`,`phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_campaign_number_opt_status`,`phone:read:sms_campaign_number_opt_status:admin`
+        **Granular Scopes:** `phone:read:sms_campaign_number_opt_status`,`phone:read:sms_campaign_number_opt_status:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getUserNumberCampaignOptStatus
       parameters:
       - name: userId

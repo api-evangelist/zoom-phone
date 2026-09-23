@@ -20,15 +20,13 @@ paths:
       description: 'Returns a list of all SMS campaigns in a Zoom account.
 
 
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Granular Scopes:** `number_management:read:list_sms_campaigns:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_sms_campaigns:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: listAccountSMSCampaigns
       parameters:
       - name: page_size
@@ -126,7 +124,23 @@ paths:
       tags:
       - SMS Campaigns
       summary: Get an SMS campaign
-      description: "Returns a specific SMS campaign.\n\n**Prerequisites** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_campaign:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns a specific SMS campaign.
+
+
+        **Prerequisites**
+
+        * A Pro or higher account plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `number_management_numbers:read:admin`
+
+
+        **Granular Scopes:** `number_management:read:sms_campaign:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetSMSCampaign
       parameters:
       - name: smsCampaignId
@@ -231,7 +245,23 @@ paths:
       tags:
       - SMS Campaigns
       summary: Assign a phone number to SMS campaign
-      description: "[Assigns a phone number to the SMS campaign](https://support.zoom.us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVQM1WMW5JD48YNY3J581B).\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Assigns a phone number to the SMS campaign.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `number_management_numbers:write:admin`
+
+
+        **Granular Scopes:** `number_management:update:numbers:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: assignCampaignPhoneNumbers
       parameters:
       - name: smsCampaignId
@@ -306,7 +336,25 @@ paths:
       tags:
       - SMS Campaigns
       summary: Unassign phone number from SMS campaign
-      description: "[Unassigns a phone number from an SMS campaign](https://support.zoom.us/hc/en-us/articles/5016496738445-SMS-MMS-10DLC-Compliance-for-Zoom-Phone-and-Zoom-Contact-Center#h_01FYVVSPVM8MZN4Y9EW5690QHH).\n\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license \n* The campaign must have been previously assigned a Zoom Phone number\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns a phone number from an SMS campaign.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+        * The campaign must have been previously assigned a Zoom Phone number
+
+
+        **Scopes:** `number_management_numbers:write:admin`
+
+
+        **Granular Scopes:** `number_management:update:numbers:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: unassignCampaignPhoneNumber
       parameters:
       - name: smsCampaignId

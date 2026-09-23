@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Shared Line Group API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,24 @@ paths:
       tags:
       - Shared Line Group
       summary: List shared line groups
-      description: "Lists all the shared line groups. A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This capability gives members of the shared line group access to the group's direct phone number and voicemail. \n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges    \n \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_shared_line_groups:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Lists all the shared line groups. A shared line group allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This capability gives members of the shared line group access to the group''s direct phone number and voicemail.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_shared_line_groups:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: listSharedLineGroups
       parameters:
       - name: page_size
@@ -135,7 +158,16 @@ paths:
       tags:
       - Shared Line Group
       summary: Create a shared line group
-      description: "Creates a shared line group. A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail. **Prerequisites:**    * Pro or higher account with Zoom Phone license.* Account owner or admin privileges \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:shared_line_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Creates a shared line group. A shared line group allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group''s direct phone number and voicemail. **Prerequisites:** * Pro or higher account with Zoom Phone license.* Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:shared_line_group:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: createASharedLineGroup
       requestBody:
         content:
@@ -203,7 +235,27 @@ paths:
       tags:
       - Shared Line Group
       summary: Get a shared line group
-      description: " Returns a list of all the shared line groups. \n \n A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail. \n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:shared_line_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns a list of all the shared line groups.
+
+
+        A shared line group allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group''s direct phone number and voicemail.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:shared_line_group:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getASharedLineGroup
       parameters:
       - name: sharedLineGroupId
@@ -465,13 +517,13 @@ paths:
         * Account owner or admin permissions.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:shared_line_group_call_handling_setting:admin`
+        **Granular Scopes:** `phone:read:shared_line_group_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getSharedLineGroupCallHandlingSetting
       parameters:
       - name: sharedLineGroupId
@@ -788,13 +840,13 @@ paths:
         * Account owner or admin permissions.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:shared_line_group_call_handling_setting:admin`
+        **Granular Scopes:** `phone:update:shared_line_group_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateSharedLineGroupCallHandlingSetting
       parameters:
       - name: sharedLineGroupId
@@ -1027,7 +1079,7 @@ paths:
       tags:
       - Shared Line Group
       summary: Get a shared line group policy
-      description: 'Returns the policy setting of a specific [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792).
+      description: 'Returns the policy setting of a specific shared line group.
 
 
         **Prerequisites:**
@@ -1037,15 +1089,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:shared_line_group_policy:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:shared_line_group_policy:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getSharedLineGroupPolicy
       parameters:
       - name: sharedLineGroupId
@@ -1111,7 +1161,23 @@ paths:
       tags:
       - Shared Line Group
       summary: Update a shared line group policy
-      description: "Updates the policy setting of a specific [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:shared_line_group_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the policy setting of a specific shared line group.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom Phone License
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:shared_line_group_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateSharedLineGroupPolicy
       parameters:
       - name: sharedLineGroupId
@@ -1171,15 +1237,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:shared_line_group_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:shared_line_group_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getSharedLineGroupSettings
       parameters:
       - name: sharedLineGroupId
@@ -1395,15 +1459,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:shared_line_group_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:shared_line_group_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: addSharedLineGroupSetting
       parameters:
       - name: sharedLineGroupId
@@ -1640,15 +1702,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:shared_line_group_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:shared_line_group_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteSharedLineGroupSetting
       parameters:
       - name: sharedLineGroupId
@@ -1714,15 +1774,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:shared_line_group_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:shared_line_group_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateSharedLineGroupSetting
       parameters:
       - name: sharedLineGroupId
@@ -1944,7 +2002,23 @@ paths:
       tags:
       - Shared Line Group
       summary: Delete a shared line group
-      description: "Deletes a shared line group. A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. \n\n**Prerequisites:**   \n * Pro or higher account with Zoom Phone license.\n * Account owner or admin privileges \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:shared_line_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Deletes a shared line group. A shared line group allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:shared_line_group:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteASharedLineGroup
       parameters:
       - name: slgId
@@ -1976,7 +2050,27 @@ paths:
       tags:
       - Shared Line Group
       summary: Update a shared line group
-      description: " Updates the information about a shared line group.  \n \n A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. Members of the shared line group can access to the group's direct phone number and voicemail. \n\n**Prerequisites**   \n \n* Pro or higher account with Zoom Phone license\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:shared_line_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the information about a shared line group.
+
+
+        A shared line group allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. Members of the shared line group can access to the group''s direct phone number and voicemail.
+
+
+        **Prerequisites**
+
+
+        * Pro or higher account with Zoom Phone license
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:shared_line_group:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateASharedLineGroup
       parameters:
       - name: slgId
@@ -2108,7 +2202,26 @@ paths:
       tags:
       - Shared Line Group
       summary: Add members to a shared line group
-      description: "[Adds members](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups#h_7cb42370-48f6-4a8f-84f4-c6eee4d9f0ca) to a shared line group. A [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group's direct phone number and voicemail.  Note that a member can only be added to one shared line group. \n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:shared_line_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds members to a shared line group. A shared line group allows Zoom Phone admins to share a phone number and extension with a group of phone users or common areas. This gives members of the shared line group access to the group''s direct phone number and voicemail. Note that a member can only be added to one shared line group.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * A valid Shared Line Group
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:shared_line_member:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addMembersToSharedLineGroup
       parameters:
       - name: slgId
@@ -2172,7 +2285,26 @@ paths:
       tags:
       - Shared Line Group
       summary: Unassign members from a shared line group
-      description: "Unassigns **all** existing members from a shared line group. Members of the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) have access to the group's phone number and voicemail. \n\n**Prerequisites:** \n\n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:shared_line_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns **all** existing members from a shared line group. Members of the shared line group have access to the group''s phone number and voicemail.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * A valid Shared Line Group
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:shared_line_member:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteMembersOfSLG
       parameters:
       - name: slgId
@@ -2209,7 +2341,26 @@ paths:
       tags:
       - Shared Line Group
       summary: Unassign a member from a shared line group
-      description: "Unassigns **a specific member** from a shared line group. Members of the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) have access to the group's phone number and voicemail. \n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:shared_line_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns **a specific member** from a shared line group. Members of the shared line group have access to the group''s phone number and voicemail.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * A valid Shared Line Group
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:shared_line_member:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteAMemberSLG
       parameters:
       - name: slgId
@@ -2249,7 +2400,25 @@ paths:
       tags:
       - Shared Line Group
       summary: Assign phone numbers
-      description: "Assigns phone numbers to a shared line groups. These direct phone numbers will be shared among members of the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).\n\n**Prerequisites:**   \n * Pro or higher account with Zoom Phone license.\n * A valid Shared Line Group\n * Account owner or admin privileges\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:shared_line_group_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Assigns phone numbers to a shared line groups. These direct phone numbers will be shared among members of the shared line group.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account with Zoom Phone license.
+
+        * A valid Shared Line Group
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:shared_line_group_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: assignPhoneNumbersSLG
       parameters:
       - name: slgId
@@ -2306,7 +2475,26 @@ paths:
       tags:
       - Shared Line Group
       summary: Unassign all phone numbers
-      description: "Unassigns all the phone numbers that have been assigned to the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).\n\n**Prerequisites:** \n\n* Pro or higher account with Zoom Phone license.\n* A valid Shared Line Group\n* Account owner or admin privileges\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:shared_line_group_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns all the phone numbers that have been assigned to the shared line group.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * A valid Shared Line Group
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:shared_line_group_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deletePhoneNumbersSLG
       parameters:
       - name: slgId
@@ -2344,7 +2532,26 @@ paths:
       tags:
       - Shared Line Group
       summary: Unassign a phone number
-      description: "Unassigns a specific phone number that was assigned to the [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792-Setting-up-shared-line-groups).\n\n**Prerequisites:**   \n \n* Pro or higher account with Zoom Phone license.\n* A valid shared line group\n* Account owner or admin privileges\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:shared_line_group_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns a specific phone number that was assigned to the shared line group.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * A valid shared line group
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:shared_line_group_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteAPhoneNumberSLG
       parameters:
       - name: slgId
@@ -2384,7 +2591,16 @@ paths:
       tags:
       - Shared Line Group
       summary: Add a policy setting to a shared line group
-      description: "Adds the policy sub-setting for a specific [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) according to the `policyType`. For example, you can use this API to set up shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone license.* Account owner or admin privileges \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:shared_line_group_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Adds the policy sub-setting for a specific shared line group according to the `policyType`. For example, you can use this API to set up shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone license.* Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:shared_line_group_policy:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: addSLGPolicySubSetting
       parameters:
       - name: slgId
@@ -2515,7 +2731,16 @@ paths:
       tags:
       - Shared Line Group
       summary: Delete an SLG policy setting
-      description: "Removes the policy sub-setting for a specific [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) according to the `policyType`. For example, you can use this API to remove shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone license.* Account owner or admin privileges \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:shared_line_group_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Removes the policy sub-setting for a specific shared line group according to the `policyType`. For example, you can use this API to remove shared access members. **Prerequisites:** * Pro or higher account with Zoom Phone license.* Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:shared_line_group_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: removeSLGPolicySubSetting
       parameters:
       - name: slgId
@@ -2565,7 +2790,23 @@ paths:
       tags:
       - Shared Line Group
       summary: Update an SLG policy setting
-      description: "Updates the policy sub-setting for a specific [shared line group](https://support.zoom.us/hc/en-us/articles/360038850792) according to the `policyType`. For example, you can use this API to update shared access members. \n\n**Prerequisites:** \n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:shared_line_group_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the policy sub-setting for a specific shared line group according to the `policyType`. For example, you can use this API to update shared access members.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:shared_line_group_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateSLGPolicySubSetting
       parameters:
       - name: slgId

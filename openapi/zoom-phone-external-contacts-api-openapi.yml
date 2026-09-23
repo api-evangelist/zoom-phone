@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone External Contacts API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - External Contacts
       summary: List external contacts
-      description: "Lists the external contacts.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_external_contacts:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Lists the external contacts.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_external_contacts:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: listExternalContacts
       parameters:
       - name: next_page_token
@@ -117,7 +139,23 @@ paths:
       tags:
       - External Contacts
       summary: Add an external contact
-      description: "Adds an external contact.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:external_contact:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds an external contact.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:external_contact:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addExternalContact
       requestBody:
         content:
@@ -224,7 +262,23 @@ paths:
       tags:
       - External Contacts
       summary: Get external contact details
-      description: "Returns an external contact's information.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions  \n \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:external_contact:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns an external contact''s information.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:external_contact:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getAExternalContact
       parameters:
       - name: externalContactId
@@ -303,7 +357,23 @@ paths:
       tags:
       - External Contacts
       summary: Delete an external contact
-      description: "Removes an external contact.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:external_contact:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Removes an external contact.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:external_contact:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: deleteAExternalContact
       parameters:
       - name: externalContactId
@@ -334,7 +404,23 @@ paths:
       tags:
       - External Contacts
       summary: Update external contact
-      description: "Updates an external contact's information.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:external_contact:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates an external contact''s information.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:external_contact:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateExternalContact
       parameters:
       - name: externalContactId

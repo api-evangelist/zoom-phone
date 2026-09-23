@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Dashboard API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,29 @@ paths:
       tags:
       - Dashboard
       summary: List call logs
-      description: "Returns monthly call logs metrics.\n\nThe call logs that provide a record of all incoming and outgoing calls over Zoom Phone in an account. \n\nYou can use query parameters to filter the response by date, site and MOS(Mean Opinion Score) of the call. \n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Returns monthly call logs metrics.
+
+
+        The call logs that provide a record of all incoming and outgoing calls over Zoom Phone in an account.
+
+
+        You can use query parameters to filter the response by date, site and MOS(Mean Opinion Score) of the call.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: listCallLogsMetrics
       parameters:
       - name: from
@@ -226,7 +254,23 @@ paths:
       tags:
       - Dashboard
       summary: Get call QoS
-      description: "Gets the call quality of service (QoS) data for a call made or received by a Zoom phone user in the account. \n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license   \n   \n \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_qos:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Gets the call quality of service (QoS) data for a call made or received by a Zoom phone user in the account.
+
+
+        **Prerequisites:**
+
+        * Business, or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_qos:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: getCallQoS
       parameters:
       - name: callId
@@ -450,7 +494,23 @@ paths:
       tags:
       - Dashboard
       summary: Get call details from call log
-      description: "Returns call log details of a specific call. \n\nThe call logs provide a record of all incoming and outgoing calls over Zoom Phone in an account.\n\n **Prerequisites:**\n * Business, or Education account\n * Zoom Phone license \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_log:admin`"
+      description: 'Returns call log details of a specific call.
+
+
+        The call logs provide a record of all incoming and outgoing calls over Zoom Phone in an account.
+
+
+        **Prerequisites:**
+
+        * Business, or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_log:admin`'
       operationId: getCallLogMetricsDetails
       parameters:
       - name: call_id
@@ -628,7 +688,23 @@ paths:
       tags:
       - Dashboard
       summary: List default emergency address users
-      description: "Returns the users who provide a default personal emergency address rather than a default site address or default account address.   \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:default_emergency_address:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns the users who provide a default personal emergency address rather than a default site address or default account address.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:default_emergency_address:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listUserDefaultEmergencyAddress
       parameters:
       - name: status
@@ -748,7 +824,23 @@ paths:
       tags:
       - Dashboard
       summary: List detectable personal location users
-      description: "Returns the users who created one or more detectable personal locations with associated network data. (Exclude users didn't enable Location Permission on client.) \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:detectable_personal_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns the users who created one or more detectable personal locations with associated network data. (Exclude users didn''t enable Location Permission on client.)
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:detectable_personal_location:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listUserDetectablePersonalLocation
       parameters:
       - name: status
@@ -868,7 +960,26 @@ paths:
       tags:
       - Dashboard
       summary: List users permission for location sharing
-      description: "Returns users that have enabled location services and allowed location sharing with Zoom applications on client devices. \n\n(Excludes users who are unable to use Nomadic Emergency Services, or users on client versions lower than 5.4.0.) \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:location_sharing_permission:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns users that have enabled location services and allowed location sharing with Zoom applications on client devices.
+
+
+        (Excludes users who are unable to use Nomadic Emergency Services, or users on client versions lower than 5.4.0.)
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:location_sharing_permission:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listUserLocationSharingPermission
       parameters:
       - name: site_id
@@ -995,7 +1106,23 @@ paths:
       tags:
       - Dashboard
       summary: List nomadic emergency services users
-      description: "Returns users who have been enabled for nomadic emergency services.\n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:nomadic_emergency_services:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns users who have been enabled for nomadic emergency services.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:nomadic_emergency_services:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listUserNomadicEmergencyServices
       parameters:
       - name: status
@@ -1136,7 +1263,23 @@ paths:
       tags:
       - Dashboard
       summary: List real time location for IP phones
-      description: "Returns currently detected location of IP phones.\n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:realtime_location_devices:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns currently detected location of IP phones.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:realtime_location_devices:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listPhoneRealtimelocation
       parameters:
       - name: location_type
@@ -1308,7 +1451,23 @@ paths:
       tags:
       - Dashboard
       summary: List real time location for users
-      description: "Returns the user's currently detected location. (Excludes users who didn't enable location permission on the client.)  \n\n**Prerequisites:** \n* Pro or higher account plan with Zoom phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:realtime_location_users:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns the user''s currently detected location. (Excludes users who didn''t enable location permission on the client.)
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:realtime_location_users:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listUserRealtimeLocation
       parameters:
       - name: location_type
@@ -1461,7 +1620,23 @@ paths:
       tags:
       - Dashboard
       summary: List tracked locations
-      description: "Lists the tracked locations. \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_tracked_locations:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Lists the tracked locations.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_tracked_locations:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: listTrackedLocations
       parameters:
       - name: type
@@ -1656,7 +1831,23 @@ paths:
       tags:
       - Dashboard
       summary: List past call metrics
-      description: " Returns all the call logs metrics of the account from the selected time period. The call logs provide a record of all incoming and outgoing calls over Zoom Phone in an account. You can use query parameters to filter the response by metrics of the call (such as date, phone number, extension number and quality type). \n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`"
+      description: 'Returns all the call logs metrics of the account from the selected time period. The call logs provide a record of all incoming and outgoing calls over Zoom Phone in an account. You can use query parameters to filter the response by metrics of the call (such as date, phone number, extension number and quality type).
+
+
+        **Prerequisites:**
+
+        * Business, or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs:admin`
+
+
+        **Rate Limit Label:** `Heavy`'
       operationId: listPastCallMetrics
       parameters:
       - name: from

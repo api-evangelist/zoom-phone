@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Outbound Calling API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - Outbound Calling
       summary: Get common area level outbound calling countries and regions
-      description: "Returns the common area level outbound calling countries and regions.\n\n**Prerequisites:**\n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:common_area_outbound_calling_rule:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the common area level outbound calling countries and regions.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:common_area_outbound_calling_rule:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetCommonAreaOutboundCallingCountriesAndRegions
       parameters:
       - name: commonAreaId
@@ -124,13 +146,13 @@ paths:
         * Account must have a Pro or a higher plan with a Zoom Phone license.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:common_area_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:common_area_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateCommonAreaOutboundCallingCountriesOrRegions
       parameters:
       - name: commonAreaId
@@ -203,13 +225,13 @@ paths:
         * Pro or higher account plan with Zoom phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:common_area_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:read:common_area_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listCommonAreaOutboundCallingExceptionRule
       parameters:
       - name: commonAreaId
@@ -368,13 +390,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:common_area_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:write:common_area_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddCommonAreaOutboundCallingExceptionRule
       parameters:
       - name: commonAreaId
@@ -471,13 +493,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:common_area_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:delete:common_area_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteCommonAreaOutboundCallingExceptionRule
       parameters:
       - name: commonAreaId
@@ -530,13 +552,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:common_area_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:common_area_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateCommonAreaOutboundCallingExceptionRule
       parameters:
       - name: commonAreaId
@@ -624,7 +646,23 @@ paths:
       tags:
       - Outbound Calling
       summary: Get account level outbound calling countries and regions
-      description: "Returns the account level outbound calling countries and regions.\n\n**Prerequisites:**\n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_outbound_calling_rules:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the account level outbound calling countries and regions.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_outbound_calling_rules:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetAccountOutboundCallingCountriesAndRegions
       parameters:
       - name: next_page_token
@@ -722,13 +760,13 @@ paths:
         * Account must have a Pro or a higher plan with a Zoom Phone license.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateAccountOutboundCallingCountriesOrRegions
       requestBody:
         content:
@@ -791,13 +829,13 @@ paths:
         * Pro or higher account plan with Zoom phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_outbound_calling_rules:admin`
+        **Granular Scopes:** `phone:read:list_outbound_calling_rules:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listAccountOutboundCallingExceptionRule
       parameters:
       - name: country
@@ -944,13 +982,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:write:outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddAccountOutboundCallingExceptionRule
       requestBody:
         content:
@@ -1038,13 +1076,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:delete:outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteAccountOutboundCallingExceptionRule
       parameters:
       - name: exceptionRuleId
@@ -1090,13 +1128,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateAccountOutboundCallingExceptionRule
       parameters:
       - name: exceptionRuleId
@@ -1175,7 +1213,23 @@ paths:
       tags:
       - Outbound Calling
       summary: Get site level outbound calling countries and regions
-      description: "Returns the site level outbound calling countries and regions.\n\n**Prerequisites:**\n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:site_outbound_calling_rule:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the site level outbound calling countries and regions.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:site_outbound_calling_rule:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetSiteOutboundCallingCountriesAndRegions
       parameters:
       - name: siteId
@@ -1282,13 +1336,13 @@ paths:
         * Account must have a Pro or a higher plan with a Zoom Phone license.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:site_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:site_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateSiteOutboundCallingCountriesOrRegions
       parameters:
       - name: siteId
@@ -1361,13 +1415,13 @@ paths:
         * Pro or higher account plan with Zoom phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:site_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:read:site_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listSiteOutboundCallingExceptionRule
       parameters:
       - name: siteId
@@ -1526,13 +1580,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:site_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:write:site_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddSiteOutboundCallingExceptionRule
       parameters:
       - name: siteId
@@ -1630,13 +1684,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:site_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:delete:site_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteSiteOutboundCallingExceptionRule
       parameters:
       - name: siteId
@@ -1689,13 +1743,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:site_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:site_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateSiteOutboundCallingExceptionRule
       parameters:
       - name: siteId
@@ -1793,13 +1847,13 @@ paths:
         * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:user_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:read:user_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetUserOutboundCallingCountriesAndRegions
       parameters:
       - name: userId
@@ -1908,13 +1962,13 @@ paths:
         * Account must have a Pro or a higher plan with a Zoom Phone license.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:user_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:user_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateUserOutboundCallingCountriesOrRegions
       parameters:
       - name: userId
@@ -1988,13 +2042,13 @@ paths:
         * Pro or higher account plan with Zoom phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:user_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:read:user_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listUserOutboundCallingExceptionRule
       parameters:
       - name: userId
@@ -2154,13 +2208,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:user_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:write:user_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddUserOutboundCallingExceptionRule
       parameters:
       - name: userId
@@ -2258,13 +2312,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:user_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:delete:user_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteUserOutboundCallingExceptionRule
       parameters:
       - name: userId
@@ -2318,13 +2372,13 @@ paths:
         * Account owner or admin permissions.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:user_outbound_calling_rule:admin`
+        **Granular Scopes:** `phone:update:user_outbound_calling_rule:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateUserOutboundCallingExceptionRule
       parameters:
       - name: userId

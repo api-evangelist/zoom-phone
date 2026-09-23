@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Call Logs API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - Call Logs
       summary: Get call element
-      description: "Returns the call element for a given call element ID.\n \n **Prerequisites** \n * A Business or Enterprise account \n * A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone_call_log:read`,`phone_call_log:read:admin`,`phone:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the call element for a given call element ID.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone_call_log:read`,`phone_call_log:read:admin`,`phone:read`
+
+
+        **Granular Scopes:** `phone:read:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCallElement
       parameters:
       - name: callElementId
@@ -410,7 +432,25 @@ paths:
       tags:
       - Call Logs
       summary: Get account's call history
-      description: "Returns an account's new edition of [call logs](https://support.zoom.us/hc/en-us/articles/360021114452-Viewing-Call-Logs).\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license \n* Account owner or a [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) with Zoom Phone management\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_call_log:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Returns an account''s new edition of call logs.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+        * Account owner or a role with Zoom Phone management
+
+
+        **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: accountCallHistory
       parameters:
       - name: page_size
@@ -1248,7 +1288,23 @@ paths:
       tags:
       - Call Logs
       summary: Get call history
-      description: "Returns information about a [call log](https://support.zoom.us/hc/en-us/articles/360021114452-Viewing-and-identifying-logs).\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_call_log:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns information about a call log.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCallPath
       parameters:
       - name: callHistoryUuid
@@ -2129,7 +2185,23 @@ paths:
       tags:
       - Call Logs
       summary: Add a client code to a call history
-      description: "Adds a client code to a [call log](https://support.zoom.us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs with a client code. \n\n**Prerequisites**\n* Business or Education account\n* Zoom Phone license \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds a client code to a call log. You can track call logs with a client code.
+
+
+        **Prerequisites**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addClientCodeToCallHistory
       parameters:
       - name: callLogId
@@ -2174,7 +2246,23 @@ paths:
       tags:
       - Call Logs
       summary: Get call history detail
-      description: " Returns the call history details for a given call log ID [call history](https://support.zoom.us/hc/en-us/articles/360021114452-Viewing-and-identifying-logs). \n \n **Prerequisites** \n * A Business or Enterprise account \n * A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone_call_log:read`,`phone_call_log:read:admin`,`phone:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the call history details for a given call log ID call history.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone_call_log:read`,`phone_call_log:read:admin`,`phone:read`
+
+
+        **Granular Scopes:** `phone:read:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCallHistoryDetail
       parameters:
       - name: callHistoryId
@@ -2567,7 +2655,25 @@ paths:
       tags:
       - Call Logs
       summary: Get account's call logs
-      description: "Returns an account's [call logs](https://support.zoom.us/hc/en-us/articles/360021114452-Viewing-Call-Logs).\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license \n* Account owner or a [role](https://support.zoom.us/hc/en-us/articles/115001078646-Role-Based-Access-Control) with Zoom Phone management\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_call_log:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Returns an account''s call logs.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+        * Account owner or a role with Zoom Phone management
+
+
+        **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: accountCallLogs
       parameters:
       - name: page_size
@@ -2971,7 +3077,23 @@ paths:
       tags:
       - Call Logs
       summary: Get call log details
-      description: "Returns information about a [call log](https://support.zoom.us/hc/en-us/articles/360021114452-Viewing-and-identifying-logs).\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_call_log:read:admin`,`phone:read`,`phone_call_log:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns information about a call log.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone_call_log:read:admin`,`phone:read`,`phone_call_log:read`
+
+
+        **Granular Scopes:** `phone:read:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCallLogDetails
       parameters:
       - name: callLogId
@@ -3298,7 +3420,23 @@ paths:
       tags:
       - Call Logs
       summary: Add a client code to a call log
-      description: "Adds a client code to a [call log](https://support.zoom.us/hc/en-us/articles/360040999352-Assigning-client-codes-to-phone-calls). You can track call logs with a client code. \n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds a client code to a call log. You can track call logs with a client code.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addClientCodeToCallLog
       parameters:
       - name: callLogId
@@ -3347,7 +3485,23 @@ paths:
       tags:
       - Call Logs
       summary: Get User AI Call Summary Detail
-      description: "Returns AI call summary details. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:ai_call_summary`,`phone:read:ai_call_summary:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns AI call summary details. For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone:read`
+
+
+        **Granular Scopes:** `phone:read:ai_call_summary`,`phone:read:ai_call_summary:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: getUserAICallSummary
       parameters:
       - name: userId
@@ -3449,7 +3603,26 @@ paths:
       tags:
       - Call Logs
       summary: Get user's call history
-      description: "Returns a user's [Zoom phone](https://support.zoom.us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call history. \n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_call_log:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns a user''s Zoom phone call history.
+
+
+        For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone_call_log:read`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs:admin`,`phone:read:list_call_logs`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: phoneUserCallHistory
       parameters:
       - name: userId
@@ -4455,7 +4628,26 @@ paths:
       tags:
       - Call Logs
       summary: Sync user's call history
-      description: "Syncs a user's [Zoom phone](https://support.zoom.us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call history. \n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n* A Business or Enterprise account\n * A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Syncs a user''s Zoom phone call history.
+
+
+        For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone:read`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: syncUserCallHistory
       parameters:
       - name: userId
@@ -5254,7 +5446,27 @@ paths:
       tags:
       - Call Logs
       summary: Delete a user's call history
-      description: "Deletes a user's [call history](https://support.zoom.us/hc/en-us/articles/360021114452-Viewing-and-identifying-logs). \n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites** \n\n* Belong to a Business or Enterprise account \n* Have a Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_log`,`phone:delete:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Deletes a user''s call history.
+
+
+        For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites**
+
+
+        * Belong to a Business or Enterprise account
+
+        * Have a Zoom Phone license
+
+
+        **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteUserCallHistory
       parameters:
       - name: userId
@@ -5302,7 +5514,23 @@ paths:
       tags:
       - Call Logs
       summary: Get user's call logs
-      description: "Returns a user's [Zoom phone](https://support.zoom.us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call logs. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`,`phone_call_log:read`,`phone_call_log:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns a user''s Zoom phone call logs. For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`,`phone_call_log:read`,`phone_call_log:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: phoneUserCallLogs
       parameters:
       - name: userId
@@ -5725,7 +5953,23 @@ paths:
       tags:
       - Call Logs
       summary: Sync user's call logs
-      description: "Syncs a user's [Zoom phone](https://support.zoom.us/hc/en-us/articles/360001297663-Quickstart-Guide-for-Zoom-Phone-Administrators) call logs. For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites:** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Syncs a user''s Zoom phone call logs. For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone:read`
+
+
+        **Granular Scopes:** `phone:read:list_call_logs`,`phone:read:list_call_logs:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: syncUserCallLogs
       parameters:
       - name: userId
@@ -6092,7 +6336,23 @@ paths:
       tags:
       - Call Logs
       summary: Delete a user's call log
-      description: "Deletes a user's [call log](https://support.zoom.us/hc/en-us/articles/360021114452-Viewing-and-identifying-logs). For user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites:** \n* User must belong to a Business or Enterprise account \n* User must have a Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_log`,`phone:delete:call_log:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Deletes a user''s call log. For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * User must belong to a Business or Enterprise account
+
+        * User must have a Zoom Phone license
+
+
+        **Scopes:** `phone:write`,`phone:write:admin`,`phone_call_log:write`,`phone_call_log:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_log`,`phone:delete:call_log:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteCallLog
       parameters:
       - name: userId

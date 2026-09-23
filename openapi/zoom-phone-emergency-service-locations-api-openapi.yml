@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Emergency Service Locations API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - Emergency Service Locations
       summary: Batch add emergency service locations
-      description: "Adds emergency service locations in batch. \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom phone license\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:batch_emergency_locations:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds emergency service locations in batch.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:batch_emergency_locations:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: batchAddLocations
       requestBody:
         content:
@@ -194,7 +216,25 @@ paths:
       tags:
       - Emergency Service Locations
       summary: List emergency service locations
-      description: "Returns emergency service locations. \n**Note**: When you enable [multiple sites](https://support.zoom.us/hc/en-us/articles/360020809672-Managing-multiple-sites), the `site_id` parameter is required.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_emergency_locations:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns emergency service locations.
+
+        **Note**: When you enable multiple sites, the `site_id` parameter is required.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_emergency_locations:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: listLocations
       parameters:
       - name: next_page_token
@@ -396,7 +436,23 @@ paths:
       tags:
       - Emergency Service Locations
       summary: Add an emergency service location
-      description: "Adds an emergency service location.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds an emergency service location.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:emergency_location:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addLocation
       requestBody:
         content:
@@ -575,7 +631,23 @@ paths:
       tags:
       - Emergency Service Locations
       summary: Get emergency service location details
-      description: "Returns an emergency service location's information.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Returns an emergency service location''s information.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:emergency_location:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: getLocation
       parameters:
       - name: locationId
@@ -735,7 +807,23 @@ paths:
       tags:
       - Emergency Service Locations
       summary: Delete an emergency location
-      description: "Removes an emergency location.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Removes an emergency location.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:emergency_location:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: deleteLocation
       parameters:
       - name: locationId
@@ -769,7 +857,23 @@ paths:
       tags:
       - Emergency Service Locations
       summary: Update emergency service location
-      description: "Updates an emergency location's information.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:emergency_location:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Updates an emergency location''s information.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:emergency_location:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: updateLocation
       parameters:
       - name: locationId

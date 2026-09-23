@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Audio Library API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - Audio Library
       summary: Get an audio item
-      description: "Returns an audio item. Only the admin or user can access your audio.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:audio`,`phone:read:audio:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns an audio item. Only the admin or user can access your audio.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:audio`,`phone:read:audio:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetAudioItem
       parameters:
       - name: audioId
@@ -116,7 +138,23 @@ paths:
       tags:
       - Audio Library
       summary: Delete an audio item
-      description: "Deletes an audio item. Only the admin or user can delete your audio.\n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:audio`,`phone:delete:audio:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Deletes an audio item. Only the admin or user can delete your audio.
+
+
+        **Prerequisites:**
+
+        * Business, or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write`,`phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:audio`,`phone:delete:audio:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: DeleteAudioItem
       parameters:
       - name: audioId
@@ -156,7 +194,23 @@ paths:
       tags:
       - Audio Library
       summary: Update an audio item
-      description: "Updates an audio item. Only the admin or user can update your audio.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:audio`,`phone:update:audio:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates an audio item. Only the admin or user can update your audio.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write`,`phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:audio`,`phone:update:audio:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateAudioItem
       parameters:
       - name: audioId
@@ -209,7 +263,26 @@ paths:
       tags:
       - Audio Library
       summary: List audio items
-      description: "Returns personal audios. \n\nOnly the admin or user can query your audios and directly pass the `me` value instead of the `userId` parameter.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read`,`phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_audios`,`phone:read:list_audios:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns personal audios.
+
+
+        Only the admin or user can query your audios and directly pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read`,`phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_audios`,`phone:read:list_audios:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: ListAudioItems
       parameters:
       - name: userId
@@ -269,7 +342,23 @@ paths:
       tags:
       - Audio Library
       summary: Add an audio item for text-to-speech conversion
-      description: "Adds an audio item for [text-to-speech conversion](https://support.zoom.us/hc/en-us/articles/4402414203533-Using-the-audio-library-to-customize-audio#h_01F8B0D2ZJBKEDH10DFZ7J2CM7). Only the admin or user can add your audio and directly pass the `me` value instead of the `userId` parameter.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:audio`,`phone:write:audio:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds an audio item for text-to-speech conversion. Only the admin or user can add your audio and directly pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write`,`phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:audio`,`phone:write:audio:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddAnAudio
       parameters:
       - name: userId
@@ -346,7 +435,30 @@ paths:
       tags:
       - Audio Library
       summary: Add audio items
-      description: "Adds the audio items. You can only upload voice files at this time. Only the admin or user can add your audio and directly pass the `me` value instead of the `userId` parameter.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n**Size and quantity limits for audio attachments:**\n* Up to 5 attachments\n* Each file size should be no more than 1MB\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write`,`phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:batch_audios`,`phone:write:batch_audios:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Adds the audio items. You can only upload voice files at this time. Only the admin or user can add your audio and directly pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Size and quantity limits for audio attachments:**
+
+        * Up to 5 attachments
+
+        * Each file size should be no more than 1MB
+
+
+        **Scopes:** `phone:write`,`phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:batch_audios`,`phone:write:batch_audios:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: AddAudioItem
       parameters:
       - name: userId

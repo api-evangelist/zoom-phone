@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Common Areas API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,24 @@ paths:
       tags:
       - Common Areas
       summary: List common areas
-      description: "Lists common areas under an account.\n\n**Prerequisites**\n\n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:common_area:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Lists common areas under an account.
+
+
+        **Prerequisites**
+
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:common_area:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listCommonAreas
       parameters:
       - name: page_size
@@ -226,15 +249,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:common_area:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:common_area:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: addCommonArea
       requestBody:
         content:
@@ -329,16 +350,16 @@ paths:
         - Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:common_area:admin`
+        **Granular Scopes:** `phone:write:common_area:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+        **Rate Limit Label:** `LIGHT`
 
 
-        **Not supported in Gov cluster** '
+        **Not supported in Gov cluster**'
       operationId: Generateactivationcodesforcommonareas
       requestBody:
         content:
@@ -416,7 +437,26 @@ paths:
       tags:
       - Common Areas
       summary: List activation codes
-      description: "Returns a list of activation code information of the common areas under an account.\n\n**Prerequisites**\n* Pro or a higher account with Zoom Phone license \n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_common_area_activation_codes:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`\n\n**Not supported in Gov cluster** "
+      description: 'Returns a list of activation code information of the common areas under an account.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_common_area_activation_codes:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`
+
+
+        **Not supported in Gov cluster**'
       operationId: listActivationCodes
       parameters:
       - name: page_size
@@ -516,7 +556,7 @@ paths:
       tags:
       - Common Areas
       summary: Apply template to common areas
-      description: 'Applies a template to common areas.  You can add up to 50 common areas at a time.
+      description: 'Applies a template to common areas. You can add up to 50 common areas at a time.
 
 
         **Prerequisites**
@@ -526,14 +566,13 @@ paths:
         * Account owner or admin permissions
 
 
-
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
-
-
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:apply_template_to_common_areas:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Granular Scopes:** `phone:write:apply_template_to_common_areas:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: ApplyTemplatetoCommonAreas
       parameters:
       - name: templateId
@@ -582,7 +621,24 @@ paths:
       tags:
       - Common Areas
       summary: Get common area details
-      description: "Returns detailed information on the common area.\n\n**Prerequisites**  \n \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:common_area:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns detailed information on the common area.
+
+
+        **Prerequisites**
+
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:common_area:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getACommonArea
       parameters:
       - name: commonAreaId
@@ -1231,7 +1287,23 @@ paths:
       tags:
       - Common Areas
       summary: Delete a common area
-      description: "Removes the common area. \n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license.\n* Account owner or admin permissions.\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:common_area:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Removes the common area.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license.
+
+        * Account owner or admin permissions.
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:common_area:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteCommonArea
       parameters:
       - name: commonAreaId
@@ -1274,15 +1346,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:common_area:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:common_area:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateCommonArea
       parameters:
       - name: commonAreaId
@@ -1620,13 +1690,13 @@ paths:
         * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:common_area_call_handling_setting:admin`
+        **Granular Scopes:** `phone:read:common_area_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCommonAreaCallHandlingSetting
       parameters:
       - name: commonAreaId
@@ -1901,13 +1971,13 @@ paths:
         * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:common_area_call_handling_setting:admin`
+        **Granular Scopes:** `phone:update:common_area_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateCommonAreaCallHandlingSetting
       parameters:
       - name: commonAreaId
@@ -2111,15 +2181,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:common_area_calling_plan:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:common_area_calling_plan:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: assignCallingPlansToCommonArea
       parameters:
       - name: commonAreaId
@@ -2207,7 +2275,23 @@ paths:
       tags:
       - Common Areas
       summary: Unassign a calling plan from the common area
-      description: "Use this API to unassign a calling plan from the common area.\n\n**Prerequisites:** \n* A Pro or higher account with a Zoom Phone license \n* An account owner or admin permissions \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:common_area_calling_plan:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Use this API to unassign a calling plan from the common area.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account with a Zoom Phone license
+
+        * An account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:common_area_calling_plan:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: unassignCallingPlansFromCommonArea
       parameters:
       - name: commonAreaId
@@ -2264,15 +2348,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:common_area_number:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:common_area_number:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: assignPhoneNumbersToCommonArea
       parameters:
       - name: commonAreaId
@@ -2356,15 +2438,13 @@ paths:
         * An account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:common_area_number:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:common_area_number:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: unassignPhoneNumbersFromCommonArea
       parameters:
       - name: commonAreaId
@@ -2404,7 +2484,24 @@ paths:
       tags:
       - Common Areas
       summary: Update common area pin code
-      description: "Updates the common area pin code.\n\n**Prerequisites**\n\n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions, This depends on whether [The PIN cannot be viewed by the admin](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069783) is enabled.  \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:common_area:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the common area pin code.
+
+
+        **Prerequisites**
+
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions, This depends on whether The PIN cannot be viewed by the admin is enabled.
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:common_area:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateCommonAreaPinCode
       parameters:
       - name: commonAreaId
@@ -2460,15 +2557,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:list_common_area_settings:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_common_area_settings:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCommonAreaSettings
       parameters:
       - name: commonAreaId
@@ -2793,15 +2888,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:common_area_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:common_area_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddCommonAreaSetting
       parameters:
       - name: commonAreaId
@@ -3051,7 +3144,23 @@ paths:
       tags:
       - Common Areas
       summary: Delete common area setting
-      description: "Removes the common area subsetting from desk phones. \n\n**Prerequisites**\n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:common_area_setting:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Removes the common area subsetting from desk phones.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:common_area_setting:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteCommonAreaSetting
       parameters:
       - name: commonAreaId
@@ -3125,15 +3234,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:common_area_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:common_area_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateCommonAreaSetting
       parameters:
       - name: commonAreaId

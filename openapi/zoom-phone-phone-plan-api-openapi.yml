@@ -17,16 +17,16 @@ paths:
       tags:
       - Phone Plan
       summary: List phone number plan information
-      description: 'Retrieves an account''s  phone number plan information, phone number usage, and availability.
+      description: 'Retrieves an account''s phone number plan information, phone number usage, and availability.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:numbers_plan:admin`
+        **Granular Scopes:** `number_management:read:numbers_plan:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Listphonenumberplaninformation
       parameters:
       - name: product

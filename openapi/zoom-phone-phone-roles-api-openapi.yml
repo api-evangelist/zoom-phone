@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Roles API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - Phone Roles
       summary: List phone roles
-      description: "Returns the phone roles.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_roles:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns the phone roles.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_roles:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: ListPhoneRoles
       responses:
         '200':
@@ -78,7 +100,23 @@ paths:
       tags:
       - Phone Roles
       summary: Duplicate a phone role
-      description: "Use this API to duplicate a phone role.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:role:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to duplicate a phone role.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:role:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: DuplicatePhoneRole
       requestBody:
         content:
@@ -139,7 +177,23 @@ paths:
       tags:
       - Phone Roles
       summary: Get role information
-      description: "Use this API to get information on a phone [role](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management).\n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:role:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Use this API to get information on a phone role.
+
+
+        **Prerequisites:**
+
+        * Business, or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:role:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: getRoleInformation
       parameters:
       - name: roleId
@@ -193,7 +247,23 @@ paths:
       tags:
       - Phone Roles
       summary: Delete a phone role
-      description: "Use this API to delete a phone [role](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management).\n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:role:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to delete a phone role.
+
+
+        **Prerequisites:**
+
+        * Business, or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:role:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: DeletePhoneRole
       parameters:
       - name: roleId
@@ -228,7 +298,23 @@ paths:
       tags:
       - Phone Roles
       summary: Update a phone role
-      description: "Use this API to update a role.\n\n**Prerequisites:**\n* Business, or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:role:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to update a role.
+
+
+        **Prerequisites:**
+
+        * Business, or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:role:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: UpdatePhoneRole
       parameters:
       - name: roleId
@@ -277,7 +363,23 @@ paths:
       tags:
       - Phone Roles
       summary: List members in a role
-      description: "Use this API to get members (not) in a [role](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:role_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Use this API to get members (not) in a role.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:role_member:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: ListRoleMembers
       parameters:
       - name: roleId
@@ -361,7 +463,23 @@ paths:
       tags:
       - Phone Roles
       summary: Add members to roles
-      description: "Use this API to add members to [roles](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management#h_01EFHY1R4QWAYTA6Z661NM9Q27).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:role_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to add members to roles.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:role_member:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: AddRoleMembers
       parameters:
       - name: roleId
@@ -422,7 +540,23 @@ paths:
       tags:
       - Phone Roles
       summary: Delete members in a role
-      description: "Use this API to delete member(s) in a [role](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:role_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to delete member(s) in a role.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:role_member:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: DelRoleMembers
       parameters:
       - name: roleId
@@ -467,7 +601,23 @@ paths:
       tags:
       - Phone Roles
       summary: List phone role targets
-      description: "Targets of a phone [role](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management). \n\n**Prerequisites:** \n* Business or Education account \n* Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_roles:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Targets of a phone role.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_roles:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: ListPhoneRoleTargets
       parameters:
       - name: roleId
@@ -626,7 +776,23 @@ paths:
       tags:
       - Phone Roles
       summary: Add phone role targets
-      description: "Adds targets to phone [roles](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:role:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds targets to phone roles.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:role:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddPhoneRoleTargets
       parameters:
       - name: roleId
@@ -748,7 +914,23 @@ paths:
       tags:
       - Phone Roles
       summary: Delete phone role targets
-      description: "Deletes the targets of a phone [role](https://support.zoom.us/hc/en-us/articles/360042099012-Using-Zoom-Phone-role-management).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:role:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Deletes the targets of a phone role.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:role:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: DeletePhoneRoleTargets
       parameters:
       - name: roleId

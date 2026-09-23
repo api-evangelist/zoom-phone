@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Reports API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,27 @@ paths:
       tags:
       - Reports
       summary: Get call charges usage report
-      description: "Retrieves the Phone Call Charges Report. \n\nThe Call charges usage report allows account owners and admins to view monthly Zoom phone call charges. Account owners and admins can also access this information when they log into their Zoom accounts and navigate to [Call Charges Usage Report](https://zoom.us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;chargeRestrict=0&amp;by=1).\n\n **Prerequisites:** \n\n* Account must be enrollled in Pro or a higher plan\n* Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_charges:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Retrieves the Phone Call Charges Report.
+
+
+        The Call charges usage report allows account owners and admins to view monthly Zoom phone call charges. Account owners and admins can also access this information when they log into their Zoom accounts and navigate to Call Charges Usage Report.
+
+
+        **Prerequisites:**
+
+
+        * Account must be enrollled in Pro or a higher plan
+
+        * Account must be enrolled in a Zoom Phone plan
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_charges:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: GetCallChargesUsageReport
       parameters:
       - name: from
@@ -298,7 +324,26 @@ paths:
       tags:
       - Reports
       summary: Get fax charges usage report
-      description: "Retrieves the Phone Fax Charges Report. The fax charges usage report allows account owners and admins to view monthly Zoom phone fax charges. \n\nAccount owners and admins can also access this information when they log into their Zoom accounts and navigate to [Fax Charges Usage Report](https://zoom.us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;by=3). \n\n**Prerequisites** \n* Account must be enrollled in Pro or a higher plan\n* Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:fax_charges:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Retrieves the Phone Fax Charges Report. The fax charges usage report allows account owners and admins to view monthly Zoom phone fax charges.
+
+
+        Account owners and admins can also access this information when they log into their Zoom accounts and navigate to Fax Charges Usage Report.
+
+
+        **Prerequisites**
+
+        * Account must be enrollled in Pro or a higher plan
+
+        * Account must be enrolled in a Zoom Phone plan
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:fax_charges:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: Getfaxchargesusagereport
       parameters:
       - name: from
@@ -466,7 +511,30 @@ paths:
       tags:
       - Reports
       summary: Get operation logs report
-      description: "Retrieves the phone system operation logs report.\n\nThe phone system operation logs report allows account owners and admins to view monthly Zoom phone related admin operation details. \n\n Account owners and admins can also access this information by logging into their Zoom accounts and navigating to [Phone System Operation Logs](https://zoom.us/pbx/page/report/operations#/report/operation-logs).  \n   \n  **Prerequisites:**   \n \n* Account must be enrollled in Pro or a higher plan\n* Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:operation_logs:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`"
+      description: 'Retrieves the phone system operation logs report.
+
+
+        The phone system operation logs report allows account owners and admins to view monthly Zoom phone related admin operation details.
+
+
+        Account owners and admins can also access this information by logging into their Zoom accounts and navigating to Phone System Operation Logs.
+
+
+        **Prerequisites:**
+
+
+        * Account must be enrollled in Pro or a higher plan
+
+        * Account must be enrolled in a Zoom Phone plan
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:operation_logs:admin`
+
+
+        **Rate Limit Label:** `HEAVY`'
       operationId: getPSOperationLogs
       parameters:
       - name: from
@@ -591,16 +659,16 @@ paths:
       tags:
       - Reports
       summary: Get SMS/MMS charges usage report
-      description: 'Retrieves the **SMS/MMS Charges Report**.  The **SMS/MMS charges usage report** allows account owners and admins to view monthly Zoom phone SMS charges. Account owners and admins can also access this information by when they log into their Zoom accounts and navigate to [ SMS/MMS Charges Usage Report](https://zoom.us/pbx/page/report/system#/report/phone-system/charge?page_size=15&amp;chargeRestrict=0&amp;by=2).  **Prerequisites**  * Account must be enrolled in Pro or a higher plan * Account must be enrolled in a [Zoom Phone](https://zoom.us/pricing/zoom-phone) plan
+      description: 'Retrieves the **SMS/MMS Charges Report**. The **SMS/MMS charges usage report** allows account owners and admins to view monthly Zoom phone SMS charges. Account owners and admins can also access this information by when they log into their Zoom accounts and navigate to SMS/MMS Charges Usage Report. **Prerequisites** * Account must be enrolled in Pro or a higher plan * Account must be enrolled in a Zoom Phone plan
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_charges:admin`
+        **Granular Scopes:** `phone:read:sms_charges:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`'
+        **Rate Limit Label:** `HEAVY`'
       operationId: GetSMSChargesUsageReport
       parameters:
       - name: from

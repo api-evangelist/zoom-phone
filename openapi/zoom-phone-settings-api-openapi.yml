@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Settings API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -25,13 +31,13 @@ paths:
         * Pro or higher account plan with Zoom phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:policy:admin`
+        **Granular Scopes:** `phone:read:policy:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: GetAccountPolicyDetails
       parameters:
       - name: policyType
@@ -110,7 +116,23 @@ paths:
       tags:
       - Settings
       summary: Update account policy
-      description: "Updates the account's [Zoom Phone](https://support.zoom.us/hc/en-us/categories/360001370051-Zoom-Phone) policy.\n\n**Prerequisites** \n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `RESOURCE-INTENSIVE`"
+      description: 'Updates the account''s Zoom Phone policy.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:policy:admin`
+
+
+        **Rate Limit Label:** `RESOURCE-INTENSIVE`'
       operationId: updateAccountPolicy
       parameters:
       - name: policyType
@@ -181,7 +203,23 @@ paths:
       tags:
       - Settings
       summary: List ported numbers
-      description: "Use this API to list ported numbers in a Zoom account.\n\n**Prerequisites:** \n* A Pro or higher account plan \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_peering:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_ported_numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Use this API to list ported numbers in a Zoom account.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account plan
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_ported_numbers:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listPortedNumbers
       parameters:
       - name: next_page_token
@@ -289,7 +327,23 @@ paths:
       tags:
       - Settings
       summary: Get ported numbers details
-      description: "Returns details on the ported numbers by specifying `order_id`.\n\n**Prerequisites:** \n* A Pro or higher account plan \n* A Zoom phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_peering:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:ported_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns details on the ported numbers by specifying `order_id`.
+
+
+        **Prerequisites:**
+
+        * A Pro or higher account plan
+
+        * A Zoom phone license
+
+
+        **Scopes:** `phone:read:admin`,`phone_peering:read:admin`
+
+
+        **Granular Scopes:** `phone:read:ported_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getPortedNumbersDetails
       parameters:
       - name: orderId
@@ -432,7 +486,23 @@ paths:
       tags:
       - Settings
       summary: Get phone account settings
-      description: "Returns an account's settings.\n\n**Prerequisites:**\n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:settings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Returns an account''s settings.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:settings:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: phoneSetting
       responses:
         '200':
@@ -517,7 +587,18 @@ paths:
       tags:
       - Settings
       summary: Update phone account settings
-      description: "Updates Zoom Phone [account settings](https://support.zoom.us/hc/en-us/articles/360025846692).\n\n**Prerequisites:** \n* A Business or Enterprise account\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:settings:admin`"
+      description: 'Updates Zoom Phone account settings.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:settings:admin`'
       operationId: updatePhoneSettings
       requestBody:
         content:
@@ -592,7 +673,23 @@ paths:
       tags:
       - Settings
       summary: List SIP groups
-      description: "Returns a list of SIP (Session Initiation Protocol) groups.\n\n**Prerequisites:** \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_sip_groups:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns a list of SIP (Session Initiation Protocol) groups.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_sip_groups:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: listSipGroups
       parameters:
       - name: next_page_token
@@ -686,7 +783,21 @@ paths:
       tags:
       - Settings
       summary: List BYOC SIP trunks
-      description: "Returns a list of an account's assigned [BYOC (Bring Your Own Carrier) SIP (Session Initiation Protocol) trunks](https://zoom.us/docs/doc/Zoom-Bring%20Your%20Own%20Carrier.pdf).\n\n**Prerequisites** \n* A Business or Enterprise account\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_sip_trunks:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns a list of an account''s assigned BYOC (Bring Your Own Carrier) SIP (Session Initiation Protocol) trunks.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_sip_trunks:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: listBYOCSIPTrunk
       parameters:
       - name: next_page_token

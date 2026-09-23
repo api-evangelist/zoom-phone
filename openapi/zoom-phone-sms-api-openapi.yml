@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone SMS API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,47 @@ paths:
       tags:
       - SMS
       summary: Post SMS message
-      description: "Sends [SMS messages](https://support.zoom.us/hc/en-us/articles/360054631031-Setting-up-SMS) to Zoom Phone accounts. \n\n**Service Endpoint SMS**\n* This API now supports sending a Service Endpoint SMS or MMS message.\n* The sender phone number must be assigned to a Service Endpoint and enabled for SMS.\n* Non-Zoom Phone users can send only Service Endpoint SMS or MMS messages. An account-level app is required for non-Zoom Phone users to send Service Endpoint SMS.\n\n**Prerequisites**\n* A Zoom Phone license\n* SMS enabled for the account or admin privileges\n* For Zoom Phone SMS: a Zoom Phone-enabled user\n* For Service Endpoint SMS: an account-level app, SMS enabled for the account, and a Service Endpoint phone number enabled for SMS\n\n**SMS and attachments - Size and limits**\n* SMS size with no media attachments: 2048 bytes\n* SMS size with attachments: 1000 bytes\n* Total attachments: 10\n* Total attachment file size: 2 MB\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`,`phone:write`,`phone_sms:write`,`phone_sms:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_message`,`phone:read:sms_message:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Sends SMS messages to Zoom Phone accounts.
+
+
+        **Service Endpoint SMS**
+
+        * This API now supports sending a Service Endpoint SMS or MMS message.
+
+        * The sender phone number must be assigned to a Service Endpoint and enabled for SMS.
+
+        * Non-Zoom Phone users can send only Service Endpoint SMS or MMS messages. An account-level app is required for non-Zoom Phone users to send Service Endpoint SMS.
+
+
+        **Prerequisites**
+
+        * A Zoom Phone license
+
+        * SMS enabled for the account or admin privileges
+
+        * For Zoom Phone SMS: a Zoom Phone-enabled user
+
+        * For Service Endpoint SMS: an account-level app, SMS enabled for the account, and a Service Endpoint phone number enabled for SMS
+
+
+        **SMS and attachments - Size and limits**
+
+        * SMS size with no media attachments: 2048 bytes
+
+        * SMS size with attachments: 1000 bytes
+
+        * Total attachments: 10
+
+        * Total attachment file size: 2 MB
+
+
+        **Scopes:** `phone:write:admin`,`phone:write`,`phone_sms:write`,`phone_sms:write:admin`
+
+
+        **Granular Scopes:** `phone:read:sms_message`,`phone:read:sms_message:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: postSmsMessage
       requestBody:
         content:
@@ -169,13 +215,13 @@ paths:
         * For Service Endpoint SMS: an account-level app and a Service Endpoint phone number enabled for SMS
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
+        **Scopes:** `phone:read:admin`,`phone_sms:read`,`phone_sms:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
+        **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: accountSmsSession
       parameters:
       - name: page_size
@@ -420,16 +466,13 @@ paths:
         * For Service Endpoint SMS: an account-level app and a Service Endpoint phone number enabled for SMS
 
 
+        **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 
 
-
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-
-
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_session`,`phone:read:sms_session:admin`
+        **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: smsSessionDetails
       parameters:
       - name: sessionId
@@ -751,16 +794,13 @@ paths:
         * For Service Endpoint SMS: an account-level app and a Service Endpoint phone number enabled for SMS
 
 
+        **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
 
 
-
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
-
-
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_message`,`phone:read:sms_message:admin`
+        **Granular Scopes:** `phone:read:sms_message`,`phone:read:sms_message:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: smsByMessageId
       parameters:
       - name: sessionId
@@ -983,7 +1023,36 @@ paths:
       tags:
       - SMS
       summary: Sync SMS by session ID
-      description: "Syncs SMS messages in a session. \n\n**Service Endpoint SMS**\n* This API now supports syncing a Service Endpoint SMS session.\n* The `sessionId` must belong to a Service Endpoint SMS session.\n* Non-Zoom Phone users can sync only Service Endpoint SMS sessions. An account-level app is required for non-Zoom Phone users to access Service Endpoint SMS.\n\n**Prerequisites**\n* Paid account\n* Zoom Phone enabled for the account\n* For Zoom Phone SMS: a Zoom Phone-enabled user\n* For Service Endpoint SMS: an account-level app and a Service Endpoint phone number enabled for SMS\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_session`,`phone:read:sms_session:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Syncs SMS messages in a session.
+
+
+        **Service Endpoint SMS**
+
+        * This API now supports syncing a Service Endpoint SMS session.
+
+        * The `sessionId` must belong to a Service Endpoint SMS session.
+
+        * Non-Zoom Phone users can sync only Service Endpoint SMS sessions. An account-level app is required for non-Zoom Phone users to access Service Endpoint SMS.
+
+
+        **Prerequisites**
+
+        * Paid account
+
+        * Zoom Phone enabled for the account
+
+        * For Zoom Phone SMS: a Zoom Phone-enabled user
+
+        * For Service Endpoint SMS: an account-level app and a Service Endpoint phone number enabled for SMS
+
+
+        **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+
+
+        **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: smsSessionSync
       parameters:
       - name: sessionId
@@ -1213,7 +1282,26 @@ paths:
       tags:
       - SMS
       summary: Get user's SMS sessions
-      description: "Returns details about SMS sessions for a user. \n\nFor user-level apps, pass [the `me` value](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis#mekeyword) instead of the `userId` parameter.\n\n**Prerequisites:** \n* Paid account \n* User-enabled Zoom phone\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns details about SMS sessions for a user.
+
+
+        For user-level apps, pass the `me` value instead of the `userId` parameter.
+
+
+        **Prerequisites:**
+
+        * Paid account
+
+        * User-enabled Zoom phone
+
+
+        **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_sms_sessions`,`phone:read:list_sms_sessions:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: userSmsSession
       parameters:
       - name: userId
@@ -1398,7 +1486,23 @@ paths:
       tags:
       - SMS
       summary: List user's SMS sessions in descending order
-      description: "Retrieves the user's SMS sessions in descending order. Mirrors the ZP client behavior with the most recent on top.\n\n**Prerequisites:**\n* Paid account \n* User-enabled Zoom phone   \n   \n \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_session`,`phone:read:sms_session:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Retrieves the user''s SMS sessions in descending order. Mirrors the ZP client behavior with the most recent on top.
+
+
+        **Prerequisites:**
+
+        * Paid account
+
+        * User-enabled Zoom phone
+
+
+        **Scopes:** `phone:read:admin`,`phone:read`,`phone_sms:read`,`phone_sms:read:admin`
+
+
+        **Granular Scopes:** `phone:read:sms_session`,`phone:read:sms_session:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: GetSmsSessions
       parameters:
       - name: userId

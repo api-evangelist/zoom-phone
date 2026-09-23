@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Auto Receptionists API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -27,15 +33,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:list_auto_receptionists:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_auto_receptionists:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`'
+        **Rate Limit Label:** `Medium`'
       operationId: listAutoReceptionists
       parameters:
       - name: page_size
@@ -176,7 +180,23 @@ paths:
       tags:
       - Auto Receptionists
       summary: Add an auto receptionist
-      description: "Adds an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) to a Zoom Phone. Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system. \n\n**Prerequisites:**\n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:auto_receptionist:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Adds an auto receptionist to a Zoom Phone. Auto receptionists answer calls with a personalized recording and routes calls to a phone user, call queue, common area, voicemail or an IVR system.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:auto_receptionist:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: addAutoReceptionist
       requestBody:
         content:
@@ -247,13 +267,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:auto_receptionist:admin`
+        **Granular Scopes:** `phone:read:auto_receptionist:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: getAutoReceptionistDetail
       parameters:
       - name: autoReceptionistId
@@ -423,11 +443,10 @@ paths:
       tags:
       - Auto Receptionists
       summary: Delete a non-primary auto receptionist
-      description: '[Deletes a non-primary auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-#h_1d5ffc56-6ba3-4ce5-9d86-4a1a1ee743f3).
+      description: 'Deletes a non-primary auto receptionist.
 
 
         An auto receptionist answers calls with a personalized recording and routes calls to a phone user, call queue, common area (phone), or to a voicemail. An auto receptionist can also be set up so that it routes calls to an interactive voice response (IVR) system to allow callers to select the routing options.
-
 
 
         **Prerequisites:**
@@ -435,15 +454,13 @@ paths:
         * Pro or higher account with Zoom Phone license.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:auto_receptionist:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:auto_receptionist:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`'
+        **Rate Limit Label:** `Light`'
       operationId: deleteAutoReceptionist
       parameters:
       - name: autoReceptionistId
@@ -474,11 +491,10 @@ paths:
       tags:
       - Auto Receptionists
       summary: Update an auto receptionist
-      description: '[Changes information](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-#h_1d5ffc56-6ba3-4ce5-9d86-4a1a1ee743f3) such as the display name and the extension number assigned to the main auto receptionist.
+      description: 'Changes information such as the display name and the extension number assigned to the main auto receptionist.
 
 
         An auto receptionist answers calls with a personalized recording. And it routes calls to a phone user, call queue, common area, or voicemail. An auto receptionist can also be set up so that it routes calls to an interactive voice response (IVR) system to allow callers to select the routing options.
-
 
 
         **Prerequisites:**
@@ -486,15 +502,13 @@ paths:
         * Pro or higher account with Zoom Phone license.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:auto_receptionist:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:auto_receptionist:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateAutoReceptionist
       parameters:
       - name: autoReceptionistId
@@ -620,13 +634,13 @@ paths:
         * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:auto_receptionist_call_handling_setting:admin`
+        **Granular Scopes:** `phone:read:auto_receptionist_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getAutoReceptionistCallHandlingSettings
       parameters:
       - name: autoReceptionistId
@@ -932,13 +946,13 @@ paths:
         * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:auto_receptionist_call_handling_setting:admin`
+        **Granular Scopes:** `phone:update:auto_receptionist_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateAutoReceptionistCallHandlingSettings
       parameters:
       - name: autoReceptionistId
@@ -1176,7 +1190,23 @@ paths:
       tags:
       - Auto Receptionists
       summary: Assign phone numbers
-      description: "Assigns available phone numbers to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). The available numbers can be retrieved using the List Phone Numbers API with `type` query parameter set to &quot;unassigned&quot;.\n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Assigns available phone numbers to an auto receptionist. The available numbers can be retrieved using the List Phone Numbers API with `type` query parameter set to "unassigned".
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom Phone License
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:auto_receptionist_number:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: assignPhoneNumbersAutoReceptionist
       parameters:
       - name: autoReceptionistId
@@ -1229,7 +1259,23 @@ paths:
       tags:
       - Auto Receptionists
       summary: Unassign all phone numbers
-      description: "Unassigns all phone numbers that were previously assigned to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unassigns all phone numbers that were previously assigned to an auto receptionist.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom Phone License
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:auto_receptionist_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: unassignAllPhoneNumsAutoReceptionist
       parameters:
       - name: autoReceptionistId
@@ -1261,7 +1307,23 @@ paths:
       tags:
       - Auto Receptionists
       summary: Unassign a phone number
-      description: "Unassigns a specific phone number that was previously assigned to an [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions  \n \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:auto_receptionist_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Unassigns a specific phone number that was previously assigned to an auto receptionist.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom Phone License
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:auto_receptionist_number:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: unassignAPhoneNumAutoReceptionist
       parameters:
       - name: autoReceptionistId
@@ -1302,7 +1364,7 @@ paths:
       tags:
       - Auto Receptionists
       summary: Get an auto receptionist policy
-      description: 'Returns the policy setting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-).
+      description: 'Returns the policy setting of a specific auto receptionist.
 
 
         **Prerequisites:**
@@ -1312,15 +1374,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:auto_receptionist_policy:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:auto_receptionist_policy:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: getAutoReceptionistsPolicy
       parameters:
       - name: autoReceptionistId
@@ -1481,7 +1541,23 @@ paths:
       tags:
       - Auto Receptionists
       summary: Update an auto receptionist policy
-      description: "Updates the policy setting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-). \n\n**Prerequisites:**\n* Pro or higher account plan with Zoom Phone License\n* Account owner or admin permissions\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:auto_receptionist_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Updates the policy setting of a specific auto receptionist.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account plan with Zoom Phone License
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:auto_receptionist_policy:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: updateAutoReceptionistPolicy
       parameters:
       - name: autoReceptionistId
@@ -1574,20 +1650,23 @@ paths:
       tags:
       - Auto Receptionists
       summary: Add a policy subsetting
-      description: 'Adds a policy subsetting for a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) according to the `policyType`. For example, you can use this API to set up shared access members.<br><br>**Prerequisites:**
+      description: 'Adds a policy subsetting for a specific auto receptionist according to the `policyType`. For example, you can use this API to set up shared access members.
+
+
+        **Prerequisites:**
 
         * Pro or higher account plan with Zoom Phone License
 
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:auto_receptionist_policy:admin`
+        **Granular Scopes:** `phone:write:auto_receptionist_policy:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: AddPolicy
       parameters:
       - name: autoReceptionistId
@@ -1685,7 +1764,7 @@ paths:
       tags:
       - Auto Receptionists
       summary: Delete a policy subsetting
-      description: 'Removes the policy subsetting for a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) according to the `policyType`. For example, you can use this API to remove shared access members.
+      description: 'Removes the policy subsetting for a specific auto receptionist according to the `policyType`. For example, you can use this API to remove shared access members.
 
 
         **Prerequisites:**
@@ -1695,13 +1774,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:auto_receptionist_policy:admin`
+        **Granular Scopes:** `phone:delete:auto_receptionist_policy:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: DeletePolicy
       parameters:
       - name: autoReceptionistId
@@ -1752,7 +1831,7 @@ paths:
       tags:
       - Auto Receptionists
       summary: Update a policy subsetting
-      description: 'Updates the policy subsetting of a specific [auto receptionist](https://support.zoom.us/hc/en-us/articles/360021121312-Managing-Auto-Receptionists-and-Interactive-Voice-Response-IVR-) according to the `policyType`. For example, you can use this API to update shared access members.
+      description: 'Updates the policy subsetting of a specific auto receptionist according to the `policyType`. For example, you can use this API to update shared access members.
 
 
         **Prerequisites**
@@ -1762,15 +1841,13 @@ paths:
         * Account owner or admin permissions
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:auto_receptionist_policy:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:auto_receptionist_policy:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updatePolicy
       parameters:
       - name: autoReceptionistId
@@ -1893,15 +1970,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:auto_receptionist_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:auto_receptionist_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getAutoReceptionistSettings
       parameters:
       - name: autoReceptionistId
@@ -2122,15 +2197,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:auto_receptionist_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:auto_receptionist_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: addAutoReceptionistSetting
       parameters:
       - name: autoReceptionistId
@@ -2366,15 +2439,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:auto_receptionist_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:auto_receptionist_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteAutoReceptionistSetting
       parameters:
       - name: autoReceptionistId
@@ -2440,15 +2511,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:auto_receptionist_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:auto_receptionist_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateAutoReceptionistSetting
       parameters:
       - name: autoReceptionistId

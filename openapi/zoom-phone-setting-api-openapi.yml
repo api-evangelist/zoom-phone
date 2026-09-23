@@ -20,13 +20,13 @@ paths:
       description: 'Returns a list of ported numbers in a Zoom account.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_ported_numbers:admin`
+        **Granular Scopes:** `number_management:read:list_ported_numbers:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Listportednumbers
       parameters:
       - name: next_page_token
@@ -137,7 +137,23 @@ paths:
       tags:
       - Setting
       summary: Get ported numbers details
-      description: "Returns the details on the ported numbers by specifying `order_id`. \n\n **Prerequisites** \n * A Pro or higher account plan \n * A Zoom phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:ported_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the details on the ported numbers by specifying `order_id`.
+
+
+        **Prerequisites**
+
+        * A Pro or higher account plan
+
+        * A Zoom phone license
+
+
+        **Scopes:** `number_management_numbers:read:admin`
+
+
+        **Granular Scopes:** `number_management:read:ported_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: Getportednumbersdetails
       parameters:
       - name: orderId
@@ -283,7 +299,23 @@ paths:
       tags:
       - Setting
       summary: List SIP groups
-      description: "Returns a list of SIP (Session Initiation Protocol) groups.\n\n**Prerequisites** \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_sip_groups:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns a list of SIP (Session Initiation Protocol) groups.
+
+
+        **Prerequisites**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `number_management_numbers:read:admin`
+
+
+        **Granular Scopes:** `number_management:read:list_sip_groups:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: ListSIPgroups
       parameters:
       - name: page_size
@@ -414,13 +446,13 @@ paths:
       description: 'Returns a list of an account''s assigned BYOC (Bring Your Own Carrier) SIP (Session Initiation Protocol) trunks.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_sip_trunks:admin`
+        **Granular Scopes:** `number_management:read:list_sip_trunks:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: ListBYOCSIPtrunks
       parameters:
       - name: page_size

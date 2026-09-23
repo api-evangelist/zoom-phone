@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Call Queues API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -20,13 +26,13 @@ paths:
       description: 'Returns the call queue analytics overview.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_queues:admin`
+        **Granular Scopes:** `phone:read:list_call_queues:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: callqueueanalytics
       parameters:
       - name: page_size
@@ -207,7 +213,28 @@ paths:
       tags:
       - Call Queues
       summary: List call queues
-      description: "Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.\n Use this API to list Call queues.\n\n\n**Prerequisites:**\n\n* Pro, Business, or Education account\n* Account owner or admin permissions\n* Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_queues:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+
+        Use this API to list Call queues.
+
+
+        **Prerequisites:**
+
+
+        * Pro, Business, or Education account
+
+        * Account owner or admin permissions
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_queues:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: listCallQueues
       parameters:
       - name: next_page_token
@@ -352,7 +379,28 @@ paths:
       tags:
       - Call Queues
       summary: Create a call queue
-      description: "[Creates a call queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues#h_e81faeeb-9184-429a-aaea-df49ff5ff413). Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service, and so on.\n You can add phone users or common areas to call queues.\n\n**Prerequisites:**\n\n* Pro, Business, or Education account\n* Account owner or admin permissions\n* Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:call_queue:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Creates a call queue. Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service, and so on.
+
+        You can add phone users or common areas to call queues.
+
+
+        **Prerequisites:**
+
+
+        * Pro, Business, or Education account
+
+        * Account owner or admin permissions
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:call_queue:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: createCallQueue
       requestBody:
         content:
@@ -478,7 +526,29 @@ paths:
       tags:
       - Call Queues
       summary: Get call queue details
-      description: "Routes incoming calls to a group of users and returns information on a specific call queue. \n\nFor instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service, and so on. \n\n\n \n**Prerequisites:**\n\n* Pro, Business, or Education account\n* Account owner or admin permissions\n* Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_queue:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Routes incoming calls to a group of users and returns information on a specific call queue.
+
+
+        For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service, and so on.
+
+
+        **Prerequisites:**
+
+
+        * Pro, Business, or Education account
+
+        * Account owner or admin permissions
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_queue:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getACallQueue
       parameters:
       - name: callQueueId
@@ -744,7 +814,28 @@ paths:
       tags:
       - Call Queues
       summary: Delete a call queue
-      description: "Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.\n Use this API to delete a Call Queue.\n \n**Prerequisites:**\n\n* Pro, Business, or Education account\n* Account owner or admin permissions\n* Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service etc.
+
+        Use this API to delete a Call Queue.
+
+
+        **Prerequisites:**
+
+
+        * Pro, Business, or Education account
+
+        * Account owner or admin permissions
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_queue:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: deleteACallQueue
       parameters:
       - name: callQueueId
@@ -778,7 +869,26 @@ paths:
       tags:
       - Call Queues
       summary: Update call queue details
-      description: "Updates information of a specific call queue. Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service, and so on.\n  \n**Prerequisites:**\n\n* Pro, Business, or Education account\n* Account owner or admin permissions\n* Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_queue:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates information of a specific call queue. Call queues allow you to route incoming calls to a group of users. For instance, you can use call queues to route calls to various departments in your organization such as sales, engineering, billing, customer service, and so on.
+
+
+        **Prerequisites:**
+
+
+        * Pro, Business, or Education account
+
+        * Account owner or admin permissions
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:call_queue:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateCallQueue
       parameters:
       - name: callQueueId
@@ -933,13 +1043,13 @@ paths:
         * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_queue_call_handling_setting:admin`
+        **Granular Scopes:** `phone:read:call_queue_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCallQueueCallHandlingSetting
       parameters:
       - name: callQueueId
@@ -1482,13 +1592,13 @@ paths:
         * A Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_queue_call_handling_setting:admin`
+        **Granular Scopes:** `phone:update:call_queue_call_handling_setting:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateCallQueueCallHandlingSetting
       parameters:
       - name: callQueueId
@@ -1894,13 +2004,13 @@ paths:
       description: 'Returns a list of custom groups for a call queue.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_queue_custom_group:admin`
+        **Granular Scopes:** `phone:read:call_queue_custom_group:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Listcustomgroupsofacallqueue
       parameters:
       - name: callQueueId
@@ -1979,16 +2089,13 @@ paths:
       tags:
       - Call Queues
       summary: Create a custom group in a call queue
-      description: '
+      description: '**Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:call_queue_custom_group:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:call_queue_custom_group:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Createacustomgroupinacallqueue
       parameters:
       - name: callQueueId
@@ -2090,16 +2197,13 @@ paths:
       tags:
       - Call Queues
       summary: Get call queue custom group detail
-      description: '
+      description: '**Scopes:** `phone:read:admin`,`phone:master`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`,`phone:master`
+        **Granular Scopes:** `phone:read:call_queue_custom_group:admin`,`phone:read:call_queue_custom_group:master`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_queue_custom_group:admin`,`phone:read:call_queue_custom_group:master`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Getacustomgroup
       parameters:
       - name: callQueueId
@@ -2187,13 +2291,13 @@ paths:
       description: 'Delete a custom group.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_custom_group:admin`,`phone:delete:call_queue_custom_group:master`
+        **Granular Scopes:** `phone:delete:call_queue_custom_group:admin`,`phone:delete:call_queue_custom_group:master`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Deleteacustomgroup
       parameters:
       - name: callQueueId
@@ -2239,13 +2343,13 @@ paths:
       description: 'Update a custom group.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_queue_custom_group:admin`
+        **Granular Scopes:** `phone:update:call_queue_custom_group:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Updateacustomgroup
       parameters:
       - name: callQueueId
@@ -2349,13 +2453,13 @@ paths:
       description: 'Adds call queue members to a custom group.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:call_queue_custom_group_member:admin`
+        **Granular Scopes:** `phone:write:call_queue_custom_group_member:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Addmemberstoacustomgroup
       parameters:
       - name: callQueueId
@@ -2418,16 +2522,13 @@ paths:
       tags:
       - Call Queues
       summary: Remove a member from a custom group
-      description: '
+      description: '**Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:call_queue_custom_group_member:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_custom_group_member:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: Removeamemberfromacustomgroup
       parameters:
       - name: callQueueId
@@ -2481,7 +2582,6 @@ paths:
       description: 'Returns a list of call queue members.
 
 
-
         **Prerequisites:**
 
 
@@ -2492,15 +2592,13 @@ paths:
         * Zoom Phone license
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:list_call_queue_members:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_queue_members:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listCallQueueMembers
       parameters:
       - name: callQueueId
@@ -2582,7 +2680,7 @@ paths:
       tags:
       - Call Queues
       summary: Add members to a call queue
-      description: 'Adds phone users or [common areas](https://support.zoom.us/hc/articles/4481136653709) as members to a specific call queue.
+      description: 'Adds phone users or common areas as members to a specific call queue.
 
 
         **Prerequisites:**
@@ -2592,15 +2690,13 @@ paths:
         * Zoom Phone license
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:call_queue_member:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:call_queue_member:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: addMembersToCallQueue
       parameters:
       - name: callQueueId
@@ -2669,7 +2765,7 @@ paths:
       tags:
       - Call Queues
       summary: Unassign all members
-      description: 'Removes all members from a call queue who were previously assigned to that call queue. The members could be phone users or [common areas](https://support.zoom.us/hc/articles/4481136653709).
+      description: 'Removes all members from a call queue who were previously assigned to that call queue. The members could be phone users or common areas.
 
 
         **Prerequisites:**
@@ -2680,15 +2776,13 @@ paths:
         * Zoom Phone license
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:call_queue_member:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_member:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`'
+        **Rate Limit Label:** `Light`'
       operationId: unassignAllMembers
       parameters:
       - name: callQueueId
@@ -2722,7 +2816,24 @@ paths:
       tags:
       - Call Queues
       summary: Unassign a member
-      description: "Removes a member who was previously added to a call queue. The member could be a phone user or common area. Note that you cannot use this API to unassign a call queue manager. \n\n**Prerequisites:**\n\n* Pro or higher account plan.\n* Zoom Phone license\n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Removes a member who was previously added to a call queue. The member could be a phone user or common area. Note that you cannot use this API to unassign a call queue manager.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account plan.
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_queue_member:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: unassignMemberFromCallQueue
       parameters:
       - name: callQueueId
@@ -2766,7 +2877,7 @@ paths:
       tags:
       - Call Queues
       summary: Assign numbers to a call queue
-      description: 'Assigns numbers to a call queue. After [buying phone number(s)](https://support.zoom.us/hc/en-us/articles/360020808292#h_007ec8c2-0914-4265-8351-96ab23efa3ad), you can assign it and allow callers to directly dial a number to reach a [call queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues).
+      description: 'Assigns numbers to a call queue. After buying phone number(s), you can assign it and allow callers to directly dial a number to reach a call queue.
 
 
         **Prerequisites:**
@@ -2778,13 +2889,13 @@ paths:
         - Zoom Phone license
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:call_queue_number:admin`
+        **Granular Scopes:** `phone:write:call_queue_number:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: assignPhoneToCallQueue
       parameters:
       - name: callQueueId
@@ -2840,7 +2951,28 @@ paths:
       tags:
       - Call Queues
       summary: Unassign all phone numbers
-      description: "Unbinds all phone numbers that are assigned to a [call queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues).  After successful unbinding, the numbers will appear in the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).\n \n If you only need to unassign a specific phone number, use the Unassign a Phone Number API instead. \n\n**Prerequisites:**\n* Pro or higher account palan\n* Account owner or admin permissions\n* Zoom Phone license \n\n \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unbinds all phone numbers that are assigned to a call queue. After successful unbinding, the numbers will appear in the Unassigned tab.
+
+
+        If you only need to unassign a specific phone number, use the Unassign a Phone Number API instead.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account palan
+
+        * Account owner or admin permissions
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_queue_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: unassignAPhoneNumCallQueue
       parameters:
       - name: callQueueId
@@ -2876,7 +3008,25 @@ paths:
       tags:
       - Call Queues
       summary: Unassign a phone number
-      description: "Unbinds a phone number from a call queue. After assigning a phone number, you can unbind it if you don't want it to be assigned to a [call queue](https://support.zoom.us/hc/en-us/articles/360021524831-Managing-Call-Queues).  After successful unbinding, the number will appear in the [Unassigned tab](https://zoom.us/signin#/numbers/unassigned).\n\n\n**Prerequisites:**\n* Pro or higher account palan\n* Account owner or admin permissions\n* Zoom Phone license \n\n \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Unbinds a phone number from a call queue. After assigning a phone number, you can unbind it if you don''t want it to be assigned to a call queue. After successful unbinding, the number will appear in the Unassigned tab.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account palan
+
+        * Account owner or admin permissions
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_queue_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: unAssignPhoneNumCallQueue
       parameters:
       - name: callQueueId
@@ -2921,7 +3071,23 @@ paths:
       tags:
       - Call Queues
       summary: Get call queue policy
-      description: "Returns the policy setting of a specific [call queue].\n\n**Prerequisites:**\n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_queue_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the policy setting of a specific [call queue].
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:call_queue_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCallQueuePolicy
       parameters:
       - name: callQueueId
@@ -3530,7 +3696,23 @@ paths:
       tags:
       - Call Queues
       summary: Update call queue policy
-      description: "Updates a call queue's policy settings.\n\n**Prerequisites**\n* A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_queue_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates a call queue''s policy settings.
+
+
+        **Prerequisites**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:call_queue_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateCallQueuePolicy
       parameters:
       - name: callQueueId
@@ -3976,7 +4158,23 @@ paths:
       tags:
       - Call Queues
       summary: Add a policy subsetting to a call queue
-      description: "Adds the policy subsetting for a specific [call queue](https://support.zoom.us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use set up shared access members. \n\n**Prerequisites** \n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:call_queue_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds the policy subsetting for a specific call queue according to the `policyType`. For example, you can use set up shared access members.
+
+
+        **Prerequisites**
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:call_queue_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addCQPolicySubSetting
       parameters:
       - name: callQueueId
@@ -4097,7 +4295,23 @@ paths:
       tags:
       - Call Queues
       summary: Delete a CQ policy setting
-      description: "Use this API to remove the policy sub-setting for a specific [call queue](https://support.zoom.us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use this API to remove shared access members. \n\n**Prerequisites:** \n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Use this API to remove the policy sub-setting for a specific call queue according to the `policyType`. For example, you can use this API to remove shared access members.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:call_queue_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: removeCQPolicySubSetting
       parameters:
       - name: callQueueId
@@ -4150,7 +4364,23 @@ paths:
       tags:
       - Call Queues
       summary: Update a call queue's policy subsetting
-      description: "Updates the policy subsetting for a specific [call queue](https://support.zoom.us/hc/en-us/articles/360021524831) according to the `policyType`. For example, you can use this API to update shared access members.\n\n**Prerequisites:** \n* Pro or higher account with Zoom Phone license.\n* Account owner or admin privileges \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_queue_policy:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Updates the policy subsetting for a specific call queue according to the `policyType`. For example, you can use this API to update shared access members.
+
+
+        **Prerequisites:**
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Account owner or admin privileges
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:call_queue_policy:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateCQPolicySubSetting
       parameters:
       - name: callQueueId
@@ -4235,7 +4465,24 @@ paths:
       tags:
       - Call Queues
       summary: Get call queue recordings
-      description: "Use this API to view [call recordings](https://support.zoom.us/hc/en-us/articles/360038521091#h_cbc9f2a3-e06c-4daa-83d4-ddbceef9c77b) from the call queue.\n\n\n**Prerequisites:**\n\n* Pro or higher account with Zoom Phone license.\n* [Automatic call recordings](https://support.zoom.us/hc/en-us/articles/360033511872#h_fcb297bb-14e8-4094-91ca-dc61e1a18734) must be enabled in the Policy Settings for call queues. \n \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_call_queue_recordings:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Use this API to view call recordings from the call queue.
+
+
+        **Prerequisites:**
+
+
+        * Pro or higher account with Zoom Phone license.
+
+        * Automatic call recordings must be enabled in the Policy Settings for call queues.
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_call_queue_recordings:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: getCallQueueRecordings
       parameters:
       - name: callQueueId
@@ -4389,15 +4636,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:read:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Granular Scopes:** `phone:read:call_queue_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:call_queue_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getCallQueueSettings
       parameters:
       - name: callQueueId
@@ -4613,15 +4858,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:call_queue_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:call_queue_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: addCallQueueSetting
       parameters:
       - name: callQueueId
@@ -4858,15 +5101,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:call_queue_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:call_queue_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: deleteCallQueueSetting
       parameters:
       - name: callQueueId
@@ -4932,15 +5173,13 @@ paths:
         * Account owner or admin permissions.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:update:call_queue_setting:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:call_queue_setting:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateCallQueueSetting
       parameters:
       - name: callQueueId

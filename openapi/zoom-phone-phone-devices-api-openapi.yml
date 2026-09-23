@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Devices API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,24 @@ paths:
       tags:
       - Phone Devices
       summary: List devices
-      description: "Lists all the [desk phone devices](https://support.zoom.us/hc/en-us/articles/360021119092) that are configured with Zoom Phone on an account.\n\n**Prerequisites:**  \n \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_devices:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Lists all the desk phone devices that are configured with Zoom Phone on an account.
+
+
+        **Prerequisites:**
+
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_devices:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listPhoneDevices
       parameters:
       - name: type
@@ -279,7 +302,26 @@ paths:
       tags:
       - Phone Devices
       summary: Add a device
-      description: "[Adds an unassigned desk phone or an assigned (to a user or a common area) desk phone.](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061431#h_5ca07504-68a8-4c3d-ad0e-c1d3594436da)\n\n**Prerequisites:**  \n \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n* [Supported device](https://support.zoom.us/hc/en-us/articles/360001299063-Zoom-Voice-Supported-Devices)  \n \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:device:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Adds an unassigned desk phone or an assigned (to a user or a common area) desk phone.
+
+
+        **Prerequisites:**
+
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+        * Supported device
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:device:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: addPhoneDevice
       requestBody:
         content:
@@ -379,14 +421,13 @@ paths:
         * Account owner or admin permissions
 
 
-
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
-
-
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:sync_device:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`'
+        **Granular Scopes:** `phone:write:sync_device:admin`
+
+
+        **Rate Limit Label:** `Heavy`'
       operationId: syncPhoneDevice
       requestBody:
         content:
@@ -429,7 +470,7 @@ paths:
       tags:
       - Phone Devices
       summary: Get device details
-      description: 'Returns detailed information about a specific [desk phone device](https://support.zoom.us/hc/en-us/articles/360021119092).
+      description: 'Returns detailed information about a specific desk phone device.
 
 
         **Prerequisites:**
@@ -439,13 +480,13 @@ paths:
         * Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:device:admin`
+        **Granular Scopes:** `phone:read:device:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getADevice
       parameters:
       - name: deviceId
@@ -685,7 +726,7 @@ paths:
       tags:
       - Phone Devices
       summary: Delete a device
-      description: 'Remove a [desk phone device or ATA (Analog Telephone Adapter)](https://support.zoom.us/hc/en-us/articles/360021119092) from the Zoom Phone System Management.
+      description: 'Remove a desk phone device or ATA (Analog Telephone Adapter) from the Zoom Phone System Management.
 
 
         **Prerequisites:**
@@ -697,15 +738,13 @@ paths:
         * Device must not have been assigned to a user.
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:delete:device:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:device:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`'
+        **Rate Limit Label:** `Light`'
       operationId: deleteADevice
       parameters:
       - name: deviceId
@@ -739,7 +778,7 @@ paths:
       tags:
       - Phone Devices
       summary: Update a device
-      description: 'Updates the information of a [desk phone device](https://support.zoom.us/hc/en-us/articles/360021119092).
+      description: 'Updates the information of a desk phone device.
 
 
         **Prerequisites:**
@@ -747,13 +786,13 @@ paths:
         * Pro or a higher account with Zoom Phone license* Account owner or admin permissions
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Scopes:** `phone:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:device:admin`
+        **Granular Scopes:** `phone:update:device:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: updateADevice
       parameters:
       - name: deviceId
@@ -810,7 +849,7 @@ paths:
       tags:
       - Phone Devices
       summary: Assign an entity to a device
-      description: 'By default, all Zoom Phone users can make and receive calls using the Zoom desktop and mobile applications. Additionally, if a desk phone is required, use this API to [add a desk phone and assign it to a user](https://support.zoom.us/hc/en-us/articles/360021119092#h_5ca07504-68a8-4c3d-ad0e-c1d3594436da).
+      description: 'By default, all Zoom Phone users can make and receive calls using the Zoom desktop and mobile applications. Additionally, if a desk phone is required, use this API to add a desk phone and assign it to a user.
 
 
         **Prerequisites:**
@@ -819,18 +858,16 @@ paths:
 
         * Account owner or admin permissions
 
-        * [Supported device](https://support.zoom.us/hc/en-us/articles/360001299063-Zoom-Voice-Supported-Devices)
+        * Supported device
 
 
+        **Scopes:** `phone:write:admin`
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`
+        **Granular Scopes:** `phone:write:device_extension:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:device_extension:admin`
-
-
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`'
+        **Rate Limit Label:** `Light`'
       operationId: addExtensionsToADevice
       parameters:
       - name: deviceId
@@ -881,7 +918,23 @@ paths:
       tags:
       - Phone Devices
       summary: Unassign an entity from the device
-      description: "Use this API to unassign a specific assignee from the device.\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions. \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:device_extension:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to unassign a specific assignee from the device.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions.
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:device_extension:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: deleteExtensionFromADevice
       parameters:
       - name: deviceId
@@ -920,7 +973,26 @@ paths:
       tags:
       - Phone Devices
       summary: Update provision template of a device
-      description: "Use this API to [assign a provision template to a device](https://support.zoom.us/hc/en-us/articles/360035817952#h_6b52ef26-d070-40ed-a3fa-520571944afc) or [remove a provision template from the device](https://support.zoom.us/hc/en-us/articles/360035817952#h_7b34cd1d-5ae6-4a23-bd04-454a6ad8cb3e) by leaving `templateId` empty.\n\n**Prerequisites:**  \n \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n* [Supported device](https://support.zoom.us/hc/en-us/articles/360029698771#note)  \n \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:device_provision_template:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to assign a provision template to a device or remove a provision template from the device by leaving `templateId` empty.
+
+
+        **Prerequisites:**
+
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+        * Supported device
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:device_provision_template:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: updateProvisionTemplateToDevice
       parameters:
       - name: deviceId
@@ -962,7 +1034,23 @@ paths:
       tags:
       - Phone Devices
       summary: Reboot a desk phone
-      description: "Use this API to reboot an online zero-touch or assisted-provisioning device. You can only send one request every second.\n\n**Prerequisites:**\n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions. \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:reboot_device:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`"
+      description: 'Use this API to reboot an online zero-touch or assisted-provisioning device. You can only send one request every second.
+
+
+        **Prerequisites:**
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions.
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:reboot_device:admin`
+
+
+        **Rate Limit Label:** `Heavy`'
       operationId: rebootPhoneDevice
       parameters:
       - name: deviceId
@@ -994,7 +1082,27 @@ paths:
       tags:
       - Phone Devices
       summary: List Smartphones
-      description: "Returns a list of all the [smartphones](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0074058) configured with Zoom Phone on an account.\n\n**Prerequisites**  \n \n* Pro or a higher account with Zoom Phone license\n* Account owner or admin permissions\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_devices:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`\n\n**Not supported in Gov cluster** "
+      description: 'Returns a list of all the smartphones configured with Zoom Phone on an account.
+
+
+        **Prerequisites**
+
+
+        * Pro or a higher account with Zoom Phone license
+
+        * Account owner or admin permissions
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_devices:admin`
+
+
+        **Rate Limit Label:** `LIGHT`
+
+
+        **Not supported in Gov cluster**'
       operationId: ListSmartphones
       parameters:
       - name: site_id

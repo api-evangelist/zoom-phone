@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Dial by Name Directory API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - Dial by Name Directory
       summary: List users in directory
-      description: "Use this API to get users that are in or not in a [directory](https://support.zoom.us/hc/en-us/articles/4404938949389-Using-a-dial-by-name-directory).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:directory:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Use this API to get users that are in or not in a directory.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:directory:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: ListUsersFromDirectory
       parameters:
       - name: page_size
@@ -124,7 +146,23 @@ paths:
       tags:
       - Dial by Name Directory
       summary: Add users to a directory
-      description: "Use this API to add users to a [directory](https://support.zoom.us/hc/en-us/articles/4404938949389-Using-a-dial-by-name-directory).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:directory:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to add users to a directory.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:directory:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: AddUsersToDirectory
       requestBody:
         content:
@@ -171,7 +209,23 @@ paths:
       tags:
       - Dial by Name Directory
       summary: Delete users from a directory
-      description: "Use this API to delete users from the [directory](https://support.zoom.us/hc/en-us/articles/4404938949389-Using-a-dial-by-name-directory).\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:directory:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to delete users from the directory.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:directory:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: DeleteUsersFromDirectory
       parameters:
       - name: site_id
@@ -218,7 +272,23 @@ paths:
       tags:
       - Dial by Name Directory
       summary: List users in a directory by site
-      description: "Use this API to get users that are in or not in a [directory](https://support.zoom.us/hc/en-us/articles/4404938949389-Using-a-dial-by-name-directory) of the specified site.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:directory:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Use this API to get users that are in or not in a directory of the specified site.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:directory:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: ListUsersFromDirectoryBySite
       parameters:
       - name: siteId
@@ -332,7 +402,23 @@ paths:
       tags:
       - Dial by Name Directory
       summary: Add users to a directory of a site
-      description: "Use this API to add users to a [directory](https://support.zoom.us/hc/en-us/articles/4404938949389-Using-a-dial-by-name-directory) of the specified site.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:directory:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to add users to a directory of the specified site.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:directory:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: AddUsersToDirectoryBySite
       parameters:
       - name: siteId
@@ -385,7 +471,23 @@ paths:
       tags:
       - Dial by Name Directory
       summary: Delete users from a directory of a site
-      description: "Use this API to delete users from a [directory](https://support.zoom.us/hc/en-us/articles/4404938949389-Using-a-dial-by-name-directory) of the specified site.\n\n**Prerequisites:**\n* Business or Education account\n* Zoom Phone license \n\n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:directory:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to delete users from a directory of the specified site.
+
+
+        **Prerequisites:**
+
+        * Business or Education account
+
+        * Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:directory:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: DeleteUsersFromDirectoryBySite
       parameters:
       - name: siteId

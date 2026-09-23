@@ -1,7 +1,13 @@
 openapi: 3.2.0
 info:
   title: Phone Monitoring Groups API
-  description: "You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the [Zoom App Marketplace](https://marketplace.zoom.us/).\n\n  To learn how to get your credentials and create private or public applications, see Zoom APIs use [OAuth 2.0 authorization](https://developers.zoom.us/docs/integrations/oauth/). \n\n  All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You'll receive a `403` error message if you have not set up Zoom Phone."
+  description: 'You can access information from Zoom with Zoom Phone APIs to build private services or public applications on the Zoom App Marketplace.
+
+
+    To learn how to get your credentials and create private or public applications, see Zoom APIs use OAuth 2.0 authorization.
+
+
+    All endpoints are available through `https` at `api.zoom.us/v2/`. For instance, `https://api.zoom.us/v2/users/` returns all users on an account. You''ll receive a `403` error message if you have not set up Zoom Phone.'
   termsOfService: https://zoom.us/docs/en-us/zoom_api_license_and_tou.html
   contact:
     name: Zoom Developers
@@ -17,7 +23,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Get a list of monitoring groups on an account
-      description: "Returns an account's [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711) list.\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_monitoring_groups:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`"
+      description: 'Returns an account''s monitoring group list.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_monitoring_groups:admin`
+
+
+        **Rate Limit Label:** `MEDIUM`'
       operationId: listMonitoringGroup
       parameters:
       - name: type
@@ -157,7 +179,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Create a monitoring group
-      description: "Creates a [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Creates a monitoring group.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:monitoring_group:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: createMonitoringGroup
       requestBody:
         content:
@@ -241,7 +279,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Get monitoring group by ID
-      description: "Returns a [monitoring group](https://support.zoom.us/hc/en-us/articles/360044804711) for the specified ID.\n\n**Prerequisites:** \n* A Business or Enterprise account\n * A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns a monitoring group for the specified ID.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:monitoring_group:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: getMonitoringGroupById
       parameters:
       - name: monitoringGroupId
@@ -338,7 +392,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Delete a monitoring group
-      description: "Use this API to delete a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to delete a Monitoring Group.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:monitoring_group:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: deleteMonitoringGroup
       parameters:
       - name: monitoringGroupId
@@ -369,7 +439,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Update a monitoring group
-      description: "Use this API to update a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:update:monitoring_group:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to update a Monitoring Group.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:update:monitoring_group:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: updateMonitoringGroup
       parameters:
       - name: monitoringGroupId
@@ -430,7 +516,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Get members of a monitoring group
-      description: "Use this API to return members list of a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:list_monitoring_group_members:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Medium`"
+      description: 'Use this API to return members list of a Monitoring Group.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:read:admin`
+
+
+        **Granular Scopes:** `phone:read:list_monitoring_group_members:admin`
+
+
+        **Rate Limit Label:** `Medium`'
       operationId: listMembers
       parameters:
       - name: monitoringGroupId
@@ -529,7 +631,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Add members to a monitoring group
-      description: "Use this API to add members to a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:monitoring_group_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to add members to a Monitoring Group.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:write:monitoring_group_member:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: addMembers
       parameters:
       - name: monitoringGroupId
@@ -582,7 +700,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Remove all monitors or monitored members from a monitoring group
-      description: "Use this API to remove all monitor or monitored members from a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:monitoring_group_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to remove all monitor or monitored members from a Monitoring Group.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:monitoring_group_member:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: removeMembers
       parameters:
       - name: monitoringGroupId
@@ -624,7 +758,23 @@ paths:
       tags:
       - Monitoring Groups
       summary: Remove a member from a monitoring group
-      description: "Use this API to remove a member from a [Monitoring Group](https://support.zoom.us/hc/en-us/articles/360044804711).\n\n**Prerequisites:**\n * A Business or Enterprise account \n* A Zoom Phone license\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:delete:monitoring_group_member:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Light`"
+      description: 'Use this API to remove a member from a Monitoring Group.
+
+
+        **Prerequisites:**
+
+        * A Business or Enterprise account
+
+        * A Zoom Phone license
+
+
+        **Scopes:** `phone:write:admin`
+
+
+        **Granular Scopes:** `phone:delete:monitoring_group_member:admin`
+
+
+        **Rate Limit Label:** `Light`'
       operationId: removeMember
       parameters:
       - name: monitoringGroupId

@@ -1,14 +1,12 @@
-generated: '2026-07-25'
+generated: '2026-09-19'
 method: searched
 source: live probes of the Zoom API, developer, marketplace and marketing hosts
-summary: >-
-  Zoom publishes an unusually complete /.well-known/ surface for a UCaaS provider. The API
-  host (api.zoom.us) serves an RFC 9116 security.txt and an RFC 8414 OAuth authorization
-  server document. The developer host (developers.zoom.us) serves an RFC 9727 API catalog
-  (linkset of 62 API and event surfaces, including Zoom Phone and Number Management) and an
-  MCP server card advertising Zoom's hosted Model Context Protocol servers. There is no
-  OpenID Connect discovery document on the API host — Zoom's OAuth is RFC 6749 + RFC 8414
-  only, not OIDC. The openid-configuration returned by www.zoom.com belongs to the marketing
+summary: Zoom publishes an unusually complete /.well-known/ surface for a UCaaS provider. The API host
+  (api.zoom.us) serves an RFC 9116 security.txt and an RFC 8414 OAuth authorization server document. The
+  developer host (developers.zoom.us) serves an RFC 9727 API catalog (linkset of 62 API and event surfaces,
+  including Zoom Phone and Number Management) and an MCP server card advertising Zoom's hosted Model Context
+  Protocol servers. There is no OpenID Connect discovery document on the API host — Zoom's OAuth is RFC
+  6749 + RFC 8414 only, not OIDC. The openid-configuration returned by www.zoom.com belongs to the marketing
   site CMS (Optimizely/Episerver), not to the API platform, and is deliberately not saved.
 hosts:
 - host: https://api.zoom.us
@@ -35,17 +33,14 @@ hosts:
     status: 200
     file: zoom-phone-api-catalog.json
     standard: RFC 9727
-    note: >-
-      Linkset of 62 anchors covering every Zoom API and event surface, including
-      https://developers.zoom.us/docs/api/phone, .../docs/api/phone/events and
-      .../docs/api/number-management. Each anchor carries service-desc (HTML),
+    note: Linkset of 62 anchors covering every Zoom API and event surface, including https://developers.zoom.us/docs/api/phone,
+      .../docs/api/phone/events and .../docs/api/number-management. Each anchor carries service-desc (HTML),
       service-doc (Markdown) and a status link to https://status.zoom.us/api/v2/status.json.
   - path: /.well-known/mcp/server-card.json
     status: 200
     file: zoom-phone-mcp-server-card.json
-    note: >-
-      Advertises the hosted Zoom MCP server at https://mcp.zoom.us/mcp/zoom/streamable plus
-      related Whiteboard, Docs and Chat servers. No Zoom Phone-specific MCP server is listed.
+    note: Advertises the hosted Zoom MCP server at https://mcp.zoom.us/mcp/zoom/streamable plus related
+      Whiteboard, Docs and Chat servers. No Zoom Phone-specific MCP server is listed.
   - path: /llms.txt
     status: 200
     file: ../llms/zoom-phone-llms.txt
@@ -61,6 +56,11 @@ hosts:
     status: 200
   - path: /.well-known/openid-configuration
     status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: zoom-phone-zoom-oauth-authorization-server.json
+    bytes: 486
+  path_echo_control: passed
 - host: https://marketplace.zoom.us
   documents:
   - path: /.well-known/security.txt
@@ -69,10 +69,9 @@ hosts:
     status: 200
   - path: /.well-known/ai-plugin.json
     status: 403
-  note: >-
-      marketplace.zoom.us returns the single-page-app HTML shell (HTTP 200) for
-      /.well-known/api-catalog, /.well-known/oauth-protected-resource and
-      /.well-known/openid-configuration; those are not real discovery documents.
+  note: marketplace.zoom.us returns the single-page-app HTML shell (HTTP 200) for /.well-known/api-catalog,
+    /.well-known/oauth-protected-resource and /.well-known/openid-configuration; those are not real discovery
+    documents.
 - host: https://www.zoom.com
   documents:
   - path: /.well-known/openid-configuration
@@ -89,6 +88,26 @@ hosts:
     note: Same issuer document as api.zoom.us — https://zoom.us.
   - path: /.well-known/oauth-protected-resource
     status: 404
-    note: >-
-      No RFC 9728 protected-resource metadata; the MCP server answers tools/list with
-      -32001 "Access token is required" instead of an OAuth challenge.
+    note: No RFC 9728 protected-resource metadata; the MCP server answers tools/list with -32001 "Access
+      token is required" instead of an OAuth challenge.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: zoom-phone-mcp-oauth-protected-resource.json
+    bytes: 668
+  path_echo_control: passed
+x-mcp-probe:
+  probed: '2026-09-19'
+  issue: roadmap#321, roadmap#337
+  documents:
+  - host: https://mcp.zoom.us
+    path: /.well-known/oauth-protected-resource
+    file: zoom-phone-mcp-oauth-protected-resource.json
+  - host: https://zoom.us
+    path: /.well-known/oauth-authorization-server
+    file: zoom-phone-zoom-oauth-authorization-server.json
+  validated_on: resource (RFC 9728) / issuer (RFC 8414, OIDC)
+  negative_control: one per host; a 2xx JSON object at an impossible path discards the host
+note: 'MCP-host OAuth discovery added 2026-09-19 (roadmap#321/#337): the harvest visits a provider''s
+  primary hosts, and RFC 9728 protected-resource metadata lives on the MCP host, so these documents existed
+  and were invisible to the scorer. Fetched live and validated on `resource`/`issuer`; one negative control
+  per host.'

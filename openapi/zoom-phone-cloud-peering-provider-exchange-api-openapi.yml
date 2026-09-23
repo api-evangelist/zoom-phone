@@ -17,7 +17,25 @@ paths:
       tags:
       - Cloud Peering Provider Exchange
       summary: List peering phone numbers for provider
-      description: "Returns phone numbers the carrier pushes to different customers.\n\n**Prerequisites** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_carrier_peering_numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns phone numbers the carrier pushes to different customers.
+
+
+        **Prerequisites**
+
+        * Enable Number Management
+
+        * Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.
+
+        * Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.
+
+
+        **Scopes:** `number_management_numbers:read:admin`
+
+
+        **Granular Scopes:** `number_management:read:list_carrier_peering_numbers:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: Listpeeringphonenumbersforprovider
       parameters:
       - name: page_size
@@ -197,7 +215,25 @@ paths:
       tags:
       - Cloud Peering Provider Exchange
       summary: List peering phone numbers
-      description: "Returns the details associated with a specific phone number, or all the phone numbers the partner previously provisioned for the Zoom customer account.\n\n**Prerequisites:** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license. \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:list_peering_numbers:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Returns the details associated with a specific phone number, or all the phone numbers the partner previously provisioned for the Zoom customer account.
+
+
+        **Prerequisites:**
+
+        * Enable Number Management
+
+        * Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.
+
+        * Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.
+
+
+        **Scopes:** `number_management_numbers:read:admin`
+
+
+        **Granular Scopes:** `number_management:read:list_peering_numbers:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: listPeeringPhoneNumbers
       parameters:
       - name: page_size
@@ -389,20 +425,20 @@ paths:
 
         **Prerequisites**
 
-        * [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)
+        * Enable Number Management
 
         * Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.
 
         * Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:peering_number:admin`
+        **Granular Scopes:** `number_management:write:peering_number:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: addPeeringPhoneNumbers
       requestBody:
         content:
@@ -555,7 +591,28 @@ paths:
       tags:
       - Cloud Peering Provider Exchange
       summary: Remove peering phone numbers
-      description: "Removes the phone number from the Zoom customer account. \n\nPartners can remove only the phone numbers they have previously added to Zoom account.\n\n**Prerequisites:** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license. \n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:delete:peering_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Removes the phone number from the Zoom customer account.
+
+
+        Partners can remove only the phone numbers they have previously added to Zoom account.
+
+
+        **Prerequisites:**
+
+        * Enable Number Management
+
+        * Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.
+
+        * Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.
+
+
+        **Scopes:** `number_management_numbers:write:admin`
+
+
+        **Granular Scopes:** `number_management:delete:peering_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: deletePeeringPhoneNumbers
       parameters:
       - name: carrier_code
@@ -616,7 +673,25 @@ paths:
       tags:
       - Cloud Peering Provider Exchange
       summary: Update peering phone numbers
-      description: "Allows partners to update the status or details associated with the phone numbers.\n\n**Prerequisites** \n* [Enable Number Management](https://zoom.us/cpw/page/phoneNumbers#/number-list)\n* Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.\n* Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license. \n\n\n**[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`\n\n**[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:peering_number:admin`\n\n**[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`"
+      description: 'Allows partners to update the status or details associated with the phone numbers.
+
+
+        **Prerequisites**
+
+        * Enable Number Management
+
+        * Developer is a provider exchange partner, with the cloud peering infrastructure established with Zoom.
+
+        * Zoom account needs to have a Zoom Phone license or a Zoom Contact Center license.
+
+
+        **Scopes:** `number_management_numbers:write:admin`
+
+
+        **Granular Scopes:** `number_management:update:peering_number:admin`
+
+
+        **Rate Limit Label:** `LIGHT`'
       operationId: updatePeeringPhoneNumbers
       requestBody:
         content:

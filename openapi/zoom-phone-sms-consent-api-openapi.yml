@@ -20,13 +20,13 @@ paths:
       description: 'Returns the opt statuses of phone numbers that are assigned to SMS consent.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:admin`
+        **Scopes:** `phone:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `phone:read:sms_consent_number_opt_status:admin`
+        **Granular Scopes:** `phone:read:sms_consent_number_opt_status:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: getNumberConsentOptStatus
       parameters:
       - name: consentId
@@ -123,13 +123,13 @@ paths:
       description: 'Returns a paginated list of SMS consent policies for the account.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_consent:admin`
+        **Granular Scopes:** `number_management:read:sms_consent:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: ListSMSConsents
       parameters:
       - name: page_size
@@ -304,13 +304,13 @@ paths:
       description: 'Creates a new SMS consent management policy to define opt-in, opt-out, and help message configurations for SMS communications.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:sms_consent:admin`
+        **Granular Scopes:** `number_management:write:sms_consent:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: CreateSMSConsent
       requestBody:
         content:
@@ -576,13 +576,13 @@ paths:
       description: 'Deletes one or more SMS consent policies.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:delete:sms_consent:admin`
+        **Granular Scopes:** `number_management:delete:sms_consent:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: DeleteSMSConsents
       requestBody:
         content:
@@ -635,13 +635,13 @@ paths:
       description: 'Returns a specific SMS consent policy by ID.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_consent:admin`
+        **Granular Scopes:** `number_management:read:sms_consent:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: GetSMSConsent
       parameters:
       - name: consentId
@@ -798,13 +798,13 @@ paths:
       description: 'Updates an existing SMS consent policy. Only provided fields will be updated.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:update:sms_consent:admin`
+        **Granular Scopes:** `number_management:update:sms_consent:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`'
+        **Rate Limit Label:** `LIGHT`'
       operationId: UpdateSMSConsent
       parameters:
       - name: consentId
@@ -943,13 +943,13 @@ paths:
       description: 'Returns a paginated list of phone numbers assigned to a specific SMS consent policy.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:read:admin`
+        **Scopes:** `number_management_numbers:read:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:read:sms_consent:admin`
+        **Granular Scopes:** `number_management:read:sms_consent:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: ListConsentPhoneNumbers
       parameters:
       - name: consentId
@@ -1042,13 +1042,13 @@ paths:
       description: 'Assigns one or more phone numbers to an SMS consent policy.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:write:numbers:admin`
+        **Granular Scopes:** `number_management:write:numbers:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: AssignPhoneNumbersToConsent
       parameters:
       - name: consentId
@@ -1108,13 +1108,13 @@ paths:
       description: 'Unassigns one or more phone numbers from an SMS consent policy.
 
 
-        **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management_numbers:write:admin`
+        **Scopes:** `number_management_numbers:write:admin`
 
 
-        **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `number_management:delete:numbers:admin`
+        **Granular Scopes:** `number_management:delete:numbers:admin`
 
 
-        **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`'
+        **Rate Limit Label:** `MEDIUM`'
       operationId: UnassignPhoneNumbersFromConsent
       parameters:
       - name: consentId
