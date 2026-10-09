@@ -73,3 +73,36 @@ deployment:
   probe: gated
   checked: '2026-08-12'
   source: catalog MCP census
+rfc9728:
+  endpoint: https://mcp.zoom.us/mcp/zoom/streamable
+  metadata_url: https://mcp.zoom.us/.well-known/oauth-protected-resource/mcp/zoom/streamable
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.zoom.us/mcp/zoom/streamable
+    authorization_servers:
+    - https://zoom.us
+    scopes_supported:
+    - cloud_recording:read:list_user_recordings
+    - docs:write:import
+    - docs:delete:collaborator
+    - meeting:delete:meeting
+    - agentic_search:read:search
+    - meeting:update:in_meeting_controls
+    - hub:read:content
+    - docs:read:list_file_collaborators
+    - meeting:update:meeting
+    - agentic_search:read:ask
+    - hub:write:content
+    - docs:read:export
+    - my_notes:read:content
+    - meeting:write:meeting
+    - meeting:read:assets
+    - docs:update:collaborator
+    - docs:write:collaborator
+    - meeting:read:search
+    - cloud_recording:read:content
+    bearer_methods_supported:
+    - header
